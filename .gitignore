@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js
+.next/
+out/
+build/
+
+# Production
+dist/
+
+# Local env files
+.env*.local
+.env
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local data store (development only — production uses real DB)
+data/*.json
+!data/.gitkeep
+
+# User uploads (local development) — production uses S3/CDN
+public/uploads/speakers/*
+public/uploads/projects/images/*
+public/uploads/projects/files/*
+!public/uploads/**/.gitkeep
