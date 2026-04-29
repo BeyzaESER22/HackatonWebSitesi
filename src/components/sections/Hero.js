@@ -24,28 +24,59 @@ export function Hero() {
           </div>
         </RevealOnScroll>
 
+        {/* === MAIN HERO TITLE === */}
         <RevealOnScroll delay={0.1}>
           <h1
-            className="font-display text-center font-bold mb-8 g-word"
-            style={{ fontSize: 'clamp(3rem, 11vw, 9.5rem)', lineHeight: 0.92, letterSpacing: '-0.045em' }}
+            className="font-brush text-center font-normal mb-2 select-none"
+            style={{
+              fontSize: 'clamp(3.5rem, 13vw, 11rem)',
+              lineHeight: 0.95,
+              letterSpacing: '0.01em'
+            }}
+            aria-label="HackFest '26 AI"
           >
-            <span className="b">H</span><span className="r">a</span><span className="y">c</span><span className="g">k</span>
-            <span className="b">F</span><span className="r">e</span><span className="y">s</span><span className="g">t</span>
-            <span className="text-white/90"> '26</span>
-            <span className="block hf-text-gradient" style={{ fontSize: '.6em', letterSpacing: '-.02em', marginTop: '.1em' }}>AI</span>
+            <span className="text-white/95 inline-block mr-2 lg:mr-4" style={{ fontWeight: 400 }}>
+              {'{'}
+            </span>
+            <span className="hero-rainbow inline-block">HackFest</span>
+            <span className="text-white/95 inline-block ml-2 lg:ml-4" style={{ fontWeight: 400 }}>
+              {'}'}
+            </span>
           </h1>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.2}>
-          <p className="text-center text-xl md:text-2xl text-ink-dim max-w-3xl mx-auto mb-4 font-light">
-            Toplum Yararına Yapay Zeka ile <span className="text-white">Geleceği Kodla</span>.
-          </p>
-          <p className="text-center text-base text-ink-dim max-w-2xl mx-auto mb-12">
+        {/* === '26 + <AI/> line === */}
+        <RevealOnScroll delay={0.18}>
+          <div className="flex items-center justify-center gap-6 mb-10">
+            <span className="font-brush text-3xl md:text-4xl" style={{ color: '#5EEAD4' }}>
+              {"'"}26
+            </span>
+            <span className="font-mono text-base md:text-lg" style={{ color: '#5EEAD4' }}>
+              {'<AI/>'}
+            </span>
+          </div>
+        </RevealOnScroll>
+
+        {/* === KODLA · YARAT · DENEYİMLE === */}
+        <RevealOnScroll delay={0.25}>
+          <div className="flex items-center justify-center gap-4 md:gap-6 mb-10 text-xs md:text-sm tracking-[0.4em] uppercase text-ink-dim font-medium">
+            <span>Kodla</span>
+            <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: COLORS.blue }} />
+            <span>Yarat</span>
+            <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: COLORS.red }} />
+            <span>Deneyimle</span>
+          </div>
+        </RevealOnScroll>
+
+        {/* === Tagline === */}
+        <RevealOnScroll delay={0.32}>
+          <p className="text-center text-base md:text-lg text-ink-dim max-w-2xl mx-auto mb-12">
             16-17 Mayıs 2026 İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, ilham veren konuşmalar ve büyük ödüller seni bekliyor.
           </p>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.3}>
+        {/* === CTAs === */}
+        <RevealOnScroll delay={0.4}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button onClick={() => openModal('hack')} iconRight={<ArrowRightIcon />}>
               Hackathona Başvur
@@ -57,12 +88,14 @@ export function Hero() {
           </div>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.4}>
+        {/* === Countdown === */}
+        <RevealOnScroll delay={0.48}>
           <div className="max-w-3xl mx-auto">
             <Countdown />
           </div>
         </RevealOnScroll>
 
+        {/* Scroll indicator */}
         <div className="flex justify-center mt-16">
           <a href="#highlights" className="flex flex-col items-center gap-2 text-ink-dim text-xs uppercase tracking-[0.2em] hover:text-white transition">
             Aşağı kaydır
@@ -70,6 +103,25 @@ export function Hero() {
           </a>
         </div>
       </Container>
+
+      {/* Inline rainbow gradient class — kept here so it stays paired with this component */}
+      <style>{`
+        .hero-rainbow {
+          background: linear-gradient(
+            90deg,
+            #EF4444 0%,
+            #F97316 18%,
+            #EAB308 36%,
+            #22C55E 54%,
+            #3B82F6 76%,
+            #8B5CF6 100%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0 6px 24px rgba(99,102,241,.25));
+        }
+      `}</style>
     </section>
   );
 }

@@ -3,6 +3,8 @@ import { HackathonApplicationSchema } from '@/lib/validations';
 import { appendToStore } from '@/lib/store';
 import { generateId } from '@/lib/helpers';
 
+export const runtime = 'nodejs';
+
 export async function POST(request) {
   let body;
   try {
@@ -32,10 +34,12 @@ export async function POST(request) {
     await appendToStore('hackathon-applications.json', record);
   } catch (err) {
     console.error('Hackathon store error:', err);
-    return NextResponse.json({ message: 'Veri kaydedilemedi.' }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Veri kaydedilemedi.', error: String(err.message || err) },
+      { status: 500 }
+    );
   }
 
-  // TODO production: send confirmation email via Resend, push to DB
   return NextResponse.json({ ok: true, id: record.id }, { status: 201 });
 }
 

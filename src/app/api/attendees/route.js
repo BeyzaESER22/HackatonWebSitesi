@@ -3,6 +3,8 @@ import { AttendeeRegistrationSchema } from '@/lib/validations';
 import { appendToStore } from '@/lib/store';
 import { generateId } from '@/lib/helpers';
 
+export const runtime = 'nodejs';
+
 export async function POST(request) {
   let body;
   try { body = await request.json(); }
@@ -28,7 +30,10 @@ export async function POST(request) {
     await appendToStore('attendees.json', record);
   } catch (err) {
     console.error('Attendees store error:', err);
-    return NextResponse.json({ message: 'Veri kaydedilemedi.' }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Veri kaydedilemedi.', error: String(err.message || err) },
+      { status: 500 }
+    );
   }
 
   return NextResponse.json({ ok: true, id: record.id }, { status: 201 });

@@ -1,24 +1,17 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
 import { UPLOAD_LIMITS } from '@/lib/constants';
 import { safeFilename, slugify } from '@/lib/helpers';
+import { uploadFile, STORAGE_BACKEND } from '@/lib/storage';
 
 export const runtime = 'nodejs';
-
-const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads', 'speakers');
 
 /**
  * POST /api/upload-speaker
  *
- * Headers:
- *   x-admin-secret: <ADMIN_UPLOAD_SECRET>
+ * Headers:  x-admin-secret: <ADMIN_UPLOAD_SECRET>
+ * Form-data: speakerId (string), file (image)
  *
- * Form-data:
- *   speakerId: string  (file slug; e.g. "eda-yilmaz")
- *   file:      File    (jpeg / png / webp, ≤ 2 MB)
- *
- * Yanıtta dönen `photoUrl` doğrudan src/data/speakers.js içine yapıştırılabilir.
+ * Yanıt: { ok, photoUrl, ... } — photoUrl src/data/speakers.js içine yapıştırılır.
  */
 export async function POST(request) {
   // Auth
@@ -53,29 +46,26 @@ export async function POST(request) {
     return NextResponse.json({ message: `Dosya çok büyük. Max ${(limit.maxBytes / 1024 / 1024).toFixed(0)}MB.` }, { status: 400 });
   }
 
-  // Persist
   const speakerId = slugify(speakerIdRaw);
   const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
-  const filename = safeFilename(`${speakerId}.${ext}`);
-  const targetPath = path.join(UPLOAD_DIR, filename);
+  const pathname = `speakers/${safeFilename(`${speakerId}.${ext}`)}`;
 
   try {
-    await fs.mkdir(UPLOAD_DIR, { recursive: true });
     const buffer = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(targetPath, buffer);
-  } catch (err) {
-    console.error('Speaker upload write error:', err);
-    return NextResponse.json({ message: 'Dosya yazılamadı.' }, { status: 500 });
-  }
+    const photoUrl = await uploadFile(buffer, pathname, file.type);
 
-  const publicUrl = `/uploads/speakers/${filename}`;
-  return NextResponse.json(
-    {
-      ok: true,
-      speakerId,
-      photoUrl: publicUrl,
-      hint: `src/data/speakers.js içinde "${speakerId}" ID'li konuşmacının photoUrl alanını "${publicUrl}" olarak güncelleyin.`
-    },
-    { status: 201 }
-  );
+    return NextResponse.json(
+      {
+        ok: true,
+        speakerId,
+        photoUrl,
+        backend: STORAGE_BACKEND,
+        hint: `src/data/speakers.js içinde "${speakerId}" ID'li konuşmacının photoUrl alanını "${photoUrl}" olarak güncelleyin.`
+      },
+      { status: 201 }
+    );
+  } catch (err) {
+    console.error('Speaker upload error:', err);
+    return NextResponse.json({ message: 'Dosya yüklenemedi.', error: String(err.message || err) }, { status: 500 });
+  }
 }

@@ -29,7 +29,8 @@ module.exports = {
       fontFamily: {
         display: ['var(--font-display)', 'Space Grotesk', 'sans-serif'],
         sans:    ['var(--font-body)',    'Inter',         'sans-serif'],
-        mono:    ['var(--font-mono)',    'JetBrains Mono','monospace']
+        mono:    ['var(--font-mono)',    'JetBrains Mono','monospace'],
+        brush:   ['var(--font-brush)',   'Permanent Marker', 'cursive']
       },
       backgroundImage: {
         'g-multi': 'linear-gradient(120deg, #4285F4 0%, #8AB4F8 35%, #EA4335 70%, #FBBC05 100%)',

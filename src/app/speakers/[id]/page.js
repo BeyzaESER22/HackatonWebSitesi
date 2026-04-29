@@ -4,16 +4,22 @@ import { Container } from '@/components/layout/Container';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { SpeakerAvatar } from '@/components/sections/SpeakersSection';
-import { getSpeakerById, speakers } from '@/data/speakers';
+import * as speakersModule from '@/data/speakers';
 import { COLORS } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
+
+const speakers = speakersModule.speakers || [];
+// Defensive lookup — works even if helper export is missing
+const findSpeaker = speakersModule.getSpeakerById || ((id) => speakers.find(s => s.id === id) || null);
+
+export const dynamicParams = true;
 
 export function generateStaticParams() {
   return speakers.map(s => ({ id: s.id }));
 }
 
 export async function generateMetadata({ params }) {
-  const speaker = getSpeakerById(params.id);
+  const speaker = findSpeaker(params.id);
   if (!speaker) return buildMetadata({ title: 'Konuşmacı bulunamadı' });
   return buildMetadata({
     title: speaker.name,
@@ -23,7 +29,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default function SpeakerDetailPage({ params }) {
-  const speaker = getSpeakerById(params.id);
+  const speaker = findSpeaker(params.id);
   if (!speaker) notFound();
 
   return (

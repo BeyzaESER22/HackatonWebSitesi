@@ -1,16 +1,12 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
 import { ProjectSubmissionSchema } from '@/lib/validations';
 import { readStore, appendToStore } from '@/lib/store';
+import { uploadFile } from '@/lib/storage';
 import { generateId, safeFilename, slugify } from '@/lib/helpers';
 import { UPLOAD_LIMITS, PROJECT_CATEGORIES } from '@/lib/constants';
 import { getStaticProjects } from '@/data/projects';
 
 export const runtime = 'nodejs';
-
-const IMG_DIR  = path.join(process.cwd(), 'public', 'uploads', 'projects', 'images');
-const FILE_DIR = path.join(process.cwd(), 'public', 'uploads', 'projects', 'files');
 
 /** GET — list approved projects (static showcase + approved submissions). */
 export async function GET() {
@@ -19,10 +15,13 @@ export async function GET() {
   try {
     const all = await readStore('projects.json');
     userOnes = all.filter(p => p.status === 'approved');
-  } catch {
+  } catch (err) {
+    console.error('GET /api/projects readStore error:', err);
     userOnes = [];
   }
-  const merged = [...staticOnes, ...userOnes].sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
+  const merged = [...staticOnes, ...userOnes].sort(
+    (a, b) => new Date(b.submittedAt) - new Date(a.submittedAt)
+  );
   return NextResponse.json({ ok: true, projects: merged });
 }
 
@@ -92,27 +91,31 @@ export async function POST(request) {
   const projectSlug = slugify(parsed.data.title) || 'project';
   const id = `proj_${projectSlug}_${Date.now().toString(36)}`;
 
-  // Persist files
+  // Upload files (Vercel Blob in prod, local fs in dev)
   let imageUrl = null;
   let packageUrl = null;
 
   try {
-    await fs.mkdir(IMG_DIR, { recursive: true });
     const imgExt = (imageFile.name.split('.').pop() || 'jpg').toLowerCase();
-    const imgName = safeFilename(`${id}.${imgExt}`);
-    await fs.writeFile(path.join(IMG_DIR, imgName), Buffer.from(await imageFile.arrayBuffer()));
-    imageUrl = `/uploads/projects/images/${imgName}`;
+    const imgPath = `projects/images/${safeFilename(`${id}.${imgExt}`)}`;
+    imageUrl = await uploadFile(
+      Buffer.from(await imageFile.arrayBuffer()),
+      imgPath,
+      imageFile.type
+    );
 
     if (packageMeta) {
-      await fs.mkdir(FILE_DIR, { recursive: true });
       const fExt = (packageMeta.name.split('.').pop() || 'zip').toLowerCase();
-      const fName = safeFilename(`${id}.${fExt}`);
-      await fs.writeFile(path.join(FILE_DIR, fName), Buffer.from(await packageMeta.arrayBuffer()));
-      packageUrl = `/uploads/projects/files/${fName}`;
+      const fPath = `projects/files/${safeFilename(`${id}.${fExt}`)}`;
+      packageUrl = await uploadFile(
+        Buffer.from(await packageMeta.arrayBuffer()),
+        fPath,
+        packageMeta.type
+      );
     }
   } catch (err) {
-    console.error('Project upload write error:', err);
-    return NextResponse.json({ message: 'Dosyalar yazılamadı.' }, { status: 500 });
+    console.error('Project upload error:', err);
+    return NextResponse.json({ message: 'Dosyalar yüklenemedi.', error: String(err.message || err) }, { status: 500 });
   }
 
   // Build record
@@ -148,7 +151,7 @@ export async function POST(request) {
     await appendToStore('projects.json', record);
   } catch (err) {
     console.error('Project store write error:', err);
-    return NextResponse.json({ message: 'Kayıt yazılamadı.' }, { status: 500 });
+    return NextResponse.json({ message: 'Kayıt yazılamadı.', error: String(err.message || err) }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true, project: { id: record.id, status: record.status } }, { status: 201 });
