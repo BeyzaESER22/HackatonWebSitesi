@@ -152,7 +152,7 @@ Production migration adımları aynı dosyada (Madde 3) detaylı.
 - E-posta: gdg@istinye.edu.tr
 - Instagram: [@gdgoncampusistinye](https://instagram.com/gdgoncampusistinye)
 - Twitter / X: [@gdgoncampusisu](https://x.com/gdgoncampusisu)
-- WhatsApp Topluluk: [Katıl](https://chat.whatsapp.com/HxYW2IQgTERBNkDRWyj2Mv)
+- WhatsApp Topluluk: [Katıl](https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x)
 
 ---
 

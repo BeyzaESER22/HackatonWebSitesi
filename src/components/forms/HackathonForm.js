@@ -5,6 +5,7 @@ import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { useApp } from '@/context/AppContext';
 import { LoaderInline } from '@/components/ui/Loader';
 import { cn } from '@/lib/helpers';
+import { SITE } from '@/lib/constants';
 
 const DRAFT_KEY = 'hf26_hackathon_form_draft';
 const SUBMISSION_KEY_STORAGE = 'hf26_hackathon_submission_key';
@@ -110,8 +111,8 @@ export function HackathonForm({ onSuccess }) {
         title: 'Başvurun alındı!',
         message: json.message || (
           json.duplicate
-            ? 'Aynı başvurunun tekrarını algıladık; mevcut kaydın korundu.'
-            : 'Başvurun güvenli şekilde kaydedildi.'
+            ? 'Aynı başvurunun tekrarını algıladık; mevcut kaydın korundu. WhatsApp topluluğuna da katılmayı unutma.'
+            : 'Başvurun güvenli şekilde kaydedildi. WhatsApp topluluğuna da katılmayı unutma.'
         )
       });
       onSuccess?.();
@@ -215,6 +216,17 @@ export function HackathonForm({ onSuccess }) {
       <Button type="submit" className="mt-3 w-full py-3.5 text-base" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
         {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'Başvuruyu Gönder'}
       </Button>
+      <a
+        href={SITE.social.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/[0.05] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.09]"
+      >
+        WhatsApp Topluluğuna Katıl
+      </a>
+      <p className="mt-3 text-center text-xs leading-relaxed text-ink-dim">
+        Başvuru yaptıktan sonra duyuruları kaçırmamak için WhatsApp topluluğuna da katılmanı öneririz.
+      </p>
       <p className="mt-3 text-center text-[11px] text-ink-dim">
         Form verileri gönderim öncesinde cihazında taslak olarak saklanır.
       </p>

@@ -129,6 +129,62 @@ export function AdminDashboard({ submissions }) {
           </table>
         </div>
       </div>
+
+      <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <Card className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6">
+          <div className="text-xs uppercase tracking-[0.22em] text-ink-dim">Operasyon Rehberi</div>
+          <h2 className="mt-3 font-display text-2xl font-bold text-white">Başvuru akışını nasıl takip edeceksin?</h2>
+          <div className="mt-5 space-y-4 text-sm leading-relaxed text-ink-dim">
+            <div>
+              <div className="font-semibold text-white">Başvuru geldi mi nasıl kontrol edilir?</div>
+              <p className="mt-1">
+                Yeni başvurular bu tabloda en güncelden eskiye sıralanır. Form kaydı KV ve backup katmanları birlikte okunarak listelenir; backup-only kayıtlar da burada görünür.
+              </p>
+            </div>
+            <div>
+              <div className="font-semibold text-white">CSV nasıl alınır?</div>
+              <p className="mt-1">
+                Yukarıdaki <span className="font-semibold text-white">CSV İndir</span> butonu tek tıkla tüm başvuruları dışa aktarır. Etkinlik öncesi ve yoğun başvuru saatlerinde yerel bir kopya indirip saklaman iyi olur.
+              </p>
+            </div>
+            <div>
+              <div className="font-semibold text-white">Backup&apos;lar nereden kontrol edilir?</div>
+              <p className="mt-1">
+                Production ortamında fallback kayıtları Vercel Blob içinde <span className="font-mono text-white">structured-backups/hackathon-applications/</span> klasörüne yazılır. Yerelde aynı kayıtlar <span className="font-mono text-white">data/_structured_backups/hackathon-applications/</span> altında tutulur.
+              </p>
+            </div>
+            <div>
+              <div className="font-semibold text-white">Acil durumda ne yapılır?</div>
+              <p className="mt-1">
+                Önce bu panelden CSV indir, sonra Vercel Logs&apos;ta <span className="font-mono text-white">/api/hackathon</span> isteklerini kontrol et. Eğer KV tarafında sorun varsa Blob backup klasörünü açıp en yeni kayıtları doğrula; panel normale dönene kadar CSV kopyasını operasyon kaydı olarak kullan.
+              </p>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6">
+          <div className="text-xs uppercase tracking-[0.22em] text-ink-dim">Hızlı Notlar</div>
+          <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
+            <p>
+              Rate limit, duplicate koruması ve backup fallback aktif. Aynı başvurunun tekrar gelmesi mevcut kaydı ezmez.
+            </p>
+            <p>
+              Form gönderimi başarısız olsa bile katılımcının tarayıcısında taslak korunur; yeniden deneyebilir.
+            </p>
+            <p>
+              Detaylı teknik akış için{' '}
+              <a
+                href="/admin/operations"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-white underline decoration-white/30 underline-offset-4"
+              >
+                operasyon notlarını aç
+              </a>.
+            </p>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 }

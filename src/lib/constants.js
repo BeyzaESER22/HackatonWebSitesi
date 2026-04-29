@@ -18,7 +18,7 @@ export const SITE = {
   social: {
     instagram: 'https://instagram.com/gdgoncampusistinye',
     twitter:   'https://x.com/gdgoncampusisu',
-    whatsapp:  'https://chat.whatsapp.com/HxYW2IQgTERBNkDRWyj2Mv'
+    whatsapp:  'https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x'
   }
 };
 
