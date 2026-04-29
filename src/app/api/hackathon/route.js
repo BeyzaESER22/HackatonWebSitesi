@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { HackathonApplicationSchema } from '@/lib/validations';
 import { appendToStore } from '@/lib/store';
 import { generateId } from '@/lib/helpers';
-import { sendHackathonConfirmationEmail } from '@/lib/mailer';
 
 export const runtime = 'nodejs';
 
@@ -39,12 +38,6 @@ export async function POST(request) {
       { message: 'Veri kaydedilemedi.', error: String(err.message || err) },
       { status: 500 }
     );
-  }
-
-  try {
-    await sendHackathonConfirmationEmail(record);
-  } catch (err) {
-    console.error('Hackathon confirmation email error:', err);
   }
 
   return NextResponse.json({ ok: true, id: record.id }, { status: 201 });

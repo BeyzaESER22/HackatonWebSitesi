@@ -12,7 +12,6 @@ Premium, modern, production-ready bir etkinlik landing page'i — Next.js 14 (Ap
 ### Etkinlik tarafı
 - **Canlı geri sayım** — 16 Mayıs 2026 09:00 İstanbul saatine kilitli
 - **Hackathon başvuru formu** — `/api/hackathon` üzerinden JSON store'a yazılır
-- **Başvuru onay e-postası** — Resend ile başvuru sonrası otomatik teyit maili gönderilebilir
 - **Konuşmacı etkinliği / stand ziyaretçisi kaydı** — `/api/attendees`, çekilişe katılım dahil
 - **Program akışı** — 16-17 Mayıs için tam timeline (şu an sadece açılış işaretli, gerisi TBA)
 - **Konuşmacı detay sayfaları** — `/speakers/[id]` üzerinden oturum bilgileri (saat, salon, hedef kitle, açıklama)
@@ -49,8 +48,8 @@ npm run data:init
 
 # 3) Environment dosyasını düzenle
 # .env.example dosyasını referans alarak .env.local oluşturun.
-# Özellikle ADMIN_UPLOAD_SECRET, ADMIN_PASSWORD, ADMIN_SESSION_SECRET,
-# RESEND_API_KEY ve RESEND_FROM_EMAIL değerlerini doldurun.
+# Özellikle ADMIN_UPLOAD_SECRET, ADMIN_PASSWORD ve ADMIN_SESSION_SECRET
+# değerlerini doldurun.
 
 # 4) Geliştirme sunucusunu başlat
 npm run dev
@@ -121,18 +120,6 @@ Yüklenen dosya `public/uploads/speakers/eda-yilmaz.jpg` olarak kaydedilir ve `s
 - CSV export: `/api/admin/hackathon/export`
 
 Panel içinde hackathon başvurularını görebilir, toplam sayıları inceleyebilir ve kayıtları CSV olarak indirebilirsin.
-
----
-
-## ✉️ Resend E-posta Onayı
-
-Hackathon başvurusu başarıyla alındığında sistem, Resend yapılandırılmışsa katılımcıya otomatik bir onay e-postası gönderir.
-
-Gerekli environment variable'lar:
-
-- `RESEND_API_KEY`
-- `RESEND_FROM_EMAIL`
-- `RESEND_REPLY_TO` (opsiyonel)
 
 ---
 
