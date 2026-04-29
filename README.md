@@ -12,6 +12,7 @@ Premium, modern, production-ready bir etkinlik landing page'i — Next.js 14 (Ap
 ### Etkinlik tarafı
 - **Canlı geri sayım** — 16 Mayıs 2026 09:00 İstanbul saatine kilitli
 - **Hackathon başvuru formu** — `/api/hackathon` üzerinden JSON store'a yazılır
+- **Başvuru onay e-postası** — Resend ile başvuru sonrası otomatik teyit maili gönderilebilir
 - **Konuşmacı etkinliği / stand ziyaretçisi kaydı** — `/api/attendees`, çekilişe katılım dahil
 - **Program akışı** — 16-17 Mayıs için tam timeline (şu an sadece açılış işaretli, gerisi TBA)
 - **Konuşmacı detay sayfaları** — `/speakers/[id]` üzerinden oturum bilgileri (saat, salon, hedef kitle, açıklama)
@@ -23,6 +24,7 @@ Premium, modern, production-ready bir etkinlik landing page'i — Next.js 14 (Ap
 - **Konuşmacı fotoğrafı yükleme** — Admin secret ile korumalı `/api/upload-speaker` endpoint'i. Yüklenen görseller `/public/uploads/speakers/` dizinine kaydedilir.
 - **Yarışmacı proje yükleme** — Katılımcılar `/projects/submit` sayfasından proje başlığı, açıklaması, ekran görüntüsü, GitHub/demo linkleri ve ekip bilgileriyle başvuru gönderebilir. Görseller `/public/uploads/projects/images/`, opsiyonel proje dosyaları (.zip vb.) `/public/uploads/projects/files/` altına yazılır.
 - **Onay mekanizması** — Tüm başvurular `pending` durumunda gelir, admin onayı sonrası galeriye yansır.
+- **Şifre korumalı admin paneli** — `/admin` üzerinden hackathon başvurularını görüntüleme ve CSV export
 - **Örnek proje (showcase)** — `src/data/projects.js` içinde hard-coded `sample-medai` projesi, etkinlik öncesi yarışmacılara örnek olarak gösterilir.
 - **Örnek konuşmacı profili** — `src/data/speakers.js` içinde `sample-speaker`, konuşmacı detay sayfasının nasıl görüneceğini gösterir.
 
@@ -46,7 +48,9 @@ npm install
 npm run data:init
 
 # 3) Environment dosyasını düzenle
-# .env.local içindeki ADMIN_UPLOAD_SECRET değerini güçlü bir değerle değiştirin.
+# .env.example dosyasını referans alarak .env.local oluşturun.
+# Özellikle ADMIN_UPLOAD_SECRET, ADMIN_PASSWORD, ADMIN_SESSION_SECRET,
+# RESEND_API_KEY ve RESEND_FROM_EMAIL değerlerini doldurun.
 
 # 4) Geliştirme sunucusunu başlat
 npm run dev
@@ -106,6 +110,29 @@ curl -X POST http://localhost:3000/api/upload-speaker \
 ```
 
 Yüklenen dosya `public/uploads/speakers/eda-yilmaz.jpg` olarak kaydedilir ve `src/data/speakers.js` içinde `photoUrl: '/uploads/speakers/eda-yilmaz.jpg'` ile referanslanır.
+
+---
+
+## 🛡️ Admin Paneli
+
+- Admin ekranı: `/admin`
+- Giriş: `ADMIN_PASSWORD`
+- Oturum güvenliği: `ADMIN_SESSION_SECRET`
+- CSV export: `/api/admin/hackathon/export`
+
+Panel içinde hackathon başvurularını görebilir, toplam sayıları inceleyebilir ve kayıtları CSV olarak indirebilirsin.
+
+---
+
+## ✉️ Resend E-posta Onayı
+
+Hackathon başvurusu başarıyla alındığında sistem, Resend yapılandırılmışsa katılımcıya otomatik bir onay e-postası gönderir.
+
+Gerekli environment variable'lar:
+
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `RESEND_REPLY_TO` (opsiyonel)
 
 ---
 
