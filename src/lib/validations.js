@@ -6,6 +6,7 @@ export const HackathonApplicationSchema = z.object({
   department: z.string().min(2, 'Bölüm bilgisi gerekli.').max(120),
   email:      z.string().email('Geçerli bir e-posta giriniz.'),
   phone:      z.string().min(10, 'Geçerli bir telefon numarası giriniz.').max(20),
+  clientSubmissionId: z.string().min(8).max(120).optional(),
   teamStatus: z.enum(['has_team', 'will_form', 'individual'], {
     errorMap: () => ({ message: 'Takım durumunu seçiniz.' })
   }),

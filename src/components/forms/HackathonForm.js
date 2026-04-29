@@ -1,20 +1,31 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Select, Textarea } from '@/components/ui/Input';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { useApp } from '@/context/AppContext';
 import { LoaderInline } from '@/components/ui/Loader';
 import { cn } from '@/lib/helpers';
 
+const DRAFT_KEY = 'hf26_hackathon_form_draft';
+const SUBMISSION_KEY_STORAGE = 'hf26_hackathon_submission_key';
+
 const initial = {
   fullName: '', university: '', department: '', email: '',
-  phone: '', teamStatus: '', teamSize: '', projectIdea: ''
+  phone: '', teamStatus: '', teamSize: '', projectIdea: '', website: ''
 };
+
+function createSubmissionId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `sub_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+}
 
 export function HackathonForm({ onSuccess }) {
   const [form, setForm] = useState(initial);
   const [errors, setErrors] = useState({});
   const [busy, setBusy] = useState(false);
+  const [submissionId, setSubmissionId] = useState('');
   const { showToast } = useApp();
 
   const fieldClassName =
@@ -40,6 +51,31 @@ export function HackathonForm({ onSuccess }) {
     }));
   };
 
+  useEffect(() => {
+    try {
+      const savedDraft = window.localStorage.getItem(DRAFT_KEY);
+      if (savedDraft) {
+        const parsed = JSON.parse(savedDraft);
+        setForm((prev) => ({ ...prev, ...parsed }));
+      }
+
+      const savedSubmissionId = window.localStorage.getItem(SUBMISSION_KEY_STORAGE);
+      const nextSubmissionId = savedSubmissionId || createSubmissionId();
+      setSubmissionId(nextSubmissionId);
+      if (!savedSubmissionId) {
+        window.localStorage.setItem(SUBMISSION_KEY_STORAGE, nextSubmissionId);
+      }
+    } catch {
+      setSubmissionId(createSubmissionId());
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(DRAFT_KEY, JSON.stringify(form));
+    } catch {}
+  }, [form]);
+
   const submit = async (e) => {
     e.preventDefault();
     setBusy(true);
@@ -48,7 +84,10 @@ export function HackathonForm({ onSuccess }) {
       const res = await fetch('/api/hackathon', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify({
+          ...form,
+          clientSubmissionId: submissionId || createSubmissionId()
+        })
       });
       const json = await res.json();
       if (!res.ok) {
@@ -56,11 +95,26 @@ export function HackathonForm({ onSuccess }) {
         showToast({ type: 'error', title: 'Form gönderilemedi', message: json.message || 'Lütfen alanları kontrol edin.' });
         return;
       }
-      showToast({ title: 'Başvurun alındı!', message: 'E-postanı kontrol etmeyi unutma.' });
+      const nextSubmissionId = createSubmissionId();
+      try {
+        window.localStorage.removeItem(DRAFT_KEY);
+        window.localStorage.setItem(SUBMISSION_KEY_STORAGE, nextSubmissionId);
+      } catch {}
+      setSubmissionId(nextSubmissionId);
       setForm(initial);
+      showToast({
+        title: 'Başvurun alındı!',
+        message: json.duplicate
+          ? 'Aynı başvurunun tekrarını algıladık; mevcut kaydın korundu.'
+          : 'Başvurun güvenli şekilde kaydedildi.'
+      });
       onSuccess?.();
     } catch (err) {
-      showToast({ type: 'error', title: 'Bir hata oluştu', message: 'İnternet bağlantını kontrol et.' });
+      showToast({
+        type: 'error',
+        title: 'Bir hata oluştu',
+        message: 'Bağlantı sorunu yaşandı. Form verileri cihazında tutuldu; tekrar deneyebilirsin.'
+      });
     } finally {
       setBusy(false);
     }
@@ -71,6 +125,17 @@ export function HackathonForm({ onSuccess }) {
       <div className="grid grid-cols-2 gap-3 sm:gap-4">
         <div className="col-span-2">
           <Input label="Ad Soyad *" name="fullName" value={form.fullName} onChange={update('fullName')} placeholder="Adın ve soyadın" error={errors.fullName} className={fieldClassName} required />
+        </div>
+        <div className="col-span-2 hidden" aria-hidden="true">
+          <Input
+            label="Web Sitesi"
+            name="website"
+            value={form.website}
+            onChange={update('website')}
+            placeholder="Boş bırakın"
+            tabIndex={-1}
+            autoComplete="off"
+          />
         </div>
         <div className="col-span-2 sm:col-span-1">
           <Input label="Üniversite *" name="university" value={form.university} onChange={update('university')} placeholder="İstinye Üniversitesi" error={errors.university} className={fieldClassName} required />
@@ -145,7 +210,7 @@ export function HackathonForm({ onSuccess }) {
         {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'Başvuruyu Gönder'}
       </Button>
       <p className="mt-3 text-center text-[11px] text-ink-dim">
-        Başvurun 3 iş günü içinde e-posta ile yanıtlanır.
+        Form verileri gönderim öncesinde cihazında taslak olarak saklanır.
       </p>
     </form>
   );

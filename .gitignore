@@ -39,6 +39,9 @@ yarn-error.log*
 
 # Local data store (development only — production uses real DB)
 data/*.json
+data/_append_logs/
+data/_submission_keys/
+data/_structured_backups/
 !data/.gitkeep
 
 # User uploads (local development) — production uses S3/CDN
