@@ -41,6 +41,7 @@ yarn-error.log*
 data/*.json
 data/_append_logs/
 data/_submission_keys/
+data/_unique_constraints/
 data/_structured_backups/
 !data/.gitkeep
 

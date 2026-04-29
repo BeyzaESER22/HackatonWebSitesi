@@ -4,6 +4,7 @@ import { appendToStore } from '@/lib/store';
 import { generateId } from '@/lib/helpers';
 import { enforceSubmissionRateLimit } from '@/lib/rate-limit';
 import { isSpamSubmission } from '@/lib/spam';
+import { SITE } from '@/lib/constants';
 
 export const runtime = 'nodejs';
 
@@ -50,21 +51,37 @@ export async function POST(request) {
   };
 
   try {
+    const eventId = String(SITE.eventDateISO || SITE.eventDates || 'hackfest26');
+    const emailKey = `${eventId}:${parsed.data.email.trim().toLowerCase()}`;
+
     const result = await appendToStore(
       'hackathon-applications.json',
       record,
-      { dedupeKey: parsed.data.clientSubmissionId }
+      {
+        dedupeKey: parsed.data.clientSubmissionId,
+        uniqueKey: emailKey
+      }
     );
 
     const stored = result.record || record;
     const status = result.persisted === 'backup' ? 202 : (result.duplicate ? 200 : 201);
+    const message =
+      result.reason === 'unique'
+        ? 'Bu e-posta adresiyle bu etkinlik için zaten bir başvuru bulunuyor.'
+        : result.reason === 'idempotency'
+          ? 'Aynı başvurunun tekrar gönderimini algıladık.'
+          : result.persisted === 'backup'
+            ? 'Başvurun yedek katmanda korumaya alındı.'
+            : 'Başvurun kaydedildi.';
 
     return NextResponse.json(
       {
         ok: true,
         id: stored.id,
         duplicate: Boolean(result.duplicate),
-        persistence: result.persisted || 'primary'
+        persistence: result.persisted || 'primary',
+        reason: result.reason || 'created',
+        message
       },
       { status }
     );

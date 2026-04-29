@@ -57,6 +57,10 @@ function fileToDedupeKey(filename, dedupeKey) {
   return `${fileToKey(filename)}:v2:submission:${dedupeKey}`;
 }
 
+function fileToUniqueKey(filename, uniqueKey) {
+  return `${fileToKey(filename)}:v2:unique:${uniqueKey}`;
+}
+
 function backupPath(filename, key) {
   const base = filename.replace(/\.json$/, '');
   return `structured-backups/${base}/${key}.json`;
@@ -187,6 +191,10 @@ async function kvAppend(filename, record, options = {}) {
   const kv = await getKv();
   const dedupeToken = options.dedupeKey || record.clientSubmissionId || null;
   const dedupeKey = dedupeToken ? fileToDedupeKey(filename, dedupeToken) : null;
+  const uniqueToken = options.uniqueKey || null;
+  const uniqueKey = uniqueToken ? fileToUniqueKey(filename, uniqueToken) : null;
+  let dedupeReserved = false;
+  let uniqueReserved = false;
 
   if (dedupeKey) {
     const claimed = await kv.setnx(dedupeKey, `pending:${record.id}`);
@@ -197,24 +205,49 @@ async function kvAppend(filename, record, options = {}) {
       return {
         record: existing || { ...record, id: normalizedRef || record.id },
         duplicate: true,
-        persisted: 'primary'
+        persisted: 'primary',
+        reason: 'idempotency'
       };
     }
+    dedupeReserved = true;
+  }
+
+  if (uniqueKey) {
+    const claimed = await kv.setnx(uniqueKey, `pending:${record.id}`);
+    if (!claimed) {
+      if (dedupeReserved) {
+        await kv.del(dedupeKey).catch(() => {});
+      }
+      const ref = await kv.get(uniqueKey);
+      const normalizedRef = typeof ref === 'string' ? ref.replace(/^pending:/, '') : '';
+      const existing = await resolveExistingRecordFromKv(kv, filename, ref);
+      return {
+        record: existing || { ...record, id: normalizedRef || record.id },
+        duplicate: true,
+        persisted: 'primary',
+        reason: 'unique'
+      };
+    }
+    uniqueReserved = true;
   }
 
   try {
     await kv.rpush(fileToListKey(filename), JSON.stringify(record));
   } catch (error) {
-    if (dedupeKey) {
+    if (dedupeReserved) {
       await kv.del(dedupeKey).catch(() => {});
     }
+    if (uniqueReserved) {
+      await kv.del(uniqueKey).catch(() => {});
+    }
 
-    const backupSaved = await writeBackupRecord(filename, record, dedupeToken || record.id).catch(() => false);
+    const backupSaved = await writeBackupRecord(filename, record, dedupeToken || uniqueToken || record.id).catch(() => false);
     if (backupSaved) {
       return {
         record: { ...record, persistenceStatus: 'backup-only' },
         duplicate: false,
-        persisted: 'backup'
+        persisted: 'backup',
+        reason: 'backup'
       };
     }
 
@@ -225,8 +258,11 @@ async function kvAppend(filename, record, options = {}) {
     kv.set(fileToItemKey(filename, record.id), record)
   ];
 
-  if (dedupeKey) {
+  if (dedupeReserved) {
     sideEffects.push(kv.set(dedupeKey, record.id));
+  }
+  if (uniqueReserved) {
+    sideEffects.push(kv.set(uniqueKey, record.id));
   }
 
   const sideEffectResults = await Promise.allSettled(sideEffects);
@@ -239,7 +275,8 @@ async function kvAppend(filename, record, options = {}) {
   return {
     record,
     duplicate: false,
-    persisted: 'primary'
+    persisted: 'primary',
+    reason: 'created'
   };
 }
 
@@ -253,6 +290,7 @@ async function kvWrite(filename, items) {
 const DATA_DIR = path.join(process.cwd(), 'data');
 const LOG_DIR = path.join(DATA_DIR, '_append_logs');
 const DEDUPE_DIR = path.join(DATA_DIR, '_submission_keys');
+const UNIQUE_DIR = path.join(DATA_DIR, '_unique_constraints');
 
 async function fsEnsureFile(filename) {
   await fs.mkdir(DATA_DIR, { recursive: true });
@@ -278,6 +316,12 @@ async function fsEnsureLog(filename) {
 
 async function fsEnsureDedupeDir(filename) {
   const dir = path.join(DEDUPE_DIR, filename.replace(/\.json$/, ''));
+  await fs.mkdir(dir, { recursive: true });
+  return dir;
+}
+
+async function fsEnsureUniqueDir(filename) {
+  const dir = path.join(UNIQUE_DIR, filename.replace(/\.json$/, ''));
   await fs.mkdir(dir, { recursive: true });
   return dir;
 }
@@ -317,7 +361,9 @@ async function fsRead(filename) {
 
 async function fsAppend(filename, record, options = {}) {
   const dedupeToken = options.dedupeKey || record.clientSubmissionId || null;
+  const uniqueToken = options.uniqueKey || null;
   let dedupeFile = null;
+  let uniqueFile = null;
 
   if (dedupeToken) {
     const dir = await fsEnsureDedupeDir(filename);
@@ -328,7 +374,8 @@ async function fsAppend(filename, record, options = {}) {
       return {
         record: { ...record, id: existingId.trim() || record.id },
         duplicate: true,
-        persisted: 'primary'
+        persisted: 'primary',
+        reason: 'idempotency'
       };
     } catch {}
 
@@ -340,7 +387,43 @@ async function fsAppend(filename, record, options = {}) {
         return {
           record: { ...record, id: existingId.trim() || record.id },
           duplicate: true,
-          persisted: 'primary'
+          persisted: 'primary',
+          reason: 'idempotency'
+        };
+      } catch {}
+    }
+  }
+
+  if (uniqueToken) {
+    const dir = await fsEnsureUniqueDir(filename);
+    uniqueFile = path.join(dir, `${uniqueToken}.txt`);
+
+    try {
+      const existingId = await fs.readFile(uniqueFile, 'utf8');
+      if (dedupeFile) {
+        await fs.unlink(dedupeFile).catch(() => {});
+      }
+      return {
+        record: { ...record, id: existingId.trim() || record.id },
+        duplicate: true,
+        persisted: 'primary',
+        reason: 'unique'
+      };
+    } catch {}
+
+    try {
+      await fs.writeFile(uniqueFile, record.id, { flag: 'wx' });
+    } catch {
+      if (dedupeFile) {
+        await fs.unlink(dedupeFile).catch(() => {});
+      }
+      try {
+        const existingId = await fs.readFile(uniqueFile, 'utf8');
+        return {
+          record: { ...record, id: existingId.trim() || record.id },
+          duplicate: true,
+          persisted: 'primary',
+          reason: 'unique'
         };
       } catch {}
     }
@@ -353,13 +436,17 @@ async function fsAppend(filename, record, options = {}) {
     if (dedupeFile) {
       await fs.unlink(dedupeFile).catch(() => {});
     }
+    if (uniqueFile) {
+      await fs.unlink(uniqueFile).catch(() => {});
+    }
     throw error;
   }
 
   return {
     record,
     duplicate: false,
-    persisted: 'primary'
+    persisted: 'primary',
+    reason: 'created'
   };
 }
 

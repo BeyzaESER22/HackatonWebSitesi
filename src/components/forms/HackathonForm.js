@@ -92,7 +92,11 @@ export function HackathonForm({ onSuccess }) {
       const json = await res.json();
       if (!res.ok) {
         if (json.fieldErrors) setErrors(json.fieldErrors);
-        showToast({ type: 'error', title: 'Form gönderilemedi', message: json.message || 'Lütfen alanları kontrol edin.' });
+        showToast({
+          type: 'error',
+          title: 'Form gönderilemedi',
+          message: json.message || 'Lütfen alanları kontrol edin.'
+        });
         return;
       }
       const nextSubmissionId = createSubmissionId();
@@ -104,9 +108,11 @@ export function HackathonForm({ onSuccess }) {
       setForm(initial);
       showToast({
         title: 'Başvurun alındı!',
-        message: json.duplicate
-          ? 'Aynı başvurunun tekrarını algıladık; mevcut kaydın korundu.'
-          : 'Başvurun güvenli şekilde kaydedildi.'
+        message: json.message || (
+          json.duplicate
+            ? 'Aynı başvurunun tekrarını algıladık; mevcut kaydın korundu.'
+            : 'Başvurun güvenli şekilde kaydedildi.'
+        )
       });
       onSuccess?.();
     } catch (err) {
