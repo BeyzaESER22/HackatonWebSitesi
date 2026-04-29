@@ -7,6 +7,7 @@ export const SITE = {
     '16-17 Mayıs 2026 — İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, ilham veren konuşmalar ve büyük ödüller seni bekliyor.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   email: 'gdg@istinye.edu.tr',
+  phone: '0850 283 60 00',
   location: {
     name: 'İstinye Üniversitesi Ayazağa Kampüsü',
     city: 'İstanbul',

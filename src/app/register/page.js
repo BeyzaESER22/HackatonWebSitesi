@@ -1,5 +1,6 @@
-import { ContactFormLayout } from '@/components/layout/ContactFormLayout';
 import { HackathonForm } from '@/components/forms/HackathonForm';
+import { Container } from '@/components/layout/Container';
+import { HackathonApplicationShell } from '@/components/layout/HackathonApplicationShell';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
@@ -10,13 +11,12 @@ export const metadata = buildMetadata({
 
 export default function RegisterPage() {
   return (
-    <ContactFormLayout
-      eyebrow="/HACKATHON BAŞVURUSU"
-      title="Aramıza"
-      titleAccent="katıl."
-      description="HackFest'26 hackathon'una başvurmak için aşağıdaki formu doldur. Başvurun jüri tarafından değerlendirildikten sonra e-posta ile sonuç paylaşılacaktır."
-    >
-      <HackathonForm />
-    </ContactFormLayout>
+    <section className="pb-24 pt-32 lg:pb-32 lg:pt-36">
+      <Container>
+        <HackathonApplicationShell>
+          <HackathonForm />
+        </HackathonApplicationShell>
+      </Container>
+    </section>
   );
 }

@@ -9,7 +9,16 @@ export const HackathonApplicationSchema = z.object({
   teamStatus: z.enum(['has_team', 'will_form', 'individual'], {
     errorMap: () => ({ message: 'Takım durumunu seçiniz.' })
   }),
+  teamSize: z.enum(['2', '3', '4', '5']).optional().or(z.literal('')),
   projectIdea: z.string().max(800).optional().or(z.literal(''))
+}).superRefine((data, ctx) => {
+  if (data.teamStatus === 'has_team' && !data.teamSize) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['teamSize'],
+      message: 'Takım kişi sayısını seçiniz.'
+    });
+  }
 });
 
 export const AttendeeRegistrationSchema = z.object({

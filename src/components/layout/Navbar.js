@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { MobileMenu } from './MobileMenu';
+import { HackathonApplicationShell } from './HackathonApplicationShell';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { HackathonForm } from '@/components/forms/HackathonForm';
@@ -81,11 +82,12 @@ export function Navbar() {
       <Modal
         open={activeModal === 'hack'}
         onClose={closeModal}
-        eyebrow="Hackathon Başvurusu"
-        title="Geleceği kodlamaya hazır mısın?"
-        subtitle="Formu doldur, başvurun jüri tarafından değerlendirilsin."
+        size="xl"
+        surface="plain"
       >
-        <HackathonForm onSuccess={closeModal} />
+        <HackathonApplicationShell>
+          <HackathonForm onSuccess={closeModal} />
+        </HackathonApplicationShell>
       </Modal>
 
       <Modal

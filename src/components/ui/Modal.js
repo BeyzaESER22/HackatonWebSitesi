@@ -1,8 +1,19 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
+import { cn } from '@/lib/helpers';
 
-export function Modal({ open, onClose, title, eyebrow, subtitle, children, size = 'md' }) {
+export function Modal({
+  open,
+  onClose,
+  title,
+  eyebrow,
+  subtitle,
+  children,
+  size = 'md',
+  surface = 'default',
+  panelClassName
+}) {
   useEffect(() => {
     if (typeof document === 'undefined') return;
     document.body.style.overflow = open ? 'hidden' : '';
@@ -11,7 +22,8 @@ export function Modal({ open, onClose, title, eyebrow, subtitle, children, size 
     return () => document.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  const widthClass = size === 'lg' ? 'max-w-2xl' : 'max-w-xl';
+  const widthClass = size === 'xl' ? 'max-w-6xl' : size === 'lg' ? 'max-w-2xl' : 'max-w-xl';
+  const isPlainSurface = surface === 'plain';
 
   return (
     <AnimatePresence>
@@ -26,8 +38,15 @@ export function Modal({ open, onClose, title, eyebrow, subtitle, children, size 
           <motion.div
             role="dialog"
             aria-modal="true"
-            className={`relative ${widthClass} w-full max-h-[90vh] overflow-y-auto rounded-3xl p-7 lg:p-9 shadow-soft border border-white/10`}
-            style={{ background: 'linear-gradient(180deg, #0E1740, #070C25)' }}
+            className={cn(
+              'relative w-full max-h-[90vh] overflow-y-auto',
+              widthClass,
+              isPlainSurface
+                ? 'overflow-x-visible'
+                : 'rounded-3xl border border-white/10 p-7 shadow-soft lg:p-9',
+              panelClassName
+            )}
+            style={isPlainSurface ? undefined : { background: 'linear-gradient(180deg, #0E1740, #070C25)' }}
             initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 8 }}
@@ -36,18 +55,21 @@ export function Modal({ open, onClose, title, eyebrow, subtitle, children, size 
             <button
               onClick={onClose}
               aria-label="Kapat"
-              className="absolute top-4 right-4 w-9 h-9 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition"
+              className={cn(
+                'absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 transition hover:bg-white/5',
+                isPlainSurface && 'bg-navy-900/70 backdrop-blur-md'
+              )}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>
 
-            {eyebrow && (
-              <div className="text-xs uppercase tracking-[0.22em] text-ink-dim mb-2">{eyebrow}</div>
+            {!isPlainSurface && eyebrow && (
+              <div className="mb-2 text-xs uppercase tracking-[0.22em] text-ink-dim">{eyebrow}</div>
             )}
-            {title && <h3 className="font-display text-2xl font-bold mb-1">{title}</h3>}
-            {subtitle && <p className="text-sm text-ink-dim mb-6">{subtitle}</p>}
+            {!isPlainSurface && title && <h3 className="mb-1 font-display text-2xl font-bold">{title}</h3>}
+            {!isPlainSurface && subtitle && <p className="mb-6 text-sm text-ink-dim">{subtitle}</p>}
 
             {children}
           </motion.div>
