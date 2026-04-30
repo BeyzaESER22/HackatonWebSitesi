@@ -10,9 +10,9 @@ export async function GET(request) {
   }
 
   const items = await readStore('hackathon-applications.json');
-  const submissions = items
-    .filter((item) => item && !item.deletedAt)
-    .sort((a, b) => new Date(b.submittedAt || 0) - new Date(a.submittedAt || 0));
+  const submissions = [...items].sort(
+    (a, b) => new Date(b.submittedAt || 0) - new Date(a.submittedAt || 0)
+  );
 
   return NextResponse.json({ ok: true, submissions });
 }

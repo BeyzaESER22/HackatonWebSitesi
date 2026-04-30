@@ -11,16 +11,7 @@ export const HackathonApplicationSchema = z.object({
     errorMap: () => ({ message: 'Takım durumunu seçiniz.' })
   }),
   teamSize: z.enum(['2', '3', '4', '5']).optional().or(z.literal('')),
-  projectIdea: z.string().max(800).optional().or(z.literal('')),
-  // Additive optional fields — old submissions and clients keep working.
-  referralSource: z
-    .enum(['instagram', 'whatsapp', 'twitter', 'linkedin', 'friend', 'university', 'email', 'poster', 'other'])
-    .optional()
-    .or(z.literal('')),
-  teammatesApplied: z
-    .enum(['all', 'some', 'none', 'unsure'])
-    .optional()
-    .or(z.literal(''))
+  projectIdea: z.string().max(800).optional().or(z.literal(''))
 }).superRefine((data, ctx) => {
   if (data.teamStatus === 'has_team' && !data.teamSize) {
     ctx.addIssue({

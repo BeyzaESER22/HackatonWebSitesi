@@ -90,62 +90,6 @@ export function HackathonApplicationShell({
             jüri tarafından değerlendirilecek, sonuç sana e-posta ile iletilecek.
           </p>
 
-          <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-[#141B4C]/15 bg-[#141B4C]/[0.06] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-[#141B4C]">
-            <span aria-hidden="true">📍</span>
-            Yüz yüze etkinlik · Online katılım yok
-          </div>
-
-          <a
-            href="/hackathon"
-            className="group mt-5 flex items-start gap-4 rounded-2xl border border-[#141B4C]/15 bg-white/70 px-5 py-4 text-left transition hover:border-[#141B4C]/40 hover:bg-white"
-          >
-            <span
-              aria-hidden="true"
-              className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[#141B4C] text-base text-white"
-            >
-              ℹ
-            </span>
-            <div className="min-w-0">
-              <div className="font-display text-base font-bold text-[#141B4C]">
-                Hackathon hakkında bilgi al
-              </div>
-              <p className="mt-1 text-sm leading-relaxed text-[#5C594E]">
-                Tema, takvim, jüri kriterleri ve ödüllerin detayları için hackathon
-                sayfasına göz at.
-              </p>
-              <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#141B4C] transition group-hover:gap-2">
-                Hackathon sayfasını aç
-                <span aria-hidden="true">→</span>
-              </span>
-            </div>
-          </a>
-
-          <a
-            href={SITE.social.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-3 flex items-start gap-4 rounded-2xl border border-[#1F8A4C]/30 bg-[#1F8A4C]/10 px-5 py-4 text-left transition hover:border-[#1F8A4C]/60 hover:bg-[#1F8A4C]/15"
-          >
-            <span
-              aria-hidden="true"
-              className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[#1F8A4C] text-base text-white"
-            >
-              💬
-            </span>
-            <div className="min-w-0">
-              <div className="font-display text-base font-bold text-[#1F8A4C]">
-                WhatsApp topluluğuna katıl
-              </div>
-              <p className="mt-1 text-sm leading-relaxed text-[#3F5145]">
-                Tüm bilgilendirme, duyuru ve takım eşleştirme buradan yapılacak — başvurudan önce/sonra mutlaka katıl.
-              </p>
-              <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-[#1F8A4C] transition group-hover:gap-2">
-                Gruba katıl
-                <span aria-hidden="true">↗</span>
-              </span>
-            </div>
-          </a>
-
           <dl className="mt-10 border-t border-[#D9D0BE]">
             {infoRows.map((row) => (
               <InfoRow key={row.label} label={row.label}>
@@ -171,8 +115,7 @@ export function HackathonApplicationShell({
             Geleceği kodlamaya hazır mısın?
           </h3>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-dim sm:text-base">
-            Formu doldur, başvurun jüri tarafından değerlendirilsin. Etkinlik İstinye
-            Üniversitesi kampüsünde <span className="font-semibold text-white">yüz yüze</span> yapılacak; online katılım yoktur.
+            Formu doldur, başvurun jüri tarafından değerlendirilsin.
           </p>
 
           <div className="mt-8">{children}</div>
