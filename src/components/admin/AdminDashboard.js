@@ -19,6 +19,15 @@ const teammatesAppliedLabels = {
   waiting: 'Bekleniyor'
 };
 
+const sourceLabels = {
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  club: 'Üniversite Kulübü',
+  whatsapp: 'WhatsApp Grupları',
+  friend: 'Arkadaş Tavsiyesi',
+  other: 'Diğer'
+};
+
 function formatDate(value) {
   if (!value) return '-';
   return new Date(value).toLocaleString('tr-TR', {
@@ -158,7 +167,7 @@ export function AdminDashboard({ submissions: initialSubmissions }) {
                   <td className="px-4 py-4">
                     <div className="text-white">{submission.email}</div>
                     <div className="mt-1 text-ink-dim">{submission.phone}</div>
-                    <div className="mt-1 text-[10px] text-ink-mute uppercase tracking-wider">Kaynak: {submission.source || '-'}</div>
+                    <div className="mt-1 text-[10px] text-ink-mute uppercase tracking-wider">Kaynak: {sourceLabels[submission.source] || submission.source || '-'}</div>
                   </td>
                   <td className="px-4 py-4">
                     <div className="text-white">

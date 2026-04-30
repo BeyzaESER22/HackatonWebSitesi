@@ -16,6 +16,15 @@ const teammatesAppliedLabels = {
   waiting: 'Bekleniyor'
 };
 
+const sourceLabels = {
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  club: 'Üniversite Kulübü',
+  whatsapp: 'WhatsApp Grupları',
+  friend: 'Arkadaş Tavsiyesi',
+  other: 'Diğer'
+};
+
 export async function GET(request) {
   if (!isAdminRequestAuthenticated(request)) {
     return unauthorizedJson();
@@ -51,7 +60,7 @@ export async function GET(request) {
       teamStatusLabels[item.teamStatus] || item.teamStatus || '',
       item.teamSize || '',
       item.teammatesApplied ? (teammatesAppliedLabels[item.teammatesApplied] || item.teammatesApplied) : '',
-      item.source || '',
+      item.source ? (sourceLabels[item.source] || item.source) : '',
       item.projectIdea || '',
       item.status || 'pending',
       item.submittedAt || ''
