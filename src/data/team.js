@@ -40,7 +40,7 @@ export const team = [
     initials: 'AK',
     colorFrom: '#FBBC05',
     colorTo:   '#F29900',
-    photoUrl: null,
+    photoUrl: '/uploads/team/arda-kocadoru.jpg',
     bio: 'Proje koordinasyonu ve teknik süreçlerin yönetimi.',
     links: {}
   },
@@ -52,7 +52,7 @@ export const team = [
     initials: 'NY',
     colorFrom: '#34A853',
     colorTo:   '#188038',
-    photoUrl: null,
+    photoUrl: '/uploads/team/nilasu-yildiz.jpg',
     bio: 'Sosyal medya yönetimi ve dijital iletişim stratejisi.',
     links: {}
   },
@@ -64,7 +64,7 @@ export const team = [
     initials: 'BE',
     colorFrom: '#8B5CF6',
     colorTo:   '#6D28D9',
-    photoUrl: null,
+    photoUrl: '/uploads/team/beyza-eser.jpg',
     bio: 'Proje takımı koordinasyonu ve süreç yönetimi.',
     links: {}
   },
@@ -112,7 +112,7 @@ export const team = [
     initials: 'SR',
     colorFrom: '#7C4DFF',
     colorTo:   '#512DA8',
-    photoUrl: null,
+    photoUrl: '/uploads/team/soofia-rahbar.png',
     bio: 'Sosyal medya yönetimi ve görsel tasarım.',
     links: {}
   }
