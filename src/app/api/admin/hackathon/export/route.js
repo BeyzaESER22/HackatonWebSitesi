@@ -10,6 +10,12 @@ const teamStatusLabels = {
   individual: 'Bireysel katılacağım'
 };
 
+const teammatesAppliedLabels = {
+  yes: 'Hepsi başvurdu',
+  no: 'Henüz başvurmadılar',
+  waiting: 'Bekleniyor'
+};
+
 export async function GET(request) {
   if (!isAdminRequestAuthenticated(request)) {
     return unauthorizedJson();
@@ -26,6 +32,8 @@ export async function GET(request) {
       'Telefon',
       'Takim Durumu',
       'Takim Boyutu',
+      'Arkadaslar Basvurdu mu?',
+      'Bizi Nereden Duydu?',
       'Proje Fikri',
       'Durum',
       'Basvuru Tarihi'
@@ -42,6 +50,8 @@ export async function GET(request) {
       item.phone,
       teamStatusLabels[item.teamStatus] || item.teamStatus || '',
       item.teamSize || '',
+      item.teammatesApplied ? (teammatesAppliedLabels[item.teammatesApplied] || item.teammatesApplied) : '',
+      item.source || '',
       item.projectIdea || '',
       item.status || 'pending',
       item.submittedAt || ''

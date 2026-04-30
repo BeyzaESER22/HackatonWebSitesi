@@ -470,4 +470,59 @@ export async function writeStore(filename, items) {
   return KV_AVAILABLE ? kvWrite(filename, items) : fsWrite(filename, items);
 }
 
+export async function removeFromStore(filename, id, options = {}) {
+  if (KV_AVAILABLE) {
+    const kv = await getKv();
+    const listKey = fileToListKey(filename);
+    const itemKey = fileToItemKey(filename, id);
+    
+    // 1. Get all items to find the exact JSON string to remove from list
+    const listData = await kv.lrange(listKey, 0, -1);
+    const itemToRemove = listData.find(raw => {
+      const parsed = safeParseJson(raw);
+      return parsed && (parsed.id === id || parsed.clientSubmissionId === id);
+    });
+
+    if (itemToRemove) {
+      await kv.lrem(listKey, 0, itemToRemove);
+    }
+
+    // 2. Remove specific item key
+    await kv.del(itemKey);
+
+    // 3. Optional: Clear unique/dedupe constraints
+    if (options.uniqueKey) {
+      await kv.del(fileToUniqueKey(filename, options.uniqueKey));
+    }
+    if (options.dedupeKey) {
+      await kv.del(fileToDedupeKey(filename, options.dedupeKey));
+    }
+    
+    return true;
+  } else {
+    // Local FS: Read all, filter, and rewrite main file while clearing log
+    const items = await fsRead(filename);
+    const filtered = items.filter(item => item.id !== id && item.clientSubmissionId !== id);
+    
+    // Rewrite main file
+    await fsWrite(filename, filtered);
+    
+    // Clear the log file to avoid re-importing deleted items
+    const logFull = await fsEnsureLog(filename);
+    await fs.writeFile(logFull, '', 'utf8');
+
+    // Clear constraints
+    if (options.uniqueKey) {
+      const dir = await fsEnsureUniqueDir(filename);
+      await fs.unlink(path.join(dir, `${options.uniqueKey}.txt`)).catch(() => {});
+    }
+    if (options.dedupeKey) {
+      const dir = await fsEnsureDedupeDir(filename);
+      await fs.unlink(path.join(dir, `${options.dedupeKey}.txt`)).catch(() => {});
+    }
+
+    return true;
+  }
+}
+
 export const STORE_BACKEND = KV_AVAILABLE ? 'vercel-kv' : 'local-fs';

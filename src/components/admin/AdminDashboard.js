@@ -3,11 +3,20 @@
 import { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { Modal } from '@/components/ui/Modal';
+import { Input } from '@/components/ui/Input';
+import { useApp } from '@/context/AppContext';
 
 const teamStatusLabels = {
   has_team: 'Evet, takımım var',
   will_form: 'Hayır, takımım yok',
   individual: 'Bireysel katılacağım'
+};
+
+const teammatesAppliedLabels = {
+  yes: 'Hepsi başvurdu',
+  no: 'Henüz başvurmadılar',
+  waiting: 'Bekleniyor'
 };
 
 function formatDate(value) {
@@ -18,8 +27,12 @@ function formatDate(value) {
   });
 }
 
-export function AdminDashboard({ submissions }) {
+export function AdminDashboard({ submissions: initialSubmissions }) {
+  const [submissions, setSubmissions] = useState(initialSubmissions);
   const [busy, setBusy] = useState(false);
+  const [deleteModal, setDeleteModal] = useState({ open: false, item: null });
+  const [confirmText, setConfirmText] = useState('');
+  const { showToast } = useApp();
 
   const stats = useMemo(() => {
     const withTeams = submissions.filter((item) => item.teamStatus === 'has_team').length;
@@ -39,6 +52,49 @@ export function AdminDashboard({ submissions }) {
     }
   };
 
+  const openDeleteModal = (item) => {
+    setDeleteModal({ open: true, item });
+    setConfirmText('');
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal({ open: false, item: null });
+    setConfirmText('');
+  };
+
+  const handleDelete = async () => {
+    if (confirmText !== 'SİL') {
+      showToast({ type: 'error', title: 'Hata', message: 'Lütfen onaylamak için SİL yazın.' });
+      return;
+    }
+
+    setBusy(true);
+    try {
+      const res = await fetch('/api/admin/hackathon', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: deleteModal.item.id,
+          email: deleteModal.item.email,
+          clientSubmissionId: deleteModal.item.clientSubmissionId
+        })
+      });
+
+      if (res.ok) {
+        setSubmissions(prev => prev.filter(s => s.id !== deleteModal.item.id));
+        showToast({ title: 'Başarılı', message: 'Başvuru silindi.' });
+        closeDeleteModal();
+      } else {
+        const json = await res.json();
+        showToast({ type: 'error', title: 'Hata', message: json.message || 'Silme işlemi başarısız.' });
+      }
+    } catch (err) {
+      showToast({ type: 'error', title: 'Hata', message: 'Bir ağ hatası oluştu.' });
+    } finally {
+      setBusy(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -46,7 +102,7 @@ export function AdminDashboard({ submissions }) {
           <div className="text-xs uppercase tracking-[0.22em] text-ink-dim">Hackathon Admin</div>
           <h1 className="mt-2 font-display text-4xl font-bold text-white">Başvurular</h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-dim">
-            Başvurular KV/Redis üzerinde tutuluyor. Buradan güncel kayıtları görüntüleyebilir ve CSV olarak dışa aktarabilirsin.
+            Başvurular KV/Redis üzerinde tutuluyor. Buradan güncel kayıtları görüntüleyebilir, silebilir ve CSV olarak dışa aktarabilirsin.
           </p>
         </div>
 
@@ -78,29 +134,31 @@ export function AdminDashboard({ submissions }) {
                 <th className="px-4 py-3 font-medium">Başvuru</th>
                 <th className="px-4 py-3 font-medium">İletişim</th>
                 <th className="px-4 py-3 font-medium">Takım</th>
-                <th className="px-4 py-3 font-medium">Proje fikri</th>
+                <th className="px-4 py-3 font-medium">Detaylar</th>
                 <th className="px-4 py-3 font-medium">Tarih</th>
+                <th className="px-4 py-3 font-medium">İşlem</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/8">
               {submissions.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="px-4 py-8 text-center text-ink-dim">
+                  <td colSpan="6" className="px-4 py-8 text-center text-ink-dim">
                     Henüz kayıt bulunmuyor.
                   </td>
                 </tr>
               )}
 
               {submissions.map((submission) => (
-                <tr key={submission.id} className="align-top">
+                <tr key={submission.id} className="align-top hover:bg-white/[0.02] transition-colors">
                   <td className="px-4 py-4">
                     <div className="font-semibold text-white">{submission.fullName}</div>
-                    <div className="mt-1 text-ink-dim">{submission.university}</div>
-                    <div className="text-ink-dim">{submission.department}</div>
+                    <div className="mt-1 text-ink-dim text-xs">{submission.university}</div>
+                    <div className="text-ink-dim text-xs">{submission.department}</div>
                   </td>
                   <td className="px-4 py-4">
                     <div className="text-white">{submission.email}</div>
                     <div className="mt-1 text-ink-dim">{submission.phone}</div>
+                    <div className="mt-1 text-[10px] text-ink-mute uppercase tracking-wider">Kaynak: {submission.source || '-'}</div>
                   </td>
                   <td className="px-4 py-4">
                     <div className="text-white">
@@ -110,18 +168,34 @@ export function AdminDashboard({ submissions }) {
                       {submission.teamStatus === 'has_team' && submission.teamSize
                         ? `${submission.teamSize} kişi`
                         : submission.teamStatus === 'will_form'
-                          ? 'Etkinlik günü eşleştirilecek'
+                          ? 'Eşleştirilecek'
                           : '-'}
                     </div>
+                    {submission.teammatesApplied && (
+                      <div className="mt-1 text-[10px] text-primary">
+                        {teammatesAppliedLabels[submission.teammatesApplied]}
+                      </div>
+                    )}
                   </td>
-                  <td className="max-w-sm px-4 py-4 text-ink-dim">
+                  <td className="max-w-xs px-4 py-4 text-ink-dim text-xs leading-relaxed">
                     {submission.projectIdea?.trim() || '-'}
                   </td>
-                  <td className="px-4 py-4 text-ink-dim">
+                  <td className="px-4 py-4 text-ink-dim text-xs whitespace-nowrap">
                     <div>{formatDate(submission.submittedAt)}</div>
-                    <div className="mt-1 text-xs uppercase tracking-[0.16em] text-ink-mute">
+                    <div className="mt-1 uppercase tracking-[0.16em] text-ink-mute">
                       {submission.status || 'pending'}
                     </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <button
+                      onClick={() => openDeleteModal(submission)}
+                      className="p-2 text-ink-dim hover:text-red-400 transition-colors rounded-lg hover:bg-red-400/10"
+                      title="Sil"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" />
+                      </svg>
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -129,6 +203,36 @@ export function AdminDashboard({ submissions }) {
           </table>
         </div>
       </div>
+
+      <Modal
+        open={deleteModal.open}
+        onClose={closeDeleteModal}
+        title="Başvuruyu Sil"
+        subtitle={`${deleteModal.item?.fullName} isimli katılımcının başvurusunu silmek üzeresiniz. Bu işlem geri alınamaz.`}
+      >
+        <div className="space-y-4">
+          <p className="text-sm text-ink-dim">
+            Silme işlemini onaylamak için lütfen aşağıya büyük harflerle <span className="font-bold text-white">SİL</span> yazın.
+          </p>
+          <Input
+            value={confirmText}
+            onChange={(e) => setConfirmText(e.target.value)}
+            placeholder="SİL"
+            className="bg-white/5 border-white/10 text-center text-lg font-bold tracking-widest"
+          />
+          <div className="flex gap-3 pt-2">
+            <Button variant="ghost" className="flex-1" onClick={closeDeleteModal} disabled={busy}>İptal</Button>
+            <Button 
+              variant="danger" 
+              className="flex-1 bg-red-500 hover:bg-red-600 border-none" 
+              onClick={handleDelete} 
+              disabled={busy || confirmText !== 'SİL'}
+            >
+              {busy ? 'Siliniyor...' : 'Evet, Kalıcı Olarak Sil'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
 
       <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
         <Card className="rounded-[1.75rem] border border-white/8 bg-white/[0.03] p-6">
@@ -138,25 +242,13 @@ export function AdminDashboard({ submissions }) {
             <div>
               <div className="font-semibold text-white">Başvuru geldi mi nasıl kontrol edilir?</div>
               <p className="mt-1">
-                Yeni başvurular bu tabloda en güncelden eskiye sıralanır. Form kaydı KV ve backup katmanları birlikte okunarak listelenir; backup-only kayıtlar da burada görünür.
+                Yeni başvurular bu tabloda en güncelden eskiye sıralanır. Form kaydı KV ve backup katmanları birlikte okunarak listelenir.
               </p>
             </div>
             <div>
-              <div className="font-semibold text-white">CSV nasıl alınır?</div>
+              <div className="font-semibold text-white">Silme işlemi güvenli mi?</div>
               <p className="mt-1">
-                Yukarıdaki <span className="font-semibold text-white">CSV İndir</span> butonu tek tıkla tüm başvuruları dışa aktarır. Etkinlik öncesi ve yoğun başvuru saatlerinde yerel bir kopya indirip saklaman iyi olur.
-              </p>
-            </div>
-            <div>
-              <div className="font-semibold text-white">Backup&apos;lar nereden kontrol edilir?</div>
-              <p className="mt-1">
-                Production ortamında fallback kayıtları Vercel Blob içinde <span className="font-mono text-white">structured-backups/hackathon-applications/</span> klasörüne yazılır. Yerelde aynı kayıtlar <span className="font-mono text-white">data/_structured_backups/hackathon-applications/</span> altında tutulur.
-              </p>
-            </div>
-            <div>
-              <div className="font-semibold text-white">Acil durumda ne yapılır?</div>
-              <p className="mt-1">
-                Önce bu panelden CSV indir, sonra Vercel Logs&apos;ta <span className="font-mono text-white">/api/hackathon</span> isteklerini kontrol et. Eğer KV tarafında sorun varsa Blob backup klasörünü açıp en yeni kayıtları doğrula; panel normale dönene kadar CSV kopyasını operasyon kaydı olarak kullan.
+                Silme işlemi KV üzerindeki kaydı ve benzersizlik kısıtlamalarını (email) temizler. Böylece hatalı başvurular silindiğinde kullanıcı aynı email ile tekrar başvurabilir.
               </p>
             </div>
           </div>
@@ -166,21 +258,10 @@ export function AdminDashboard({ submissions }) {
           <div className="text-xs uppercase tracking-[0.22em] text-ink-dim">Hızlı Notlar</div>
           <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-dim">
             <p>
-              Rate limit, duplicate koruması ve backup fallback aktif. Aynı başvurunun tekrar gelmesi mevcut kaydı ezmez.
+              Fiziksel katılım uyarısı formun sol tarafında katılımcılara gösteriliyor.
             </p>
             <p>
-              Form gönderimi başarısız olsa bile katılımcının tarayıcısında taslak korunur; yeniden deneyebilir.
-            </p>
-            <p>
-              Detaylı teknik akış için{' '}
-              <a
-                href="/admin/operations"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-white underline decoration-white/30 underline-offset-4"
-              >
-                operasyon notlarını aç
-              </a>.
+              "SİL" doğrulaması kazara silmeleri önlemek için eklenmiştir.
             </p>
           </div>
         </Card>

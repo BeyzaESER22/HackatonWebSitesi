@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { isAdminRequestAuthenticated, unauthorizedJson } from '@/lib/admin-auth';
-import { readStore } from '@/lib/store';
+import { readStore, removeFromStore } from '@/lib/store';
+import { SITE } from '@/lib/constants';
 
 export const runtime = 'nodejs';
 
@@ -15,4 +16,27 @@ export async function GET(request) {
   );
 
   return NextResponse.json({ ok: true, submissions });
+}
+
+export async function DELETE(request) {
+  if (!isAdminRequestAuthenticated(request)) {
+    return unauthorizedJson();
+  }
+
+  try {
+    const { id, email, clientSubmissionId } = await request.json();
+    if (!id) return NextResponse.json({ message: 'ID gerekli.' }, { status: 400 });
+
+    const eventId = String(SITE.eventDateISO || SITE.eventDates || 'hackfest26');
+    const uniqueKey = email ? `${eventId}:${email.trim().toLowerCase()}` : null;
+
+    await removeFromStore('hackathon-applications.json', id, {
+      uniqueKey,
+      dedupeKey: clientSubmissionId
+    });
+
+    return NextResponse.json({ ok: true, message: 'Başvuru silindi.' });
+  } catch (err) {
+    return NextResponse.json({ message: 'Silme işlemi başarısız.', error: err.message }, { status: 500 });
+  }
 }

@@ -11,6 +11,8 @@ export const HackathonApplicationSchema = z.object({
     errorMap: () => ({ message: 'Takım durumunu seçiniz.' })
   }),
   teamSize: z.enum(['2', '3', '4', '5']).optional().or(z.literal('')),
+  teammatesApplied: z.enum(['yes', 'no', 'waiting']).optional().or(z.literal('')),
+  source: z.string().min(2, 'Lütfen bizi nereden duyduğunuzu belirtin.').max(100),
   projectIdea: z.string().max(800).optional().or(z.literal(''))
 }).superRefine((data, ctx) => {
   if (data.teamStatus === 'has_team' && !data.teamSize) {
@@ -18,6 +20,13 @@ export const HackathonApplicationSchema = z.object({
       code: z.ZodIssueCode.custom,
       path: ['teamSize'],
       message: 'Takım kişi sayısını seçiniz.'
+    });
+  }
+  if (data.teamStatus === 'has_team' && !data.teammatesApplied) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['teammatesApplied'],
+      message: 'Takım arkadaşlarınızın başvuru durumunu seçiniz.'
     });
   }
 });
