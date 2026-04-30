@@ -24,10 +24,6 @@ export const faq = [
     a: 'Evet, kendi laptop\'unu, şarj aleti ve gerekli donanımını getirmen gerekiyor. Mekanda yüksek hızlı internet, yeterli priz ve dinlenme alanları sağlanacak.'
   },
   {
-    q: 'Konaklama imkanı var mı?',
-    a: 'Etkinlik 2 gün boyunca açık formatta gerçekleşir; mekan tüm gece boyunca açıktır. Kampüs içi dinlenme alanları mevcuttur. Şehir dışından gelen katılımcılar için anlaşmalı otel listesi paylaşılacaktır.'
-  },
-  {
     q: 'Projemi nereye yükleyeceğim?',
     a: 'Etkinliğin son saatinde Demo Day öncesinde /projects/submit sayfasından ekip bilgileri, repo, demo linki ve ekran görüntüsünüzle birlikte gönderebilirsiniz. Onaylanan projeler galeri sayfasında sergilenir.'
   }
