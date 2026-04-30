@@ -28,7 +28,7 @@ export const team = [
     initials: 'SÇ',
     colorFrom: '#EA4335',
     colorTo:   '#C5221F',
-    photoUrl: null,
+    photoUrl: '/uploads/team/semih-celenk.jpg',
     bio: 'Etkinlik ekibi koordinasyonu ve operasyon yönetimi.',
     links: {}
   },
@@ -76,7 +76,7 @@ export const team = [
     initials: 'MS',
     colorFrom: '#FF6D01',
     colorTo:   '#E65100',
-    photoUrl: null,
+    photoUrl: '/uploads/team/mehmet-emin-soyal.jpg',
     bio: 'Sponsorluk ilişkileri ve iş ortaklıkları yönetimi.',
     links: {}
   },
@@ -88,10 +88,10 @@ export const team = [
     initials: 'NH',
     colorFrom: '#00BCD4',
     colorTo:   '#00838F',
-    photoUrl: null,
+    photoUrl: '/uploads/team/nur-huner.jpg',
     bio: 'Etkinlik koordinasyonu ve organizasyon planlaması.',
     links: {}
-  }
+  },
   {
     id: 'yagmur-sayar',
     order: 8,
@@ -100,7 +100,7 @@ export const team = [
     initials: 'YS',
     colorFrom: '#F06292',
     colorTo:   '#C2185B',
-    photoUrl: null,
+    photoUrl: '/uploads/team/yagmur-sayar.jpg',
     bio: 'Etkinlik koordinasyonu ve organizasyon planlaması.',
     links: {}
   },
