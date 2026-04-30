@@ -24,8 +24,7 @@ body {
 
 .font-display { letter-spacing: -0.02em; }
 
-
-/* globals.css dosyasının sonuna eklenebilir */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
