@@ -40,7 +40,7 @@ export const team = [
     initials: 'AK',
     colorFrom: '#FBBC05',
     colorTo:   '#F29900',
-    photoUrl: '/uploads/team/arda-kocadoru.jpg',
+    photoUrl: null,
     bio: 'Proje koordinasyonu ve teknik süreçlerin yönetimi.',
     links: {}
   },
@@ -90,6 +90,30 @@ export const team = [
     colorTo:   '#00838F',
     photoUrl: null,
     bio: 'Etkinlik koordinasyonu ve organizasyon planlaması.',
+    links: {}
+  }
+  {
+    id: 'yagmur-sayar',
+    order: 8,
+    name: 'Yağmur Sayar',
+    role: 'Etkinlik Koordinatörü',
+    initials: 'YS',
+    colorFrom: '#F06292',
+    colorTo:   '#C2185B',
+    photoUrl: null,
+    bio: 'Etkinlik koordinasyonu ve organizasyon planlaması.',
+    links: {}
+  },
+  {
+    id: 'soofia-rahbar',
+    order: 9,
+    name: 'Soofia Rahbar',
+    role: 'Sosyal Medya ve Tasarım',
+    initials: 'SR',
+    colorFrom: '#7C4DFF',
+    colorTo:   '#512DA8',
+    photoUrl: null,
+    bio: 'Sosyal medya yönetimi ve görsel tasarım.',
     links: {}
   }
 ];
