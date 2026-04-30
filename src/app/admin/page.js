@@ -19,18 +19,20 @@ export default async function AdminPage() {
   const isAuthenticated = isAdminCookieStoreAuthenticated(cookieStore);
 
   let submissions = [];
+  let deletedCount = 0;
   if (isAuthenticated) {
-    submissions = await readStore('hackathon-applications.json');
-    submissions = [...submissions].sort(
-      (a, b) => new Date(b.submittedAt || 0) - new Date(a.submittedAt || 0)
-    );
+    const all = await readStore('hackathon-applications.json');
+    deletedCount = all.filter((item) => item && item.deletedAt).length;
+    submissions = all
+      .filter((item) => item && !item.deletedAt)
+      .sort((a, b) => new Date(b.submittedAt || 0) - new Date(a.submittedAt || 0));
   }
 
   return (
     <section className="pb-24 pt-32 lg:pb-32 lg:pt-36">
       <Container>
         {isAuthenticated ? (
-          <AdminDashboard submissions={submissions} />
+          <AdminDashboard submissions={submissions} deletedCount={deletedCount} />
         ) : (
           <AdminLoginCard isConfigured={isAdminAuthConfigured()} />
         )}

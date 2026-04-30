@@ -10,6 +10,25 @@ const teamStatusLabels = {
   individual: 'Bireysel katılacağım'
 };
 
+const referralLabels = {
+  instagram: 'Instagram',
+  whatsapp: 'WhatsApp',
+  twitter: 'X (Twitter)',
+  linkedin: 'LinkedIn',
+  friend: 'Arkadaş',
+  university: 'Üniversite / GDG',
+  email: 'E-posta',
+  poster: 'Afiş / Stand',
+  other: 'Diğer'
+};
+
+const teammatesAppliedLabels = {
+  all: 'Tümü başvurdu',
+  some: 'Bir kısmı başvurdu',
+  none: 'Hiçbiri başvurmadı',
+  unsure: 'Emin değil'
+};
+
 function formatDate(value) {
   if (!value) return '-';
   return new Date(value).toLocaleString('tr-TR', {
@@ -18,8 +37,9 @@ function formatDate(value) {
   });
 }
 
-export function AdminDashboard({ submissions }) {
+export function AdminDashboard({ submissions, deletedCount = 0 }) {
   const [busy, setBusy] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   const stats = useMemo(() => {
     const withTeams = submissions.filter((item) => item.teamStatus === 'has_team').length;
@@ -63,11 +83,12 @@ export function AdminDashboard({ submissions }) {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-4 lg:grid-cols-5">
         <StatCard label="Toplam Başvuru" value={String(submissions.length)} />
         <StatCard label="Takımı Olan" value={String(stats.withTeams)} />
         <StatCard label="Takımı Olmayan" value={String(stats.teamless)} />
         <StatCard label="Bireysel" value={String(stats.individual)} />
+        <StatCard label="Arşivlenen" value={String(deletedCount)} />
       </div>
 
       <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]">
@@ -80,12 +101,13 @@ export function AdminDashboard({ submissions }) {
                 <th className="px-4 py-3 font-medium">Takım</th>
                 <th className="px-4 py-3 font-medium">Proje fikri</th>
                 <th className="px-4 py-3 font-medium">Tarih</th>
+                <th className="px-4 py-3 font-medium text-right">İşlem</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/8">
               {submissions.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="px-4 py-8 text-center text-ink-dim">
+                  <td colSpan="6" className="px-4 py-8 text-center text-ink-dim">
                     Henüz kayıt bulunmuyor.
                   </td>
                 </tr>
@@ -113,6 +135,13 @@ export function AdminDashboard({ submissions }) {
                           ? 'Etkinlik günü eşleştirilecek'
                           : '-'}
                     </div>
+                    {submission.teamStatus === 'has_team' && submission.teammatesApplied && (
+                      <div className="mt-1 text-xs text-ink-mute">
+                        Arkadaşları:{' '}
+                        {teammatesAppliedLabels[submission.teammatesApplied] ||
+                          submission.teammatesApplied}
+                      </div>
+                    )}
                   </td>
                   <td className="max-w-sm px-4 py-4 text-ink-dim">
                     {submission.projectIdea?.trim() || '-'}
@@ -122,6 +151,21 @@ export function AdminDashboard({ submissions }) {
                     <div className="mt-1 text-xs uppercase tracking-[0.16em] text-ink-mute">
                       {submission.status || 'pending'}
                     </div>
+                    {submission.referralSource && (
+                      <div className="mt-1 text-xs text-ink-mute">
+                        Kaynak:{' '}
+                        {referralLabels[submission.referralSource] || submission.referralSource}
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-4 py-4 text-right">
+                    <button
+                      type="button"
+                      onClick={() => setDeleteTarget(submission)}
+                      className="inline-flex items-center justify-center rounded-full border border-google-red/40 bg-google-red/10 px-4 py-2 text-xs font-semibold text-[#FFB1B1] transition hover:border-google-red/60 hover:bg-google-red/20 hover:text-white"
+                    >
+                      Sil
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -172,6 +216,9 @@ export function AdminDashboard({ submissions }) {
               Form gönderimi başarısız olsa bile katılımcının tarayıcısında taslak korunur; yeniden deneyebilir.
             </p>
             <p>
+              <span className="font-semibold text-white">Silme:</span> 2 aşamalı doğrulama gerekir. Şifre yeniden istenir ve başvuranın e-posta adresini eksiksiz yazman gerekir. İşlem soft-delete&apos;tir; kayıt panelden gizlenir, dedupe/unique key&apos;ler korunur (aynı kişi yeniden başvuramaz).
+            </p>
+            <p>
               Detaylı teknik akış için{' '}
               <a
                 href="/admin/operations"
@@ -184,6 +231,167 @@ export function AdminDashboard({ submissions }) {
             </p>
           </div>
         </Card>
+      </div>
+
+      {deleteTarget && (
+        <DeleteConfirmModal
+          submission={deleteTarget}
+          onClose={() => setDeleteTarget(null)}
+          onSuccess={() => {
+            setDeleteTarget(null);
+            window.location.reload();
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+function DeleteConfirmModal({ submission, onClose, onSuccess }) {
+  const [password, setPassword] = useState('');
+  const [emailConfirmation, setEmailConfirmation] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+
+  const expectedEmail = (submission.email || '').trim().toLowerCase();
+  const typedEmail = emailConfirmation.trim().toLowerCase();
+  const emailMatches = expectedEmail.length > 0 && typedEmail === expectedEmail;
+  const canSubmit = password.length > 0 && emailMatches && !busy;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!canSubmit) return;
+
+    setBusy(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/admin/hackathon/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: submission.id,
+          password,
+          emailConfirmation: typedEmail
+        })
+      });
+
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(json.message || 'Silme başarısız oldu.');
+        return;
+      }
+
+      onSuccess();
+    } catch {
+      setError('Sunucuya ulaşılamadı.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur"
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !busy) onClose();
+      }}
+    >
+      <div className="w-full max-w-lg rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,#101736_0%,#0A102A_100%)] p-7 shadow-soft">
+        <div className="mb-2 text-xs uppercase tracking-[0.22em] text-google-red">
+          Geri alınamaz işlem
+        </div>
+        <h2 className="font-display text-2xl font-bold text-white">Başvuruyu sil</h2>
+        <p className="mt-3 text-sm leading-relaxed text-ink-dim">
+          <span className="font-semibold text-white">{submission.fullName}</span> adlı katılımcının
+          başvurusunu silmek üzeresin. Bu işlem 2 aşamalı doğrulama gerektirir: önce admin
+          şifresini tekrar gir, sonra başvuranın e-posta adresini eksiksiz yaz.
+        </p>
+
+        <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm">
+          <div className="text-ink-dim">Başvuran e-postası:</div>
+          <div className="mt-1 break-all font-mono text-white">{submission.email}</div>
+        </div>
+
+        <form className="mt-5 space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label
+              htmlFor="delete-password"
+              className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-ink-dim"
+            >
+              1. Admin şifresi
+            </label>
+            <input
+              id="delete-password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Admin şifreni tekrar gir"
+              className="w-full rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 text-white outline-none transition focus:border-[#7C8BFF] focus:bg-white/[0.08]"
+              disabled={busy}
+              autoComplete="current-password"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="delete-email"
+              className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-ink-dim"
+            >
+              2. Başvuranın e-postasını yaz
+            </label>
+            <input
+              id="delete-email"
+              type="text"
+              value={emailConfirmation}
+              onChange={(e) => setEmailConfirmation(e.target.value)}
+              placeholder={submission.email}
+              className={`w-full rounded-2xl border bg-white/[0.05] px-4 py-3 font-mono text-white outline-none transition ${
+                emailConfirmation.length === 0
+                  ? 'border-white/10 focus:border-[#7C8BFF] focus:bg-white/[0.08]'
+                  : emailMatches
+                    ? 'border-google-green/50 focus:border-google-green'
+                    : 'border-google-red/50 focus:border-google-red'
+              }`}
+              disabled={busy}
+              autoComplete="off"
+              spellCheck="false"
+              required
+            />
+            {emailConfirmation.length > 0 && !emailMatches && (
+              <p className="mt-2 text-xs text-google-red">
+                E-posta eşleşmiyor. Aynen yazman gerekiyor.
+              </p>
+            )}
+          </div>
+
+          {error && (
+            <div className="rounded-2xl border border-google-red/40 bg-google-red/10 px-4 py-3 text-sm text-[#FFB1B1]">
+              {error}
+            </div>
+          )}
+
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:justify-end">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onClose}
+              disabled={busy}
+            >
+              İptal
+            </Button>
+            <button
+              type="submit"
+              disabled={!canSubmit}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-google-red/50 bg-google-red/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-google-red/30 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {busy ? 'Siliniyor...' : 'Başvuruyu sil'}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

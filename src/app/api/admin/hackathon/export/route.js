@@ -10,12 +10,32 @@ const teamStatusLabels = {
   individual: 'Bireysel katılacağım'
 };
 
+const referralLabels = {
+  instagram: 'Instagram',
+  whatsapp: 'WhatsApp',
+  twitter: 'X (Twitter)',
+  linkedin: 'LinkedIn',
+  friend: 'Arkadas',
+  university: 'Universite / GDG',
+  email: 'E-posta',
+  poster: 'Afis / Stand',
+  other: 'Diger'
+};
+
+const teammatesAppliedLabels = {
+  all: 'Tumu basvurdu',
+  some: 'Bir kismi basvurdu',
+  none: 'Hicbiri basvurmadi',
+  unsure: 'Emin degil'
+};
+
 export async function GET(request) {
   if (!isAdminRequestAuthenticated(request)) {
     return unauthorizedJson();
   }
 
-  const items = await readStore('hackathon-applications.json');
+  const allItems = await readStore('hackathon-applications.json');
+  const items = allItems.filter((item) => item && !item.deletedAt);
   const rows = [
     [
       'ID',
@@ -26,7 +46,9 @@ export async function GET(request) {
       'Telefon',
       'Takim Durumu',
       'Takim Boyutu',
+      'Takim Arkadaslari Basvurdu mu',
       'Proje Fikri',
+      'Bizi Nereden Duydu',
       'Durum',
       'Basvuru Tarihi'
     ]
@@ -42,7 +64,9 @@ export async function GET(request) {
       item.phone,
       teamStatusLabels[item.teamStatus] || item.teamStatus || '',
       item.teamSize || '',
+      teammatesAppliedLabels[item.teammatesApplied] || item.teammatesApplied || '',
       item.projectIdea || '',
+      referralLabels[item.referralSource] || item.referralSource || '',
       item.status || 'pending',
       item.submittedAt || ''
     ]);

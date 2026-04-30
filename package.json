@@ -11,11 +11,11 @@
     "data:init": "node -e \"require('fs').mkdirSync('data',{recursive:true});['hackathon-applications.json','attendees.json','projects.json'].forEach(f=>{const p='data/'+f;if(!require('fs').existsSync(p))require('fs').writeFileSync(p,'[]')});console.log('Local dev data files initialized.')\""
   },
   "dependencies": {
-    "@vercel/blob": "^0.23.4",
+    "@vercel/blob": "^2.3.3",
     "@vercel/kv": "^2.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.0",
-    "next": "14.2.5",
+    "next": "^14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "zod": "^3.23.8"
@@ -23,7 +23,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.5",
+    "eslint-config-next": "^16.2.4",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.4"
   }
