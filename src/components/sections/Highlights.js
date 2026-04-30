@@ -19,7 +19,7 @@ export function Highlights() {
           <SectionTitle
             eyebrow="Etkinlikte Seni Bekleyenler"
             title="İki gün, sınırsız kod,"
-            gradient="sonsuz olasılık."
+            gradient="gerçek çözümler."
             className="mb-16"
           />
         </RevealOnScroll>
