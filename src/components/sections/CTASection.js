@@ -36,7 +36,7 @@ export function CTASection() {
             />
 
             <div className="relative">
-              <Badge dotColor={COLORS.green} className="mb-6">Başvurular Açık · Kontenjan Sınırlı</Badge>
+              <Badge dotColor={COLORS.green} className="mb-6">Başvurular Açık</Badge>
 
               <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-10 leading-[1] g-word">
                 <span className="b">G</span><span className="r">e</span><span className="y">l</span><span className="g">e</span>
@@ -45,8 +45,7 @@ export function CTASection() {
               </h2>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button onClick={() => openModal('hack')} iconRight={<ArrowRightIcon />}>Hackathona Katıl</Button>
-                <Button variant="ghost" onClick={() => openModal('speaker')}>Konuşmacı Etkinliği Kaydı</Button>
+                <Button onClick={() => openModal('hack')} iconRight={<ArrowRightIcon />}>Hackathon'a Katıl</Button>
               </div>
             </div>
           </div>
