@@ -78,7 +78,7 @@ export function Hero() {
         <RevealOnScroll delay={0.32}>
           <div className="max-w-3xl mx-auto mb-16 text-center">
             <p className="text-base md:text-lg text-white/60 leading-relaxed font-medium">
-              16-17 Mayıs 2026 İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, workshop, konuşmacı etkinlikleri, standlar büyük ödüller ve çekilişler seni bekliyor.
+              16-17 Mayıs 2026'da İstinye Üniversitesi kampüsünde; 2 gün boyunca sürecek hackathon, workshoplar, ilham verici konuşmalar, renkli standlar, büyük ödüller ve sürpriz çekilişler seni bekliyor!
             </p>
           </div>
         </RevealOnScroll>
