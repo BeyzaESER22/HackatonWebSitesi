@@ -136,7 +136,7 @@ export default function HackathonInfoPage() {
           <RevealOnScroll>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
               <p className="text-ink-dim max-w-2xl leading-relaxed">
-                Tüm katılımcıların okuması ve kabul etmesi gereken kurallar. Aşağıdaki kategorilerin her birine tıklayarak detayları görebilir, Yarışma/Organizasyon kurallarının tamamı resmi PDF dokümanında yer almaktadır. Başvuru formunu ileten her katılımcı, bu dokümandaki şartları okumuş ve onaylamış kabul edilir. Kuralların takibi ve uygulanması katılımcının yükümlülüğündedir.
+                Tüm katılımcıların okuması ve kabul etmesi gereken kurallar. Aşağıdaki kategorilerin her birine tıklayarak detayları görebilir, Yarışma kurallarının tamamı resmi PDF dokümanında yer almaktadır. Başvuru formunu ileten her katılımcı, bu dokümandaki şartları okumuş ve onaylamış kabul edilir. Kuralların takibi ve uygulanması katılımcının yükümlülüğündedir.
               </p>
               <Button
                 as="a"
