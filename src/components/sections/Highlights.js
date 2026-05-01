@@ -105,25 +105,34 @@ export function Highlights() {
 
               {/* Sponsorlar Section - Otomatik Güncellenir */}
               <div className="pt-12 border-t border-white/10">
-                <div className="text-center mb-10">
+                <div className="text-center mb-12">
                   <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-400 mb-2">Gücümüzü Onlardan Alıyoruz</div>
                   <h4 className="font-display text-2xl font-bold text-white">Sponsorlarımız</h4>
                 </div>
 
-                <div className="space-y-8">
+                <div className="space-y-16">
                   {/* Main Sponsors */}
                   {mainSponsors.length > 0 && (
-                    <div className="flex flex-wrap justify-center gap-6">
-                      {mainSponsors.map(s => (
+                    <div className="flex flex-wrap justify-center gap-12 md:gap-20">
+                      {mainSponsors.map((s, idx) => (
                         <a 
                           key={s.id} 
                           href={s.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="group relative bg-white rounded-2xl p-6 md:p-8 flex items-center justify-center w-full max-w-[320px] h-32 md:h-40 transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                          className="group relative flex flex-col items-center justify-center transition-all animate-float-slow"
+                          style={{ animationDelay: `${idx * 0.5}s` }}
                         >
-                          <img src={s.logoUrl} alt={s.name} className="max-w-full max-h-full object-contain" />
-                          <div className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-emerald-500 text-[8px] font-bold text-white uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ana Sponsor</div>
+                          <div className="relative w-48 md:w-64 h-24 md:h-32 flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                             <img 
+                               src={s.logoUrl} 
+                               alt={s.name} 
+                               className="max-w-full max-h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" 
+                             />
+                          </div>
+                          <div className="mt-4 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[8px] font-bold text-emerald-400 uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
+                            Ana Sponsor
+                          </div>
                         </a>
                       ))}
                     </div>
@@ -131,16 +140,23 @@ export function Highlights() {
 
                   {/* Support Sponsors */}
                   {supportSponsors.length > 0 && (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                      {supportSponsors.map(s => (
+                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                      {supportSponsors.map((s, idx) => (
                         <a 
                           key={s.id} 
                           href={s.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="bg-white/95 rounded-xl p-4 flex items-center justify-center h-20 md:h-24 transition-all hover:bg-white hover:scale-105"
+                          className="group flex items-center justify-center transition-all animate-float"
+                          style={{ animationDelay: `${idx * 0.3}s` }}
                         >
-                          <img src={s.logoUrl} alt={s.name} className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all" />
+                          <div className="w-24 md:w-32 h-12 md:h-16 flex items-center justify-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-2">
+                            <img 
+                              src={s.logoUrl} 
+                              alt={s.name} 
+                              className="max-w-full max-h-full object-contain opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500" 
+                            />
+                          </div>
                         </a>
                       ))}
                     </div>
@@ -151,6 +167,23 @@ export function Highlights() {
           </div>
         </RevealOnScroll>
       </Container>
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotate(0); }
+          50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0) rotate(0); }
+          50% { transform: translateY(-12px) rotate(-1deg); }
+        }
+        .animate-float {
+          animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-slow {
+          animation: float-slow 6s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 }
