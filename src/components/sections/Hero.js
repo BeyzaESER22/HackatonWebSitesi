@@ -8,6 +8,7 @@ import { ParticlesBg } from '@/components/effects/ParticlesBg';
 import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
 import { COLORS, SITE } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
+import { sponsors } from '@/data/sponsors';
 import Link from 'next/link';
 
 export function Hero() {
@@ -73,22 +74,11 @@ export function Hero() {
           </div>
         </RevealOnScroll>
 
-        {/* === KODLA · YARAT · DENEYİMLE === */}
-        <RevealOnScroll delay={0.25}>
-          <div className="flex items-center justify-center gap-4 md:gap-10 mb-14 text-[10px] md:text-xs tracking-[0.6em] uppercase text-white/50 font-black">
-            <span className="hover:text-emerald-400 transition-colors cursor-default">Kodla</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
-            <span className="hover:text-blue-400 transition-colors cursor-default">Yarat</span>
-            <div className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-ping" style={{ animationDelay: '0.5s' }} />
-            <span className="hover:text-purple-400 transition-colors cursor-default">Deneyimle</span>
-          </div>
-        </RevealOnScroll>
-
         {/* === Tagline === */}
         <RevealOnScroll delay={0.32}>
-          <div className="max-w-2xl mx-auto mb-16 text-center">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
             <p className="text-base md:text-lg text-white/60 leading-relaxed font-medium">
-              16-17 Mayıs 2026 İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, ilham veren konuşmalar ve büyük ödüller seni bekliyor.
+              16-17 Mayıs 2026 İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, workshop, konuşmacı etkinlikleri, standlar büyük ödüller ve çekilişler seni bekliyor.
             </p>
           </div>
         </RevealOnScroll>
@@ -108,10 +98,34 @@ export function Hero() {
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
           <div className="max-w-4xl mx-auto">
-             <div className="text-[10px] text-center font-bold uppercase tracking-[0.5em] text-emerald-400/60 mb-8">Maratonun Başlamasına</div>
+             <div className="text-[10px] text-center font-bold uppercase tracking-[0.5em] text-emerald-400/60 mb-8 font-display">MARATONUN BAŞLAMASINA</div>
              <Countdown />
           </div>
         </RevealOnScroll>
+
+        {/* Sponsor Marquee in Hero */}
+        <div className="mt-24 relative overflow-hidden h-12 flex items-center">
+          <div className="flex items-center gap-12 animate-marquee whitespace-nowrap">
+            {[...sponsors, ...sponsors].map((s, i) => (
+              <img 
+                key={`${s.id}-${i}`} 
+                src={s.logoUrl} 
+                alt={s.name} 
+                className="h-8 md:h-10 w-auto object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" 
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="flex justify-center mt-12">
+          <a href="#highlights" className="flex flex-col items-center gap-3 group">
+            <span className="text-ink-dim text-[10px] font-bold uppercase tracking-[0.3em] group-hover:text-white transition-colors">Aşağı kaydır</span>
+            <div className="relative w-[1px] h-12 bg-white/10 overflow-hidden">
+               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-emerald-500 to-transparent animate-scroll-line" />
+            </div>
+          </a>
+        </div>
       </Container>
 
       {/* Wave CSS & New Animations */}
@@ -161,6 +175,24 @@ export function Hero() {
         @keyframes wave-anim {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
+        }
+
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+        }
+        
+        @keyframes scroll-line {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100%); }
+        }
+
+        .animate-scroll-line {
+          animation: scroll-line 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
         }
 
         .hero-rainbow-static {

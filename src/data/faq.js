@@ -11,7 +11,7 @@ export const faq = [
 
   {
     q: 'Projeler nasıl değerlendirilecek?',
-    a: 'Projeler; problem tanımı (25p), teknik uygulama kalitesi (30p), çözüm özgünlüğü (20p), ürünleşme (15p) ve sunum performansı (10p) üzerinden değerlendirilir. Ayrıca UI, veri üretimi ve ileri seviye AI kullanımı için toplam +25 puana kadar bonus kazanılabilir.'
+    a: 'Projeler; problem tanımı (25p), teknik uygulama kalitesi (30p), çözüm özgünlüğü (20p), ürünleşme (15p) ve sunum performansı (10p) üzerinden değerlendirilir. Ayrıca UI, veri üretimi ve ileri seviye AI kullanımı için toplam +25 puana kadar bonus kazanılabilir. Değerlendirme kriterleri Hackathon sayfasındaki jüri kriterleri ile birebir aynıdır.'
   },
   
   {
@@ -26,12 +26,12 @@ export const faq = [
 
   {
     q: 'Önceden proje fikri hazırlamak gerekiyor mu?',
-    a: 'Hayır. Etkinlik sırasında da fikir geliştirebilir ve proje oluşturabilirsin. Önceden fikir getirmek avantaj sağlayabilir ancak zorunlu değildir.'
+    a: 'Hayır. Etkinlik sırasında da fikir geliştirebilir ve proje oluşturabilirsin. Önceden fikir getirmek avantaj sağlayabilir ancak zorunlu değildir. Ancak geliştireceğin çözümün hackathon sayfasındaki alt kategorilerden en az 1 tanesiyle uyumlu olması şarttır.'
   },
 
   {
-    q: 'Hangi teknolojileri kullanabilirim?',
-    a: 'Google AI araçları (Gemini, Vertex AI), açık kaynak kütüphaneler ve istediğin yazılım ve yapay zeka teknolojilerini kullanabilirsin.'
+    q: 'Hackathonda hangi teknolojileri kullanabilirim?',
+    a: 'Google AI araçları (Gemini, Vertex AI), açık kaynak kütüphaneler ve istediğin yazılım ve yapay zeka teknolojilerini kullanabilirsin. Etkinlikte kullanmanız için Google Studio kredisi tanımlanacaktır ancak bu kredileri redeem etmeniz (aktif hale getirmeniz) gerekmektedir.'
   },
 
   {
@@ -66,7 +66,12 @@ export const faq = [
 
   {
     q: 'Etkinliğe geç kalırsam ne olur?',
-    a: 'Etkinliğin başlangıç saatinden sonra gelen katılımcılar web sitesinden isimlerini onaylattıktan sonra dahil olabilir. Ancak takım eşleştirme -bireysel veya zaten halihazırda var olan bir takım ile yarışacaksanız takım eşleştirme saati sizin için büyük önem teşkil etmemektedir- ve açılış oturumunu kaçıran katılımcılar sürece sonradan dahil edilir ve bazı bilgilendirmeleri kaçırabilirler.' 
+    a: 'Etkinlik başlangıç saatinden sonra gelen katılımcılar web sitesi üzerinden kayıtlarını onaylatarak sürece dahil olabilirler. Ancak açılış oturumunu ve en önemlisi takım eşleştirme saatini kaçıran katılımcıların sürece sonradan dahil olması durumunda bilgilendirme eksikliği yaşayabileceklerini hatırlatmak isteriz. Halihazırda bir takımınız varsa veya bireysel yarışacaksanız eşleştirme saati sizin için kritik olmayabilir ancak açılış oturumu tüm kuralların açıklandığı yerdir.' 
+  },
+
+  {
+    q: 'Hackathona ilk gün katılmazsam ne olur?',
+    a: 'Hackathonun ilk gününe katılmayan katılımcılar yarışma sürecine ve takımlara dahil edilemezler. Yarışma disiplini ve adaletli bir süreç için ilk gün katılımı zorunludur.'
   }
 
 ];
