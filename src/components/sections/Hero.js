@@ -97,7 +97,7 @@ export function Hero() {
 
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto -mt-8">
              <div className="text-center mb-8 space-y-2">
                <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-400/60 font-display">MARATONUN BAŞLAMASINA</div>
                <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/40 font-display underline decoration-emerald-500/30 underline-offset-4">ETKİNLİĞE KALAN SÜRE</div>
