@@ -88,8 +88,7 @@ export function Hero() {
         <RevealOnScroll delay={0.32}>
           <div className="max-w-2xl mx-auto mb-16 text-center">
             <p className="text-base md:text-lg text-white/60 leading-relaxed font-medium">
-              Geleceği şekillendirmek için bir araya geliyoruz. İstinye Üniversitesi Kampüsünde
-              Yapay Zekanın sınırlarını birlikte keşfedelim.
+              16-17 Mayıs 2026 İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, ilham veren konuşmalar ve büyük ödüller seni bekliyor.
             </p>
           </div>
         </RevealOnScroll>
