@@ -35,6 +35,8 @@ export const COLORS = {
 export const NAV_LINKS = [
   { href: '/',           label: 'Ana Sayfa' },
   { href: '/hackathon',  label: 'Hackathon' },
+  { href: '/speakers',   label: 'Konuşmacılar' },
+  { href: '/schedule',   label: 'Program' },
   { href: '/projects',   label: 'Projeler' },
   { href: '/sponsors',   label: 'Sponsorlar' },
   { href: '/team',       label: 'Ekip' },
