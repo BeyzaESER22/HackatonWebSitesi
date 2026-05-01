@@ -38,7 +38,7 @@ export function Highlights() {
         </RevealOnScroll>
 
         {/* 3 Ana Bölüm Kartları */}
-        <div className="grid lg:grid-cols-3 gap-8 mb-24">
+        <div className="grid lg:grid-cols-3 gap-8 mb-12">
           {/* 1. Hackathon */}
           <RevealOnScroll delay={0.1}>
             <div className="relative group h-full">
