@@ -41,73 +41,44 @@ export default function HackathonInfoPage() {
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6">
            <span className="hf-text-gradient">Yapay zeka</span> kullanarak toplumsal sorunlara çözüm üret.
           </h1>
-          <p className="text-ink-dim text-xl max-w-3xl mb-10 leading-relaxed">
-            HackFest'26 AI Hackathon’una hoş geldin! Bu maratonda temel amacımız; yapay zekayı toplum yararına kullanarak gerçek dünya problemlerine yenilikçi çözümler üretmek. İster bireysel, ister takımınla katıl; 2 gün boyunca sınırları zorlayacağın bir yarışma seni bekliyor.
-          </p>
+          <div className="space-y-8 max-w-4xl">
+            <p className="text-ink-dim text-xl leading-relaxed">
+              HackFest'26 AI Hackathon’una hoş geldin! Bu maratonda temel amacımız; yapay zekayı toplum yararına kullanarak gerçek dünya problemlerine yenilikçi çözümler üretmek. İster bireysel, ister takımınla katıl; 2 gün boyunca sınırları zorlayacağın bir yarışma seni bekliyor.
+            </p>
 
-          {/* Bilgilendirme Kartları */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            <Card className="!p-6 border-blue-500/20 bg-blue-500/5">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-xl shrink-0">🎤</div>
-                <div>
-                  <h3 className="font-display font-bold text-lg mb-2">Festival (İlham)</h3>
-                  <p className="text-ink-dim text-sm mb-4 leading-relaxed">
-                    Uzman isimleri ve ilham dolu festival içeriğini keşfetmek için konuşmacılarımızı inceleyebilirsin.
-                  </p>
-                  <Button as={Link} href="/speakers" variant="ghost" size="sm" iconRight={<ArrowRightIcon />}>
-                    Konuşmacıları Gör
-                  </Button>
-                </div>
+            <div className="space-y-4 text-ink-dim text-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <span>Festival kısmını detaylı bir şekilde öğrenmek istiyorsan:</span>
+                <Button as={Link} href="/speakers" variant="ghost" size="sm" className="w-fit" iconRight={<ArrowRightIcon />}>
+                  Konuşmacıları Gör
+                </Button>
               </div>
-            </Card>
 
-            <Card className="!p-6 border-purple-500/20 bg-purple-500/5">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-xl shrink-0">📅</div>
-                <div>
-                  <h3 className="font-display font-bold text-lg mb-2">Program (Akış)</h3>
-                  <p className="text-ink-dim text-sm mb-4 leading-relaxed">
-                    Etkinliğin saatlik akışını ve tüm detayları program sayfamızdan detaylıca takip edebilirsin.
-                  </p>
-                  <Button as={Link} href="/schedule" variant="ghost" size="sm" iconRight={<ArrowRightIcon />}>
-                    Programı İncele
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Lojistik ve Hazırlık */}
-          <div className="hf-glass p-8 rounded-2xl mb-12 border-white/5">
-            <div className="grid md:grid-cols-3 gap-8 text-sm">
-              <div>
-                <div className="text-ink-dim uppercase tracking-wider font-bold mb-3 text-[10px]">📍 Konum ve Saat</div>
-                <p className="font-medium">16-17 Mayıs, 09:00 Başlangıç</p>
-                <p className="text-ink-dim mt-1">Vadi Kampüsü, <span className="text-white font-bold">ANK 110 (1. Kat)</span></p>
-                <p className="text-[11px] text-ink-dim mt-2 leading-tight">Hamidiye Mah. Selçuklu Cad. No:4, Kağıthane/İst.</p>
-              </div>
-              <div>
-                <div className="text-ink-dim uppercase tracking-wider font-bold mb-3 text-[10px]">💻 Hazırlık</div>
-                <p className="font-medium">Kendi bilgisayarını getirmelisin.</p>
-                <p className="text-ink-dim mt-1">Geliştirme süreci için gerekli donanım ve yazılımların hazır olduğundan emin ol.</p>
-              </div>
-              <div>
-                <div className="text-ink-dim uppercase tracking-wider font-bold mb-3 text-[10px]">☁️ Google Cloud</div>
-                <p className="font-medium">Kredilerini Tanımlamayı Unutma!</p>
-                <p className="text-ink-dim mt-1 leading-relaxed">
-                  Sana ileteceğimiz link üzerinden Google Cloud kredilerini tanımlayarak Vertex AI ve diğer araçları ücretsiz kullanabilirsin.
-                </p>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <span>Etkinliğin saatlik akışına bakmak istersen program bölümünü inceleyebilirsin:</span>
+                <Button as={Link} href="/schedule" variant="ghost" size="sm" className="w-fit" iconRight={<ArrowRightIcon />}>
+                  Programı İncele
+                </Button>
               </div>
             </div>
-          </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <Button onClick={() => openModal('hack')} iconRight={<ArrowRightIcon />} className="w-full sm:w-auto">
-              Hackathon'a Başvur
-            </Button>
-            <div className="text-ink-dim text-sm flex items-center gap-2">
-              <span className="animate-bounce">↓</span> Detaylar için aşağı kaydır
+            <div className="pt-6 border-t border-white/5 space-y-4 text-ink-dim">
+              <p>
+                <strong className="text-white">📍 Konum ve Saat:</strong> Etkinliğimiz 16-17 Mayıs tarihlerinde saat 09:00'da, İstinye Üniversitesi Vadi Kampüsü <span className="text-white font-bold">ANK 110 (1. Kat)</span> salonunda başlayacaktır. <br />
+                <span className="text-xs">(Adres: Hamidiye Mah., Selçuklu Cad., No:4, 34408 Kağıthane/İstanbul)</span>
+              </p>
+              <p>
+                <strong className="text-white">💻 Hazırlık:</strong> Kendi bilgisayarını getirmeyi unutma. Ayrıca sana ileteceğimiz link üzerinden <strong className="text-white">Google Cloud kredilerini</strong> tanımlayarak Vertex AI gibi araçlardan yararlanabilirsin.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button onClick={() => openModal('hack')} iconRight={<ArrowRightIcon />}>
+                Hackathon'a Başvur
+              </Button>
+              <Button as={Link} href={`/projects/${sampleProjectId}`} variant="ghost">
+                Örnek Projeyi İncele
+              </Button>
             </div>
           </div>
         </Container>
