@@ -41,44 +41,26 @@ export default function HackathonInfoPage() {
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6">
            <span className="hf-text-gradient">Yapay zeka</span> kullanarak toplumsal sorunlara çözüm üret.
           </h1>
-          <div className="space-y-8 max-w-4xl">
+          <div className="space-y-6 max-w-4xl">
             <p className="text-ink-dim text-xl leading-relaxed">
               HackFest'26 AI Hackathon’una hoş geldin! Bu maratonda temel amacımız; yapay zekayı toplum yararına kullanarak gerçek dünya problemlerine yenilikçi çözümler üretmek. İster bireysel, ister takımınla katıl; 2 gün boyunca sınırları zorlayacağın bir yarışma seni bekliyor.
             </p>
 
-            <div className="space-y-4 text-ink-dim text-lg">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <span>Festival kısmını detaylı bir şekilde öğrenmek istiyorsan:</span>
-                <Button as={Link} href="/speakers" variant="ghost" size="sm" className="w-fit" iconRight={<ArrowRightIcon />}>
-                  Konuşmacıları Gör
-                </Button>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                <span>Etkinliğin saatlik akışına bakmak istersen program bölümünü inceleyebilirsin:</span>
-                <Button as={Link} href="/schedule" variant="ghost" size="sm" className="w-fit" iconRight={<ArrowRightIcon />}>
-                  Programı İncele
-                </Button>
-              </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-ink-dim text-xl">
+              <span>Etkinliğin saatlik akışına bakmak istersen program bölümünü inceleyebilirsin:</span>
+              <Button as={Link} href="/schedule" variant="ghost" size="sm" className="w-fit" iconRight={<ArrowRightIcon />}>
+                Programı İncele
+              </Button>
             </div>
 
-            <div className="pt-6 border-t border-white/5 space-y-4 text-ink-dim">
+            <div className="pt-6 border-t border-white/5 space-y-6 text-ink-dim text-xl leading-relaxed">
               <p>
-                <strong className="text-white">📍 Konum ve Saat:</strong> Etkinliğimiz 16-17 Mayıs tarihlerinde saat 09:00'da, İstinye Üniversitesi Vadi Kampüsü <span className="text-white font-bold">ANK 110 (1. Kat)</span> salonunda başlayacaktır. <br />
-                <span className="text-xs">(Adres: Hamidiye Mah., Selçuklu Cad., No:4, 34408 Kağıthane/İstanbul)</span>
+                <strong className="text-white font-bold">📍 Konum ve Saat:</strong> Etkinliğimiz 16-17 Mayıs tarihlerinde saat 09:00'da, İstinye Üniversitesi Vadi Kampüsü <span className="text-white font-bold">ANK 110 (1. Kat)</span> salonunda başlayacaktır. <br />
+                <span className="text-lg">(Adres: Hamidiye Mah., Selçuklu Cad., No:4, 34408 Kağıthane/İstanbul)</span>
               </p>
               <p>
-                <strong className="text-white">💻 Hazırlık:</strong> Kendi bilgisayarını getirmeyi unutma. Ayrıca sana ileteceğimiz link üzerinden <strong className="text-white">Google Cloud kredilerini</strong> tanımlayarak Vertex AI gibi araçlardan yararlanabilirsin.
+                <strong className="text-white font-bold">💻 Hazırlık:</strong> Kendi bilgisayarını getirmeyi unutma. Ayrıca sana ileteceğimiz link üzerinden <strong className="text-white font-bold">Google Cloud kredilerini</strong> tanımlayarak Vertex AI gibi araçlardan yararlanabilirsin.
               </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button onClick={() => openModal('hack')} iconRight={<ArrowRightIcon />}>
-                Hackathon'a Başvur
-              </Button>
-              <Button as={Link} href={`/projects/${sampleProjectId}`} variant="ghost">
-                Örnek Projeyi İncele
-              </Button>
             </div>
           </div>
         </Container>
