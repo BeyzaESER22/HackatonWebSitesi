@@ -29,6 +29,8 @@ const judging = [
   { weight: '10%', title: 'Tamamlanmışlık',     desc: 'Çalışan prototip, test edilebilirlik.' }
 ];
 
+import { categories } from '@/data/problems';
+
 export default function HackathonInfoPage() {
   const { openModal } = useApp();
 
@@ -66,24 +68,87 @@ export default function HackathonInfoPage() {
         </Container>
       </section>
 
-      {/* Temalar */}
-      <section className="mb-24">
+      {/* Kategoriler ve Problem Havuzu */}
+      <section className="mb-24 scroll-mt-32" id="problems">
         <Container>
           <RevealOnScroll>
-            <SectionTitle eyebrow="Temalar" title="Hangi alanda" gradient="çalışabilirsin?" align="left" className="mb-10" />
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+              <SectionTitle 
+                eyebrow="Yarışma Alanları" 
+                title="Kategoriler ve" 
+                gradient="Problem Havuzu" 
+                align="left" 
+                className="!mb-0" 
+              />
+              <Button 
+                as="a" 
+                href="/hackfest26-kurallar.pdf" 
+                download 
+                variant="ghost" 
+                iconRight={<ArrowRightIcon />}
+                className="shrink-0"
+              >
+                Resmi Şartname ve Detaylar (PDF)
+              </Button>
+            </div>
           </RevealOnScroll>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {themes.map((t, i) => (
-              <RevealOnScroll key={t.title} delay={(i % 3) * 0.07}>
-                <Card hover className="h-full">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 text-2xl"
-                    style={{ background: `${t.color}26`, border: `1px solid ${t.color}4D` }}>
-                    {t.icon}
+          {/* Önemli Not */}
+          <RevealOnScroll>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-12">
+              <div className="flex gap-4">
+                <div className="text-yellow-500 text-xl font-bold shrink-0">!</div>
+                <div className="text-sm leading-relaxed text-ink-dim">
+                  <strong className="text-white">ÖNEMLİ NOT:</strong> Takımların aşağıda listelenen <span className="text-white font-bold">ana kategorilerden en az birini</span> seçmesi zorunludur. Kategoriler altındaki "Problem İfadeleri" ve sağlanan "GitHub Veri Setleri" <span className="text-white">isteğe bağlıdır</span>; katılımcılar kendi veri setlerini oluşturabilir veya farklı alt temalar üzerinde çalışabilirler.
+                </div>
+              </div>
+            </div>
+          </RevealOnScroll>
+
+          <div className="space-y-10">
+            {categories.map((cat, idx) => (
+              <RevealOnScroll key={cat.id} delay={idx * 0.1}>
+                <div className="group hf-glass border-white/5 rounded-3xl overflow-hidden">
+                  <div className="p-8 lg:p-10">
+                    <div className="flex flex-col lg:flex-row justify-between gap-8 mb-10 pb-8 border-b border-white/5">
+                      <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shrink-0"
+                          style={{ background: `${cat.color}26`, border: `1px solid ${cat.color}4D` }}>
+                          {cat.icon}
+                        </div>
+                        <div>
+                          <h3 className="font-display text-2xl lg:text-3xl font-bold mb-1" style={{ color: cat.color }}>{cat.title}</h3>
+                          <span className="text-xs uppercase tracking-widest text-ink-dim font-bold">Zorunlu Seçim Alanı</span>
+                        </div>
+                      </div>
+                      <Button as="a" href={cat.githubUrl} target="_blank" variant="ghost" size="sm" className="w-fit self-start lg:self-center">
+                        GitHub Veri Setlerine Git
+                      </Button>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
+                      {cat.problems.map((prob, pIdx) => (
+                        <Card key={pIdx} className="!p-6 !bg-white/0 !border-white/5 hover:!border-white/10 transition-colors">
+                          <h4 className="font-display text-lg font-bold mb-4 text-white leading-tight">{prob.title}</h4>
+                          <div className="space-y-4">
+                            <div>
+                              <div className="text-[10px] uppercase tracking-wider text-ink-dim font-bold mb-1">Mevcut Durum</div>
+                              <p className="text-sm text-ink-dim leading-relaxed">{prob.current}</p>
+                            </div>
+                            <div>
+                              <div className="text-[10px] uppercase tracking-wider text-green-500 font-bold mb-1">Öngörülen Gelecek</div>
+                              <p className="text-sm text-ink-dim leading-relaxed">{prob.future}</p>
+                            </div>
+                            <div>
+                              <div className="text-[10px] uppercase tracking-wider text-blue-500 font-bold mb-1">Önem</div>
+                              <p className="text-sm text-ink-dim leading-relaxed italic">{prob.importance}</p>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
-                  <div className="font-display text-xl font-semibold mb-2" style={{ color: t.color }}>{t.title}</div>
-                  <div className="text-ink-dim text-sm leading-relaxed">{t.desc}</div>
-                </Card>
+                </div>
               </RevealOnScroll>
             ))}
           </div>
