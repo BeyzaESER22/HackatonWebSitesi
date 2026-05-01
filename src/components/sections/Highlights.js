@@ -12,7 +12,7 @@ export function Highlights() {
   const supportSponsors = sponsors.filter(s => s.size === 'support');
 
   return (
-    <section id="highlights" className="relative z-10 py-12 lg:py-20">
+    <section id="highlights" className="relative z-10 pt-4 pb-12 lg:pt-8 lg:pb-20">
       <Container>
         <RevealOnScroll>
           <div

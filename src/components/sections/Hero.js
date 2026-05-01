@@ -24,14 +24,14 @@ export function Hero() {
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-emerald-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
 
       {/* Modern Wave Container - Maximized to reach next section */}
-      <div className="absolute bottom-0 left-0 w-full h-[600px] pointer-events-none overflow-hidden opacity-50 z-20">
+      <div className="absolute bottom-0 left-0 w-full h-[800px] pointer-events-none overflow-hidden opacity-50 z-20">
         <div className="wave wave1"></div>
         <div className="wave wave2"></div>
         <div className="wave wave3"></div>
         <div className="wave wave4"></div>
       </div>
 
-      <Container className="relative z-10 pb-40">
+      <Container className="relative z-10 pb-52">
         <RevealOnScroll>
           <div className="flex justify-center mb-8">
             <Badge dotColor={COLORS.green} className="bg-white/5 border-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(52,168,83,0.15)]">
