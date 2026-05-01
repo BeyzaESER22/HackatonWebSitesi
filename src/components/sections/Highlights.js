@@ -77,11 +77,11 @@ export function Highlights() {
                 </div>
 
                 {/* 3. Deneyim Alanı */}
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group">
+                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group min-h-[280px]">
                   <h3 className="font-display text-2xl font-bold text-white mb-4">Kulüp Standları</h3>
-                  <p className="text-ink-dim leading-relaxed mb-8 flex-grow text-sm">
-                    Okulun en aktif kulüpleriyle tanış, standlarda eğlen ve networking yap. Festival ruhunu sonuna kadar hisset!
-                  </p>
+                  <div className="mt-auto">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">SOSYAL ETKİLEŞİM ALANI</div>
+                  </div>
                 </div>
               </div>
 
@@ -103,7 +103,7 @@ export function Highlights() {
                 </div>
               </div>
 
-              {/* Sponsorlar Section - Otomatik Güncellenir */}
+              {/* Sponsorlar Section */}
               <div className="pt-12 border-t border-white/10">
                 <div className="text-center mb-12">
                   <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-400 mb-2">Gücümüzü Onlardan Alıyoruz</div>
@@ -127,7 +127,7 @@ export function Highlights() {
                              <img 
                                src={s.logoUrl} 
                                alt={s.name} 
-                               className="max-w-full max-h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" 
+                               className="max-w-full max-h-full object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]" 
                              />
                           </div>
                           <div className="mt-4 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[8px] font-bold text-emerald-400 uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
@@ -150,11 +150,11 @@ export function Highlights() {
                           className="group flex items-center justify-center transition-all animate-float"
                           style={{ animationDelay: `${idx * 0.3}s` }}
                         >
-                          <div className="w-24 md:w-32 h-12 md:h-16 flex items-center justify-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-2">
+                          <div className="w-24 md:w-32 h-12 md:h-16 flex items-center justify-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-3">
                             <img 
                               src={s.logoUrl} 
                               alt={s.name} 
-                              className="max-w-full max-h-full object-contain opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500" 
+                              className="max-w-full max-h-full object-contain opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500" 
                             />
                           </div>
                         </a>
@@ -171,11 +171,11 @@ export function Highlights() {
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0) rotate(0); }
-          50% { transform: translateY(-8px) rotate(1deg); }
+          50% { transform: translateY(-10px) rotate(1.5deg); }
         }
         @keyframes float-slow {
           0%, 100% { transform: translateY(0) rotate(0); }
-          50% { transform: translateY(-12px) rotate(-1deg); }
+          50% { transform: translateY(-15px) rotate(-1.5deg); }
         }
         .animate-float {
           animation: float 4s ease-in-out infinite;
