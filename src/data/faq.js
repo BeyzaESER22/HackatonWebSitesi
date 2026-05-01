@@ -46,7 +46,7 @@ export const faq = [
 
   {
     q: 'Kendi bilgisayarımı getirmem gerekiyor mu?',
-    a: 'Evet, kendi laptopunu getirebilirsin. Ancak ihtiyacı olan katılımcılar için etkinlik alanında bilgisayar kullanımı da sağlanacaktır. Ayrıca yüksek hızlı internet, yeterli priz ve dinlenme alanları sunulacaktır.'
+    a: 'Evet, kendi laptopunu getirmen gerekmektedir. İnternet, yeterli priz ve dinlenme alanları sunulacaktır.'
   },
 
   {
