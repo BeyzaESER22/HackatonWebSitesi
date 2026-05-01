@@ -98,7 +98,11 @@ export function Hero() {
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
           <div className="max-w-4xl mx-auto">
-             <div className="text-[10px] text-center font-bold uppercase tracking-[0.5em] text-emerald-400/60 mb-8 font-display">MARATONUN BAŞLAMASINA</div>
+             <div className="text-center mb-8 space-y-2">
+               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-400/60 font-display">MARATONUN BAŞLAMASINA</div>
+               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/40 font-display underline decoration-emerald-500/30 underline-offset-4">ETKİNLİĞE KALAN SÜRE</div>
+               <div className="text-[10px] font-mono text-white/30 tracking-widest pt-1 italic">16 Mayıs 2026 · 09:00</div>
+             </div>
              <Countdown />
           </div>
         </RevealOnScroll>
