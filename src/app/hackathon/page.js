@@ -15,11 +15,17 @@ import { ruleCategories } from '@/data/rules';
 import { categories } from '@/data/problems';
 
 const judging = [
-  { weight: '30%', title: 'Toplumsal Etki',     desc: 'Hangi probleme dokunuyor? Kaç kişiye fayda sağlayabilir?' },
-  { weight: '25%', title: 'Teknik Yetkinlik',   desc: 'AI/ML kullanımı, kod kalitesi, mimari kararlar.' },
-  { weight: '20%', title: 'Yenilikçilik',       desc: 'Mevcut çözümlerden farkı, özgün yaklaşımı.' },
-  { weight: '15%', title: 'Sunum & Demo',       desc: '5 dakikalık pitch, ürünün canlı çalışması.' },
-  { weight: '10%', title: 'Tamamlanmışlık',     desc: 'Çalışan prototip, test edilebilirlik.' }
+  { weight: '25', title: 'Problem Tanımı & Toplumsal Relevans', desc: 'Problem net tanımlanmış mı? Gerçek bir sosyal ihtiyaç mı? Hedef kullanıcı spesifik mi?' },
+  { weight: '30', title: 'Teknik Uygulama Kalitesi',      desc: 'ML doğru yerde mi? Sistem mimarisi temiz ve sürdürülebilir mi? Mühendislik kalitesi.' },
+  { weight: '20', title: 'Çözüm Kalitesi & Yenilik',      desc: 'Fikrin özgünlüğü, alternatiflerinden farkı. AI gerçekten gerekli mi (core bileşen mi)?' },
+  { weight: '15', title: 'Ürünleşme & Tamamlanmışlık',    desc: 'Çalışan demo var mı? Edge case\'ler düşünülmüş mü? Kullanıcı akışı tamam mı?' },
+  { weight: '10', title: 'İletişim & Demo Etkisi',        desc: 'Problemden çözüme akış net mi? Demo akıcı mı? Teknik jargon doğru seviyede mi?' }
+];
+
+const bonusPoints = [
+  { points: '+5',  title: 'Kullanıcı Arayüzü (UI)',       desc: 'Web, mobil veya desktop interface. UX akışı mantıklı ve kullanılabilir olmalı.' },
+  { points: '+5',  title: 'Gerçek Veri Üretimi',          desc: 'Scraping + cleaning + labeling VEYA domain-specific veri seti oluşturma.' },
+  { points: '+15', title: 'Advanced AI Usage',           desc: 'RAG pipeline, fine-tuning, multi-agent system veya tool-use mimarisi.' }
 ];
 
 export default function HackathonInfoPage() {
@@ -177,10 +183,10 @@ export default function HackathonInfoPage() {
 
       {/* Expand -> Problem Detail Modal (Codex View) */}
       <Modal 
-        isOpen={!!activeProblem} 
+        open={!!activeProblem} 
         onClose={() => setActiveProblem(null)}
         title="Problem Teknik Spesifikasyonu"
-        className="max-w-4xl"
+        panelClassName="max-w-4xl"
       >
         {activeProblem && (
           <div className="space-y-8 py-4">
@@ -263,22 +269,56 @@ export default function HackathonInfoPage() {
           <RevealOnScroll>
             <SectionTitle eyebrow="Değerlendirme" title="Jüri" gradient="kriterleri." align="left" className="mb-10" />
           </RevealOnScroll>
-          <div className="space-y-3">
-            {judging.map((j, i) => (
-              <RevealOnScroll key={j.title} delay={i * 0.05}>
-                <Card className="!p-6">
-                  <div className="grid grid-cols-12 gap-4 items-center">
-                    <div className="col-span-3 sm:col-span-2">
-                      <div className="font-display text-3xl font-bold hf-text-gradient">{j.weight}</div>
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div className="space-y-3">
+              <h4 className="font-display text-xl font-bold mb-6 flex items-center gap-3">
+                <span className="w-2 h-8 bg-hf-gradient rounded-full"></span>
+                Ana Kriterler (100 Puan)
+              </h4>
+              {judging.map((j, i) => (
+                <RevealOnScroll key={j.title} delay={i * 0.05}>
+                  <Card className="!p-6">
+                    <div className="grid grid-cols-12 gap-4 items-center">
+                      <div className="col-span-3 sm:col-span-2">
+                        <div className="font-display text-3xl font-bold hf-text-gradient">%{j.weight}</div>
+                      </div>
+                      <div className="col-span-9 sm:col-span-10">
+                        <div className="font-display text-lg font-semibold mb-1">{j.title}</div>
+                        <div className="text-ink-dim text-sm">{j.desc}</div>
+                      </div>
                     </div>
-                    <div className="col-span-9 sm:col-span-10">
-                      <div className="font-display text-lg font-semibold mb-1">{j.title}</div>
-                      <div className="text-ink-dim text-sm">{j.desc}</div>
+                  </Card>
+                </RevealOnScroll>
+              ))}
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="font-display text-xl font-bold mb-6 flex items-center gap-3">
+                <span className="w-2 h-8 bg-green-500 rounded-full"></span>
+                Bonus Puanlar
+              </h4>
+              {bonusPoints.map((b, i) => (
+                <RevealOnScroll key={b.title} delay={i * 0.05}>
+                  <Card className="!p-6 border-green-500/10 bg-green-500/5">
+                    <div className="grid grid-cols-12 gap-4 items-center">
+                      <div className="col-span-3 sm:col-span-2">
+                        <div className="font-display text-3xl font-bold text-green-500">{b.points}</div>
+                      </div>
+                      <div className="col-span-9 sm:col-span-10">
+                        <div className="font-display text-lg font-semibold mb-1">{b.title}</div>
+                        <div className="text-ink-dim text-sm">{b.desc}</div>
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              </RevealOnScroll>
-            ))}
+                  </Card>
+                </RevealOnScroll>
+              ))}
+              
+              <div className="mt-8 p-6 rounded-2xl bg-white/5 border border-white/10">
+                <p className="text-sm text-ink-dim leading-relaxed">
+                  <strong className="text-white">Not:</strong> Bonus puanlar ana puanın üzerine eklenir. Teknik uygulama kalitesi değerlendirilirken sadece "çalışıyor mu" değil, "nasıl çalışıyor" sorusuna yanıt aranacaktır.
+                </p>
+              </div>
+            </div>
           </div>
         </Container>
       </section>

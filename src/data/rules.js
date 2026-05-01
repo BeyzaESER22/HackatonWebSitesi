@@ -99,7 +99,8 @@ export const ruleCategories = [
     title: 'Jüri & Ödüller',
     items: [
       'Jüri Kararı: Her jüri üyesinin oyu eşittir; jüri ile iş veya akrabalık bağı olan üyeler o takımın puanlamasından çekilir.',
-      'Değerlendirme: Toplumsal Etki (%30), Teknik Yetkinlik (%25), Yenilikçilik (%20), Sunum & Demo (%15) ve Tamamlanmışlık (%10).',
+      'Ana Kriterler: Problem Tanımı & Toplumsal Relevans (25 Puan), Teknik Uygulama Kalitesi (30 Puan), Çözüm Kalitesi & Yenilik (20 Puan), Ürünleşme & Tamamlanmışlık (15 Puan), İletişim & Demo Etkisi (10 Puan).',
+      'Bonus Puanlar: Kullanıcı Arayüzü (+5), Gerçek Veri Üretimi (+5), Advanced AI Usage (+15).',
       'Beraberlik: Sırasıyla Toplumsal Etki, Teknik ve Yenilikçilik puanlarına bakılır; eşitlik sürerse jüri "tie-breaker" oylaması yapar.',
       'Ödül Dağıtımı: Donanım ve ayni ödüller etkinlik gününde teslim edilir; uzaktan katılanlara ödül teslimi yapılmaz.'
     ]

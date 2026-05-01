@@ -9,7 +9,7 @@ import { COLORS } from '@/lib/constants';
 const bullets = [
   { color: COLORS.blue,   bold: 'Takım veya bireysel katılım', tail: ' — 1-5 kişilik gruplar.' },
   { color: COLORS.red,    bold: 'Mentor desteği',              tail: ' — Sektör profesyonelleri 2 gün boyunca yanında.' },
-  { color: COLORS.yellow, bold: 'Jüri değerlendirmesi',         tail: ' — Etki, teknik yetkinlik ve sunum.' },
+  { color: COLORS.yellow, bold: 'Jüri değerlendirmesi',         tail: ' — 100 ana puan + 25 bonus seçeneği.' },
   { color: COLORS.green,  bold: 'Final sunumu & Demo Day',      tail: ' — Projeni jürinin önünde sahneye taşı.' },
   { color: '#8B5CF6',     bold: 'Büyük ödüller',                tail: ' — Donanım, bulut kredisi ve kariyer fırsatları.' }
 ];

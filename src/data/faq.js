@@ -11,7 +11,7 @@ export const faq = [
 
   {
     q: 'Projeler nasıl değerlendirilecek?',
-    a: 'Projeler; fikir özgünlüğü, teknik uygulanabilirlik, toplumsal etki ve AI kullanım kalitesine göre jüri tarafından değerlendirilecektir.'
+    a: 'Projeler; problem tanımı (25p), teknik uygulama kalitesi (30p), çözüm özgünlüğü (20p), ürünleşme (15p) ve sunum performansı (10p) üzerinden değerlendirilir. Ayrıca UI, veri üretimi ve ileri seviye AI kullanımı için toplam +25 puana kadar bonus kazanılabilir.'
   },
   
   {
