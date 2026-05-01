@@ -83,35 +83,52 @@ export function Highlights() {
               <div className="relative h-full bg-[#0A0A0B] border border-white/10 rounded-3xl p-8 flex flex-col">
                 <div className="text-4xl mb-6">🎪</div>
                 <h3 className="font-display text-2xl font-bold text-white mb-4">Kulüp Standları & Fun</h3>
-                <p className="text-ink-dim leading-relaxed mb-8 flex-grow">
+                <p className="text-ink-dim leading-relaxed mb-6">
                   Okulun en aktif kulüpleriyle tanış, standlarda eğlen ve networking yap. Festival ruhunu sonuna kadar hisset!
                 </p>
-                <div className="mt-auto bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-2xl">
-                  <p className="text-xs font-bold text-yellow-500 uppercase tracking-tight">🔥 SÜPRİZ ÇEKİLİŞ!</p>
-                  <p className="text-white text-xs mt-1">Konuşmacı ve Workshoplara katılan herkes çekilişe dahil (Evet, hackathoncular da!).</p>
+                <div className="mt-auto">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-yellow-500/60">Sosyal Etkileşim Alanı</div>
                 </div>
               </div>
             </div>
           </RevealOnScroll>
         </div>
 
-        {/* Klasik Highlight Kartları (Zaman, Ödül vb.) */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 opacity-80">
-          {highlights.map((h, i) => (
-            <RevealOnScroll key={h.id} delay={i * 0.08}>
-              <Card hover className="!bg-transparent border-white/5">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ background: `${h.accent}1A`, border: `1px solid ${h.accent}33` }}
-                >
-                  {iconMap[h.iconKey]?.(h.accent)}
+        {/* Büyük Çekiliş Banner - Dikdörtgen Yapı */}
+        <RevealOnScroll delay={0.4}>
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-red-500/10 p-1">
+            <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+              <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-yellow-500 animate-pulse">
+                <path d="M12 15a4 4 0 0 0 4-4V3H8v8a4 4 0 0 0 4 4zM8 21h8M12 15v6M5 7H3v4a3 3 0 0 0 3 3M19 7h2v4a3 3 0 0 1-3 3" />
+              </svg>
+            </div>
+            
+            <div className="relative bg-[#0A0A0B]/80 backdrop-blur-xl rounded-[22px] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex-grow text-center md:text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-500 text-xs font-bold uppercase tracking-widest mb-4">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                  </span>
+                  Sürpriz Çekiliş
                 </div>
-                <div className="font-display text-xl font-bold mb-1">{h.title}</div>
-                <div className="text-ink-dim text-xs">{h.desc}</div>
-              </Card>
-            </RevealOnScroll>
-          ))}
-        </div>
+                <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">Festival Boyunca Şans Seninle! 🎁</h3>
+                <p className="text-ink-dim text-lg max-w-2xl leading-relaxed">
+                  Konuşmacı panellerine ve workshoplara katılan herkes gün sonundaki büyük çekilişe otomatik olarak dahil olur. 
+                  <span className="text-white font-semibold"> Evet, hackathon katılımcıları da şanslı listemizde!</span>
+                </p>
+              </div>
+              
+              <div className="shrink-0 flex flex-col items-center gap-2">
+                <div className="text-5xl mb-2 animate-bounce">🎟️</div>
+                <div className="text-center">
+                  <div className="text-white font-bold text-xl leading-tight">Giriş Bileti</div>
+                  <div className="text-ink-dim text-xs">Katılım Sağlaman Yeterli!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </RevealOnScroll>
       </Container>
     </section>
   );
