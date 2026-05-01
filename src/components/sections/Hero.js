@@ -132,9 +132,9 @@ export function Hero() {
 
       {/* Hero Specific Animations */}
       <style>{`
-        @keyframes hero-rainbow-move {
-          0% { filter: hue-rotate(0deg); }
-          100% { filter: hue-rotate(360deg); }
+        @keyframes hero-glow {
+          0%, 100% { filter: drop-shadow(0 0 15px rgba(66,133,244,0.2)); }
+          50% { filter: drop-shadow(0 0 30px rgba(66,133,244,0.4)); }
         }
         
         @keyframes scroll-line {
@@ -145,14 +145,12 @@ export function Hero() {
         .hero-rainbow-animate {
           background: linear-gradient(
             90deg,
-            #EF4444, #F97316, #EAB308, #22C55E, #3B82F6, #8B5CF6, #EF4444
+            #EF4444, #F97316, #EAB308, #22C55E, #3B82F6, #8B5CF6
           );
-          background-size: 200% auto;
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          animation: hero-rainbow-move 8s linear infinite;
-          filter: drop-shadow(0 0 20px rgba(66,133,244,0.15));
+          animation: hero-glow 4s ease-in-out infinite;
         }
 
         .animate-scroll-line {
