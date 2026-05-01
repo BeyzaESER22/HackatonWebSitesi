@@ -5,10 +5,12 @@ import { Card } from '@/components/ui/Card';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { SectionTitle } from '@/components/ui/SectionTitle';
+import { Accordion } from '@/components/ui/Accordion';
 import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
 import { sampleProjectId } from '@/data/projects';
 import { COLORS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
+import { ruleCategories } from '@/data/rules';
 
 const themes = [
   { color: COLORS.blue,   icon: '📚', title: 'Eğitim',          desc: 'Erişilebilir öğrenme araçları, kişiselleştirilmiş içerik, dezavantajlı bölgelere ulaşan platformlar.' },
@@ -25,15 +27,6 @@ const judging = [
   { weight: '20%', title: 'Yenilikçilik',       desc: 'Mevcut çözümlerden farkı, özgün yaklaşımı.' },
   { weight: '15%', title: 'Sunum & Demo',       desc: '5 dakikalık pitch, ürünün canlı çalışması.' },
   { weight: '10%', title: 'Tamamlanmışlık',     desc: 'Çalışan prototip, test edilebilirlik.' }
-];
-
-const rules = [
-  'Takımlar 1-5 kişiden oluşur. Bireysel katılım da mümkündür.',
-  'Tüm kod etkinlik süresince yazılmalıdır. Hazır şablonlar (boilerplate) ve açık kaynak kütüphaneler kullanılabilir.',
-  'AI / ML araçları (Gemini API, OpenAI, vb.) kullanımı serbesttir; jüri değerlendirmesinde kullanılan modeller ve veri kaynakları açıkça belirtilmelidir.',
-  'Etkinlik öncesi yazılmış tam ürünlerin sergilenmesi yasaktır. Önceden hazırlanmış parçalar (UI kit, boilerplate) için kaynak referansı zorunludur.',
-  'Demo Day\'de 5 dakika pitch + 3 dakika soru-cevap formatı uygulanacaktır.',
-  'Etik kurallara uymayan, ayrımcılık veya zarar içeren projeler diskalifiye edilir.'
 ];
 
 export default function HackathonInfoPage() {
@@ -137,41 +130,65 @@ export default function HackathonInfoPage() {
       <section className="mb-24">
         <Container>
           <RevealOnScroll>
-            <SectionTitle eyebrow="Kurallar" title="Yarışma" gradient="kuralları." align="left" className="mb-10" />
+            <SectionTitle eyebrow="Kurallar" title="Yarışma" gradient="kuralları." align="left" className="mb-6" />
           </RevealOnScroll>
 
           <RevealOnScroll>
-            <Card className="!p-7 lg:!p-9">
-              <ol className="space-y-4 text-ink-dim">
-                {rules.map((r, i) => (
-                  <li key={i} className="flex gap-4">
-                    <span className="font-display font-bold text-2xl shrink-0 hf-text-gradient" style={{ minWidth: '2rem' }}>
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="leading-relaxed">{r}</span>
-                  </li>
-                ))}
-              </ol>
-            </Card>
-          </RevealOnScroll>
-        </Container>
-      </section>
-
-      {/* Bottom CTA */}
-      <section>
-        <Container>
-          <RevealOnScroll>
-            <Card className="!p-10 lg:!p-14 text-center"
-              style={{ background: 'linear-gradient(135deg, rgba(66,133,244,.12), rgba(234,67,53,.10))' }}>
-              <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">Hazır mısın?</h2>
-              <p className="text-ink-dim mb-8 max-w-xl mx-auto">
-                Kontenjan dolmadan başvurunu tamamla. Etkinliğin son halini takip etmek için bizi sosyal medyada takip etmeyi unutma.
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+              <p className="text-ink-dim max-w-2xl leading-relaxed">
+                Tüm katılımcıların okuması ve kabul etmesi gereken kurallar. Aşağıdaki kategorilerin her birine tıklayarak detayları görebilir, ya da resmi PDF dokümanını indirebilirsin.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button onClick={() => openModal('hack')} iconRight={<ArrowRightIcon />}>Hackathon'a Başvur</Button>
-                <Button as={Link} href={`/projects/${sampleProjectId}`} variant="ghost">Örnek Proje</Button>
-              </div>
-            </Card>
+              <Button
+                as="a"
+                href="/hackfest26-kurallar.pdf"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="ghost"
+                iconRight={<ArrowRightIcon />}
+              >
+                PDF olarak indir
+              </Button>
+            </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <Accordion
+              items={ruleCategories.map((cat) => ({
+                q: (
+                  <span className="flex items-center gap-3">
+                    <span
+                      className="w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0"
+                      style={{ background: `${cat.color}26`, border: `1px solid ${cat.color}4D` }}
+                    >
+                      {cat.icon}
+                    </span>
+                    <span style={{ color: cat.color }}>{cat.title}</span>
+                  </span>
+                ),
+                a: (
+                  <ol className="space-y-3">
+                    {cat.items.map((it, i) => (
+                      <li key={i} className="flex gap-4">
+                        <span
+                          className="font-display font-bold text-lg shrink-0"
+                          style={{ color: cat.color, minWidth: '1.75rem' }}
+                        >
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span className="leading-relaxed">{it}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )
+              }))}
+            />
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <p className="text-ink-dim text-xs mt-6 text-center">
+              Doküman v1.0 — son güncelleme 1 Mayıs 2026. Sorularınız için: <a href="mailto:gdg@istinye.edu.tr" className="hf-text-gradient font-semibold">gdg@istinye.edu.tr</a>
+            </p>
           </RevealOnScroll>
         </Container>
       </section>
