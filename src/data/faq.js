@@ -13,10 +13,10 @@ export const faq = [
     q: 'Projeler nasıl değerlendirilecek?',
     a: 'Projeler; fikir özgünlüğü, teknik uygulanabilirlik, toplumsal etki ve AI kullanım kalitesine göre jüri tarafından değerlendirilecektir.'
   },
-
+  
   {
     q: 'Takım seçeneğim nasıl işliyor?',
-    a: '3 seçeneğin var: Takımım var (mevcut ekibinle başvurabilirsin), bireysel (tek başına katılabilirsin) veya takımım yok ama takım kurmak istiyorum (etkinlik başında eşleştirme ile takımlara dahil olursun).'
+    a: '3 seçeneğin var:\n\n- Takımım var: Mevcut ekibinle başvurabilirsin.\n- Bireysel: Tek başına katılabilirsin.\n- Takımım yok ama takım kurmak istiyorum: Etkinlik başında eşleştirme ile takımlara dahil olursun.'
   },
 
   {
