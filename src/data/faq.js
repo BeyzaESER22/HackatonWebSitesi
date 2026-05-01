@@ -3,28 +3,70 @@ export const faq = [
     q: 'Kimler katılabilir?',
     a: '18 yaş üstü tüm üniversite öğrencileri, yeni mezunlar, yazılım geliştiriciler, tasarımcılar, veri bilimciler ve girişimciler katılabilir. AI alanında tecrübe şart değil — sadece öğrenmeye hevesli olman yeterli.'
   },
+
+  {
+    q: 'Hackathon ne kadar sürüyor?',
+    a: 'HackFest’26 AI toplam 2 gün ve her gün 12 saat toplam 24 saat sürecek şekilde planlanmıştır. Bu süre boyunca katılımcılar projelerini geliştirir, web sitesine yükler ve final sunumlarını hazırlar.'
+  },
+
+  {
+    q: 'Projeler nasıl değerlendirilecek?',
+    a: 'Projeler; fikir özgünlüğü, teknik uygulanabilirlik, toplumsal etki ve AI kullanım kalitesine göre jüri tarafından değerlendirilecektir.'
+  },
+
+  {
+    q: 'Takım seçeneğim nasıl işliyor?',
+    a: '3 seçeneğin var: Takımım var (mevcut ekibinle başvurabilirsin), bireysel (tek başına katılabilirsin) veya takımım yok ama takım kurmak istiyorum (etkinlik başında eşleştirme ile takımlara dahil olursun).'
+  },
+
+  {
+    q: 'Takımımı ne zaman kurmam gerekiyor?',
+    a: 'Takımlar etkinlik başlamadan önce veya takımı olmayıp takım kurmak isteyen yarışmacılar için yarışmanın ilk saatinde kurulacaktır. Yarışmanın ilerleyen saatilerinde takım oluşturulamaz.'
+  },
+
+  {
+    q: 'Önceden proje fikri hazırlamak gerekiyor mu?',
+    a: 'Hayır. Etkinlik sırasında da fikir geliştirebilir ve proje oluşturabilirsin. Önceden fikir getirmek avantaj sağlayabilir ancak zorunlu değildir.'
+  },
+
+  {
+    q: 'Hangi teknolojileri kullanabilirim?',
+    a: 'Google AI araçları (Gemini, Vertex AI), açık kaynak kütüphaneler ve istediğin yazılım ve yapay zeka teknolojilerini kullanabilirsin.'
+  },
+
   {
     q: 'Etkinlik ücretli mi?',
-    a: 'Hayır. HackFest\'26 AI tamamen ücretsizdir. Yemek, içecek ve atıştırmalıklar 2 gün boyunca bizden. Kontenjan sınırlı olduğu için başvurular jüri tarafından değerlendirilir.'
+    a: 'Hayır. HackFest’26 AI tamamen ücretsizdir.'
   },
-  {
-    q: 'Takım kurmak zorunda mıyım?',
-    a: 'Hayır. Bireysel ya da 2-5 kişilik takımlar halinde başvurabilirsin. Takımı olmayanlar için etkinlik başında düzenleyeceğimiz Team Matching oturumunda yeni arkadaşlarla tanışabilirsin.'
-  },
+
   {
     q: 'Etkinlik nerede gerçekleşecek?',
-    a: 'İstinye Üniversitesi Ayazağa Kampüsü\'nde — İstanbul. Detaylı yol tarifi ve kampüs haritası kayıt sonrası e-posta ile paylaşılacak.'
+    a: 'İstinye Üniversitesi Ayazağa Kampüsü’nde, İstanbul’da gerçekleşecektir. Detaylı konum bilgisi ve kampüs haritası e-posta yoluyla paylaşılacaktır. Ayrıca duyurular ve güncellemeler için WhatsApp grubuna buradan katılabilirsiniz: https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x'
   },
-  {
-    q: 'Sertifika veriliyor mu?',
-    a: 'Evet. Etkinliği tamamlayan tüm katılımcılar GDG On Campus İstinye Üniversitesi tarafından imzalanmış resmi katılım sertifikası alır. Kazanan takımlar için ek özel sertifikalar düzenlenir.'
-  },
+
   {
     q: 'Kendi bilgisayarımı getirmem gerekiyor mu?',
-    a: 'Evet, kendi laptop\'unu, şarj aleti ve gerekli donanımını getirmen gerekiyor. Mekanda yüksek hızlı internet, yeterli priz ve dinlenme alanları sağlanacak.'
+    a: 'Evet, kendi laptopunu getirebilirsin. Ancak ihtiyacı olan katılımcılar için etkinlik alanında bilgisayar kullanımı da sağlanacaktır. Ayrıca yüksek hızlı internet, yeterli priz ve dinlenme alanları sunulacaktır.'
   },
+
   {
     q: 'Projemi nereye yükleyeceğim?',
-    a: 'Etkinliğin son saatinde Demo Day öncesinde /projects/submit sayfasından ekip bilgileri, repo, demo linki ve ekran görüntüsünüzle birlikte gönderebilirsiniz. Onaylanan projeler galeri sayfasında sergilenir.'
+    a: 'Projeni /projects/submit sayfası üzerinden web sitesi aracılığıyla yükleyebilirsin. Burada proje adı, kategori, açıklama, ekip bilgileri, kullanılan teknolojiler, görseller, GitHub repo linki ve varsa canlı demo linkini eklemen gerekir. Gönderilen projeler incelemeden sonra proje galerisinde sergilenir.'
+  },
+
+  {
+    q: 'Bireysel katılım dezavantaj mı?',
+    a: 'Hayır. Bireysel katılımcılar da takım projeleriyle eşit şekilde değerlendirilir.'
+  },
+
+  {
+    q: 'Başvuru formunda seçtiğim takım seçeneğini sonradan değiştirebilir miyim?',
+    a: 'Evet. Başvuruda seçtiğin (takımla katılacağım, bireysel katılacağım veya takım kurmak istiyorum) seçeneğini etkinliğin ilk saatinde organizasyon ekibine bildirerek değiştirebilirsin. Ancak takım eşleştirme süreci başladıktan ve proje geliştirme aşamasına geçildikten sonra değişiklik yapılamaz.'
+  },
+
+  {
+    q: 'Etkinliğe geç kalırsam ne olur?',
+    a: 'Etkinliğin başlangıç saatinden sonra gelen katılımcılar web sitesinden isimlerini onaylattıktan sonra dahil olabilir. Ancak takım eşleştirme ve açılış oturumunu kaçıran katılımcılar sürece sonradan dahil edilir ve bazı bilgilendirmeleri kaçırabilirler.' 
   }
+
 ];
