@@ -14,6 +14,14 @@ import { useApp } from '@/context/AppContext';
 import { ruleCategories } from '@/data/rules';
 import { categories } from '@/data/problems';
 
+const judging = [
+  { weight: '30%', title: 'Toplumsal Etki',     desc: 'Hangi probleme dokunuyor? Kaç kişiye fayda sağlayabilir?' },
+  { weight: '25%', title: 'Teknik Yetkinlik',   desc: 'AI/ML kullanımı, kod kalitesi, mimari kararlar.' },
+  { weight: '20%', title: 'Yenilikçilik',       desc: 'Mevcut çözümlerden farkı, özgün yaklaşımı.' },
+  { weight: '15%', title: 'Sunum & Demo',       desc: '5 dakikalık pitch, ürünün canlı çalışması.' },
+  { weight: '10%', title: 'Tamamlanmışlık',     desc: 'Çalışan prototip, test edilebilirlik.' }
+];
+
 export default function HackathonInfoPage() {
   const { openModal, activeModal, modalData, closeModal, showToast } = useApp();
   const [selectedCategory, setSelectedCategory] = useState(null);
