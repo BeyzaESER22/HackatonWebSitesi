@@ -46,7 +46,7 @@ export default function HackathonInfoPage() {
         <Container>
           <Badge dotColor={COLORS.green} className="mb-6">Hackathon · 16-17 Mayıs 2026</Badge>
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6">
-           <span className="hf-text-gradient">yapay zeka</span>kullanarak toplumsal sorunlara çözüm üret.
+           <span className="hf-text-gradient">Yapay zeka</span> kullanarak toplumsal sorunlara çözüm üret.
           </h1>
           <p className="text-ink-dim text-xl max-w-3xl mb-10 leading-relaxed">
             HackFest'26 AI Hackathon'unda, gerçek dünya problemlerine yapay zeka ile çözüm üretmek üzere 2 gün boyunca takımınla yarışırsın. Mentorlar, workshoplar, jüri sunumları ve büyük ödüllerle dolu bir maraton.
