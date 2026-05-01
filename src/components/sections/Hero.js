@@ -8,14 +8,13 @@ import { ParticlesBg } from '@/components/effects/ParticlesBg';
 import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
 import { COLORS, SITE } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
-import { sponsors } from '@/data/sponsors';
 import Link from 'next/link';
 
 export function Hero() {
   const { openModal } = useApp();
 
   return (
-    <section id="top" className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden bg-[#05071A]">
+    <section id="top" className="relative pt-32 pb-40 lg:pt-40 lg:pb-52 overflow-hidden bg-[#05071A]">
       {/* Dynamic Background Elements */}
       <GradientGlow />
       <ParticlesBg />
@@ -24,8 +23,8 @@ export function Hero() {
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-emerald-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
 
-      {/* Modern Wave Container */}
-      <div className="absolute bottom-0 left-0 w-full h-[350px] pointer-events-none overflow-hidden opacity-40">
+      {/* Modern Wave Container - Expanded to reach next section */}
+      <div className="absolute bottom-0 left-0 w-full h-[500px] pointer-events-none overflow-hidden opacity-40">
         <div className="wave wave1"></div>
         <div className="wave wave2"></div>
         <div className="wave wave3"></div>
@@ -98,12 +97,17 @@ export function Hero() {
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
           <div className="max-w-4xl mx-auto -mt-8">
+             <div className="text-center mb-8 space-y-2">
+               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-400/60 font-display">MARATONUN BAŞLAMASINA</div>
+               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/40 font-display underline decoration-emerald-500/30 underline-offset-4">ETKİNLİĞE KALAN SÜRE</div>
+               <div className="text-[10px] font-mono text-white/30 tracking-widest pt-1 italic">16 Mayıs 2026 · 09:00</div>
+             </div>
              <Countdown />
           </div>
         </RevealOnScroll>
 
         {/* Scroll indicator */}
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-20">
           <a href="#highlights" className="flex flex-col items-center gap-3 group">
             <span className="text-ink-dim text-[10px] font-bold uppercase tracking-[0.3em] group-hover:text-white transition-colors">Aşağı kaydır</span>
             <div className="relative w-[1px] h-12 bg-white/10 overflow-hidden">
@@ -121,7 +125,6 @@ export function Hero() {
           left: 0;
           width: 200%;
           height: 100%;
-          background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2334D399"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" opacity="0.3"/></svg>');
           background-size: 50% 100%;
           transform-origin: center bottom;
         }
@@ -160,15 +163,6 @@ export function Hero() {
         @keyframes wave-anim {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
-        }
-
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
         }
         
         @keyframes scroll-line {

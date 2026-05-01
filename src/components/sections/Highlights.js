@@ -140,14 +140,14 @@ export function Highlights() {
 
                   {/* Support Sponsors */}
                   {supportSponsors.length > 0 && (
-                    <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                    <div className="flex flex-row flex-nowrap justify-start lg:justify-center items-center gap-10 md:gap-16 overflow-x-auto pb-6 scrollbar-hide">
                       {supportSponsors.map((s, idx) => (
                         <a 
                           key={s.id} 
                           href={s.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="group flex items-center justify-center transition-all animate-float"
+                          className="group flex-shrink-0 flex items-center justify-center transition-all animate-float"
                           style={{ animationDelay: `${idx * 0.3}s` }}
                         >
                           <div className="w-24 md:w-32 h-12 md:h-16 flex items-center justify-center transition-all duration-500 group-hover:scale-125 group-hover:rotate-3">
