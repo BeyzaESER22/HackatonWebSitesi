@@ -21,13 +21,20 @@ export function Hero() {
       
       {/* Floating Animated Orbs */}
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-red-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-500/[0.03] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-emerald-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
+
+      {/* Modern Wave Container */}
+      <div className="absolute bottom-0 left-0 w-full h-[350px] pointer-events-none overflow-hidden opacity-40">
+        <div className="wave wave1"></div>
+        <div className="wave wave2"></div>
+        <div className="wave wave3"></div>
+        <div className="wave wave4"></div>
+      </div>
 
       <Container className="relative z-10">
         <RevealOnScroll>
           <div className="flex justify-center mb-8">
-            <Badge dotColor={COLORS.green} className="bg-white/5 border-white/10 backdrop-blur-md">
+            <Badge dotColor={COLORS.green} className="bg-white/5 border-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(52,168,83,0.15)]">
               {SITE.organizer}
             </Badge>
           </div>
@@ -37,124 +44,134 @@ export function Hero() {
         <RevealOnScroll delay={0.1}>
           <div className="relative inline-block w-full text-center">
             <h1
-              className="font-brush text-center font-normal mb-2 select-none relative z-10"
+              className="font-display text-center font-bold mb-2 select-none relative z-10"
               style={{
-                fontSize: 'clamp(3.5rem, 13vw, 11rem)',
-                lineHeight: 0.95,
-                letterSpacing: '0.01em'
+                fontSize: 'clamp(3rem, 11vw, 9rem)',
+                lineHeight: 1,
+                letterSpacing: '-0.02em'
               }}
               aria-label="HackFest '26 AI"
             >
-              <span className="text-white/95 inline-block mr-2 lg:mr-4 opacity-50" style={{ fontWeight: 400 }}>
-                {'{'}
+              <span className="text-white/20 inline-block mr-2 lg:mr-4 font-mono" style={{ fontWeight: 400 }}>
+                &lt;
               </span>
-              <span className="hero-rainbow-animate inline-block">HackFest</span>
-              <span className="text-white/95 inline-block ml-2 lg:ml-4 opacity-50" style={{ fontWeight: 400 }}>
-                {'}'}
+              <span className="hero-rainbow-static inline-block uppercase tracking-tighter">HackFest</span>
+              <span className="text-white/20 inline-block ml-2 lg:ml-4 font-mono" style={{ fontWeight: 400 }}>
+                /&gt;
               </span>
             </h1>
-            {/* Glow effect behind title */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/5 blur-3xl rounded-full opacity-50 -z-10" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-500/5 blur-[100px] rounded-full -z-10" />
           </div>
         </RevealOnScroll>
 
-        {/* === '26 + <AI/> line === */}
+        {/* === '26 line === */}
         <RevealOnScroll delay={0.18}>
-          <div className="flex items-center justify-center gap-6 mb-10">
-            <span className="font-brush text-3xl md:text-4xl animate-pulse" style={{ color: '#5EEAD4' }}>
-              {"'"}26
-            </span>
-            <div className="h-px w-12 bg-gradient-to-r from-transparent via-[#5EEAD4]/50 to-transparent" />
-            <span className="font-mono text-base md:text-lg tracking-widest" style={{ color: '#5EEAD4' }}>
-              {'<AI/>'}
+          <div className="flex items-center justify-center gap-6 mb-12">
+            <span className="font-mono text-2xl md:text-3xl font-bold tracking-[0.3em] text-emerald-400">
+              2026
             </span>
           </div>
         </RevealOnScroll>
 
         {/* === KODLA · YARAT · DENEYİMLE === */}
         <RevealOnScroll delay={0.25}>
-          <div className="flex items-center justify-center gap-4 md:gap-8 mb-12 text-xs md:text-sm tracking-[0.5em] uppercase text-white/70 font-bold">
-            <span className="hover:text-white transition-colors cursor-default">Kodla</span>
-            <span className="w-2 h-2 rounded-full hf-pulse-dot shadow-[0_0_10px_rgba(66,133,244,0.8)]" style={{ background: COLORS.blue }} />
-            <span className="hover:text-white transition-colors cursor-default">Yarat</span>
-            <span className="w-2 h-2 rounded-full hf-pulse-dot shadow-[0_0_10px_rgba(234,67,53,0.8)]" style={{ background: COLORS.red, animationDelay: '0.5s' }} />
-            <span className="hover:text-white transition-colors cursor-default">Deneyimle</span>
+          <div className="flex items-center justify-center gap-4 md:gap-10 mb-14 text-[10px] md:text-xs tracking-[0.6em] uppercase text-white/50 font-black">
+            <span className="hover:text-emerald-400 transition-colors cursor-default">Kodla</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
+            <span className="hover:text-blue-400 transition-colors cursor-default">Yarat</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-ping" style={{ animationDelay: '0.5s' }} />
+            <span className="hover:text-purple-400 transition-colors cursor-default">Deneyimle</span>
           </div>
         </RevealOnScroll>
 
         {/* === Tagline === */}
         <RevealOnScroll delay={0.32}>
-          <div className="max-w-2xl mx-auto mb-14 text-center">
-            <p className="text-base md:text-xl text-ink-dim leading-relaxed mb-4">
-              16-17 Mayıs 2026 İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, ilham veren konuşmalar ve büyük ödüller seni bekliyor.
+          <div className="max-w-2xl mx-auto mb-16 text-center">
+            <p className="text-base md:text-lg text-white/60 leading-relaxed font-medium">
+              Geleceği şekillendirmek için bir araya geliyoruz. İstinye Üniversitesi Kampüsünde
+              Yapay Zekanın sınırlarını birlikte keşfedelim.
             </p>
-            <div className="inline-flex items-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-cyan-400/80">
-              <span className="w-8 h-px bg-cyan-400/30" />
-              AI · TOPLUM YARARINA
-              <span className="w-8 h-px bg-cyan-400/30" />
-            </div>
           </div>
         </RevealOnScroll>
 
         {/* === CTAs === */}
         <RevealOnScroll delay={0.4}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-20">
-            <Button onClick={() => openModal('hack')} size="lg" className="px-10 h-14 text-base shadow-[0_0_30px_rgba(66,133,244,0.3)]" iconRight={<ArrowRightIcon />}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-24">
+            <Button onClick={() => openModal('hack')} size="xl" className="px-12 h-16 text-lg rounded-2xl bg-white text-black hover:bg-emerald-400 hover:text-black transition-all shadow-[0_20px_40px_rgba(255,255,255,0.1)] border-none" iconRight={<ArrowRightIcon />}>
               HACKATHON
             </Button>
-            <Button as={Link} href="/speakers" variant="ghost" size="lg" className="px-10 h-14 text-base border-white/10 hover:bg-white/5 backdrop-blur-sm">
-              KONUŞMACI ETKİNLİKLERİ
+            <Button as={Link} href="/speakers" variant="ghost" size="xl" className="px-12 h-16 text-lg rounded-2xl border-white/10 hover:bg-white/5 backdrop-blur-md text-white">
+              KONUŞMACILAR
             </Button>
           </div>
         </RevealOnScroll>
 
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
-          <div className="max-w-3xl mx-auto relative group">
-            <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-red-500/10 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <div className="relative bg-white/[0.02] border border-white/5 backdrop-blur-sm rounded-[32px] p-2">
-               <div className="text-[10px] text-center font-bold uppercase tracking-[0.4em] text-ink-dim pt-6 pb-2">Etkinliğe Kalan Süre</div>
-               <Countdown />
-            </div>
+          <div className="max-w-4xl mx-auto">
+             <div className="text-[10px] text-center font-bold uppercase tracking-[0.5em] text-emerald-400/60 mb-8">Maratonun Başlamasına</div>
+             <Countdown />
           </div>
         </RevealOnScroll>
-
-        {/* Scroll indicator */}
-        <div className="flex justify-center mt-20">
-          <a href="#highlights" className="flex flex-col items-center gap-3 group">
-            <span className="text-ink-dim text-[10px] font-bold uppercase tracking-[0.3em] group-hover:text-white transition-colors">Aşağı kaydır</span>
-            <div className="relative w-[1px] h-16 bg-white/10 overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent animate-scroll-line" />
-            </div>
-          </a>
-        </div>
       </Container>
 
-      {/* Hero Specific Animations */}
+      {/* Wave CSS & New Animations */}
       <style>{`
-        @keyframes hero-glow {
-          0%, 100% { filter: drop-shadow(0 0 15px rgba(66,133,244,0.2)); }
-          50% { filter: drop-shadow(0 0 30px rgba(66,133,244,0.4)); }
+        .wave {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 200%;
+          height: 100%;
+          background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2334D399"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" opacity="0.3"/></svg>');
+          background-size: 50% 100%;
+          transform-origin: center bottom;
         }
         
-        @keyframes scroll-line {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(100%); }
+        .wave1 {
+          animation: wave-anim 20s linear infinite;
+          z-index: 1000;
+          opacity: 0.15;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%234285F4"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" /></svg>');
+        }
+        
+        .wave2 {
+          animation: wave-anim 15s linear infinite reverse;
+          z-index: 999;
+          opacity: 0.1;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2334D399"><path d="M0 200 C400 300 400 100 800 200 C1200 300 1200 100 1600 200 L1600 400 L0 400 Z" /></svg>');
+          bottom: 10px;
+        }
+        
+        .wave3 {
+          animation: wave-anim 10s linear infinite;
+          z-index: 998;
+          opacity: 0.05;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%238B5CF6"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" /></svg>');
+          bottom: 20px;
+        }
+        
+        .wave4 {
+          animation: wave-anim 12s linear infinite reverse;
+          z-index: 997;
+          opacity: 0.08;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2306B6D4"><path d="M0 200 C400 300 400 100 800 200 C1200 300 1200 100 1600 200 L1600 400 L0 400 Z" /></svg>');
+          bottom: 15px;
         }
 
-        .hero-rainbow-animate {
+        @keyframes wave-anim {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .hero-rainbow-static {
           background: linear-gradient(
-            90deg,
-            #EF4444, #F97316, #EAB308, #22C55E, #3B82F6, #8B5CF6
+            to right,
+            #4285F4, #34A853, #FBBC05, #EA4335
           );
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          animation: hero-glow 4s ease-in-out infinite;
-        }
-
-        .animate-scroll-line {
-          animation: scroll-line 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
         }
       `}</style>
     </section>
