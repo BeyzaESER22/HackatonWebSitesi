@@ -18,10 +18,10 @@ export const faq = [
     q: 'Takım seçeneğim nasıl işliyor?',
     a: '3 seçeneğin var:\n\n- Takımım var: Mevcut ekibinle başvurabilirsin.\n- Bireysel: Tek başına katılabilirsin.\n- Takımım yok ama takım kurmak istiyorum: Etkinlik başında eşleştirme ile takımlara dahil olursun.'
   },
-
+  
   {
-    q: 'Takımımı ne zaman kurmam gerekiyor?',
-    a: 'Takımlar etkinlik başlamadan önce veya takımı olmayıp takım kurmak isteyen yarışmacılar için yarışmanın ilk saatinde kurulacaktır. Yarışmanın ilerleyen saatilerinde takım oluşturulamaz.'
+    q: 'Başvuru formunda “takımım yok ama takım ile yarışmak istiyorum” seçeneğini seçtiysem ne olur?',
+    a: 'Etkinlik başlamadan önce katılımcılar kendi aralarında takım kurabilir veya organizasyon ekibi tarafından eşleştirme sürecine dahil edilir. Etkinliğin ilk saatinde takım yapısı netleştirilir. Proje geliştirme süreci başladıktan sonra takım oluşturma veya değişiklik yapılamaz.'
   },
 
   {
@@ -66,7 +66,7 @@ export const faq = [
 
   {
     q: 'Etkinliğe geç kalırsam ne olur?',
-    a: 'Etkinliğin başlangıç saatinden sonra gelen katılımcılar web sitesinden isimlerini onaylattıktan sonra dahil olabilir. Ancak takım eşleştirme ve açılış oturumunu kaçıran katılımcılar sürece sonradan dahil edilir ve bazı bilgilendirmeleri kaçırabilirler.' 
+    a: 'Etkinliğin başlangıç saatinden sonra gelen katılımcılar web sitesinden isimlerini onaylattıktan sonra dahil olabilir. Ancak takım eşleştirme -bireysel veya zaten halihazırda var olan bir takım ile yarışacaksanız takım eşleştirme saati sizin için büyük önem teşkil etmemektedir- ve açılış oturumunu kaçıran katılımcılar sürece sonradan dahil edilir ve bazı bilgilendirmeleri kaçırabilirler.' 
   }
 
 ];
