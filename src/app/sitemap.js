@@ -12,7 +12,6 @@ export default function sitemap() {
     { url: `${base}/team`,            lastModified: now, priority: 0.7,  changeFrequency: 'monthly' },
     { url: `${base}/projects`,        lastModified: now, priority: 0.85, changeFrequency: 'daily' },
     { url: `${base}/projects/submit`, lastModified: now, priority: 0.7,  changeFrequency: 'weekly' },
-    { url: `${base}/register`,        lastModified: now, priority: 0.95, changeFrequency: 'daily' },
-    { url: `${base}/speaker-event`,   lastModified: now, priority: 0.85, changeFrequency: 'weekly' }
+    { url: `${base}/register`,        lastModified: now, priority: 0.95, changeFrequency: 'daily' }
   ];
 }

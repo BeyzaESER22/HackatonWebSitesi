@@ -30,9 +30,6 @@ export function MobileMenu({ open, onClose }) {
               <Button as={Link} href="/register" onClick={onClose} className="justify-center">
                 Hackathon'a Katıl
               </Button>
-              <Button as={Link} href="/speaker-event" onClick={onClose} variant="ghost" className="justify-center">
-                Konuşmacı Etkinliği
-              </Button>
             </div>
           </div>
         </motion.div>

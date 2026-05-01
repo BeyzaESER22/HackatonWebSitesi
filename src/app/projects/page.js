@@ -81,12 +81,12 @@ export default async function ProjectsPage() {
         <div className="mt-16 hf-glass p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 rounded-3xl"
              style={{ background: 'linear-gradient(120deg, rgba(66,133,244,.08), rgba(234,67,53,.06))' }}>
           <div>
-            <div className="font-display text-2xl font-bold mb-1">Projeni Demo Day'e gönder.</div>
+            <div className="font-display text-2xl font-bold mb-1">Demo Day Başvurusu</div>
             <p className="text-ink-dim text-sm max-w-2xl">
               Etkinlik sırasında geliştirdiğin projeyi yükle; onay sonrası bu galeride sergilensin ve tüm jüri & ziyaretçilere ulaşsın.
             </p>
           </div>
-          <Button as={Link} href="/projects/submit" iconRight={<ArrowRightIcon />}>Proje Gönder</Button>
+          <Button as={Link} href="/projects/submit" iconRight={<ArrowRightIcon />}>Hemen Başvur</Button>
         </div>
       </Container>
     </section>

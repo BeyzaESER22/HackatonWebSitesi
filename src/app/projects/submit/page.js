@@ -7,7 +7,7 @@ import { COLORS } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
-  title: 'Proje Gönder',
+  title: 'Demo Day Başvurusu',
   description: 'HackFest\'26 AI projeni Demo Day galerisi için gönder.',
   path: '/projects/submit'
 });
@@ -17,7 +17,7 @@ export default function ProjectSubmitPage() {
     <section className="pt-36 pb-24 lg:pt-44 lg:pb-32">
       <Container size="sm">
         <Badge dotColor={COLORS.green} className="mb-4">Demo Day Başvurusu</Badge>
-        <SectionTitle title="Projeni" gradient="gönder." align="left" className="mb-4" />
+        <SectionTitle title="Demo Day" gradient="Başvurusu" align="left" className="mb-4" />
         <p className="text-ink-dim mb-10">
           Etkinlik sırasında geliştirdiğiniz projeyi yükleyin. Gönderim sonrası organizasyon ekibi tarafından
           incelenir ve onaylandığında <span className="text-white">/projects</span> galerisinde sergilenir.

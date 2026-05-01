@@ -7,7 +7,6 @@ import { HackathonApplicationShell } from './HackathonApplicationShell';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { HackathonForm } from '@/components/forms/HackathonForm';
-import { EventRegisterForm } from '@/components/forms/EventRegisterForm';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { NAV_LINKS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
@@ -40,9 +39,6 @@ export function Navbar() {
 
           {/* Right CTAs — only on xl+ */}
           <div className="hidden xl:flex items-center gap-2.5 shrink-0">
-            <Button variant="ghost" size="sm" onClick={() => openModal('speaker')}>
-              Konuşmacı Etkinliği
-            </Button>
             <Button size="sm" onClick={() => openModal('hack')} iconRight={<ArrowRightIcon size={14} />}>
               Hackathon'a Katıl
             </Button>
@@ -88,16 +84,6 @@ export function Navbar() {
         <HackathonApplicationShell>
           <HackathonForm onSuccess={closeModal} />
         </HackathonApplicationShell>
-      </Modal>
-
-      <Modal
-        open={activeModal === 'speaker'}
-        onClose={closeModal}
-        eyebrow="Konuşmacı Etkinliği"
-        title="Sahnede yerini al."
-        subtitle="Konuşmacı etkinliklerine katılmak ya da izleyici olmak için kayıt formu."
-      >
-        <EventRegisterForm onSuccess={closeModal} />
       </Modal>
     </>
   );
