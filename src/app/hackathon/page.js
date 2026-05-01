@@ -7,19 +7,10 @@ import { Badge } from '@/components/ui/Badge';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Accordion } from '@/components/ui/Accordion';
 import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
-import { sampleProjectId } from '@/data/projects';
 import { COLORS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
 import { ruleCategories } from '@/data/rules';
-
-const themes = [
-  { color: COLORS.blue,   icon: '📚', title: 'Eğitim',          desc: 'Erişilebilir öğrenme araçları, kişiselleştirilmiş içerik, dezavantajlı bölgelere ulaşan platformlar.' },
-  { color: COLORS.red,    icon: '🏥', title: 'Sağlık',           desc: 'Erken tanı, hasta-takip sistemleri, kırsal sağlık erişimi, mental sağlık asistanları.' },
-  { color: COLORS.yellow, icon: '🌪️', title: 'Afet Yönetimi',     desc: 'Erken uyarı sistemleri, afet sonrası iletişim, kayıp kişi takibi, kaynak dağıtımı.' },
-  { color: COLORS.green,  icon: '♿', title: 'Erişilebilirlik',    desc: 'Görme/işitme engelliler için araçlar, çeviri sistemleri, kapsayıcı arayüzler.' },
-  { color: '#06B6D4',     icon: '🌱', title: 'Sürdürülebilirlik', desc: 'Karbon takibi, geri dönüşüm optimizasyonu, enerji verimliliği, biyoçeşitlilik analizi.' },
-  { color: '#8B5CF6',     icon: '✨', title: 'Diğer',             desc: 'Toplum yararına çalışan ve başka bir kategoriye sığmayan yaratıcı çözümler.' }
-];
+import { categories } from '@/data/problems';
 
 const judging = [
   { weight: '30%', title: 'Toplumsal Etki',     desc: 'Hangi probleme dokunuyor? Kaç kişiye fayda sağlayabilir?' },
@@ -28,8 +19,6 @@ const judging = [
   { weight: '15%', title: 'Sunum & Demo',       desc: '5 dakikalık pitch, ürünün canlı çalışması.' },
   { weight: '10%', title: 'Tamamlanmışlık',     desc: 'Çalışan prototip, test edilebilirlik.' }
 ];
-
-import { categories } from '@/data/problems';
 
 export default function HackathonInfoPage() {
   const { openModal } = useApp();
@@ -73,79 +62,102 @@ export default function HackathonInfoPage() {
         <Container>
           <RevealOnScroll>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <SectionTitle 
-                eyebrow="Yarışma Alanları" 
-                title="Kategoriler ve" 
-                gradient="Problem Havuzu" 
-                align="left" 
-                className="!mb-0" 
-              />
-              <Button 
-                as="a" 
-                href="/hackfest26-kurallar.pdf" 
-                download 
-                variant="ghost" 
-                iconRight={<ArrowRightIcon />}
-                className="shrink-0"
-              >
-                Resmi Şartname ve Detaylar (PDF)
-              </Button>
-            </div>
-          </RevealOnScroll>
-
-          {/* Önemli Not */}
-          <RevealOnScroll>
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-12">
-              <div className="flex gap-4">
-                <div className="text-yellow-500 text-xl font-bold shrink-0">!</div>
-                <div className="text-sm leading-relaxed text-ink-dim">
-                  <strong className="text-white">ÖNEMLİ NOT:</strong> Takımların aşağıda listelenen <span className="text-white font-bold">ana kategorilerden en az birini</span> seçmesi zorunludur. Kategoriler altındaki "Problem İfadeleri" ve sağlanan "GitHub Veri Setleri" <span className="text-white">isteğe bağlıdır</span>; katılımcılar kendi veri setlerini oluşturabilir veya farklı alt temalar üzerinde çalışabilirler.
+              <div className="space-y-4">
+                <SectionTitle 
+                  eyebrow="Yarışma Alanları" 
+                  title="Problem Havuzu ve" 
+                  gradient="Kategoriler" 
+                  align="left" 
+                  className="!mb-0" 
+                />
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3 text-ink-dim">
+                    <span className="text-xl">📥</span>
+                    <a href="/hackfest26-kurallar.pdf" download className="text-white hover:underline font-bold">Resmi Kural ve Detaylar İçin PDF'i İndir</a>
+                  </div>
                 </div>
               </div>
             </div>
           </RevealOnScroll>
 
-          <div className="space-y-10">
+          {/* Önemli Not */}
+          <RevealOnScroll>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-8 mb-16">
+              <h3 className="font-display font-bold text-xl mb-6 flex items-center gap-2">
+                <span className="text-yellow-500">⚠️</span> Önemli Not
+              </h3>
+              <div className="grid md:grid-cols-3 gap-8 text-ink-dim text-sm leading-relaxed">
+                <div className="space-y-2">
+                  <div className="text-white font-bold">Zorunlu Seçim</div>
+                  <p>Katılımcıların listelenen <span className="text-white font-bold">ana kategorilerden en az birini</span> seçmesi teknik bir gerekliliktir.</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-white font-bold">Opsiyonel Alt Temalar</div>
+                  <p>Kategoriler altındaki "Alt Temalar" yalnızca ilham amaçlıdır; zorunlu değildir.</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-white font-bold">Veri Seti Esnekliği</div>
+                  <p>GitHub veri setleri sağlanacaktır; ancak kullanımı tamamen <span className="text-white font-bold">isteğe bağlıdır.</span></p>
+                </div>
+              </div>
+            </div>
+          </RevealOnScroll>
+
+          {/* Kategori Listesi */}
+          <div className="space-y-16">
             {categories.map((cat, idx) => (
-              <RevealOnScroll key={cat.id} delay={idx * 0.1}>
-                <div className="group hf-glass border-white/5 rounded-3xl overflow-hidden">
-                  <div className="p-8 lg:p-10">
-                    <div className="flex flex-col lg:flex-row justify-between gap-8 mb-10 pb-8 border-b border-white/5">
-                      <div className="flex items-center gap-5">
+              <RevealOnScroll key={cat.id} delay={idx * 0.05}>
+                <div className="group border-b border-white/5 pb-16 last:border-0">
+                  <div className="flex flex-col lg:flex-row gap-12">
+                    {/* Sol: Kategori Bilgisi */}
+                    <div className="lg:w-1/3 space-y-6">
+                      <div className="flex items-center gap-4">
                         <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shrink-0"
                           style={{ background: `${cat.color}26`, border: `1px solid ${cat.color}4D` }}>
                           {cat.icon}
                         </div>
-                        <div>
-                          <h3 className="font-display text-2xl lg:text-3xl font-bold mb-1" style={{ color: cat.color }}>{cat.title}</h3>
-                          <span className="text-xs uppercase tracking-widest text-ink-dim font-bold">Zorunlu Seçim Alanı</span>
+                        <h3 className="font-display text-2xl lg:text-3xl font-bold leading-tight text-white">{cat.title}</h3>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <div className="text-[10px] uppercase tracking-widest text-ink-dim font-bold">Alt Temalar</div>
+                        <div className="flex flex-wrap gap-2">
+                          {cat.subTopics.map(sub => (
+                            <span key={sub} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-ink-dim italic">
+                              {sub}
+                            </span>
+                          ))}
                         </div>
                       </div>
-                      <Button as="a" href={cat.githubUrl} target="_blank" variant="ghost" size="sm" className="w-fit self-start lg:self-center">
+
+                      <Button as="a" href={cat.githubUrl} target="_blank" variant="ghost" size="sm" iconRight={<span className="text-xs">↗</span>}>
                         GitHub Veri Setlerine Git
                       </Button>
                     </div>
 
-                    <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                      {cat.problems.map((prob, pIdx) => (
-                        <Card key={pIdx} className="!p-6 !bg-white/0 !border-white/5 hover:!border-white/10 transition-colors">
-                          <h4 className="font-display text-lg font-bold mb-4 text-white leading-tight">{prob.title}</h4>
-                          <div className="space-y-4">
-                            <div>
-                              <div className="text-[10px] uppercase tracking-wider text-ink-dim font-bold mb-1">Mevcut Durum</div>
-                              <p className="text-sm text-ink-dim leading-relaxed">{prob.current}</p>
-                            </div>
-                            <div>
-                              <div className="text-[10px] uppercase tracking-wider text-green-500 font-bold mb-1">Öngörülen Gelecek</div>
-                              <p className="text-sm text-ink-dim leading-relaxed">{prob.future}</p>
-                            </div>
-                            <div>
-                              <div className="text-[10px] uppercase tracking-wider text-blue-500 font-bold mb-1">Önem</div>
-                              <p className="text-sm text-ink-dim leading-relaxed italic">{prob.importance}</p>
-                            </div>
+                    {/* Sağ: Problem İfadesi */}
+                    <div className="lg:w-2/3">
+                      <div className="hf-glass border-white/5 rounded-3xl p-8 lg:p-10">
+                        <h4 className="font-display text-xl font-bold mb-8 text-white flex items-center gap-3">
+                          <span className="w-2 h-2 rounded-full" style={{ background: cat.color }}></span>
+                          Problem: {cat.problem.title}
+                        </h4>
+                        
+                        <div className="grid md:grid-cols-3 gap-8">
+                          <div className="space-y-3">
+                            <div className="text-[10px] uppercase tracking-widest font-bold text-ink-dim">Current State</div>
+                            <p className="text-sm leading-relaxed text-ink-dim">{cat.problem.current}</p>
                           </div>
-                        </Card>
-                      ))}
+                          <div className="space-y-3">
+                            <div className="text-[10px] uppercase tracking-widest font-bold text-green-500">Envisioned Future</div>
+                            <p className="text-sm leading-relaxed text-ink-dim">{cat.problem.future}</p>
+                          </div>
+                          <div className="space-y-3">
+                            <div className="text-[10px] uppercase tracking-widest font-bold text-blue-500">Importance</div>
+                            <p className="text-sm leading-relaxed text-ink-dim italic font-medium">{cat.problem.importance}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
