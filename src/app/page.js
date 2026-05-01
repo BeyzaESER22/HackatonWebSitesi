@@ -9,7 +9,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Marquee />
       <Highlights />
       <HackathonSection />
       <FAQSection />

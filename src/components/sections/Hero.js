@@ -14,7 +14,7 @@ export function Hero() {
   const { openModal } = useApp();
 
   return (
-    <section id="top" className="relative pt-32 pb-40 lg:pt-40 lg:pb-52 overflow-hidden bg-[#05071A]">
+    <section id="top" className="relative pt-32 pb-0 overflow-hidden bg-[#05071A]">
       {/* Dynamic Background Elements */}
       <GradientGlow />
       <ParticlesBg />
@@ -23,15 +23,15 @@ export function Hero() {
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-emerald-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
 
-      {/* Modern Wave Container - Expanded to reach next section */}
-      <div className="absolute bottom-0 left-0 w-full h-[500px] pointer-events-none overflow-hidden opacity-40">
+      {/* Modern Wave Container - Maximized to reach next section */}
+      <div className="absolute bottom-0 left-0 w-full h-[600px] pointer-events-none overflow-hidden opacity-50 z-20">
         <div className="wave wave1"></div>
         <div className="wave wave2"></div>
         <div className="wave wave3"></div>
         <div className="wave wave4"></div>
       </div>
 
-      <Container className="relative z-10">
+      <Container className="relative z-10 pb-40">
         <RevealOnScroll>
           <div className="flex justify-center mb-8">
             <Badge dotColor={COLORS.green} className="bg-white/5 border-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(52,168,83,0.15)]">
@@ -96,25 +96,10 @@ export function Hero() {
 
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
-          <div className="max-w-4xl mx-auto -mt-8">
-             <div className="text-center mb-8 space-y-2">
-               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-400/60 font-display">MARATONUN BAŞLAMASINA</div>
-               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/40 font-display underline decoration-emerald-500/30 underline-offset-4">ETKİNLİĞE KALAN SÜRE</div>
-               <div className="text-[10px] font-mono text-white/30 tracking-widest pt-1 italic">16 Mayıs 2026 · 09:00</div>
-             </div>
+          <div className="max-w-4xl mx-auto">
              <Countdown />
           </div>
         </RevealOnScroll>
-
-        {/* Scroll indicator */}
-        <div className="flex justify-center mt-20">
-          <a href="#highlights" className="flex flex-col items-center gap-3 group">
-            <span className="text-ink-dim text-[10px] font-bold uppercase tracking-[0.3em] group-hover:text-white transition-colors">Aşağı kaydır</span>
-            <div className="relative w-[1px] h-12 bg-white/10 overflow-hidden">
-               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-emerald-500 to-transparent animate-scroll-line" />
-            </div>
-          </a>
-        </div>
       </Container>
 
       {/* Wave CSS & New Animations */}
@@ -132,46 +117,34 @@ export function Hero() {
         .wave1 {
           animation: wave-anim 20s linear infinite;
           z-index: 1000;
-          opacity: 0.15;
+          opacity: 0.2;
           background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%234285F4"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" /></svg>');
         }
         
         .wave2 {
           animation: wave-anim 15s linear infinite reverse;
           z-index: 999;
-          opacity: 0.1;
+          opacity: 0.15;
           background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2334D399"><path d="M0 200 C400 300 400 100 800 200 C1200 300 1200 100 1600 200 L1600 400 L0 400 Z" /></svg>');
-          bottom: 10px;
         }
         
         .wave3 {
           animation: wave-anim 10s linear infinite;
           z-index: 998;
-          opacity: 0.05;
+          opacity: 0.1;
           background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%238B5CF6"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" /></svg>');
-          bottom: 20px;
         }
         
         .wave4 {
           animation: wave-anim 12s linear infinite reverse;
           z-index: 997;
-          opacity: 0.08;
+          opacity: 0.12;
           background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2306B6D4"><path d="M0 200 C400 300 400 100 800 200 C1200 300 1200 100 1600 200 L1600 400 L0 400 Z" /></svg>');
-          bottom: 15px;
         }
 
         @keyframes wave-anim {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
-        }
-        
-        @keyframes scroll-line {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(100%); }
-        }
-
-        .animate-scroll-line {
-          animation: scroll-line 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
         }
 
         .hero-rainbow-static {
