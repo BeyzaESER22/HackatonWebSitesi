@@ -44,20 +44,20 @@ export function Hero() {
         <RevealOnScroll delay={0.1}>
           <div className="relative inline-block w-full text-center">
             <h1
-              className="font-display text-center font-bold mb-2 select-none relative z-10"
+              className="font-brush text-center font-normal mb-2 select-none relative z-10"
               style={{
-                fontSize: 'clamp(3rem, 11vw, 9rem)',
-                lineHeight: 1,
-                letterSpacing: '-0.02em'
+                fontSize: 'clamp(3.5rem, 13vw, 11rem)',
+                lineHeight: 0.95,
+                letterSpacing: '0.01em'
               }}
               aria-label="HackFest '26 AI"
             >
-              <span className="text-white/20 inline-block mr-2 lg:mr-4 font-mono" style={{ fontWeight: 400 }}>
-                &lt;
+              <span className="text-white/20 inline-block mr-2 lg:mr-4" style={{ fontWeight: 400 }}>
+                {'{'}
               </span>
-              <span className="hero-rainbow-static inline-block uppercase tracking-tighter">HackFest</span>
-              <span className="text-white/20 inline-block ml-2 lg:ml-4 font-mono" style={{ fontWeight: 400 }}>
-                /&gt;
+              <span className="hero-rainbow-static inline-block">HackFest</span>
+              <span className="text-white/20 inline-block ml-2 lg:ml-4" style={{ fontWeight: 400 }}>
+                {'}'}
               </span>
             </h1>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-500/5 blur-[100px] rounded-full -z-10" />
