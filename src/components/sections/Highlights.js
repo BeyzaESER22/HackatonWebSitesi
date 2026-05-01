@@ -4,17 +4,13 @@ import { Container } from '@/components/layout/Container';
 import { Card } from '@/components/ui/Card';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
-import { highlights } from '@/data/highlights';
+import { sponsors } from '@/data/sponsors';
 import { COLORS } from '@/lib/constants';
 
-const iconMap = {
-  clock:  (c) => (<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={c} strokeWidth="2"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" strokeLinecap="round" /></svg>),
-  spark:  (c) => (<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={c} strokeWidth="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" strokeLinecap="round" /></svg>),
-  stage:  (c) => (<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={c} strokeWidth="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" strokeLinejoin="round" /></svg>),
-  trophy: (c) => (<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke={c} strokeWidth="2"><path d="M12 15a4 4 0 0 0 4-4V3H8v8a4 4 0 0 0 4 4zM8 21h8M12 15v6M5 7H3v4a3 3 0 0 0 3 3M19 7h2v4a3 3 0 0 1-3 3" strokeLinejoin="round" /></svg>)
-};
-
 export function Highlights() {
+  const mainSponsors = sponsors.filter(s => s.size === 'main');
+  const supportSponsors = sponsors.filter(s => s.size === 'support');
+
   return (
     <section id="highlights" className="relative z-10 py-12 lg:py-20">
       <Container>
@@ -90,7 +86,7 @@ export function Highlights() {
               </div>
 
               {/* Büyük Çekiliş Banner */}
-              <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-white/5 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-white/5 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 mb-16">
                 <div className="flex-grow text-center md:text-left">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-[10px] font-bold uppercase tracking-widest mb-4">
                     Sürpriz Çekiliş
@@ -104,6 +100,51 @@ export function Highlights() {
                 <div className="shrink-0 flex flex-col items-center">
                   <div className="text-4xl mb-2 animate-bounce">🎟️</div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-ink-dim">QR Kodunu Okut</div>
+                </div>
+              </div>
+
+              {/* Sponsorlar Section - Otomatik Güncellenir */}
+              <div className="pt-12 border-t border-white/10">
+                <div className="text-center mb-10">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-400 mb-2">Gücümüzü Onlardan Alıyoruz</div>
+                  <h4 className="font-display text-2xl font-bold text-white">Sponsorlarımız</h4>
+                </div>
+
+                <div className="space-y-8">
+                  {/* Main Sponsors */}
+                  {mainSponsors.length > 0 && (
+                    <div className="flex flex-wrap justify-center gap-6">
+                      {mainSponsors.map(s => (
+                        <a 
+                          key={s.id} 
+                          href={s.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="group relative bg-white rounded-2xl p-6 md:p-8 flex items-center justify-center w-full max-w-[320px] h-32 md:h-40 transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                        >
+                          <img src={s.logoUrl} alt={s.name} className="max-w-full max-h-full object-contain" />
+                          <div className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-emerald-500 text-[8px] font-bold text-white uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ana Sponsor</div>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Support Sponsors */}
+                  {supportSponsors.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                      {supportSponsors.map(s => (
+                        <a 
+                          key={s.id} 
+                          href={s.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="bg-white/95 rounded-xl p-4 flex items-center justify-center h-20 md:h-24 transition-all hover:bg-white hover:scale-105"
+                        >
+                          <img src={s.logoUrl} alt={s.name} className="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
