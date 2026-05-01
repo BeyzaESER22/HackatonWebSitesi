@@ -98,28 +98,9 @@ export function Hero() {
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
           <div className="max-w-4xl mx-auto -mt-8">
-             <div className="text-center mb-8 space-y-2">
-               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-400/60 font-display">MARATONUN BAŞLAMASINA</div>
-               <div className="text-[10px] font-bold uppercase tracking-[0.5em] text-white/40 font-display underline decoration-emerald-500/30 underline-offset-4">ETKİNLİĞE KALAN SÜRE</div>
-               <div className="text-[10px] font-mono text-white/30 tracking-widest pt-1 italic">16 Mayıs 2026 · 09:00</div>
-             </div>
              <Countdown />
           </div>
         </RevealOnScroll>
-
-        {/* Sponsor Marquee in Hero */}
-        <div className="mt-24 relative overflow-hidden h-12 flex items-center">
-          <div className="flex items-center gap-12 animate-marquee whitespace-nowrap">
-            {[...sponsors, ...sponsors].map((s, i) => (
-              <img 
-                key={`${s.id}-${i}`} 
-                src={s.logoUrl} 
-                alt={s.name} 
-                className="h-8 md:h-10 w-auto object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" 
-              />
-            ))}
-          </div>
-        </div>
 
         {/* Scroll indicator */}
         <div className="flex justify-center mt-12">
