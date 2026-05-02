@@ -7,6 +7,14 @@ import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
 import { sponsors } from '@/data/sponsors';
 import { COLORS } from '@/lib/constants';
 
+const bullets = [
+  { color: COLORS.blue,   bold: 'Takım veya bireysel katılım', tail: ' — 1-5 kişilik gruplar.' },
+  { color: COLORS.red,    bold: 'Mentor desteği',              tail: ' — Sektör profesyonelleri süreç boyunca yanınızda olacak.' },
+  { color: COLORS.yellow, bold: 'Jüri değerlendirmesi',         tail: ' — 100 ana puan + 25 bonus seçeneği.' },
+  { color: COLORS.green,  bold: 'Final sunumu & Demo Day',      tail: ' — Projeni jürinin önünde sahneye taşı.' },
+  { color: '#8B5CF6',     bold: 'Büyük ödüller',                tail: '' }
+];
+
 export function Highlights() {
   const mainSponsors = sponsors.filter(s => s.size === 'main');
   const supportSponsors = sponsors.filter(s => s.size === 'support');
@@ -49,38 +57,75 @@ export function Highlights() {
                 </h2>
               </div>
 
-              {/* 3 Ana Bölüm Kartları */}
-              <div className="grid lg:grid-cols-3 gap-6 mb-12">
-                {/* 1. Hackathon */}
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group">
-                  <h3 className="font-display text-2xl font-bold text-white mb-4">Efsanevi AI Hackathon</h3>
-                  <p className="text-ink-dim leading-relaxed mb-8 flex-grow text-sm">
-                    24 saat sürecek kesintisiz bir maraton! Takımını kur, google studio kredilerini tanımla, toplumsal sorunlara yapay zeka ile çözüm üret. Yarışmayı kazan ödüller seni bekliyor. Bilgisayarını getirmeyi unutma.
-                  </p>
-                  <Button as={Link} href="/hackathon" size="sm" className="w-full" iconRight={<ArrowRightIcon />}>
-                    Hackathon'u İncele
-                  </Button>
-                </div>
-
-                {/* 2. Festival & Workshop */}
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group">
-                  <h3 className="font-display text-2xl font-bold text-white mb-4">Workshop & Talks</h3>
-                  <p className="text-ink-dim leading-relaxed mb-8 flex-grow text-sm">
-                    Yarışmaya katılmasan da buradasın! yapay zeka eğitimleri al, vizyonunu genişlet. Tamamen AI odaklı teknik seanslar seni bekliyor.
-                  </p>
-                  <div className="space-y-4">
-                    <Button as={Link} href="/speakers" variant="ghost" size="sm" className="w-full border-white/10 hover:bg-white/10" iconRight={<ArrowRightIcon />}>
-                      Konuşmacıları Gör
-                    </Button>
-                    <div className="text-[10px] text-center font-bold uppercase tracking-[0.2em] text-white/40">Herkes Katılabilir</div>
+              {/* Layout Restructure: 1 Large on Top, 2 Squares Below */}
+              <div className="flex flex-col gap-6 mb-12">
+                {/* 1. Large Rectangular Card (Hackathon) */}
+                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 flex flex-col hover:bg-white/[0.08] transition-all group w-full">
+                  <div className="grid lg:grid-cols-12 gap-8 items-start">
+                    <div className="lg:col-span-7">
+                      <h3 className="font-display text-3xl font-bold text-white mb-6">HACKATHON</h3>
+                      <p className="text-white font-medium text-lg mb-4">Toplum yararına çalışan yapay zeka üret.</p>
+                      <p className="text-ink-dim leading-relaxed mb-8">
+                        Eğitim, sağlık, afet yönetimi, erişilebilirlik ve sürdürülebilirlik gibi alanlarda gerçek dünya problemlerine yapay zeka ile çözüm geliştir. Tek başına ya da takımınla — sınır senin hayal gücün.
+                      </p>
+                      
+                      <ul className="grid sm:grid-cols-2 gap-4 mb-8">
+                        {bullets.map((b, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <span className="mt-1 w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ background: `${b.color}33` }}>
+                              <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12l5 5L20 7" stroke={b.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            </span>
+                            <span className="text-sm"><span className="text-white font-medium">{b.bold}</span>{b.tail}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div className="lg:col-span-5 flex flex-col h-full justify-between gap-6">
+                      <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5">
+                         <p className="text-sm text-ink-dim italic leading-relaxed">
+                            "Takımını kur, google studio kredilerini tanımla, toplumsal sorunlara yapay zeka ile çözüm üret. Yarışmayı kazan ödüller seni bekliyor. Bilgisayarını getirmeyi unutma."
+                         </p>
+                      </div>
+                      <div className="flex flex-col gap-3">
+                        <Button onClick={() => openModal('hack')} size="lg" className="w-full" iconRight={<ArrowRightIcon />}>
+                          Hemen Başvur
+                        </Button>
+                        <Button as={Link} href="/hackathon" variant="ghost" size="lg" className="w-full border-white/10">
+                          Hackathon Detayları
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* 3. Deneyim Alanı */}
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group min-h-[280px]">
-                  <h3 className="font-display text-2xl font-bold text-white mb-4">Kulüp Standları</h3>
-                  <div className="mt-auto">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">SOSYAL ETKİLEŞİM ALANI</div>
+                {/* 2 Square Cards Below (Side-by-side) */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Workshop & Talks */}
+                  <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group min-h-[320px]">
+                    <h3 className="font-display text-2xl font-bold text-white mb-4">Workshop & Talks</h3>
+                    <p className="text-ink-dim leading-relaxed mb-8 flex-grow text-sm">
+                      Yarışmaya katılmasan da buradasın! yapay zeka eğitimleri al, vizyonunu genişlet. Tamamen AI odaklı teknik seanslar seni bekliyor.
+                    </p>
+                    <div className="space-y-4">
+                      <Button as={Link} href="/speakers" variant="ghost" size="sm" className="w-full border-white/10 hover:bg-white/10" iconRight={<ArrowRightIcon />}>
+                        Konuşmacıları Gör
+                      </Button>
+                      <div className="text-[10px] text-center font-bold uppercase tracking-[0.2em] text-white/40">Herkes Katılabilir</div>
+                    </div>
+                  </div>
+
+                  {/* Club Stands */}
+                  <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group min-h-[320px]">
+                    <h3 className="font-display text-2xl font-bold text-white mb-4">Kulüp Standları</h3>
+                    <div className="flex-grow">
+                       {/* Description removed as requested */}
+                    </div>
+                    <div className="mt-auto">
+                      <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">SOSYAL ETKİLEŞİM ALANI</div>
+                    </div>
                   </div>
                 </div>
               </div>
