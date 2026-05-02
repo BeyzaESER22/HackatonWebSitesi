@@ -7,6 +7,7 @@ import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
 import { sponsors } from '@/data/sponsors';
 import { COLORS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
+import { CanvasWaves } from '@/components/effects/CanvasWaves';
 
 const bullets = [
   { color: COLORS.blue,   bold: 'Takım veya bireysel katılım', tail: ' — 1-5 kişilik gruplar.' },
@@ -25,13 +26,11 @@ export function Highlights() {
   return (
     <section id="highlights" className="relative z-30 pt-0 pb-12 lg:pb-20">
       
-      {/* 🌊 Dual Wave Aesthetic Separator (Top & Bottom Waves) */}
-      <div className="relative w-full h-32 md:h-48 overflow-hidden pointer-events-none mb-4 lg:mb-8">
-        <div className="absolute inset-0 z-10 opacity-30">
-          <div className="dual-wave dw1"></div>
-          <div className="dual-wave dw2"></div>
-          <div className="dual-wave dw3"></div>
-        </div>
+      {/* 🌊 Canvas Dynamic Dual Waves (Top & Bottom) */}
+      <div className="relative w-full h-32 md:h-48 pointer-events-none mb-4 lg:mb-8">
+        <CanvasWaves canvasHeight={200} className="opacity-60" />
+        {/* Subtle glow behind the waves */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-500/5 blur-[100px] rounded-full -z-10" />
       </div>
 
       <Container>
