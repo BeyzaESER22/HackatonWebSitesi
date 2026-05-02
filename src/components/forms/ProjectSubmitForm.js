@@ -184,6 +184,9 @@ export function ProjectSubmitForm({ onSuccess }) {
       <Input type="url" label="GitHub URL *" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} required />
 
       <Input type="url" label="Demo URL (opsiyonel)" name="demoUrl" value={form.demoUrl} onChange={update('demoUrl')} placeholder="https://demo.proje.com" error={errors.demoUrl} />
+      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
+        Projenizin canlı çalışan versiyonuna, online prototipine veya video sunumuna (Drive/YouTube) ait linki paylaşabilirsiniz.
+      </p>
 
       <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Görsel</h3>
 
