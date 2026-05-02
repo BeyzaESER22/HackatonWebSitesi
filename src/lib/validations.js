@@ -50,7 +50,10 @@ export const AttendeeRegistrationSchema = z.object({
 });
 
 // Keep this tuple in sync with PROJECT_CATEGORIES in constants.js.
-const CATEGORY_IDS = ['education', 'health', 'disaster', 'accessibility', 'sustainability', 'other'];
+const CATEGORY_IDS = [
+  'carbon', 'waste', 'mobility', 'energy', 'renewable', 
+  'agri', 'eco', 'disaster', 'edu', 'health'
+];
 
 export const ProjectSubmissionSchema = z.object({
   title:        z.string().min(3, 'Proje adı en az 3 karakter.').max(80),

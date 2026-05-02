@@ -45,12 +45,16 @@ export const NAV_LINKS = [
 ];
 
 export const PROJECT_CATEGORIES = [
-  { id: 'education',     label: 'Eğitim' },
-  { id: 'health',        label: 'Sağlık' },
-  { id: 'disaster',      label: 'Afet Yönetimi' },
-  { id: 'accessibility', label: 'Erişilebilirlik' },
-  { id: 'sustainability',label: 'Sürdürülebilirlik' },
-  { id: 'other',         label: 'Diğer' }
+  { id: 'carbon',        label: 'Karbon ve Emisyon Takibi' },
+  { id: 'waste',         label: 'Akıllı Atık ve Döngüsel Ekonomi' },
+  { id: 'mobility',      label: 'Akıllı Ulaşım ve Mobilite' },
+  { id: 'energy',        label: 'Enerji Tüketimi ve Verimlilik' },
+  { id: 'renewable',     label: 'Yenilenebilir Enerji ve Şebeke' },
+  { id: 'agri',          label: 'Tarım, Su ve Sürdürülebilirlik' },
+  { id: 'eco',           label: 'Biyoçeşitlilik ve Ekosistem' },
+  { id: 'disaster',      label: 'Afet Yönetimi ve Dayanıklılık' },
+  { id: 'edu',           label: 'Eğitim ve Öğrenme Teknolojileri' },
+  { id: 'health',        label: 'Sağlık ve Refah Teknolojileri' }
 ];
 
 export const UPLOAD_LIMITS = {
