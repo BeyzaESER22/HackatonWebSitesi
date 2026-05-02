@@ -25,7 +25,7 @@ export function HackathonSection() {
           <RevealOnScroll>
             <div className="text-xs uppercase tracking-[0.22em] text-ink-dim mb-3">Hackathon</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.05]">
-              Toplum yararına çalışan <span className="hf-text-gradient">yapay zeka</span> üret.
+              Toplum yararına <span className="hf-text-gradient">yapay zeka ile</span> üret.
             </h2>
             <p className="text-ink-dim text-lg mb-8 leading-relaxed">
               Eğitim, sağlık, afet yönetimi, erişilebilirlik ve sürdürülebilirlik gibi alanlarda gerçek dünya problemlerine

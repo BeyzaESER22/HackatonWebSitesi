@@ -98,7 +98,7 @@ export function Highlights() {
                     <div className="lg:col-span-7 text-left">
                       <div className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-400 mb-4">HACKATHON</div>
                       <h3 className="font-display text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                        Toplum yararına çalışan <span className="hf-text-gradient">yapay zeka</span> üret.
+                        Toplum yararına <span className="hf-text-gradient">yapay zeka ile</span> üret.
                       </h3>
                       <p className="text-ink-dim text-lg mb-10 leading-relaxed max-w-xl">
                         Eğitim, sağlık, afet yönetimi, erişilebilirlik ve sürdürülebilirlik gibi alanlarda gerçek dünya problemlerine yapay zeka ile çözüm geliştir. Tek başına ya da takımınla — sınır senin hayal gücün.
@@ -144,7 +144,7 @@ export function Highlights() {
                     </div>
                   </div>
                   <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/[0.08] transition-all group min-h-[320px]">
-                    <h3 className="font-display text-2xl font-bold text-white mb-4">Kulüp Standları</h3>
+                    <h3 className="font-display text-2xl font-bold text-white mb-4">Standlar</h3>
                     <div className="flex-grow"></div>
                     <div className="mt-auto">
                       <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40">SOSYAL ETKİLEŞİM ALANI</div>
