@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { HackathonApplicationSchema } from '@/lib/validations';
 import { appendToStore } from '@/lib/store';
-import { generateId, sanitize } from '@/lib/helpers';
+import { generateId } from '@/lib/helpers';
 import { enforceSubmissionRateLimit } from '@/lib/rate-limit';
 import { isSpamSubmission } from '@/lib/spam';
 import { SITE } from '@/lib/constants';
@@ -16,24 +16,11 @@ export async function POST(request) {
     return NextResponse.json({ message: 'Geçersiz istek gövdesi.' }, { status: 400 });
   }
 
-  // 1. Honeypot & Basic Spam Check
   if (isSpamSubmission(body)) {
-    // Return 202 to the bot so it thinks it succeeded
     return NextResponse.json({ ok: true, filtered: true }, { status: 202 });
   }
 
-  // 2. Technical Sanitization (XSS Prevention)
-  const sanitizedBody = {};
-  for (const key in body) {
-    if (typeof body[key] === 'string') {
-      sanitizedBody[key] = sanitize(body[key]);
-    } else {
-      sanitizedBody[key] = body[key];
-    }
-  }
-
-  // 3. Validation
-  const parsed = HackathonApplicationSchema.safeParse(sanitizedBody);
+  const parsed = HackathonApplicationSchema.safeParse(body);
   if (!parsed.success) {
     const fieldErrors = {};
     parsed.error.issues.forEach(issue => {

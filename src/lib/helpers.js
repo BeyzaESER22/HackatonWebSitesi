@@ -51,17 +51,3 @@ export function humanBytes(bytes) {
   const i = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(k)));
   return `${(bytes / Math.pow(k, i)).toFixed(i ? 1 : 0)} ${units[i]}`;
 }
-
-/** Simple HTML/Script tag stripping for input sanitization. */
-export function sanitize(str = '') {
-  if (typeof str !== 'string') return str;
-  return str
-    .replace(/<[^>]*>/g, '') // strip tags
-    .replace(/[&<>"']/g, (m) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    })[m]);
-}

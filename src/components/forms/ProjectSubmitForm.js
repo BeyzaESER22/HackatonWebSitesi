@@ -94,11 +94,11 @@ export function ProjectSubmitForm({ onSuccess }) {
 
       <Input type="email" label="İletişim E-posta *" name="contactEmail" value={form.contactEmail} onChange={update('contactEmail')} placeholder="takim@example.com" error={errors.contactEmail} required />
 
-      <Input type="url" label="GitHub URL *" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} required />
+      <Input type="url" label="GitHub URL (opsiyonel)" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} />
 
       <Input type="url" label="Demo URL (opsiyonel)" name="demoUrl" value={form.demoUrl} onChange={update('demoUrl')} placeholder="https://demo.proje.com" error={errors.demoUrl} />
 
-      <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Görsel</h3>
+      <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Dosyalar</h3>
 
       <FileInput
         label="Ekran Görüntüsü / Kapak Görseli *"
@@ -108,6 +108,16 @@ export function ProjectSubmitForm({ onSuccess }) {
         hint="JPG, PNG veya WebP — max 5MB"
         file={image}
         onFile={setImage}
+      />
+
+      <FileInput
+        label="Proje Paketi (opsiyonel — ZIP/TAR)"
+        name="package"
+        accept=".zip,.tar,.gz,application/zip,application/x-zip-compressed,application/x-tar,application/gzip"
+        maxBytes={UPLOAD_LIMITS.projectFile.maxBytes}
+        hint="ZIP veya TAR.GZ — max 50MB. Repo varsa zorunlu değil."
+        file={packageFile}
+        onFile={setPackageFile}
       />
 
       <Button type="submit" className="w-full mt-4" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
