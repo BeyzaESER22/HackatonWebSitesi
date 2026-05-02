@@ -197,12 +197,12 @@ export function ProjectSubmitForm({ onSuccess }) {
               name="techStack" 
               value={form.techStack} 
               onChange={update('techStack')} 
-              placeholder="AI: Gemini API, Frontend: Next.js, Backend: FastAPI, Database: PostgreSQL" 
+              placeholder="AI/ML: Gemini 1.5 Pro, Frontend: Next.js & Tailwind, Backend: Node.js, Database: Supabase" 
               error={errors.techStack} 
               required 
             />
             <p className="text-[10px] text-ink-dim mt-1.5 leading-relaxed">
-              Hangi teknolojiyi projenin hangi bölümünde kullandığınızı belirtin (Örn: AI: ..., Backend: ...).
+              Lütfen projenizin her katmanında (Yapay Zeka Modeli, Frontend, Backend, Veritabanı vb.) kullandığınız teknolojileri açıkça belirtin. Özellikle kullandığınız AI modellerini ve veri işleme araçlarını eklemeyi unutmayın.
             </p>
           </div>
 
