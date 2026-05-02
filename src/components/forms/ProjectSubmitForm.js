@@ -134,7 +134,7 @@ export function ProjectSubmitForm({ onSuccess }) {
           Proje Bilgileri
         </h3>
         <p className="text-[11px] text-ink-dim italic mb-6">
-          Gönderdiğiniz projenin <strong>"Toplum Yararına Yapay Zeka"</strong> temasıyla uyumlu olması gerektiğini hatırlatmak isteriz.
+          Gönderdiğiniz projenin <strong>"Toplum Yararına Yapay Zeka"</strong> temasıyla ve bu temanın alt kategorilerinden en az biriyle uyumlu olması gerektiğini hatırlatmak isteriz.
         </p>
 
         <div className="space-y-4">
