@@ -129,24 +129,31 @@ export function HackathonForm({ onSuccess }) {
     <form onSubmit={submit} noValidate className="space-y-10">
       <div className="space-y-6">
         <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Kişisel Bilgiler</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="md:col-span-2">
-            <Input label="Ad Soyad *" name="fullName" value={form.fullName} onChange={update('fullName')} placeholder="Adınız ve Soyadınız" error={errors.fullName} className={fieldClassName} required />
+        <div className="grid grid-cols-1 gap-6">
+          {/* Row 1: Name */}
+          <Input label="Ad Soyad *" name="fullName" value={form.fullName} onChange={update('fullName')} placeholder="Adınız ve Soyadınız" error={errors.fullName} className={fieldClassName} required />
+          
+          {/* Row 2: University & Department */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Input label="Üniversite *" name="university" value={form.university} onChange={update('university')} placeholder="Üniversiteniz" error={errors.university} className={fieldClassName} required />
+            <Input label="Bölüm *" name="department" value={form.department} onChange={update('department')} placeholder="Bölümünüz" error={errors.department} className={fieldClassName} required />
           </div>
-          <Input label="Üniversite *" name="university" value={form.university} onChange={update('university')} placeholder="Üniversiteniz" error={errors.university} className={fieldClassName} required />
-          <Input label="Bölüm *" name="department" value={form.department} onChange={update('department')} placeholder="Bölümünüz" error={errors.department} className={fieldClassName} required />
-          <Select label="Sınıf *" name="grade" value={form.grade} onChange={update('grade')} error={errors.grade} className={cn(fieldClassName, 'pr-12')} required>
-            <option value="">Seçiniz...</option>
-            <option value="prep">Hazırlık</option>
-            <option value="1">1. Sınıf</option>
-            <option value="2">2. Sınıf</option>
-            <option value="3">3. Sınıf</option>
-            <option value="4">4. Sınıf</option>
-            <option value="5">5. Sınıf</option>
-            <option value="6">6. Sınıf</option>
-          </Select>
-          <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
-          <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
+
+          {/* Row 3: Grade, Phone, Email (Centered Layout) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Select label="Sınıf *" name="grade" value={form.grade} onChange={update('grade')} error={errors.grade} className={cn(fieldClassName, 'pr-12')} required>
+              <option value="">Seçiniz...</option>
+              <option value="prep">Hazırlık</option>
+              <option value="1">1. Sınıf</option>
+              <option value="2">2. Sınıf</option>
+              <option value="3">3. Sınıf</option>
+              <option value="4">4. Sınıf</option>
+              <option value="5">5. Sınıf</option>
+              <option value="6">6. Sınıf</option>
+            </Select>
+            <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
+            <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
+          </div>
         </div>
       </div>
 
