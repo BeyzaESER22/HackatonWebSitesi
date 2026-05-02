@@ -79,6 +79,13 @@ export function Hero() {
             <p className="text-base md:text-lg text-white/60 leading-relaxed font-medium">
               16-17 Mayıs 2026'da İstinye Üniversitesi Vadi kampüsünde; 2 gün boyunca sürecek hackathon, workshoplar, ilham verici konuşmalar, renkli standlar, büyük ödüller ve sürpriz çekilişler seni bekliyor!
             </p>
+            <div className="mt-8 flex items-center justify-center gap-4 text-sm font-mono tracking-[0.4em] uppercase">
+              <span className="hero-rainbow-static opacity-80">Kodla</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
+              <span className="hero-rainbow-static opacity-80">Yarat</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
+              <span className="hero-rainbow-static opacity-80">Deneyimle</span>
+            </div>
           </div>
         </RevealOnScroll>
 
