@@ -23,20 +23,32 @@ export async function DELETE(request) {
     return unauthorizedJson();
   }
 
+  let body;
   try {
-    const { id, email, clientSubmissionId } = await request.json();
+    body = await request.json();
+  } catch (e) {
+    return NextResponse.json({ message: 'Geçersiz istek gövdesi.' }, { status: 400 });
+  }
+
+  try {
+    const { id, email, clientSubmissionId } = body;
     if (!id) return NextResponse.json({ message: 'ID gerekli.' }, { status: 400 });
 
     // Step 1: Archive before deletion (Soft-delete backup)
-    const items = await readStore('hackathon-applications.json');
-    const recordToArchive = items.find(item => item.id === id);
-    
-    if (recordToArchive) {
-      await appendToStore('deleted-hackathon-applications.json', {
-        ...recordToArchive,
-        deletedAt: new Date().toISOString(),
-        deletedBy: 'admin'
-      });
+    // We swallow errors here to ensure the primary deletion still attempts to run
+    try {
+      const items = await readStore('hackathon-applications.json');
+      const recordToArchive = items.find(item => item.id === id);
+      
+      if (recordToArchive) {
+        await appendToStore('deleted-hackathon-applications.json', {
+          ...recordToArchive,
+          deletedAt: new Date().toISOString(),
+          deletedBy: 'admin'
+        });
+      }
+    } catch (archiveErr) {
+      console.error('Archive error (non-fatal):', archiveErr);
     }
 
     // Step 2: Proceed with actual removal of unique constraints and data
@@ -44,12 +56,17 @@ export async function DELETE(request) {
     const uniqueKey = email ? `${eventId}:${email.trim().toLowerCase()}` : null;
 
     await removeFromStore('hackathon-applications.json', id, {
-      uniqueKey,
-      dedupeKey: clientSubmissionId
+      uniqueKey: uniqueKey || undefined,
+      dedupeKey: clientSubmissionId || undefined
     });
 
     return NextResponse.json({ ok: true, message: 'Başvuru silindi ve arşivlendi.' });
   } catch (err) {
-    return NextResponse.json({ message: 'Silme işlemi başarısız.', error: err.message }, { status: 500 });
+    console.error('Delete API Error:', err);
+    return NextResponse.json({ 
+      message: 'Silme işlemi başarısız.', 
+      error: err.message,
+      details: String(err)
+    }, { status: 500 });
   }
 }
