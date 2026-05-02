@@ -46,7 +46,7 @@ const journeySteps = [
     desc: '16-17 Mayıs tarihlerinde AI çözümünü inşa et. Google AI Studio kredi onayını almayı ve bilgisayarını getirmeyi unutma!', 
     link: '/schedule', 
     linkText: 'Program →',
-    note: 'Google AI Studio kredilerini talep etmeyi unutma!'
+    note: 'Projede kullanmak için Google AI Studio kredilerini talep et!'
   },
   { 
     id: 5, 
