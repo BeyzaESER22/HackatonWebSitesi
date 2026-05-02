@@ -144,10 +144,9 @@ export function HackathonForm({ onSuccess }) {
             <option value="4">4. Sınıf</option>
             <option value="5">5. Sınıf</option>
             <option value="6">6. Sınıf</option>
-            <option value="grad">Yüksek Lisans / Mezun</option>
           </Select>
-          <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
           <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
+          <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
         </div>
       </div>
 

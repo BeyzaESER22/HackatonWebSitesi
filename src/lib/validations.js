@@ -4,7 +4,7 @@ export const HackathonApplicationSchema = z.object({
   fullName:   z.string().min(2, 'Ad soyad en az 2 karakter olmalı.').max(80),
   university: z.string().min(2, 'Üniversite bilgisi gerekli.').max(120),
   department: z.string().min(2, 'Bölüm bilgisi gerekli.').max(120),
-  grade:      z.enum(['prep', '1', '2', '3', '4', '5', '6', 'grad'], {
+  grade:      z.enum(['prep', '1', '2', '3', '4', '5', '6'], {
     errorMap: () => ({ message: 'Sınıf bilgisini seçiniz.' })
   }),
   email:      z.string().email('Geçerli bir e-posta giriniz.'),
