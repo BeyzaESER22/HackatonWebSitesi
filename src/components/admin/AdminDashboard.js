@@ -28,6 +28,17 @@ const sourceLabels = {
   other: 'Diğer'
 };
 
+const gradeLabels = {
+  prep: 'Hazırlık',
+  '1': '1. Sınıf',
+  '2': '2. Sınıf',
+  '3': '3. Sınıf',
+  '4': '4. Sınıf',
+  '5': '5. Sınıf',
+  '6': '6. Sınıf',
+  grad: 'Yüksek Lisans / Mezun'
+};
+
 function formatDate(value) {
   if (!value) return '-';
   return new Date(value).toLocaleString('tr-TR', {
@@ -162,7 +173,10 @@ export function AdminDashboard({ submissions: initialSubmissions }) {
                   <td className="px-4 py-4">
                     <div className="font-semibold text-white">{submission.fullName}</div>
                     <div className="mt-1 text-ink-dim text-xs">{submission.university}</div>
-                    <div className="text-ink-dim text-xs">{submission.department}</div>
+                    <div className="text-ink-dim text-xs">
+                      {submission.department} 
+                      {submission.grade && <span className="ml-1 opacity-60">({gradeLabels[submission.grade] || submission.grade})</span>}
+                    </div>
                   </td>
                   <td className="px-4 py-4">
                     <div className="text-white">{submission.email}</div>

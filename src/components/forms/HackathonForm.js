@@ -10,7 +10,7 @@ const DRAFT_KEY = 'hf26_hackathon_form_draft';
 const SUBMISSION_KEY_STORAGE = 'hf26_hackathon_submission_key';
 
 const initial = {
-  fullName: '', university: '', department: '', email: '',
+  fullName: '', university: '', department: '', grade: '', email: '',
   phone: '', teamStatus: '', teamSize: '', teammatesApplied: '', 
   source: '', projectIdea: '', website: ''
 };
@@ -135,6 +135,17 @@ export function HackathonForm({ onSuccess }) {
           </div>
           <Input label="Üniversite *" name="university" value={form.university} onChange={update('university')} placeholder="Üniversiteniz" error={errors.university} className={fieldClassName} required />
           <Input label="Bölüm *" name="department" value={form.department} onChange={update('department')} placeholder="Bölümünüz" error={errors.department} className={fieldClassName} required />
+          <Select label="Sınıf *" name="grade" value={form.grade} onChange={update('grade')} error={errors.grade} className={cn(fieldClassName, 'pr-12')} required>
+            <option value="">Seçiniz...</option>
+            <option value="prep">Hazırlık</option>
+            <option value="1">1. Sınıf</option>
+            <option value="2">2. Sınıf</option>
+            <option value="3">3. Sınıf</option>
+            <option value="4">4. Sınıf</option>
+            <option value="5">5. Sınıf</option>
+            <option value="6">6. Sınıf</option>
+            <option value="grad">Yüksek Lisans / Mezun</option>
+          </Select>
           <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
           <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
         </div>

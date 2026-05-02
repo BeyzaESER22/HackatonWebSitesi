@@ -25,6 +25,17 @@ const sourceLabels = {
   other: 'Diğer'
 };
 
+const gradeLabels = {
+  prep: 'Hazırlık',
+  '1': '1. Sınıf',
+  '2': '2. Sınıf',
+  '3': '3. Sınıf',
+  '4': '4. Sınıf',
+  '5': '5. Sınıf',
+  '6': '6. Sınıf',
+  grad: 'Yüksek Lisans / Mezun'
+};
+
 export async function GET(request) {
   if (!isAdminRequestAuthenticated(request)) {
     return unauthorizedJson();
@@ -37,6 +48,7 @@ export async function GET(request) {
       'Ad Soyad',
       'Universite',
       'Bolum',
+      'Sinif',
       'E-posta',
       'Telefon',
       'Takim Durumu',
@@ -55,6 +67,7 @@ export async function GET(request) {
       item.fullName,
       item.university,
       item.department,
+      gradeLabels[item.grade] || item.grade || '',
       item.email,
       item.phone,
       teamStatusLabels[item.teamStatus] || item.teamStatus || '',
