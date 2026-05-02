@@ -183,9 +183,6 @@ export function HackathonForm({ onSuccess }) {
       <div className="space-y-6">
         <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Proje</h4>
         <div className="space-y-4">
-          <p className="text-xs text-white/50 leading-relaxed italic">
-            Lütfen projenizin <strong className="text-white/80">"Toplum Yararına Yapay Zeka"</strong> temasının alt kategorilerinden (Eğitim, Sağlık, Çevre vb.) birine odaklandığından emin olun. Tüm başvurular jüri ve teknik ekip tarafından ön incelemeden geçirilecektir.
-          </p>
           <Textarea
             label="Proje Fikri (Opsiyonel)"
             name="projectIdea"
@@ -196,6 +193,9 @@ export function HackathonForm({ onSuccess }) {
             error={errors.projectIdea}
             className={cn(fieldClassName, 'min-h-[120px] resize-none')}
           />
+          <p className="text-xs text-white/50 leading-relaxed italic">
+            Bu aşamada fikir belirtmek <strong className="text-white/80">opsiyoneldir</strong>, ancak projenizin <strong className="text-white/80">"Toplum Yararına Yapay Zeka"</strong> temasının alt kategorilerinden (Eğitim, Sağlık, Çevre, Erişilebilirlik veya Sürdürülebilirlik) birine odaklanması gerekmektedir. Detaylı bilgi için <a href="/hackathon#themes" className="text-primary underline">temalarımızı</a> inceleyebilirsiniz.
+          </p>
         </div>
       </div>
 
