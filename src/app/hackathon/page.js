@@ -14,6 +14,7 @@ import { useApp } from '@/context/AppContext';
 import { ruleCategories } from '@/data/rules';
 import { categories } from '@/data/problems';
 import { judgingCriteria, pitchGuide, presentationMethods, bonusPoints } from '@/data/judging';
+
 const journeySteps = [
   { 
     id: 1, 
@@ -63,10 +64,8 @@ const journeySteps = [
     note: 'Hazırlığını sunum formatına göre yap.' 
   }
 ];
-...
-      {/* Pitching Guide Section */}
-      <section className="mb-32 scroll-mt-32" id="pitching">
 
+export default function HackathonInfoPage() {
   const { openModal, activeModal, modalData, closeModal, showToast } = useApp();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeProblem, setActiveProblem] = useState(null);
@@ -290,7 +289,7 @@ const journeySteps = [
       </section>
 
       {/* Pitching Guide Section */}
-      <section className="mb-32">
+      <section className="mb-32 scroll-mt-32" id="pitching">
         <Container>
           <RevealOnScroll>
             <SectionTitle eyebrow="Sunum Rehberi" title="Nasıl" gradient="Pitch Edilir?" align="left" className="mb-12" />
@@ -395,11 +394,26 @@ const journeySteps = [
             <div className="pb-6 border-b border-white/5"><h3 className="font-display text-3xl font-bold hf-text-gradient mb-4">{activeProblem.title}</h3><p className="text-ink-dim leading-relaxed">{activeProblem.task}</p></div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
-                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-blue-400">Input (Datasets & Sources)</div><ul className="space-y-2">{activeProblem.input.map((item, i) => (<li key={i} className="text-sm text-ink-dim flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-400/50"></span>{item}</li>))}</ul></div>
-                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-green-400">Expected Output</div><ul className="space-y-2">{activeProblem.output.map((item, i) => (<li key={i} className="text-sm text-ink-dim flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-green-400/50"></span>{item}</li>))}</ul></div>
+                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-blue-400">Input (Datasets & Sources)</div><ul className="space-y-2">{activeProblem.input.map((item, i) => (
+                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400/50"></span>
+                        {item}
+                      </li>
+                    ))}</ul></div>
+                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-green-400">Expected Output</div><ul className="space-y-2">{activeProblem.output.map((item, i) => (
+                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-400/50"></span>
+                        {item}
+                      </li>
+                    ))}</ul></div>
               </div>
               <div className="space-y-6 bg-white/5 p-6 rounded-2xl border border-white/5">
-                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-yellow-400">Evaluation Metrics</div><ul className="space-y-2">{activeProblem.evaluation.map((item, i) => (<li key={i} className="text-sm text-ink-dim flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-yellow-400/50"></span>{item}</li>))}</ul></div>
+                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-yellow-400">Evaluation Metrics</div><ul className="space-y-2">{activeProblem.evaluation.map((item, i) => (
+                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/50"></span>
+                        {item}
+                      </li>
+                    ))}</ul></div>
                 <div className="pt-6 border-t border-white/5 space-y-4">
                   <Button className="w-full" onClick={() => { handleSelectProblem(activeProblem); setActiveProblem(null); }}>Bu Problemi Seç</Button>
                   <Button as="a" href={activeProblem.githubUrl} target="_blank" variant="ghost" className="w-full">GitHub Starter Kit</Button>
