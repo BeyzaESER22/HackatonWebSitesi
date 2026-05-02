@@ -20,7 +20,7 @@ export default function ProjectSubmitPage() {
         <SectionTitle title="Demo Day" gradient="Başvurusu" align="left" className="mb-4" />
         <p className="text-ink-dim mb-8">
           Etkinlik sırasında geliştirdiğiniz projeyi yükleyin. Gönderim sonrası organizasyon ekibi tarafından
-          incelenir ve onaylandığında <span className="text-white">/projects</span> galerisinde sergilenir.
+          incelenir ve onaylandığında <span className="text-white">projeler</span> galerisinde sergilenir.
         </p>
 
         <Card className="!p-7 lg:!p-9">
