@@ -19,8 +19,8 @@ const bullets = [
 export function Highlights() {
   const { openModal } = useApp();
   
-  // All sponsors in one unified list for the horizontal orbital row
-  const allSponsors = [...sponsors];
+  // Duplicated list for seamless marquee effect
+  const marqueeSponsors = [...sponsors, ...sponsors, ...sponsors];
 
   return (
     <section id="highlights" className="relative z-30 pt-4 pb-12 lg:pt-8 lg:pb-20">
@@ -141,40 +141,44 @@ export function Highlights() {
                 </div>
               </div>
 
-              {/* Sponsorlar Section - SINGLE HORIZONTAL LINE WITH ORBITAL MOTION */}
+              {/* Sponsorlar Section - SEAMLESS HORIZONTAL MARQUEE WITH ORBITAL FLOAT */}
               <div className="pt-12 border-t border-white/10">
                 <div className="text-center mb-16">
                   <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-400 mb-2">Gücümüzü Onlardan Alıyoruz</div>
                   <h4 className="font-display text-2xl font-bold text-white">Sponsorlarımız</h4>
                 </div>
 
-                <div className="relative h-32 md:h-40 flex items-center justify-center overflow-hidden">
-                  <div className="flex flex-row items-center justify-center gap-12 md:gap-24 px-10">
-                    {allSponsors.map((s, idx) => (
-                      <a 
-                        key={s.id} 
-                        href={s.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="group relative flex-shrink-0 transition-all duration-500 hover:scale-125"
+                <div className="relative h-40 flex items-center overflow-hidden">
+                  <div className="flex flex-row items-center gap-20 animate-marquee-sponsors whitespace-nowrap">
+                    {marqueeSponsors.map((s, idx) => (
+                      <div 
+                        key={`${s.id}-${idx}`}
+                        className="flex-shrink-0"
                         style={{
-                          animation: `orbital-float 8s ease-in-out infinite`,
-                          animationDelay: `${idx * 0.8}s`
+                          animation: `orbital-float ${6 + (idx % 4)}s ease-in-out infinite`,
+                          animationDelay: `${idx * 0.4}s`
                         }}
                       >
-                        <div className="w-24 md:w-40 h-16 md:h-20 flex items-center justify-center">
-                          <img 
-                            src={s.logoUrl} 
-                            alt={s.name} 
-                            className={`max-w-full max-h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all duration-500 ${s.size === 'main' ? 'scale-125 opacity-100' : 'opacity-60 grayscale hover:grayscale-0 hover:opacity-100'}`} 
-                          />
-                        </div>
-                        {s.size === 'main' && (
-                          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[7px] font-black text-emerald-400 uppercase tracking-[0.2em] opacity-40 group-hover:opacity-100 transition-opacity">
-                            Ana Sponsor
+                        <a 
+                          href={s.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="group relative flex flex-col items-center justify-center transition-all duration-500 hover:scale-125"
+                        >
+                          <div className="w-28 md:w-44 h-16 md:h-20 flex items-center justify-center">
+                            <img 
+                              src={s.logoUrl} 
+                              alt={s.name} 
+                              className={`max-w-full max-h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all duration-500 ${s.size === 'main' ? 'scale-125 opacity-100' : 'opacity-50 grayscale hover:grayscale-0 hover:opacity-100'}`} 
+                            />
                           </div>
-                        )}
-                      </a>
+                          {s.size === 'main' && (
+                            <div className="mt-2 text-[7px] font-black text-emerald-400 uppercase tracking-[0.2em] opacity-40 group-hover:opacity-100 transition-opacity">
+                              Ana Sponsor
+                            </div>
+                          )}
+                        </a>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -185,12 +189,19 @@ export function Highlights() {
       </Container>
 
       <style>{`
+        @keyframes marquee-sponsors {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.33%); }
+        }
+        .animate-marquee-sponsors {
+          animation: marquee-sponsors 40s linear infinite;
+        }
         @keyframes orbital-float {
-          0% { transform: translate(0, 0) rotate(0deg); }
-          25% { transform: translate(10px, -10px) rotate(1deg); }
-          50% { transform: translate(0, -20px) rotate(0deg); }
-          75% { transform: translate(-10px, -10px) rotate(-1deg); }
-          100% { transform: translate(0, 0) rotate(0deg); }
+          0% { transform: translate(0, 0); }
+          25% { transform: translate(8px, -12px); }
+          50% { transform: translate(0, -20px); }
+          75% { transform: translate(-8px, -12px); }
+          100% { transform: translate(0, 0); }
         }
         .wave {
           position: absolute;
