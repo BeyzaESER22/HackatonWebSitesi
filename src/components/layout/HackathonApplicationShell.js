@@ -3,12 +3,6 @@ import { cn } from '@/lib/helpers';
 
 const infoRows = [
   {
-    label: 'Ödüller',
-    content: (
-      <span className="text-primary animate-pulse">Yakında açıklanacak 🎁</span>
-    )
-  },
-  {
     label: 'E-Posta',
     content: (
       <a href={`mailto:${SITE.email}`} className="transition hover:text-[#2F57D8]">
@@ -87,6 +81,15 @@ export function HackathonApplicationShell({
                 <span className="text-xs mt-1 block leading-normal">
                   Projeniz; eğitim, sağlık, çevre veya erişilebilirlik gibi bir <strong>alt kategoriye</strong> odaklanmalıdır. Detaylı bilgi için <a href="/hackathon" className="text-primary underline">hackathon sayfasını</a> inceleyiniz.
                 </span>
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
+                Ödüller
+              </div>
+              <p className="text-primary font-bold animate-pulse">
+                Yakında açıklanacak 🎁
               </p>
             </div>
 
