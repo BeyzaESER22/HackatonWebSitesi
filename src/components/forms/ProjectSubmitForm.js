@@ -213,7 +213,12 @@ export function ProjectSubmitForm({ onSuccess }) {
             </p>
           </div>
 
-          <Input type="url" label="GitHub URL *" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} required />
+          <div>
+            <Input type="url" label="GitHub URL *" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} required />
+            <p className="text-[10px] text-ink-dim mt-1.5 leading-relaxed">
+              <strong>Önemli:</strong> Kodlarınızın jüri tarafından incelenebilmesi için reponun <strong>herkese açık (public)</strong> olduğundan emin olun.
+            </p>
+          </div>
 
           <div>
             <Input type="url" label="Demo URL (opsiyonel)" name="demoUrl" value={form.demoUrl} onChange={update('demoUrl')} placeholder="https://demo.proje.com" error={errors.demoUrl} />
