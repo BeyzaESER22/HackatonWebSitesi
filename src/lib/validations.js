@@ -63,6 +63,6 @@ export const ProjectSubmissionSchema = z.object({
   teamMembers: z.string().min(2, 'En az bir ekip üyesi yazın.').max(500),
   techStack:   z.string().min(2).max(300),
   contactEmail: z.string().email(),
-  githubUrl:   z.string().url('Geçerli bir GitHub URL\'si.').or(z.literal('')).optional(),
+  githubUrl:   z.string().url('Geçerli bir GitHub URL\'si giriniz.'),
   demoUrl:     z.string().url('Geçerli bir demo URL\'si.').or(z.literal('')).optional()
 });

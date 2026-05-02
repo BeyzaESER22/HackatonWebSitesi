@@ -5,6 +5,7 @@ import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { useApp } from '@/context/AppContext';
 import { LoaderInline } from '@/components/ui/Loader';
 import { cn } from '@/lib/helpers';
+import { categories } from '@/data/problems';
 
 const DRAFT_KEY = 'hf26_hackathon_form_draft';
 const SUBMISSION_KEY_STORAGE = 'hf26_hackathon_submission_key';
@@ -12,7 +13,7 @@ const SUBMISSION_KEY_STORAGE = 'hf26_hackathon_submission_key';
 const initial = {
   fullName: '', university: '', department: '', grade: '', email: '',
   phone: '', teamStatus: '', teamSize: '', teammatesApplied: '', 
-  source: '', projectIdea: '', website: ''
+  source: '', projectIdea: '', category: '', website: ''
 };
 
 function createSubmissionId() {
@@ -23,6 +24,7 @@ function createSubmissionId() {
 }
 
 export function HackathonForm({ onSuccess }) {
+  const [step, setStep] = useState(1);
   const [form, setForm] = useState(initial);
   const [errors, setErrors] = useState({});
   const [busy, setBusy] = useState(false);
@@ -79,10 +81,45 @@ export function HackathonForm({ onSuccess }) {
     } catch {}
   }, [form]);
 
-  const submit = async (e) => {
-    e.preventDefault();
+  const validateStep = (s) => {
+    const newErrors = {};
+    if (s === 1) {
+      if (!form.fullName) newErrors.fullName = 'Ad soyad gerekli';
+      if (!form.university) newErrors.university = 'Üniversite gerekli';
+      if (!form.department) newErrors.department = 'Bölüm gerekli';
+      if (!form.grade) newErrors.grade = 'Sınıf seçiniz';
+      if (!form.email || !form.email.includes('@')) newErrors.email = 'Geçerli e-posta gerekli';
+      if (!form.phone || form.phone.length < 10) newErrors.phone = 'Telefon gerekli';
+    } else if (s === 2) {
+      if (!form.teamStatus) newErrors.teamStatus = 'Takım durumu seçiniz';
+      if (form.teamStatus === 'has_team' && !form.teamSize) newErrors.teamSize = 'Kişi sayısı seçiniz';
+      if (form.teamStatus === 'has_team' && !form.teammatesApplied) newErrors.teammatesApplied = 'Başvuru durumu seçiniz';
+      if (!form.source) newErrors.source = 'Bu alan gerekli';
+    } else if (s === 3) {
+      if (!form.category) newErrors.category = 'Kategori seçiniz';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const nextStep = () => {
+    if (validateStep(step)) setStep(step + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const prevStep = () => {
+    setStep(step - 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const submit = async (e, retryCount = 0) => {
+    if (e) e.preventDefault();
+    if (!validateStep(3)) return;
+
     setBusy(true);
     setErrors({});
+    
     try {
       const res = await fetch('/api/hackathon', {
         method: 'POST',
@@ -92,16 +129,21 @@ export function HackathonForm({ onSuccess }) {
           clientSubmissionId: submissionId || createSubmissionId()
         })
       });
+      
       const json = await res.json();
+      
       if (!res.ok) {
+        if (res.status === 429) {
+          showToast({ type: 'error', title: 'Biraz bekle', message: json.message });
+          setBusy(false);
+          return;
+        }
         if (json.fieldErrors) setErrors(json.fieldErrors);
-        showToast({
-          type: 'error',
-          title: 'Form gönderilemedi',
-          message: json.message || 'Lütfen alanları kontrol edin.'
-        });
+        showToast({ type: 'error', title: 'Form gönderilemedi', message: json.message || 'Lütfen alanları kontrol edin.' });
+        setBusy(false);
         return;
       }
+
       const nextSubmissionId = createSubmissionId();
       try {
         window.localStorage.removeItem(DRAFT_KEY);
@@ -109,127 +151,208 @@ export function HackathonForm({ onSuccess }) {
       } catch {}
       setSubmissionId(nextSubmissionId);
       setForm(initial);
-      showToast({
-        title: 'Başvurun alındı!',
-        message: 'Kaydın başarıyla tamamlandı.'
-      });
+      setStep(1);
+      showToast({ title: 'Başvurun alındı!', message: 'Kaydın başarıyla tamamlandı.' });
       onSuccess?.();
     } catch (err) {
-      showToast({
-        type: 'error',
-        title: 'Bir hata oluştu',
-        message: 'Bağlantı sorunu yaşandı.'
-      });
-    } finally {
-      setBusy(false);
+      if (retryCount < 2) {
+        const delay = (retryCount + 1) * 2000;
+        showToast({ type: 'info', title: 'Bağlantı sorunu', message: `Tekrar deneniyor... (${retryCount + 1}/2)` });
+        setTimeout(() => submit(null, retryCount + 1), delay);
+      } else {
+        showToast({ type: 'error', title: 'Gönderim başarısız', message: 'Bağlantı sorunu yaşandı.' });
+        setBusy(false);
+      }
     }
   };
 
+  const steps = [
+    { n: 1, title: 'Kişisel' },
+    { n: 2, title: 'Katılım' },
+    { n: 3, title: 'Proje' }
+  ];
+
   return (
-    <form onSubmit={submit} noValidate className="space-y-10">
-      <div className="space-y-6">
-        <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Kişisel Bilgiler</h4>
-        <div className="grid grid-cols-1 gap-6">
-          {/* Row 1: Name */}
-          <Input label="Ad Soyad *" name="fullName" value={form.fullName} onChange={update('fullName')} placeholder="Adınız ve Soyadınız" error={errors.fullName} className={fieldClassName} required />
-          
-          {/* Row 2: University & Department */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input label="Üniversite *" name="university" value={form.university} onChange={update('university')} placeholder="Üniversiteniz" error={errors.university} className={fieldClassName} required />
-            <Input label="Bölüm *" name="department" value={form.department} onChange={update('department')} placeholder="Bölümünüz" error={errors.department} className={fieldClassName} required />
+    <div className="space-y-8">
+      {/* Progress Stepper */}
+      <div className="flex items-center justify-between mb-12 relative">
+        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white/5 -translate-y-1/2 z-0"></div>
+        <div 
+          className="absolute top-1/2 left-0 h-0.5 bg-hf-gradient -translate-y-1/2 z-0 transition-all duration-500"
+          style={{ width: `${((step - 1) / (steps.length - 1)) * 100}%` }}
+        ></div>
+        {steps.map((s) => (
+          <div key={s.n} className="relative z-10 flex flex-col items-center">
+            <div className={cn(
+              "w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 border-2",
+              step >= s.n ? "bg-[#05071A] border-primary text-white scale-110 shadow-lg shadow-primary/20" : "bg-[#05071A] border-white/10 text-white/30"
+            )}>
+              {step > s.n ? '✓' : s.n}
+            </div>
+            <span className={cn(
+              "text-[10px] uppercase tracking-widest font-bold mt-2",
+              step >= s.n ? "text-white" : "text-white/20"
+            )}>{s.title}</span>
           </div>
+        ))}
+      </div>
 
-          {/* Row 3: Grade & Email */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Select label="Sınıf *" name="grade" value={form.grade} onChange={update('grade')} error={errors.grade} className={cn(fieldClassName, 'pr-12')} required>
-              <option value="">Seçiniz...</option>
-              <option value="prep">Hazırlık</option>
-              <option value="1">1. Sınıf</option>
-              <option value="2">2. Sınıf</option>
-              <option value="3">3. Sınıf</option>
-              <option value="4">4. Sınıf</option>
-              <option value="5">5. Sınıf</option>
-              <option value="6">6. Sınıf</option>
-            </Select>
-            <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
-          </div>
+      <form onSubmit={(e) => submit(e)} noValidate className="space-y-10">
+        <div style={{ position: 'absolute', left: '-9999px', top: '0', opacity: 0, zIndex: -1 }} aria-hidden="true">
+          <input type="text" name="website" tabIndex="-1" value={form.website || ''} onChange={update('website')} autoComplete="off" />
+        </div>
 
-          {/* Row 4: Phone (Centered) */}
-          <div className="flex justify-center">
-            <div className="w-full md:w-1/2">
+        {/* STEP 1: PERSONAL */}
+        {step === 1 && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+            <div className="flex items-center gap-4">
+              <span className="w-2 h-8 bg-blue-500 rounded-full"></span>
+              <h4 className="text-xl font-bold hf-text-gradient">Kişisel Bilgiler</h4>
+            </div>
+            
+            <div className="grid grid-cols-1 gap-6">
+              <Input label="Ad Soyad *" name="fullName" value={form.fullName} onChange={update('fullName')} placeholder="Adınız ve Soyadınız" error={errors.fullName} className={fieldClassName} required />
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Input label="Üniversite *" name="university" value={form.university} onChange={update('university')} placeholder="Üniversiteniz" error={errors.university} className={fieldClassName} required />
+                <Input label="Bölüm *" name="department" value={form.department} onChange={update('department')} placeholder="Bölümünüz" error={errors.department} className={fieldClassName} required />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Select label="Sınıf *" name="grade" value={form.grade} onChange={update('grade')} error={errors.grade} className={cn(fieldClassName, 'pr-12')} required>
+                  <option value="">Seçiniz...</option>
+                  <option value="prep">Hazırlık</option>
+                  {[1,2,3,4,5,6].map(n => <option key={n} value={n}>{n}. Sınıf</option>)}
+                </Select>
+                <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
+              </div>
+
               <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
             </div>
+            
+            <Button type="button" onClick={nextStep} className="w-full py-5 text-lg font-bold rounded-2xl" iconRight={<ArrowRightIcon />}>
+              SONRAKİ ADIM
+            </Button>
           </div>
-        </div>
-      </div>
+        )}
 
-      <div className="space-y-6">
-        <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Katılım Bilgileri</h4>
-        <div className="space-y-6">
-          <Select label="Takım durumun nedir? *" name="teamStatus" value={form.teamStatus} onChange={updateTeamStatus} error={errors.teamStatus} className={cn(fieldClassName, 'pr-12')} required>
-            <option value="">Seçiniz...</option>
-            <option value="has_team">Evet, bir takımım var</option>
-            <option value="will_form">Hayır, bir takımım yok (Eşleşmek istiyorum)</option>
-            <option value="individual">Bireysel olarak katılacağım</option>
-          </Select>
+        {/* STEP 2: PARTICIPATION */}
+        {step === 2 && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+            <div className="flex items-center gap-4">
+              <span className="w-2 h-8 bg-green-500 rounded-full"></span>
+              <h4 className="text-xl font-bold hf-text-gradient">Katılım Bilgileri</h4>
+            </div>
 
-          {form.teamStatus === 'has_team' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
-              <Select label="Takımda kaç kişisiniz? *" name="teamSize" value={form.teamSize} onChange={update('teamSize')} error={errors.teamSize} className={cn(fieldClassName, 'pr-12')} required>
+            <div className="space-y-6">
+              <Select label="Takım durumun nedir? *" name="teamStatus" value={form.teamStatus} onChange={updateTeamStatus} error={errors.teamStatus} className={cn(fieldClassName, 'pr-12')} required>
                 <option value="">Seçiniz...</option>
-                <option value="2">2 kişi</option>
-                <option value="3">3 kişi</option>
-                <option value="4">4 kişi</option>
-                <option value="5">5 kişi</option>
+                <option value="has_team">Evet, bir takımım var</option>
+                <option value="will_form">Hayır, bir takımım yok (Eşleşmek istiyorum)</option>
+                <option value="individual">Bireysel olarak katılacağım</option>
               </Select>
-              <Select label="Arkadaşlarınız başvurdu mu? *" name="teammatesApplied" value={form.teammatesApplied} onChange={update('teammatesApplied')} error={errors.teammatesApplied} className={cn(fieldClassName, 'pr-12')} required>
+
+              {form.teamStatus === 'has_team' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 animate-in zoom-in-95 duration-300">
+                  <Select label="Takımda kaç kişisiniz? *" name="teamSize" value={form.teamSize} onChange={update('teamSize')} error={errors.teamSize} className={cn(fieldClassName, 'pr-12')} required>
+                    <option value="">Seçiniz...</option>
+                    {[2,3,4,5].map(n => <option key={n} value={n}>{n} kişi</option>)}
+                  </Select>
+                  <Select label="Arkadaşlarınız başvurdu mu? *" name="teammatesApplied" value={form.teammatesApplied} onChange={update('teammatesApplied')} error={errors.teammatesApplied} className={cn(fieldClassName, 'pr-12')} required>
+                    <option value="">Seçiniz...</option>
+                    <option value="yes">Evet, hepimiz başvurduk</option>
+                    <option value="no">Henüz başvurmadılar</option>
+                    <option value="waiting">Onların başvurmasını bekliyorum</option>
+                  </Select>
+                </div>
+              )}
+
+              <Select label="Bizi nereden duydunuz? *" name="source" value={form.source} onChange={update('source')} error={errors.source} className={cn(fieldClassName, 'pr-12')} required>
                 <option value="">Seçiniz...</option>
-                <option value="yes">Evet, hepimiz başvurduk</option>
-                <option value="no">Henüz başvurmadılar</option>
-                <option value="waiting">Onların başvurmasını bekliyorum</option>
+                <option value="instagram">Instagram</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="club">Üniversite Kulübü</option>
+                <option value="whatsapp">WhatsApp Grupları</option>
+                <option value="friend">Arkadaş Tavsiyesi</option>
+                <option value="other">Diğer</option>
               </Select>
             </div>
-          )}
 
-          <Select label="Bizi nereden duydunuz? *" name="source" value={form.source} onChange={update('source')} error={errors.source} className={cn(fieldClassName, 'pr-12')} required>
-            <option value="">Seçiniz...</option>
-            <option value="instagram">Instagram</option>
-            <option value="linkedin">LinkedIn</option>
-            <option value="club">Üniversite Kulübü</option>
-            <option value="whatsapp">WhatsApp Grupları</option>
-            <option value="friend">Arkadaş Tavsiyesi</option>
-            <option value="other">Diğer</option>
-          </Select>
-        </div>
-      </div>
+            <div className="grid grid-cols-2 gap-4">
+              <Button type="button" variant="ghost" onClick={prevStep} className="py-5 rounded-2xl">GERİ</Button>
+              <Button type="button" onClick={nextStep} className="py-5 rounded-2xl" iconRight={<ArrowRightIcon />}>DEVAM ET</Button>
+            </div>
+          </div>
+        )}
 
-      <div className="space-y-6">
-        <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Proje</h4>
-        <div className="space-y-4">
-          <Textarea
-            label="Proje Fikri (Opsiyonel)"
-            name="projectIdea"
-            rows={4}
-            value={form.projectIdea}
-            onChange={update('projectIdea')}
-            placeholder="Aklındaki proje fikrini kısaca anlatabilirsin."
-            error={errors.projectIdea}
-            className={cn(fieldClassName, 'min-h-[120px] resize-none')}
-          />
-          <p className="text-xs text-white/50 leading-relaxed italic">
-            Bu aşamada fikir belirtmek <strong className="text-white/80">opsiyoneldir</strong>, ancak projenizin <strong className="text-white/80">"Toplum Yararına Yapay Zeka"</strong> temasının alt kategorilerinden (Eğitim, Sağlık, Çevre, Erişilebilirlik, Sürdürülebilirlik ve diğer kategoriler) en az birine odaklanması gerekmektedir. Detaylı bilgi için <a href="/hackathon#themes" className="text-primary underline">bu kısmı</a> inceleyebilirsiniz.
-          </p>
-        </div>
-      </div>
+        {/* STEP 3: PROJECT */}
+        {step === 3 && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+            <div className="flex items-center gap-4">
+              <span className="w-2 h-8 bg-yellow-500 rounded-full"></span>
+              <h4 className="text-xl font-bold hf-text-gradient">Proje Bilgileri</h4>
+            </div>
 
-      <div className="pt-6 space-y-6">
-        <p className="text-[10px] text-ink-dim leading-relaxed text-center px-4">
-          Başvurunuzu tamamlayarak etkinlik <a href="/hackfest26-kurallar.pdf" target="_blank" className="text-white underline underline-offset-2 hover:text-primary transition-colors">katılım kurallarını</a>, KVKK metnini ve davranış kurallarını kabul etmiş sayılırsınız.
-        </p>
-        <Button type="submit" className="w-full py-5 text-xl font-black shadow-xl shadow-primary/20 rounded-2xl transition-transform hover:scale-[1.01]" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
-          {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'BAŞVURUYU TAMAMLA'}
-        </Button>
-      </div>
-    </form>
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+              <div className="flex gap-4">
+                <div className="text-yellow-500 text-xl font-bold shrink-0">!</div>
+                <div className="text-sm leading-relaxed text-white/60">
+                  <strong className="text-white">KRİTİK NOT:</strong> Kategorilerden en az birini seçmeniz zorunludur. Projenizin seçtiğiniz temanın hedefleriyle uyumlu olması değerlendirmede kritik rol oynar.
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <label className="block text-xs text-white/40 uppercase tracking-widest font-bold ml-1">Kategori Seçimi *</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => setForm(f => ({ ...f, category: cat.id }))}
+                      className={cn(
+                        "p-4 rounded-2xl border transition-all text-left flex flex-col gap-2 group relative",
+                        form.category === cat.id 
+                          ? "bg-white/10 border-white/40 shadow-lg shadow-white/5" 
+                          : "bg-white/[0.03] border-white/5 hover:border-white/20"
+                      )}
+                    >
+                      <span className="text-2xl">{cat.icon}</span>
+                      <span className={cn(
+                        "text-[10px] font-bold uppercase tracking-tighter leading-tight",
+                        form.category === cat.id ? "text-white" : "text-white/40 group-hover:text-white/60"
+                      )}>{cat.title}</span>
+                      {form.category === cat.id && (
+                        <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                {errors.category && <p className="text-google-red text-xs mt-1 ml-1">— {errors.category}</p>}
+              </div>
+
+              <Textarea
+                label="Proje Fikri (Opsiyonel)"
+                name="projectIdea"
+                rows={4}
+                value={form.projectIdea}
+                onChange={update('projectIdea')}
+                placeholder="Aklındaki proje fikrini kısaca anlatabilirsin."
+                error={errors.projectIdea}
+                className={cn(fieldClassName, 'min-h-[140px] resize-none')}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <Button type="button" variant="ghost" onClick={prevStep} className="py-5 rounded-2xl" disabled={busy}>GERİ</Button>
+              <Button type="submit" className="py-5 text-xl font-black rounded-2xl" disabled={busy}>
+                {busy ? <LoaderInline>GÖNDERİLİYOR...</LoaderInline> : 'BAŞVURUYU TAMAMLA'}
+              </Button>
+            </div>
+          </div>
+        )}
+      </form>
+    </div>
   );
 }
