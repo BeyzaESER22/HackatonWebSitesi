@@ -162,9 +162,12 @@ async function writeBackupRecord(filename, record, backupKey) {
 
 async function kvRead(filename) {
   const kv = await getKv();
+  const listKey = fileToListKey(filename);
+  const legacyKey = fileToKey(filename);
+  
   const [listData, legacyData, backupData] = await Promise.all([
-    kv.lrange(fileToListKey(filename), 0, -1).catch(() => []),
-    kv.get(fileToKey(filename)).catch(() => []),
+    kv.lrange(listKey, 0, -1).catch(() => []),
+    kv.get(legacyKey).catch(() => []),
     readBackupRecords(filename).catch(() => [])
   ]);
 
@@ -497,9 +500,10 @@ export async function removeFromStore(filename, id, options = {}) {
   if (KV_AVAILABLE) {
     const kv = await getKv();
     const listKey = fileToListKey(filename);
+    const legacyKey = fileToKey(filename);
     const itemKey = fileToItemKey(filename, id);
     
-    // 1. Get all items to find the exact JSON string to remove from list
+    // 1. Get all items to find the exact JSON string to remove from Version 2 List
     const listData = await kv.lrange(listKey, 0, -1);
     const itemToRemove = listData.find(raw => {
       const parsed = safeParseJson(raw);
@@ -510,14 +514,23 @@ export async function removeFromStore(filename, id, options = {}) {
       await kv.lrem(listKey, 0, itemToRemove);
     }
 
-    // 2. Remove specific item key
+    // 2. Remove from Legacy Version 1 Store (if exists)
+    const legacyData = await kv.get(legacyKey);
+    if (Array.isArray(legacyData)) {
+      const updatedLegacy = legacyData.filter(item => item.id !== id && item.clientSubmissionId !== id);
+      if (updatedLegacy.length !== legacyData.length) {
+        await kv.set(legacyKey, updatedLegacy);
+      }
+    }
+
+    // 3. Remove specific item keys
     await kv.del(itemKey);
 
-    // 3. Remove from backups (CRITICAL FIX)
+    // 4. Remove from backups (CRITICAL FIX)
     await removeBackupRecord(filename, id);
     if (options.dedupeKey) await removeBackupRecord(filename, options.dedupeKey);
 
-    // 4. Optional: Clear unique/dedupe constraints
+    // 5. Optional: Clear unique/dedupe constraints
     if (options.uniqueKey) {
       await kv.del(fileToUniqueKey(filename, options.uniqueKey));
     }
