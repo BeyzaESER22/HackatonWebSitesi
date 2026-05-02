@@ -144,7 +144,6 @@ export const presentationMethods = [
     title: 'Slayt + Canlı Demo',
     status: 'Önerilen Model',
     color: COLORS.blue,
-    tools: 'Google Slides / PowerPoint / Canva + Uygulama',
     flow: [
       'Slayt ile problem ve çözüm hikayesi anlatılır.',
       'Demo ile ürünün gerçekliği kanıtlanır.'
@@ -156,7 +155,6 @@ export const presentationMethods = [
     title: 'Sadece Ürün Üzerinden Sunum',
     status: 'Hızlı Model',
     color: COLORS.green,
-    tools: 'Web Sitesi / Figma / CLI Tool',
     flow: [
       'Direkt uygulama üzerinden anlatım yapılır.',
       'UI/UX akışı üzerinden problem-çözüm gösterilir.'

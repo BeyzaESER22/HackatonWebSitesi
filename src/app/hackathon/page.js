@@ -342,17 +342,17 @@ export default function HackathonInfoPage() {
                   </div>
                   <div className="space-y-6">
                     <div>
-                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Gerekli Araçlar</p>
-                      <p className="text-sm text-ink-dim">{method.tools}</p>
-                    </div>
-                    <div>
                       <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Sunum Akışı</p>
                       <ul className="space-y-2">
                         {method.flow.map((f, idx) => (
-                          <li key={idx} className="text-sm text-ink-dim flex gap-3"><span className="text-white/20">•</span>{f}</li>
+                          <li key={idx} className="text-sm text-ink-dim flex gap-3">
+                            <span className="text-white/20">•</span>
+                            {f}
+                          </li>
                         ))}
                       </ul>
                     </div>
+
                     <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                       <p className="text-[11px] leading-relaxed"><span className="text-primary font-bold">✅ AVANTAJ:</span> <span className="text-ink-dim">{method.advantage}</span></p>
                       {method.risk && <p className="text-[11px] leading-relaxed mt-2"><span className="text-red-400 font-bold">⚠️ RİSK:</span> <span className="text-ink-dim">{method.risk}</span></p>}
