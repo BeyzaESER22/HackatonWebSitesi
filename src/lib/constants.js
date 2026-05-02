@@ -6,7 +6,7 @@ export const SITE = {
   description:
     '16-17 Mayıs 2026 — İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, ilham veren konuşmalar ve büyük ödüller seni bekliyor.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-  email: 'gdg@istinye.edu.tr',
+  email: 'gdgoncampusisu@gmail.com',
   phone: '0850 283 60 00',
   location: {
     name: 'İstinye Üniversitesi Ayazağa Kampüsü',
@@ -18,7 +18,8 @@ export const SITE = {
   social: {
     instagram: 'https://instagram.com/gdgoncampusistinye',
     twitter:   'https://x.com/gdgoncampusisu',
-    whatsapp:  'https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x'
+    whatsapp:  'https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x',
+    linkedin:  'https://www.linkedin.com/company/google-dsc-istinye-university/posts/?feedView=all'
   }
 };
 
