@@ -19,7 +19,7 @@ export function SponsorsSection() {
   const groups = groupSponsors();
 
   return (
-    <section id="sponsors" className="relative z-10 py-12 lg:py-24 border-t border-white/5">
+    <section id="sponsors" className="relative z-10 py-4 lg:py-8 border-t border-white/5">
       <Container>
         {/* Main sponsors — büyük kart */}
         {groups.main.length > 0 && (
