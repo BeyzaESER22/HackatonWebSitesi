@@ -41,7 +41,7 @@ export const faq = [
 
   {
     q: 'Etkinlik nerede gerçekleşecek?',
-    a: 'İstinye Üniversitesi Ayazağa Kampüsü’nde, İstanbul’da gerçekleşecektir. Detaylı konum bilgisi ve kampüs haritası e-posta yoluyla paylaşılacaktır. Ayrıca duyurular ve güncellemeler için WhatsApp grubuna buradan katılabilirsiniz: https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x'
+    a: 'İstinye Üniversitesi Vadi (Sarıyer) Kampüsü’nde gerçekleşecektir. Detaylı konum bilgisi ve kampüs haritası e-posta yoluyla paylaşılacaktır. Ayrıca duyurular ve güncellemeler için WhatsApp grubuna buradan katılabilirsiniz: https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x'
   },
 
   {

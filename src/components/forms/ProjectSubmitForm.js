@@ -67,6 +67,9 @@ export function ProjectSubmitForm({ onSuccess }) {
   return (
     <form onSubmit={submit} noValidate className="space-y-1">
       <h3 className="font-display text-lg font-semibold mb-3 text-ink">Proje bilgileri</h3>
+      <p className="text-[11px] text-ink-dim italic mb-4">
+        Gönderdiğiniz projenin <strong>"Toplum Yararına Yapay Zeka"</strong> temasıyla uyumlu olması gerektiğini hatırlatmak isteriz.
+      </p>
 
       <Input label="Proje Adı *" name="title" value={form.title} onChange={update('title')} placeholder="Örn: MedAI" error={errors.title} required />
 

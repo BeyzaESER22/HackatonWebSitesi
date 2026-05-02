@@ -9,9 +9,9 @@ export const SITE = {
   email: 'gdgoncampusisu@gmail.com',
   phone: '0850 283 60 00',
   location: {
-    name: 'İstinye Üniversitesi Ayazağa Kampüsü',
+    name: 'İstinye Üniversitesi Vadi Kampüsü',
     city: 'İstanbul',
-    full: 'İstinye Üniversitesi Ayazağa Kampüsü, İstanbul'
+    full: 'İstinye Üniversitesi Vadi Kampüsü (Sarıyer), İstanbul'
   },
   eventDateISO: process.env.NEXT_PUBLIC_EVENT_DATE_ISO || '2026-05-16T09:00:00+03:00',
   eventDates: '16-17 Mayıs 2026',

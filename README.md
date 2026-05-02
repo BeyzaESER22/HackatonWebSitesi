@@ -1,7 +1,7 @@
 # HackFest'26 AI — Resmi Etkinlik Sitesi
 
 > Google Developer Groups On Campus İstinye Üniversitesi
-> 16-17 Mayıs 2026 · İstinye Üniversitesi Ayazağa Kampüsü · İstanbul
+> 16-17 Mayıs 2026 · İstinye Üniversitesi Vadi Kampüsü · İstanbul
 
 Premium, modern, production-ready bir etkinlik landing page'i — Next.js 14 (App Router) üzerinde Framer Motion animasyonları, Tailwind tasarım sistemi, dosya yükleme destekli API rotaları, canlı proje galerisi ve detaylı konuşmacı sayfalarıyla.
 
@@ -149,7 +149,7 @@ Production migration adımları aynı dosyada (Madde 3) detaylı.
 
 ## 📞 İletişim
 
-- E-posta: gdg@istinye.edu.tr
+- E-posta: gdgoncampusisu@gmail.com
 - Instagram: [@gdgoncampusistinye](https://instagram.com/gdgoncampusistinye)
 - Twitter / X: [@gdgoncampusisu](https://x.com/gdgoncampusisu)
 - WhatsApp Topluluk: [Katıl](https://chat.whatsapp.com/JGj1s5uYWO3D71MLAMND2x)
