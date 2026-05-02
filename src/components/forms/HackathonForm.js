@@ -139,8 +139,8 @@ export function HackathonForm({ onSuccess }) {
             <Input label="Bölüm *" name="department" value={form.department} onChange={update('department')} placeholder="Bölümünüz" error={errors.department} className={fieldClassName} required />
           </div>
 
-          {/* Row 3: Grade, Phone, Email (Centered Layout) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Row 3: Grade & Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Select label="Sınıf *" name="grade" value={form.grade} onChange={update('grade')} error={errors.grade} className={cn(fieldClassName, 'pr-12')} required>
               <option value="">Seçiniz...</option>
               <option value="prep">Hazırlık</option>
@@ -151,8 +151,14 @@ export function HackathonForm({ onSuccess }) {
               <option value="5">5. Sınıf</option>
               <option value="6">6. Sınıf</option>
             </Select>
-            <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
             <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
+          </div>
+
+          {/* Row 4: Phone (Centered) */}
+          <div className="flex justify-center">
+            <div className="w-full md:w-1/2">
+              <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
+            </div>
           </div>
         </div>
       </div>
