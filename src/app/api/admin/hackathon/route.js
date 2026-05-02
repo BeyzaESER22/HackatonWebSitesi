@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { isAdminRequestAuthenticated, unauthorizedJson } from '@/lib/admin-auth';
-import { readStore, removeFromStore } from '@/lib/store';
+import { readStore, removeFromStore, appendToStore } from '@/lib/store';
 import { SITE } from '@/lib/constants';
 
 export const runtime = 'nodejs';
