@@ -3,6 +3,12 @@ import { cn } from '@/lib/helpers';
 
 const infoRows = [
   {
+    label: 'Ödüller',
+    content: (
+      <span className="text-primary animate-pulse">Yakında açıklanacak 🎁</span>
+    )
+  },
+  {
     label: 'E-Posta',
     content: (
       <a href={`mailto:${SITE.email}`} className="transition hover:text-[#2F57D8]">
@@ -64,8 +70,10 @@ export function HackathonApplicationShell({
                 <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse"></span>
                 Fiziksel Katılım
               </div>
-              <p className="text-[#5C594E] leading-relaxed">
-                Bu etkinlik online DEĞİLDİR. Katılım İstinye Üniversitesi kampüsünde fiziksel olarak sağlanacaktır.
+              <p className="text-[#5C594E] leading-relaxed text-sm">
+                Bu etkinlik online DEĞİLDİR. Katılım <strong>İstinye Üniversitesi Vadi (Sarıyer)</strong> kampüsünde fiziksel olarak sağlanacaktır.
+                <br />
+                <span className="text-xs mt-1 block font-bold">⚠️ Katılımcıların kendi bilgisayarlarını getirmesi zorunludur.</span>
               </p>
             </div>
 
@@ -73,8 +81,12 @@ export function HackathonApplicationShell({
               <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
                 Proje Teması
               </div>
-              <p className="text-[#5C594E] leading-relaxed italic">
-                "Toplum Yararına Yapay Zeka"
+              <p className="text-[#5C594E] leading-relaxed text-sm">
+                <strong className="italic">"Toplum Yararına Yapay Zeka"</strong>
+                <br />
+                <span className="text-xs mt-1 block leading-normal">
+                  Projeniz; eğitim, sağlık, çevre veya erişilebilirlik gibi bir <strong>alt kategoriye</strong> odaklanmalıdır. Detaylı bilgi için <a href="/hackathon" className="text-primary underline">hackathon sayfasını</a> inceleyiniz.
+                </span>
               </p>
             </div>
 
