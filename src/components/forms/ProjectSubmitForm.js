@@ -177,6 +177,9 @@ export function ProjectSubmitForm({ onSuccess }) {
       </p>
 
       <Input type="email" label="İletişim E-posta *" name="contactEmail" value={form.contactEmail} onChange={update('contactEmail')} placeholder="takim@example.com" error={errors.contactEmail} required />
+      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
+        Takımlar için üyelerden herhangi birinin mail adresinin eklenmesi yeterlidir.
+      </p>
 
       <Input type="url" label="GitHub URL *" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} required />
 
