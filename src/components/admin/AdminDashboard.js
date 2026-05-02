@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/Card';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
 import { useApp } from '@/context/AppContext';
+import { cn } from '@/lib/helpers';
 
 const teamStatusLabels = {
   has_team: 'Evet, takımım var',
@@ -51,6 +52,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
   const [activeTab, setActiveTab] = useState('hackathon'); // 'hackathon' or 'projects'
   const [submissions, setSubmissions] = useState(initialSubmissions);
   const [projects, setProjects] = useState(initialProjects);
+  const [selectedProjectIds, setSelectedProjectIds] = useState([]);
   const [busy, setBusy] = useState(false);
   const [deleteModal, setDeleteModal] = useState({ open: false, item: null, type: null });
   const [confirmText, setConfirmText] = useState('');
@@ -137,8 +139,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
       });
 
       if (res.ok) {
-        const json = await res.json();
-        setProjects(prev => prev.map(p => p.id === id ? json.project : p));
+        setProjects(prev => prev.map(p => p.id === id ? { ...p, status } : p));
         showToast({ title: 'Başarılı', message: `Proje durumu: ${status}` });
       } else {
         showToast({ type: 'error', title: 'Hata', message: 'Güncelleme yapılamadı.' });
@@ -147,6 +148,46 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
       showToast({ type: 'error', title: 'Hata', message: 'Bir ağ hatası oluştu.' });
     } finally {
       setBusy(false);
+    }
+  };
+
+  const handleBulkUpdateStatus = async (status) => {
+    if (selectedProjectIds.length === 0) return;
+    setBusy(true);
+    try {
+      const res = await fetch('/api/admin/projects', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: selectedProjectIds, status })
+      });
+
+      if (res.ok) {
+        setProjects(prev => prev.map(p => 
+          selectedProjectIds.includes(p.id) ? { ...p, status } : p
+        ));
+        setSelectedProjectIds([]);
+        showToast({ title: 'Başarılı', message: `${selectedProjectIds.length} proje ${status} olarak güncellendi.` });
+      } else {
+        showToast({ type: 'error', title: 'Hata', message: 'Toplu güncelleme başarısız.' });
+      }
+    } catch (err) {
+      showToast({ type: 'error', title: 'Hata', message: 'Bir ağ hatası oluştu.' });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const toggleProjectSelection = (id) => {
+    setSelectedProjectIds(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAllProjects = () => {
+    if (selectedProjectIds.length === projects.length && projects.length > 0) {
+      setSelectedProjectIds([]);
+    } else {
+      setSelectedProjectIds(projects.map(p => p.id));
     }
   };
 
@@ -161,7 +202,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row">
-          <div className="flex bg-white/5 rounded-full p-1 border border-white/10 mr-4">
+          <div className="flex bg-white/5 rounded-full p-1 border border-white/10 sm:mr-4">
             <button 
               onClick={() => setActiveTab('hackathon')}
               className={`px-6 py-2 rounded-full text-sm font-semibold transition ${activeTab === 'hackathon' ? 'bg-white text-black' : 'text-white hover:bg-white/5'}`}
@@ -270,10 +311,22 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
         </>
       ) : (
         <>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-4">
             <StatCard label="Toplam Proje" value={String(projects.length)} />
             <StatCard label="Onaylı" value={String(stats.approvedProjects)} />
             <StatCard label="Bekleyen" value={String(stats.pendingProjects)} />
+            <div className="flex items-center">
+               {selectedProjectIds.length > 0 && (
+                 <div className="flex-1 flex gap-2 animate-in zoom-in-95 duration-200">
+                   <Button size="sm" className="flex-1 !py-3" onClick={() => handleBulkUpdateStatus('approved')}>
+                     Seçili ({selectedProjectIds.length}) Onayla
+                   </Button>
+                   <Button size="sm" variant="ghost" className="!py-3 border-red-500/30 text-red-400" onClick={() => handleBulkUpdateStatus('rejected')}>
+                     Reddet
+                   </Button>
+                 </div>
+               )}
+            </div>
           </div>
 
           <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]">
@@ -281,6 +334,14 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
               <table className="min-w-full divide-y divide-white/10 text-left text-sm">
                 <thead className="bg-white/[0.04] text-ink-dim">
                   <tr>
+                    <th className="px-4 py-3 w-10 text-center">
+                      <input 
+                        type="checkbox" 
+                        className="rounded border-white/20 bg-white/5"
+                        checked={projects.length > 0 && selectedProjectIds.length === projects.length}
+                        onChange={toggleSelectAllProjects}
+                      />
+                    </th>
                     <th className="px-4 py-3 font-medium">Proje</th>
                     <th className="px-4 py-3 font-medium">Ekip & İletişim</th>
                     <th className="px-4 py-3 font-medium">Tech & Linkler</th>
@@ -291,14 +352,25 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                 <tbody className="divide-y divide-white/8">
                   {projects.length === 0 && (
                     <tr>
-                      <td colSpan="5" className="px-4 py-8 text-center text-ink-dim">
+                      <td colSpan="6" className="px-4 py-8 text-center text-ink-dim">
                         Henüz proje gönderimi bulunmuyor.
                       </td>
                     </tr>
                   )}
 
                   {projects.map((project) => (
-                    <tr key={project.id} className="align-top hover:bg-white/[0.02] transition-colors">
+                    <tr key={project.id} className={cn(
+                      "align-top hover:bg-white/[0.02] transition-colors",
+                      selectedProjectIds.includes(project.id) && "bg-white/[0.05]"
+                    )}>
+                      <td className="px-4 py-4 text-center">
+                        <input 
+                          type="checkbox" 
+                          className="rounded border-white/20 bg-white/5"
+                          checked={selectedProjectIds.includes(project.id)}
+                          onChange={() => toggleProjectSelection(project.id)}
+                        />
+                      </td>
                       <td className="px-4 py-4">
                         <div className="font-semibold text-white">{project.title}</div>
                         <div className="mt-1 text-primary text-[10px] font-bold uppercase">{project.categoryLabel}</div>
@@ -321,10 +393,10 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                         </div>
                         <div className="mt-3 flex gap-3">
                           {project.githubUrl && (
-                            <a href={project.githubUrl} target="_blank" className="text-google-blue hover:underline text-xs">GitHub</a>
+                            <a href={project.githubUrl} target="_blank" rel="noreferrer" className="text-google-blue hover:underline text-xs">GitHub</a>
                           )}
                           {project.demoUrl && (
-                            <a href={project.demoUrl} target="_blank" className="text-google-blue hover:underline text-xs">Demo</a>
+                            <a href={project.demoUrl} target="_blank" rel="noreferrer" className="text-google-blue hover:underline text-xs">Demo</a>
                           )}
                         </div>
                       </td>
@@ -333,15 +405,15 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                            value={project.status} 
                            onChange={(e) => handleUpdateProjectStatus(project.id, e.target.value)}
                            className={cn(
-                             "text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded bg-transparent border",
+                             "text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded bg-transparent border outline-none",
                              project.status === 'approved' ? "text-green-400 border-green-400/30" : 
                              project.status === 'pending' ? "text-yellow-400 border-yellow-400/30" : 
                              "text-red-400 border-red-400/30"
                            )}
                          >
-                           <option value="pending" className="bg-black">Pending</option>
-                           <option value="approved" className="bg-black">Approved</option>
-                           <option value="rejected" className="bg-black">Rejected</option>
+                           <option value="pending" className="bg-[#05071A]">Pending</option>
+                           <option value="approved" className="bg-[#05071A]">Approved</option>
+                           <option value="rejected" className="bg-[#05071A]">Rejected</option>
                          </select>
                       </td>
                       <td className="px-4 py-4">

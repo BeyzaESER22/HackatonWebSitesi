@@ -18,7 +18,7 @@ export async function GET(request) {
   return NextResponse.json({ ok: true, submissions });
 }
 
-/** PATCH — approve/reject project. */
+/** PATCH — approve/reject project(s). */
 export async function PATCH(request) {
   if (!isAdminRequestAuthenticated(request)) {
     return unauthorizedJson();
@@ -28,21 +28,30 @@ export async function PATCH(request) {
   try { body = await request.json(); }
   catch { return NextResponse.json({ message: 'Geçersiz istek gövdesi.' }, { status: 400 }); }
 
-  const { id, status } = body;
-  if (!id || !['approved', 'pending', 'rejected'].includes(status)) {
+  const { id, ids, status } = body;
+  if ((!id && !ids) || !['approved', 'pending', 'rejected'].includes(status)) {
     return NextResponse.json({ message: 'Geçersiz parametreler.' }, { status: 400 });
   }
 
   try {
     const items = await readStore('projects.json');
-    const idx = items.findIndex(item => item.id === id);
-    if (idx === -1) return NextResponse.json({ message: 'Kayıt bulunamadı.' }, { status: 404 });
+    const targetIds = ids || [id];
+    let updatedCount = 0;
 
-    items[idx].status = status;
-    items[idx].updatedAt = new Date().toISOString();
+    const updatedItems = items.map(item => {
+      if (targetIds.includes(item.id)) {
+        updatedCount++;
+        return { ...item, status, updatedAt: new Date().toISOString() };
+      }
+      return item;
+    });
 
-    await writeStore('projects.json', items);
-    return NextResponse.json({ ok: true, project: items[idx] });
+    if (updatedCount === 0) {
+      return NextResponse.json({ message: 'Güncellenecek kayıt bulunamadı.' }, { status: 404 });
+    }
+
+    await writeStore('projects.json', updatedItems);
+    return NextResponse.json({ ok: true, updatedCount });
   } catch (err) {
     console.error('Project PATCH error:', err);
     return NextResponse.json({ message: 'Güncelleme başarısız.', error: String(err) }, { status: 500 });

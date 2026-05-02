@@ -15,15 +15,58 @@ const initial = {
 export function ProjectSubmitForm({ onSuccess }) {
   const [form, setForm] = useState(initial);
   const [image, setImage] = useState(null);
-  const [packageFile, setPackageFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [busy, setBusy] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const { showToast } = useApp();
+
+  const compressImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+          // Max width/height for optimization
+          const MAX_SIZE = 1600;
+          if (width > height) {
+            if (width > MAX_SIZE) {
+              height *= MAX_SIZE / width;
+              width = MAX_SIZE;
+            }
+          } else {
+            if (height > MAX_SIZE) {
+              width *= MAX_SIZE / height;
+              height = MAX_SIZE;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          canvas.toBlob((blob) => {
+            const compressedFile = new File([blob], file.name, {
+              type: 'image/jpeg',
+              lastModified: Date.now(),
+            });
+            resolve(compressedFile);
+          }, 'image/jpeg', 0.8); // 80% quality
+        };
+      };
+    });
+  };
 
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
-  const submit = async (e) => {
-    e.preventDefault();
+  const submit = async (e, retryCount = 0) => {
+    if (e) e.preventDefault();
     if (!image) {
       showToast({ type: 'error', title: 'Görsel zorunlu', message: 'Lütfen projenin ekran görüntüsünü ekleyin.' });
       return;
@@ -31,14 +74,27 @@ export function ProjectSubmitForm({ onSuccess }) {
 
     setBusy(true);
     setErrors({});
+    setUploadProgress(10); // Start progress
 
     try {
+      // Step 1: Compress image
+      const finalImage = image.size > 1024 * 1024 ? await compressImage(image) : image;
+      setUploadProgress(30);
+
       const fd = new FormData();
       Object.entries(form).forEach(([k, v]) => fd.append(k, v));
-      fd.append('image', image);
-      if (packageFile) fd.append('package', packageFile);
+      fd.append('image', finalImage);
+
+      // Simulation of progress since fetch doesn't support upload progress out of box 
+      // without XHR, but we can do a tiered progress for UX
+      const progressInterval = setInterval(() => {
+        setUploadProgress(prev => prev < 90 ? prev + 5 : prev);
+      }, 400);
 
       const res = await fetch('/api/projects', { method: 'POST', body: fd });
+      clearInterval(progressInterval);
+      setUploadProgress(100);
+
       const json = await res.json();
 
       if (!res.ok) {
@@ -48,19 +104,24 @@ export function ProjectSubmitForm({ onSuccess }) {
           title: 'Gönderim başarısız',
           message: json.message || 'Lütfen alanları kontrol edin.'
         });
+        setBusy(false);
+        setUploadProgress(0);
         return;
       }
 
-      showToast({
-        title: 'Projen alındı!',
-        message: 'Onay sonrası galeride yer alacak.'
-      });
-      setForm(initial); setImage(null); setPackageFile(null);
+      showToast({ title: 'Projen alındı!', message: 'Onay sonrası galeride yer alacak.' });
+      setForm(initial); setImage(null);
+      setUploadProgress(0);
       onSuccess?.(json.project);
     } catch (err) {
-      showToast({ type: 'error', title: 'Bir hata oluştu', message: 'Bağlantını kontrol et.' });
-    } finally {
-      setBusy(false);
+      if (retryCount < 2) {
+        setUploadProgress(prev => prev - 10);
+        setTimeout(() => submit(null, retryCount + 1), 2000);
+      } else {
+        showToast({ type: 'error', title: 'Bir hata oluştu', message: 'Bağlantını kontrol et.' });
+        setBusy(false);
+        setUploadProgress(0);
+      }
     }
   };
 
@@ -110,8 +171,18 @@ export function ProjectSubmitForm({ onSuccess }) {
         onFile={setImage}
       />
 
-      <Button type="submit" className="w-full mt-4" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
-        {busy ? <LoaderInline>Yükleniyor...</LoaderInline> : 'Projeyi Gönder'}
+      <Button type="submit" className="w-full mt-4 overflow-hidden relative" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
+        {busy ? (
+          <>
+            <div 
+              className="absolute inset-0 bg-white/10 transition-all duration-300" 
+              style={{ width: `${uploadProgress}%` }}
+            ></div>
+            <span className="relative z-10">
+              {uploadProgress < 30 ? 'Görsel Hazırlanıyor...' : `Yükleniyor %${uploadProgress}`}
+            </span>
+          </>
+        ) : 'Projeyi Gönder'}
       </Button>
       <p className="text-[11px] text-ink-dim text-center mt-3">
         Başvuru onayından sonra galeri sayfasında yer alacaktır.
