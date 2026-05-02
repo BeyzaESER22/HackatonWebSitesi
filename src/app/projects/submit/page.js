@@ -14,8 +14,10 @@ export const metadata = buildMetadata({
 
 export default function ProjectSubmitPage() {
   return (
-    <section className="pt-24 pb-24 lg:pt-28 lg:pb-32">
+    <section className="pt-20 pb-24 lg:pt-24 lg:pb-32">
       <Container size="sm">
+        <Badge dotColor={COLORS.green} className="mb-4">Demo Day</Badge>
+        <SectionTitle title="Demo Day" gradient="Başvurusu" align="left" className="mb-4" />
         <p className="text-ink-dim mb-8">
           Etkinlik sırasında geliştirdiğiniz projeyi yükleyin. Gönderim sonrası organizasyon ekibi tarafından
           incelenir ve onaylandığında <span className="text-white">/projects</span> galerisinde sergilenir.
