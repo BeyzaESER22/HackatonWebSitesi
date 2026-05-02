@@ -14,17 +14,59 @@ import { useApp } from '@/context/AppContext';
 import { ruleCategories } from '@/data/rules';
 import { categories } from '@/data/problems';
 import { judgingCriteria, pitchGuide, presentationMethods, bonusPoints } from '@/data/judging';
-
 const journeySteps = [
-  { id: 1, title: 'Başvuru', desc: 'Hackathon\'a kaydını yap, yerini ayırt.', link: '/register', linkText: 'Kaydol →' },
-  { id: 2, title: 'Kategori Seçimi', desc: 'Problem havuzundan toplumsal bir sorun seç.', link: '#problems', linkText: 'Havuzu Gör →' },
-  { id: 3, title: 'Hazırlık', desc: 'Kuralları oku ve sürece hakim ol.', link: '#rules', linkText: 'Kurallar →' },
-  { id: 4, title: 'Geliştirme', desc: '16-17 Mayıs maratonunda AI çözümünü inşa et.', link: '/schedule', linkText: 'Program →' },
-  { id: 5, title: 'Proje Teslimi', desc: 'Projeyi Demo Day için sisteme yükle.', link: '/projects/submit', linkText: 'Teslim Et →' },
-  { id: 6, title: 'Final Pitch', desc: 'Jüri önünde projenin değerini kanıtla.', link: '#judging', linkText: 'Kriterler →' }
+  { 
+    id: 1, 
+    title: 'Başvuru', 
+    desc: 'Hackathon maratonuna kaydını yap, yerini ayırt. Başvurular 16 Mayıs 07:59’da kapanacaktır.', 
+    link: '/register', 
+    linkText: 'Kaydol →',
+    note: 'Başvuru formu belirtilen saatte kapanır.' 
+  },
+  { 
+    id: 2, 
+    title: 'Kategori Seçimi', 
+    desc: 'Sana rehberlik etmesi için kategorileri ve örnek problemleri (dataset dahil) listeledik.', 
+    link: '#problems', 
+    linkText: 'Havuzu Gör →',
+    note: 'Kategori seçimi zorunlu, problemler ise sadece örnektir.' 
+  },
+  { 
+    id: 3, 
+    title: 'Hazırlık', 
+    desc: 'Jüri kriterlerini ve kuralları oku. Web sitesi ve WhatsApp grubunu düzenli takip et.', 
+    link: '#rules', 
+    linkText: 'Kurallar →',
+    note: 'Bu aşama kod yazma değil, maraton gününe hazırlıktır.' 
+  },
+  { 
+    id: 4, 
+    title: 'Geliştirme', 
+    desc: '16-17 Mayıs tarihlerinde AI çözümünü inşa et. Bilgisayarını getirmeyi unutma!', 
+    link: '/schedule', 
+    linkText: 'Program →' 
+  },
+  { 
+    id: 5, 
+    title: 'Proje Teslimi', 
+    desc: '17 Mayıs günü projeni Demo Day başvuru formu üzerinden sisteme yükle.', 
+    link: '/projects/submit', 
+    linkText: 'Teslim Et →',
+    note: 'Ekip adına tek kişinin yüklemesi yeterlidir.' 
+  },
+  { 
+    id: 6, 
+    title: 'Final Pitch', 
+    desc: 'Sunum formatını belirle ve senden beklenenleri "Pitch Rehberi" üzerinden incele.', 
+    link: '#pitching', 
+    linkText: 'Pitch Rehberi →',
+    note: 'Hazırlığını sunum formatına göre yap.' 
+  }
 ];
+...
+      {/* Pitching Guide Section */}
+      <section className="mb-32 scroll-mt-32" id="pitching">
 
-export default function HackathonInfoPage() {
   const { openModal, activeModal, modalData, closeModal, showToast } = useApp();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeProblem, setActiveProblem] = useState(null);
@@ -83,6 +125,11 @@ export default function HackathonInfoPage() {
                     <p className="text-xs text-ink-dim leading-relaxed h-12">
                       {step.desc}
                     </p>
+                    {step.note && (
+                      <p className="text-[10px] text-primary italic leading-tight mb-2">
+                        <strong>Unutma:</strong> {step.note}
+                      </p>
+                    )}
                     <Link 
                       href={step.link} 
                       className="inline-block text-[10px] font-black uppercase tracking-widest text-primary hover:text-white transition-colors"
