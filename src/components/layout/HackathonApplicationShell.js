@@ -58,7 +58,7 @@ export function HackathonApplicationShell({
             Aramıza <span className="font-light italic text-primary">katıl.</span>
           </h2>
 
-          <div className="mt-12 space-y-10">
+          <div className="mt-12 space-y-8">
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-red-600 font-bold text-sm uppercase tracking-wider">
                 <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse"></span>
@@ -66,8 +66,15 @@ export function HackathonApplicationShell({
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
                 Bu etkinlik online DEĞİLDİR. Katılım <strong>İstinye Üniversitesi Vadi (Sarıyer)</strong> kampüsünde fiziksel olarak sağlanacaktır.
-                <br />
-                <span className="text-xs mt-1 block font-bold">⚠️ Katılımcıların kendi bilgisayarlarını getirmesi zorunludur.</span>
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-red-600 font-bold text-sm uppercase tracking-wider">
+                ⚠️ Ekipman Notu
+              </div>
+              <p className="text-[#5C594E] font-bold text-sm leading-relaxed">
+                Katılımcıların kendi bilgisayarlarını getirmesi zorunludur.
               </p>
             </div>
 
@@ -93,25 +100,31 @@ export function HackathonApplicationShell({
               </p>
             </div>
 
-            <dl className="pt-8 border-t border-[#D9D0BE]">
-              {infoRows.map((row) => (
-                <div key={row.label} className="grid grid-cols-[100px_1fr] gap-4 py-4 border-b border-[#D9D0BE]/50">
-                  <dt className="font-mono text-[10px] uppercase tracking-wider text-[#7A7365] pt-1">{row.label}</dt>
-                  <dd className="font-bold text-[#141B4C]">{row.content}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <div className="pt-6">
+            <div className="space-y-3 pt-2">
+              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
+                WhatsApp Duyuru Kanalı
+              </div>
+              <p className="text-[#5C594E] text-xs leading-relaxed">
+                Etkinlik öncesi tüm duyurular ve bilgilendirmeler bu kanal üzerinden yapılacaktır. Katılmanızı öneririz.
+              </p>
               <a
                 href={SITE.social.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 rounded-2xl bg-[#25D366] px-6 py-4 text-sm font-black text-white shadow-xl shadow-green-600/20 transition-transform hover:scale-[1.02] active:scale-95"
               >
-                WhatsApp Grubuna Katıl
+                Gruba Katıl
               </a>
             </div>
+
+            <dl className="pt-8 border-t border-[#D9D0BE]">
+              {infoRows.map((row) => (
+                <div key={row.label} className="grid grid-cols-[100px_1fr] gap-4 py-3 border-b border-[#D9D0BE]/50">
+                  <dt className="font-mono text-[10px] uppercase tracking-wider text-[#7A7365] pt-1">{row.label}</dt>
+                  <dd className="font-bold text-[#141B4C]">{row.content}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </aside>
