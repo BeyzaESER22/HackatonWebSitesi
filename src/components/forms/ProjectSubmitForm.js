@@ -235,7 +235,7 @@ export function ProjectSubmitForm({ onSuccess }) {
       <section className="py-8">
         <h3 className="font-display text-lg font-semibold mb-6 text-ink flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-google-red"></span>
-          Görsel Sunum
+          Kapak Görseli
         </h3>
 
         <FileInput
