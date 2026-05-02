@@ -141,7 +141,19 @@ export function ProjectSubmitForm({ onSuccess }) {
 
       <Input label="Kısa Açıklama (200 karakter) *" name="shortDescription" value={form.shortDescription} onChange={update('shortDescription')} placeholder="Projeni tek cümleyle özetle" error={errors.shortDescription} maxLength={200} required />
 
-      <Textarea label="Detaylı Açıklama *" name="longDescription" rows={4} value={form.longDescription} onChange={update('longDescription')} placeholder="Hangi problemi çözüyor? Nasıl çalışıyor? Hangi etkiyi yaratıyor?" error={errors.longDescription} required />
+      <Textarea 
+        label="Detaylı Açıklama *" 
+        name="longDescription" 
+        rows={6} 
+        value={form.longDescription} 
+        onChange={update('longDescription')} 
+        placeholder="Proje neden yapıldı? Hangi spesifik problemi çözüyor? Toplum için nasıl bir değer yaratıyor ve teknik olarak nasıl çalışıyor?" 
+        error={errors.longDescription} 
+        required 
+      />
+      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
+        <strong>İpucu:</strong> Jürimiz bu alanı değerlendirirken projenin <strong>"Neden yapıldığını"</strong> ve <strong>"Nasıl bir toplumsal değer yarattığını"</strong> öncelikli olarak inceleyecektir. Lütfen bu iki noktayı net bir şekilde açıklayın.
+      </p>
 
       <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Ekip</h3>
 
