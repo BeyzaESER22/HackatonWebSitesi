@@ -6,7 +6,7 @@ import { ContactSection }    from '@/components/sections/ContactSection';
 export default function HomePage() {
   return (
     <>
-      <div className="relative bg-[#05071A] overflow-hidden">
+      <div className="relative bg-[#05071A] overflow-x-hidden">
         <Hero />
         <Highlights />
       </div>

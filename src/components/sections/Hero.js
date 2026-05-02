@@ -23,15 +23,15 @@ export function Hero() {
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/20 rounded-full blur-[120px] animate-pulse pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-emerald-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
 
-      {/* Modern Wave Container - Maximized to reach next section */}
-      <div className="absolute bottom-[-100px] left-0 w-full h-[800px] pointer-events-none overflow-hidden opacity-50 z-20">
-        <div className="wave wave1"></div>
-        <div className="wave wave2"></div>
-        <div className="wave wave3"></div>
-        <div className="wave wave4"></div>
+      {/* Wave Container — extends below hero into highlights */}
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none z-10" style={{ height: '420px' }}>
+        <div className="wave wave1" />
+        <div className="wave wave2" />
+        <div className="wave wave3" />
+        <div className="wave wave4" />
       </div>
 
-      <Container className="relative z-10 pb-52">
+      <Container className="relative z-10 pb-36 md:pb-44">
         <RevealOnScroll>
           <div className="flex justify-center mb-8">
             <Badge dotColor={COLORS.green} className="bg-white/5 border-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(52,168,83,0.15)]">
@@ -113,10 +113,9 @@ export function Hero() {
         </RevealOnScroll>
       </Container>
 
-      {/* 🌫️ Bottom Gradient Mask for Seamless Transition */}
-      <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#05071A] via-[#05071A]/80 to-transparent z-30 pointer-events-none" />
+      {/* 🌫️ Bottom Gradient — waves show in middle band, hard-fade at very bottom */}
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none z-20" style={{height:'320px', background:'linear-gradient(to top, #05071A 0%, #05071A 12%, rgba(5,7,26,0.5) 40%, transparent 100%)'}} />
 
-      {/* Wave CSS & New Animations */}
       <style>{`
         .wave {
           position: absolute;
@@ -124,48 +123,36 @@ export function Hero() {
           left: 0;
           width: 200%;
           height: 100%;
+          background-repeat: repeat-x;
           background-size: 50% 100%;
           transform-origin: center bottom;
         }
-        
         .wave1 {
           animation: wave-anim 20s linear infinite;
-          z-index: 1000;
-          opacity: 0.2;
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%234285F4"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" /></svg>');
+          opacity: 0.25;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" fill="%234285F4"><path d="M0 210 C400 105 400 315 800 210 C1200 105 1200 315 1600 210 L1600 420 L0 420 Z" /></svg>');
         }
-        
         .wave2 {
           animation: wave-anim 15s linear infinite reverse;
-          z-index: 999;
-          opacity: 0.15;
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2334D399"><path d="M0 200 C400 300 400 100 800 200 C1200 300 1200 100 1600 200 L1600 400 L0 400 Z" /></svg>');
+          opacity: 0.18;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" fill="%2334D399"><path d="M0 210 C400 315 400 105 800 210 C1200 315 1200 105 1600 210 L1600 420 L0 420 Z" /></svg>');
         }
-        
         .wave3 {
           animation: wave-anim 10s linear infinite;
-          z-index: 998;
-          opacity: 0.1;
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%238B5CF6"><path d="M0 200 C400 100 400 300 800 200 C1200 100 1200 300 1600 200 L1600 400 L0 400 Z" /></svg>');
-        }
-        
-        .wave4 {
-          animation: wave-anim 12s linear infinite reverse;
-          z-index: 997;
           opacity: 0.12;
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 400" fill="%2306B6D4"><path d="M0 200 C400 300 400 100 800 200 C1200 300 1200 100 1600 200 L1600 400 L0 400 Z" /></svg>');
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" fill="%238B5CF6"><path d="M0 210 C400 105 400 315 800 210 C1200 105 1200 315 1600 210 L1600 420 L0 420 Z" /></svg>');
         }
-
+        .wave4 {
+          animation: wave-anim 25s linear infinite reverse;
+          opacity: 0.14;
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" fill="%2306B6D4"><path d="M0 210 C400 315 400 105 800 210 C1200 315 1200 105 1600 210 L1600 420 L0 420 Z" /></svg>');
+        }
         @keyframes wave-anim {
-          0% { transform: translateX(0); }
+          0%   { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-
         .hero-rainbow-static {
-          background: linear-gradient(
-            to right,
-            #4285F4, #34A853, #FBBC05, #EA4335
-          );
+          background: linear-gradient(to right, #4285F4, #34A853, #FBBC05, #EA4335);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
