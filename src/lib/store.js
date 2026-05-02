@@ -470,6 +470,29 @@ export async function writeStore(filename, items) {
   return KV_AVAILABLE ? kvWrite(filename, items) : fsWrite(filename, items);
 }
 
+async function removeBackupRecord(filename, key) {
+  if (BLOB_AVAILABLE) {
+    try {
+      const blob = await getBlobModule();
+      const path = backupPath(filename, key);
+      await blob.del(path);
+      return true;
+    } catch (err) {
+      console.error('Blob delete error:', err);
+      return false;
+    }
+  }
+
+  const dir = path.join(process.cwd(), 'data', '_structured_backups', filename.replace(/\.json$/, ''));
+  const fullPath = path.join(dir, `${key}.json`);
+  try {
+    await fs.unlink(fullPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function removeFromStore(filename, id, options = {}) {
   if (KV_AVAILABLE) {
     const kv = await getKv();
@@ -490,7 +513,11 @@ export async function removeFromStore(filename, id, options = {}) {
     // 2. Remove specific item key
     await kv.del(itemKey);
 
-    // 3. Optional: Clear unique/dedupe constraints
+    // 3. Remove from backups (CRITICAL FIX)
+    await removeBackupRecord(filename, id);
+    if (options.dedupeKey) await removeBackupRecord(filename, options.dedupeKey);
+
+    // 4. Optional: Clear unique/dedupe constraints
     if (options.uniqueKey) {
       await kv.del(fileToUniqueKey(filename, options.uniqueKey));
     }
@@ -500,7 +527,7 @@ export async function removeFromStore(filename, id, options = {}) {
     
     return true;
   } else {
-    // Local FS: Read all, filter, and rewrite main file while clearing log
+    // Local FS: Read all, filter, and rewrite main file
     const items = await fsRead(filename);
     const filtered = items.filter(item => item.id !== id && item.clientSubmissionId !== id);
     
@@ -508,8 +535,6 @@ export async function removeFromStore(filename, id, options = {}) {
     await fsWrite(filename, filtered);
     
     // CRITICAL FIX: Instead of clearing the log, we must filter it
-    // because fsRead combines main file + log. If we clear log without 
-    // ensuring main file has everything, we lose data.
     const logFull = await fsEnsureLog(filename);
     const logRaw = await fs.readFile(logFull, 'utf8');
     const logLines = logRaw.split('\n').filter(Boolean);
@@ -518,6 +543,10 @@ export async function removeFromStore(filename, id, options = {}) {
       return parsed && parsed.id !== id && parsed.clientSubmissionId !== id;
     });
     await fs.writeFile(logFull, filteredLogLines.length > 0 ? filteredLogLines.join('\n') + '\n' : '', 'utf8');
+
+    // Also remove from structured backups (CRITICAL FIX)
+    await removeBackupRecord(filename, id);
+    if (options.dedupeKey) await removeBackupRecord(filename, options.dedupeKey);
 
     // Clear constraints
     if (options.uniqueKey) {
