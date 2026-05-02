@@ -24,13 +24,34 @@ export function Highlights() {
   const marqueeSponsors = [...sponsors, ...sponsors, ...sponsors];
 
   return (
-    <section id="highlights" className="relative z-30 pt-0 pb-12 lg:pb-20">
+    <section id="highlights" className="relative z-30 pt-0 pb-12 lg:pb-20 mt-[-64px]">
       
+      {/* 🌫️ Top Gradient Mask to Blend with Hero */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#05071A] to-transparent z-40 pointer-events-none" />
+
       {/* 🌊 Canvas Dynamic Dual Waves (Top & Bottom) */}
       <div className="relative w-full h-32 md:h-48 pointer-events-none mb-4 lg:mb-8">
         <CanvasWaves canvasHeight={200} className="opacity-60" />
+        
+        {/* ✨ Floating Glow Particles Rising from Waves */}
+        <div className="absolute inset-0 z-20">
+           {[...Array(6)].map((_, i) => (
+             <div 
+               key={i}
+               className="absolute w-1 h-1 bg-emerald-400 rounded-full blur-[1px] animate-float-up"
+               style={{
+                 left: `${15 + (i * 15)}%`,
+                 bottom: '20%',
+                 opacity: 0.3,
+                 animationDelay: `${i * 0.7}s`,
+                 animationDuration: `${4 + (i % 3)}s`
+               }}
+             />
+           ))}
+        </div>
+
         {/* Subtle glow behind the waves */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-500/5 blur-[100px] rounded-full -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-emerald-500/5 blur-[100px] rounded-full -z-10" />
       </div>
 
       <Container>
@@ -198,6 +219,12 @@ export function Highlights() {
       </Container>
 
       <style>{`
+        @keyframes float-up {
+          0% { transform: translateY(0) scale(1); opacity: 0; }
+          20% { opacity: 0.4; }
+          80% { opacity: 0.2; }
+          100% { transform: translateY(-120px) scale(0.5); opacity: 0; }
+        }
         /* Dual Wave Styles */
         .dual-wave {
           position: absolute;

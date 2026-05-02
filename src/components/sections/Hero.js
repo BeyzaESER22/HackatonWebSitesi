@@ -96,11 +96,18 @@ export function Hero() {
 
         {/* === Countdown === */}
         <RevealOnScroll delay={0.48}>
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto relative group">
+             {/* Reflection/Glow Effect under Countdown */}
+             <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-2/3 h-24 bg-emerald-500/10 blur-[60px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
+             <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent shadow-[0_0_20px_rgba(52,168,83,0.3)]" />
+             
              <Countdown />
           </div>
         </RevealOnScroll>
       </Container>
+
+      {/* 🌫️ Bottom Gradient Mask for Seamless Transition */}
+      <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#05071A] via-[#05071A]/80 to-transparent z-30 pointer-events-none" />
 
       {/* Wave CSS & New Animations */}
       <style>{`
