@@ -19,17 +19,8 @@ export function SponsorsSection() {
   const groups = groupSponsors();
 
   return (
-    <section id="sponsors" className="relative z-10 py-24 lg:py-32 border-t border-white/5">
+    <section id="sponsors" className="relative z-10 py-12 lg:py-24 border-t border-white/5">
       <Container>
-        <RevealOnScroll>
-          <SectionTitle
-            eyebrow="Sponsorlar & Partnerler"
-            title="Bu yolculuğu birlikte"
-            gradient="inşa ediyoruz."
-            className="mb-16"
-          />
-        </RevealOnScroll>
-
         {/* Main sponsors — büyük kart */}
         {groups.main.length > 0 && (
           <RevealOnScroll>

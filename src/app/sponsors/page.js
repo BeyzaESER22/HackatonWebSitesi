@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
 export default function SponsorsPage() {
   return (
     <>
-      <section className="pt-36 pb-12">
+      <section className="pt-24 pb-8">
         <Container>
           <SectionTitle
             eyebrow="Sponsorlar"
