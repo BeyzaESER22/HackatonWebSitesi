@@ -46,7 +46,7 @@ const journeySteps = [
     desc: '16-17 Mayıs tarihlerinde AI çözümünü inşa et. Google AI Studio kredi onayını almayı ve bilgisayarını getirmeyi unutma!', 
     link: '/schedule', 
     linkText: 'Program →',
-    note: 'Google AI Studio kredileri sadece onaylı takımlara tanımlanacaktır.'
+    note: 'Google AI Studio kredilerini talep etmeyi unutma!'
   },
   { 
     id: 5, 
@@ -122,7 +122,7 @@ export default function HackathonInfoPage() {
                   
                   <div className="space-y-3">
                     <h4 className="font-display text-lg font-bold text-white group-hover:hf-text-gradient transition-all">{step.title}</h4>
-                    <p className="text-xs text-ink-dim leading-relaxed h-12">
+                    <p className="text-xs text-ink-dim leading-relaxed min-h-[4rem]">
                       {step.desc}
                     </p>
                     {step.note && (
@@ -337,19 +337,14 @@ export default function HackathonInfoPage() {
                     <h4 className="text-2xl font-bold text-white">{method.title}</h4>
                   </div>
                   <div className="space-y-6">
-
                     <div>
                       <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Sunum Akışı</p>
                       <ul className="space-y-2">
                         {method.flow.map((f, idx) => (
-                          <li key={idx} className="text-sm text-ink-dim flex gap-3">
-                            <span className="text-white/20">•</span>
-                            {f}
-                          </li>
+                          <li key={idx} className="text-sm text-ink-dim flex gap-3"><span className="text-white/20">•</span>{f}</li>
                         ))}
                       </ul>
                     </div>
-
                     <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
                       <p className="text-[11px] leading-relaxed"><span className="text-primary font-bold">✅ AVANTAJ:</span> <span className="text-ink-dim">{method.advantage}</span></p>
                       {method.risk && <p className="text-[11px] leading-relaxed mt-2"><span className="text-red-400 font-bold">⚠️ RİSK:</span> <span className="text-ink-dim">{method.risk}</span></p>}
