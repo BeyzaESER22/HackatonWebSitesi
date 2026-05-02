@@ -163,7 +163,18 @@ export function ProjectSubmitForm({ onSuccess }) {
 
       <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Teknoloji & Linkler</h3>
 
-      <Input label="Tech Stack *" name="techStack" value={form.techStack} onChange={update('techStack')} placeholder="Gemini API, Next.js, FastAPI, PostgreSQL" error={errors.techStack} required />
+      <Input 
+        label="Tech Stack *" 
+        name="techStack" 
+        value={form.techStack} 
+        onChange={update('techStack')} 
+        placeholder="AI: Gemini API, Frontend: Next.js, Backend: FastAPI, Database: PostgreSQL" 
+        error={errors.techStack} 
+        required 
+      />
+      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
+        Hangi teknolojiyi projenin hangi bölümünde kullandığınızı belirtin (Örn: AI: ..., Backend: ...).
+      </p>
 
       <Input type="email" label="İletişim E-posta *" name="contactEmail" value={form.contactEmail} onChange={update('contactEmail')} placeholder="takim@example.com" error={errors.contactEmail} required />
 
