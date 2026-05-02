@@ -6,6 +6,7 @@ import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
 import { sponsors } from '@/data/sponsors';
 import { COLORS } from '@/lib/constants';
+import { useApp } from '@/context/AppContext';
 
 const bullets = [
   { color: COLORS.blue,   bold: 'Takım veya bireysel katılım', tail: ' — 1-5 kişilik gruplar.' },
@@ -16,6 +17,7 @@ const bullets = [
 ];
 
 export function Highlights() {
+  const { openModal } = useApp();
   const mainSponsors = sponsors.filter(s => s.size === 'main');
   const supportSponsors = sponsors.filter(s => s.size === 'support');
 
@@ -57,46 +59,53 @@ export function Highlights() {
                 </h2>
               </div>
 
-              {/* Layout Restructure: 1 Large on Top, 2 Squares Below */}
+              {/* Layout Restructure: 1 Large on Top (Hero Fix Layout), 2 Squares Below */}
               <div className="flex flex-col gap-6 mb-12">
-                {/* 1. Large Rectangular Card (Hackathon) */}
-                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 flex flex-col hover:bg-white/[0.08] transition-all group w-full">
-                  <div className="grid lg:grid-cols-12 gap-8 items-start">
-                    <div className="lg:col-span-7">
-                      <h3 className="font-display text-3xl font-bold text-white mb-6">HACKATHON</h3>
-                      <p className="text-white font-medium text-lg mb-4">Toplum yararına çalışan yapay zeka üret.</p>
-                      <p className="text-ink-dim leading-relaxed mb-8">
+                
+                {/* 1. Large Rectangular Card (Hackathon) — FIXED HERO LAYOUT */}
+                <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 lg:p-14 flex flex-col hover:bg-white/[0.07] transition-all group w-full overflow-hidden relative">
+                  <div className="grid lg:grid-cols-12 gap-12 items-center relative z-10">
+                    
+                    {/* LEFT SIDE (60%) */}
+                    <div className="lg:col-span-7 text-left">
+                      <div className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-400 mb-4">HACKATHON</div>
+                      <h3 className="font-display text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                        Toplum yararına çalışan <span className="hf-text-gradient">yapay zeka</span> üret.
+                      </h3>
+                      <p className="text-ink-dim text-lg mb-10 leading-relaxed max-w-xl">
                         Eğitim, sağlık, afet yönetimi, erişilebilirlik ve sürdürülebilirlik gibi alanlarda gerçek dünya problemlerine yapay zeka ile çözüm geliştir. Tek başına ya da takımınla — sınır senin hayal gücün.
                       </p>
                       
-                      <ul className="grid sm:grid-cols-2 gap-4 mb-8">
+                      {/* Feature List */}
+                      <ul className="space-y-4 mb-10">
                         {bullets.map((b, i) => (
-                          <li key={i} className="flex items-start gap-3">
+                          <li key={i} className="flex items-start gap-3 text-sm">
                             <span className="mt-1 w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ background: `${b.color}33` }}>
                               <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
                                 <path d="M5 12l5 5L20 7" stroke={b.color} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
                             </span>
-                            <span className="text-sm"><span className="text-white font-medium">{b.bold}</span>{b.tail}</span>
+                            <span><span className="text-white font-medium">{b.bold}</span>{b.tail}</span>
                           </li>
                         ))}
                       </ul>
+
+                      {/* CTA Buttons - Aligned Left */}
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <Button onClick={() => openModal('hack')} size="lg" className="px-8" iconRight={<ArrowRightIcon />}>
+                          Şimdi Başvur
+                        </Button>
+                        <Button as={Link} href="/hackathon" variant="ghost" size="lg" className="px-8 border-white/10 hover:bg-white/5">
+                          Hackathon Hakkında Bilgi Al
+                        </Button>
+                      </div>
                     </div>
                     
-                    <div className="lg:col-span-5 flex flex-col h-full justify-between gap-6">
-                      <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5">
-                         <p className="text-sm text-ink-dim italic leading-relaxed">
-                            "Takımını kur, google studio kredilerini tanımla, toplumsal sorunlara yapay zeka ile çözüm üret. Yarışmayı kazan ödüller seni bekliyor. Bilgisayarını getirmeyi unutma."
-                         </p>
-                      </div>
-                      <div className="flex flex-col gap-3">
-                        <Button onClick={() => openModal('hack')} size="lg" className="w-full" iconRight={<ArrowRightIcon />}>
-                          Hemen Başvur
-                        </Button>
-                        <Button as={Link} href="/hackathon" variant="ghost" size="lg" className="w-full border-white/10">
-                          Hackathon Detayları
-                        </Button>
-                      </div>
+                    {/* RIGHT SIDE (40%) — TERMINAL CARD */}
+                    <div className="lg:col-span-5 relative">
+                      <RevealOnScroll delay={0.2}>
+                        <TerminalCard />
+                      </RevealOnScroll>
                     </div>
                   </div>
                 </div>
@@ -230,5 +239,35 @@ export function Highlights() {
         }
       `}</style>
     </section>
+  );
+}
+
+function TerminalCard() {
+  return (
+    <div className="hf-glass overflow-hidden relative shadow-2xl">
+      <div className="flex items-center gap-2 px-5 py-3 border-b border-white/5 bg-white/[.02]">
+        <span className="w-3 h-3 rounded-full bg-google-red" />
+        <span className="w-3 h-3 rounded-full bg-google-yellow" />
+        <span className="w-3 h-3 rounded-full bg-google-green" />
+        <span className="ml-3 font-mono text-[10px] text-ink-dim">~/hackfest26/team_alpha</span>
+      </div>
+      <div className="p-6 font-mono text-xs md:text-sm leading-relaxed">
+        <div className="text-ink-dim"><span style={{ color: COLORS.green }}>$</span> python deploy.py --mission "for_society"</div>
+        <div className="mt-3"><span style={{ color: COLORS.yellow }}>→</span> loading datasets...</div>
+        <div><span style={{ color: COLORS.yellow }}>→</span> training neural network...</div>
+        <div><span style={{ color: COLORS.yellow }}>→</span> evaluating social impact...</div>
+        <div className="mt-3"><span style={{ color: COLORS.green }}>✓</span> accuracy: 94.7%</div>
+        <div><span style={{ color: COLORS.green }}>✓</span> bias_audit: passed</div>
+        <div><span style={{ color: COLORS.green }}>✓</span> impact_score: <span style={{ color: COLORS.blue }}>9.2/10</span></div>
+        <div className="mt-4 p-3 rounded-lg" style={{ background: 'linear-gradient(120deg, rgba(66,133,244,.12), rgba(234,67,53,.12))' }}>
+          <div className="text-white font-bold">🎯 Mission deployed.</div>
+          <div className="text-ink-dim text-[10px] mt-1">Education accessibility +37% improved.</div>
+        </div>
+        <div className="mt-3 flex items-center gap-2">
+          <span style={{ color: COLORS.green }}>$</span>
+          <span className="inline-block w-2 h-4 bg-white hf-caret" />
+        </div>
+      </div>
+    </div>
   );
 }
