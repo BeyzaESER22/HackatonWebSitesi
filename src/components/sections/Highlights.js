@@ -23,7 +23,17 @@ export function Highlights() {
   const marqueeSponsors = [...sponsors, ...sponsors, ...sponsors];
 
   return (
-    <section id="highlights" className="relative z-30 pt-4 pb-12 lg:pt-8 lg:pb-20">
+    <section id="highlights" className="relative z-30 pt-0 pb-12 lg:pb-20">
+      
+      {/* 🌊 Dual Wave Aesthetic Separator (Top & Bottom Waves) */}
+      <div className="relative w-full h-32 md:h-48 overflow-hidden pointer-events-none mb-4 lg:mb-8">
+        <div className="absolute inset-0 z-10 opacity-30">
+          <div className="dual-wave dw1"></div>
+          <div className="dual-wave dw2"></div>
+          <div className="dual-wave dw3"></div>
+        </div>
+      </div>
+
       <Container>
         <RevealOnScroll>
           <div
@@ -189,6 +199,42 @@ export function Highlights() {
       </Container>
 
       <style>{`
+        /* Dual Wave Styles */
+        .dual-wave {
+          position: absolute;
+          width: 200%;
+          height: 100%;
+          background-repeat: repeat-x;
+          background-position: 0 bottom, 0 top;
+          transform-origin: center;
+        }
+        
+        .dw1 {
+          animation: dw-anim 15s linear infinite;
+          background-image: 
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 200" fill="%2334D399"><path d="M0 100 C400 50 400 150 800 100 C1200 50 1200 150 1600 100 L1600 200 L0 200 Z" opacity="0.4"/></svg>'),
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 200" fill="%2334D399"><path d="M0 100 C400 150 400 50 800 100 C1200 150 1200 50 1600 100 L1600 0 L0 0 Z" opacity="0.4"/></svg>');
+        }
+        
+        .dw2 {
+          animation: dw-anim 20s linear infinite reverse;
+          background-image: 
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 200" fill="%234285F4"><path d="M0 100 C400 150 400 50 800 100 C1200 150 1200 50 1600 100 L1600 200 L0 200 Z" opacity="0.2"/></svg>'),
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 200" fill="%234285F4"><path d="M0 100 C400 50 400 150 800 100 C1200 50 1200 150 1600 100 L1600 0 L0 0 Z" opacity="0.2"/></svg>');
+        }
+
+        .dw3 {
+          animation: dw-anim 12s linear infinite;
+          background-image: 
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 200" fill="%238B5CF6"><path d="M0 100 C400 80 400 120 800 100 C1200 80 1200 120 1600 100 L1600 200 L0 200 Z" opacity="0.1"/></svg>'),
+            url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 200" fill="%238B5CF6"><path d="M0 100 C400 120 400 80 800 100 C1200 120 1200 80 1600 100 L1600 0 L0 0 Z" opacity="0.1"/></svg>');
+        }
+
+        @keyframes dw-anim {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
         @keyframes marquee-sponsors {
           0% { transform: translateX(0); }
           100% { transform: translateX(-33.33%); }
