@@ -27,6 +27,19 @@ export async function DELETE(request) {
     const { id, email, clientSubmissionId } = await request.json();
     if (!id) return NextResponse.json({ message: 'ID gerekli.' }, { status: 400 });
 
+    // Step 1: Archive before deletion (Soft-delete backup)
+    const items = await readStore('hackathon-applications.json');
+    const recordToArchive = items.find(item => item.id === id);
+    
+    if (recordToArchive) {
+      await appendToStore('deleted-hackathon-applications.json', {
+        ...recordToArchive,
+        deletedAt: new Date().toISOString(),
+        deletedBy: 'admin'
+      });
+    }
+
+    // Step 2: Proceed with actual removal of unique constraints and data
     const eventId = String(SITE.eventDateISO || SITE.eventDates || 'hackfest26');
     const uniqueKey = email ? `${eventId}:${email.trim().toLowerCase()}` : null;
 
@@ -35,7 +48,7 @@ export async function DELETE(request) {
       dedupeKey: clientSubmissionId
     });
 
-    return NextResponse.json({ ok: true, message: 'Başvuru silindi.' });
+    return NextResponse.json({ ok: true, message: 'Başvuru silindi ve arşivlendi.' });
   } catch (err) {
     return NextResponse.json({ message: 'Silme işlemi başarısız.', error: err.message }, { status: 500 });
   }
