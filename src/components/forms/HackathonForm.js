@@ -183,6 +183,9 @@ export function HackathonForm({ onSuccess }) {
       <div className="space-y-6">
         <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Proje</h4>
         <div className="space-y-4">
+          <p className="text-xs text-white/50 leading-relaxed italic">
+            Lütfen projenizin <strong className="text-white/80">"Toplum Yararına Yapay Zeka"</strong> temasının alt kategorilerinden (Eğitim, Sağlık, Çevre vb.) birine odaklandığından emin olun. Tüm başvurular jüri ve teknik ekip tarafından ön incelemeden geçirilecektir.
+          </p>
           <Textarea
             label="Proje Fikri (Opsiyonel)"
             name="projectIdea"
@@ -196,7 +199,10 @@ export function HackathonForm({ onSuccess }) {
         </div>
       </div>
 
-      <div className="pt-6">
+      <div className="pt-6 space-y-6">
+        <p className="text-[10px] text-ink-dim leading-relaxed text-center px-4">
+          Başvurunuzu tamamlayarak etkinlik <a href="/hackfest26-kurallar.pdf" target="_blank" className="text-white underline underline-offset-2 hover:text-primary transition-colors">katılım kurallarını</a>, KVKK metnini ve davranış kurallarını kabul etmiş sayılırsınız.
+        </p>
         <Button type="submit" className="w-full py-5 text-xl font-black shadow-xl shadow-primary/20 rounded-2xl transition-transform hover:scale-[1.01]" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
           {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'BAŞVURUYU TAMAMLA'}
         </Button>
