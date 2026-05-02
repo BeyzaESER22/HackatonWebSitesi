@@ -507,18 +507,28 @@ export async function removeFromStore(filename, id, options = {}) {
     // Rewrite main file
     await fsWrite(filename, filtered);
     
-    // Clear the log file to avoid re-importing deleted items
+    // CRITICAL FIX: Instead of clearing the log, we must filter it
+    // because fsRead combines main file + log. If we clear log without 
+    // ensuring main file has everything, we lose data.
     const logFull = await fsEnsureLog(filename);
-    await fs.writeFile(logFull, '', 'utf8');
+    const logRaw = await fs.readFile(logFull, 'utf8');
+    const logLines = logRaw.split('\n').filter(Boolean);
+    const filteredLogLines = logLines.filter(line => {
+      const parsed = safeParseJson(line);
+      return parsed && parsed.id !== id && parsed.clientSubmissionId !== id;
+    });
+    await fs.writeFile(logFull, filteredLogLines.length > 0 ? filteredLogLines.join('\n') + '\n' : '', 'utf8');
 
     // Clear constraints
     if (options.uniqueKey) {
       const dir = await fsEnsureUniqueDir(filename);
-      await fs.unlink(path.join(dir, `${options.uniqueKey}.txt`)).catch(() => {});
+      const uniqueFile = path.join(dir, `${options.uniqueKey}.txt`);
+      await fs.unlink(uniqueFile).catch(() => {});
     }
     if (options.dedupeKey) {
       const dir = await fsEnsureDedupeDir(filename);
-      await fs.unlink(path.join(dir, `${options.dedupeKey}.txt`)).catch(() => {});
+      const dedupeFile = path.join(dir, `${options.dedupeKey}.txt`);
+      await fs.unlink(dedupeFile).catch(() => {});
     }
 
     return true;
