@@ -194,7 +194,7 @@ export function HackathonForm({ onSuccess }) {
             className={cn(fieldClassName, 'min-h-[120px] resize-none')}
           />
           <p className="text-xs text-white/50 leading-relaxed italic">
-            Bu aşamada fikir belirtmek <strong className="text-white/80">opsiyoneldir</strong>, ancak projenizin <strong className="text-white/80">"Toplum Yararına Yapay Zeka"</strong> temasının alt kategorilerinden (Eğitim, Sağlık, Çevre, Erişilebilirlik, Sürdürülebilirlik ve diğer kategoriler) birine odaklanması gerekmektedir. Detaylı bilgi için <a href="/hackathon#themes" className="text-primary underline">bu kısmı</a> inceleyebilirsiniz.
+            Bu aşamada fikir belirtmek <strong className="text-white/80">opsiyoneldir</strong>, ancak projenizin <strong className="text-white/80">"Toplum Yararına Yapay Zeka"</strong> temasının alt kategorilerinden (Eğitim, Sağlık, Çevre, Erişilebilirlik, Sürdürülebilirlik ve diğer kategoriler) en az birine odaklanması gerekmektedir. Detaylı bilgi için <a href="/hackathon#themes" className="text-primary underline">bu kısmı</a> inceleyebilirsiniz.
           </p>
         </div>
       </div>
