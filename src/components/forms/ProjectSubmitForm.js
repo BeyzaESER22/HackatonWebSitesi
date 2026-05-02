@@ -127,78 +127,122 @@ export function ProjectSubmitForm({ onSuccess }) {
 
   return (
     <form onSubmit={submit} noValidate className="space-y-1">
-      <h3 className="font-display text-lg font-semibold mb-3 text-ink">Proje bilgileri</h3>
-      <p className="text-[11px] text-ink-dim italic mb-4">
-        Gönderdiğiniz projenin <strong>"Toplum Yararına Yapay Zeka"</strong> temasıyla uyumlu olması gerektiğini hatırlatmak isteriz.
-      </p>
+      {/* SECTION 1: PROJECT */}
+      <section className="pb-8">
+        <h3 className="font-display text-lg font-semibold mb-3 text-ink flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-google-blue"></span>
+          Proje Bilgileri
+        </h3>
+        <p className="text-[11px] text-ink-dim italic mb-6">
+          Gönderdiğiniz projenin <strong>"Toplum Yararına Yapay Zeka"</strong> temasıyla uyumlu olması gerektiğini hatırlatmak isteriz.
+        </p>
 
-      <Input label="Proje Adı *" name="title" value={form.title} onChange={update('title')} placeholder="Örn: MedAI" error={errors.title} required />
+        <div className="space-y-4">
+          <Input label="Proje Adı *" name="title" value={form.title} onChange={update('title')} placeholder="Örn: MedAI" error={errors.title} required />
 
-      <Select label="Kategori *" name="category" value={form.category} onChange={update('category')} error={errors.category} required>
-        <option value="">Seçiniz...</option>
-        {PROJECT_CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
-      </Select>
+          <Select label="Kategori *" name="category" value={form.category} onChange={update('category')} error={errors.category} required>
+            <option value="">Seçiniz...</option>
+            {PROJECT_CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+          </Select>
 
-      <Input label="Kısa Açıklama (200 karakter) *" name="shortDescription" value={form.shortDescription} onChange={update('shortDescription')} placeholder="Projeni tek cümleyle özetle" error={errors.shortDescription} maxLength={200} required />
+          <Input label="Kısa Açıklama (200 karakter) *" name="shortDescription" value={form.shortDescription} onChange={update('shortDescription')} placeholder="Projeni tek cümleyle özetle" error={errors.shortDescription} maxLength={200} required />
 
-      <Textarea 
-        label="Detaylı Açıklama *" 
-        name="longDescription" 
-        rows={6} 
-        value={form.longDescription} 
-        onChange={update('longDescription')} 
-        placeholder="Proje neden yapıldı? Hangi spesifik problemi çözüyor? Toplum için nasıl bir değer yaratıyor ve teknik olarak nasıl çalışıyor?" 
-        error={errors.longDescription} 
-        required 
-      />
-      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
-        <strong>İpucu:</strong> Jürimiz bu alanı değerlendirirken projenin <strong>"Neden yapıldığını"</strong> ve <strong>"Nasıl bir toplumsal değer yarattığını"</strong> öncelikli olarak inceleyecektir. Lütfen bu iki noktayı net bir şekilde açıklayın.
-      </p>
+          <div>
+            <Textarea 
+              label="Detaylı Açıklama *" 
+              name="longDescription" 
+              rows={6} 
+              value={form.longDescription} 
+              onChange={update('longDescription')} 
+              placeholder="Proje neden yapıldı? Hangi spesifik problemi çözüyor? Toplum için nasıl bir değer yaratıyor ve teknik olarak nasıl çalışıyor?" 
+              error={errors.longDescription} 
+              required 
+            />
+            <p className="text-[10px] text-ink-dim mt-1.5 leading-relaxed">
+              <strong>İpucu:</strong> Jürimiz bu alanı değerlendirirken projenin <strong>"Neden yapıldığını"</strong> ve <strong>"Nasıl bir toplumsal değer yarattığını"</strong> öncelikli olarak inceleyecektir.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Ekip</h3>
+      <hr className="border-white/5 my-2" />
 
-      <Input label="Takım Adı *" name="teamName" value={form.teamName} onChange={update('teamName')} placeholder="Örn: Team Aurora" error={errors.teamName} required />
+      {/* SECTION 2: TEAM */}
+      <section className="py-8">
+        <h3 className="font-display text-lg font-semibold mb-6 text-ink flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-google-green"></span>
+          Ekip Bilgileri
+        </h3>
 
-      <Textarea label="Ekip Üyeleri *" name="teamMembers" rows={3} value={form.teamMembers} onChange={update('teamMembers')} placeholder="Eda Yılmaz - ML Engineer - İstinye Üniversitesi&#10;Mert Kara - Backend - Boğaziçi Üniversitesi" error={errors.teamMembers} required />
+        <div className="space-y-4">
+          <Input label="Takım Adı *" name="teamName" value={form.teamName} onChange={update('teamName')} placeholder="Örn: Team Aurora" error={errors.teamName} required />
 
-      <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Teknoloji & Linkler</h3>
+          <Textarea label="Ekip Üyeleri *" name="teamMembers" rows={3} value={form.teamMembers} onChange={update('teamMembers')} placeholder="Eda Yılmaz - ML Engineer - İstinye Üniversitesi&#10;Mert Kara - Backend - Boğaziçi Üniversitesi" error={errors.teamMembers} required />
+        </div>
+      </section>
 
-      <Input 
-        label="Tech Stack *" 
-        name="techStack" 
-        value={form.techStack} 
-        onChange={update('techStack')} 
-        placeholder="AI: Gemini API, Frontend: Next.js, Backend: FastAPI, Database: PostgreSQL" 
-        error={errors.techStack} 
-        required 
-      />
-      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
-        Hangi teknolojiyi projenin hangi bölümünde kullandığınızı belirtin (Örn: AI: ..., Backend: ...).
-      </p>
+      <hr className="border-white/5 my-2" />
 
-      <Input type="email" label="İletişim E-posta *" name="contactEmail" value={form.contactEmail} onChange={update('contactEmail')} placeholder="takim@example.com" error={errors.contactEmail} required />
-      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
-        Takımlar için üyelerden herhangi birinin mail adresinin eklenmesi yeterlidir.
-      </p>
+      {/* SECTION 3: TECH & LINKS */}
+      <section className="py-8">
+        <h3 className="font-display text-lg font-semibold mb-6 text-ink flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-google-yellow"></span>
+          Teknoloji & Linkler
+        </h3>
 
-      <Input type="url" label="GitHub URL *" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} required />
+        <div className="space-y-4">
+          <div>
+            <Input 
+              label="Tech Stack *" 
+              name="techStack" 
+              value={form.techStack} 
+              onChange={update('techStack')} 
+              placeholder="AI: Gemini API, Frontend: Next.js, Backend: FastAPI, Database: PostgreSQL" 
+              error={errors.techStack} 
+              required 
+            />
+            <p className="text-[10px] text-ink-dim mt-1.5 leading-relaxed">
+              Hangi teknolojiyi projenin hangi bölümünde kullandığınızı belirtin (Örn: AI: ..., Backend: ...).
+            </p>
+          </div>
 
-      <Input type="url" label="Demo URL (opsiyonel)" name="demoUrl" value={form.demoUrl} onChange={update('demoUrl')} placeholder="https://demo.proje.com" error={errors.demoUrl} />
-      <p className="text-[10px] text-ink-dim -mt-3 mb-4 leading-relaxed">
-        Projenizin canlı çalışan versiyonuna, online prototipine veya video sunumuna (Drive/YouTube) ait linki paylaşabilirsiniz.
-      </p>
+          <div>
+            <Input type="email" label="İletişim E-posta *" name="contactEmail" value={form.contactEmail} onChange={update('contactEmail')} placeholder="takim@example.com" error={errors.contactEmail} required />
+            <p className="text-[10px] text-ink-dim mt-1.5 leading-relaxed">
+              Takımlar için üyelerden herhangi birinin mail adresinin eklenmesi yeterlidir.
+            </p>
+          </div>
 
-      <h3 className="font-display text-lg font-semibold mt-6 mb-3 text-ink">Görsel</h3>
+          <Input type="url" label="GitHub URL *" name="githubUrl" value={form.githubUrl} onChange={update('githubUrl')} placeholder="https://github.com/takim/proje" error={errors.githubUrl} required />
 
-      <FileInput
-        label="Ekran Görüntüsü / Kapak Görseli *"
-        name="image"
-        accept={UPLOAD_LIMITS.projectImage.types.join(',')}
-        maxBytes={UPLOAD_LIMITS.projectImage.maxBytes}
-        hint="JPG, PNG veya WebP — max 5MB"
-        file={image}
-        onFile={setImage}
-      />
+          <div>
+            <Input type="url" label="Demo URL (opsiyonel)" name="demoUrl" value={form.demoUrl} onChange={update('demoUrl')} placeholder="https://demo.proje.com" error={errors.demoUrl} />
+            <p className="text-[10px] text-ink-dim mt-1.5 leading-relaxed">
+              Canlı uygulama, prototip veya video sunumu linkini paylaşabilirsiniz.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <hr className="border-white/5 my-2" />
+
+      {/* SECTION 4: VISUAL */}
+      <section className="py-8">
+        <h3 className="font-display text-lg font-semibold mb-6 text-ink flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-google-red"></span>
+          Görsel Sunum
+        </h3>
+
+        <FileInput
+          label="Ekran Görüntüsü / Kapak Görseli *"
+          name="image"
+          accept={UPLOAD_LIMITS.projectImage.types.join(',')}
+          maxBytes={UPLOAD_LIMITS.projectImage.maxBytes}
+          hint="JPG, PNG veya WebP — max 5MB"
+          file={image}
+          onFile={setImage}
+        />
+      </section>
 
       <Button type="submit" className="w-full mt-4 overflow-hidden relative" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
         {busy ? (
