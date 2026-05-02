@@ -34,24 +34,24 @@ export async function DELETE(request) {
     const { id, email, clientSubmissionId } = body;
     if (!id) return NextResponse.json({ message: 'ID gerekli.' }, { status: 400 });
 
-    // Step 1: Archive before deletion (Soft-delete backup)
-    // We swallow errors here to ensure the primary deletion still attempts to run
-    try {
-      const items = await readStore('hackathon-applications.json');
-      const recordToArchive = items.find(item => item.id === id);
-      
-      if (recordToArchive) {
-        await appendToStore('deleted-hackathon-applications.json', {
-          ...recordToArchive,
-          deletedAt: new Date().toISOString(),
-          deletedBy: 'admin'
-        });
-      }
-    } catch (archiveErr) {
-      console.error('Archive error (non-fatal):', archiveErr);
+    // Step 1: Archive before deletion (MANDATORY)
+    // If this fails, the error will be caught by the outer catch block and deletion will NOT proceed.
+    const items = await readStore('hackathon-applications.json');
+    const recordToArchive = items.find(item => item.id === id);
+    
+    if (recordToArchive) {
+      await appendToStore('deleted-hackathon-applications.json', {
+        ...recordToArchive,
+        deletedAt: new Date().toISOString(),
+        deletedBy: 'admin',
+        archiveStatus: 'verified'
+      });
+    } else {
+      // If record is not found in main store, we can't archive it safely
+      return NextResponse.json({ message: 'Arşivlenecek kayıt bulunamadı, silme iptal edildi.' }, { status: 404 });
     }
 
-    // Step 2: Proceed with actual removal of unique constraints and data
+    // Step 2: Proceed with actual removal only after archive is successful
     const eventId = String(SITE.eventDateISO || SITE.eventDates || 'hackfest26');
     const uniqueKey = email ? `${eventId}:${email.trim().toLowerCase()}` : null;
 
