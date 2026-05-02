@@ -189,9 +189,9 @@ async function resolveExistingRecordFromKv(kv, filename, ref) {
 
 async function kvAppend(filename, record, options = {}) {
   const kv = await getKv();
-  const dedupeToken = options.dedupeKey || record.clientSubmissionId || null;
+  const dedupeToken = options.skipDedupe ? null : (options.dedupeKey || record.clientSubmissionId || null);
   const dedupeKey = dedupeToken ? fileToDedupeKey(filename, dedupeToken) : null;
-  const uniqueToken = options.uniqueKey || null;
+  const uniqueToken = options.skipDedupe ? null : (options.uniqueKey || null);
   const uniqueKey = uniqueToken ? fileToUniqueKey(filename, uniqueToken) : null;
   let dedupeReserved = false;
   let uniqueReserved = false;
@@ -360,8 +360,8 @@ async function fsRead(filename) {
 }
 
 async function fsAppend(filename, record, options = {}) {
-  const dedupeToken = options.dedupeKey || record.clientSubmissionId || null;
-  const uniqueToken = options.uniqueKey || null;
+  const dedupeToken = options.skipDedupe ? null : (options.dedupeKey || record.clientSubmissionId || null);
+  const uniqueToken = options.skipDedupe ? null : (options.uniqueKey || null);
   let dedupeFile = null;
   let uniqueFile = null;
 

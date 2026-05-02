@@ -58,7 +58,7 @@ export async function DELETE(request) {
           deletedAt: new Date().toISOString(),
           deletedBy: 'admin',
           archiveStatus: 'verified'
-        });
+        }, { skipDedupe: true });
         console.log('[DELETE] Archive success');
       } catch (appErr) {
         console.error('[DELETE] AppendToStore (archive) failed:', appErr);
