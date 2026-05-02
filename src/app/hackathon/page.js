@@ -13,20 +13,7 @@ import { COLORS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
 import { ruleCategories } from '@/data/rules';
 import { categories } from '@/data/problems';
-
-const judging = [
-  { weight: '25', title: 'Problem Tanımı & Toplumsal Relevans', desc: 'Problem net tanımlanmış mı? Gerçek bir sosyal ihtiyaç mı? Hedef kullanıcı spesifik mi?' },
-  { weight: '30', title: 'Teknik Uygulama Kalitesi',      desc: 'ML doğru yerde mi? Sistem mimarisi temiz ve sürdürülebilir mi? Mühendislik kalitesi.' },
-  { weight: '20', title: 'Çözüm Kalitesi & Yenilik',      desc: 'Fikrin özgünlüğü, alternatiflerinden farkı. AI gerçekten gerekli mi (core bileşen mi)?' },
-  { weight: '15', title: 'Ürünleşme & Tamamlanmışlık',    desc: 'Çalışan demo var mı? Edge case\'ler düşünülmüş mü? Kullanıcı akışı tamam mı?' },
-  { weight: '10', title: 'İletişim & Demo Etkisi',        desc: 'Problemden çözüme akış net mi? Demo akıcı mı? Teknik jargon doğru seviyede mi?' }
-];
-
-const bonusPoints = [
-  { points: '+5',  title: 'Kullanıcı Arayüzü (UI)',       desc: 'Web, mobil veya desktop interface. UX akışı mantıklı ve kullanılabilir olmalı.' },
-  { points: '+5',  title: 'Gerçek Veri Üretimi',          desc: 'Scraping + cleaning + labeling VEYA domain-specific veri seti oluşturma.' },
-  { points: '+15', title: 'Advanced AI Usage',           desc: 'RAG pipeline, fine-tuning, multi-agent system veya tool-use mimarisi.' }
-];
+import { judgingCriteria, pitchGuide, presentationMethods } from '@/data/judging';
 
 export default function HackathonInfoPage() {
   const { openModal, activeModal, modalData, closeModal, showToast } = useApp();
@@ -71,7 +58,7 @@ export default function HackathonInfoPage() {
       </section>
 
       {/* Problem Havuzu Engine */}
-      <section className="mb-24 scroll-mt-32" id="problems">
+      <section className="mb-32 scroll-mt-32" id="problems">
         <Container>
           <RevealOnScroll>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -181,150 +168,182 @@ export default function HackathonInfoPage() {
         </Container>
       </section>
 
-      {/* Expand -> Problem Detail Modal (Codex View) */}
-      <Modal 
-        open={!!activeProblem} 
-        onClose={() => setActiveProblem(null)}
-        title="Problem Teknik Spesifikasyonu"
-        panelClassName="max-w-4xl"
-      >
-        {activeProblem && (
-          <div className="space-y-8 py-4">
-            <div className="pb-6 border-b border-white/5">
-              <h3 className="font-display text-3xl font-bold hf-text-gradient mb-4">{activeProblem.title}</h3>
-              <p className="text-ink-dim leading-relaxed">{activeProblem.task}</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Left: Codex Metadata */}
-              <div className="space-y-6">
-                <div className="space-y-3">
-                  <div className="text-[10px] uppercase tracking-widest font-bold text-blue-400">Input (Datasets & Sources)</div>
-                  <ul className="space-y-2">
-                    {activeProblem.input.map((item, i) => (
-                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400/50"></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="text-[10px] uppercase tracking-widest font-bold text-green-400">Expected Output</div>
-                  <ul className="space-y-2">
-                    {activeProblem.output.map((item, i) => (
-                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-400/50"></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Right: Build & Evaluation */}
-              <div className="space-y-6 bg-white/5 p-6 rounded-2xl border border-white/5">
-                <div className="space-y-3">
-                  <div className="text-[10px] uppercase tracking-widest font-bold text-yellow-400">Evaluation Metrics</div>
-                  <ul className="space-y-2">
-                    {activeProblem.evaluation.map((item, i) => (
-                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/50"></span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="pt-6 border-t border-white/5 space-y-4">
-                  <Button 
-                    className="w-full" 
-                    onClick={() => {
-                      handleSelectProblem(activeProblem);
-                      setActiveProblem(null);
-                    }}
-                  >
-                    Bu Problemi Seç (Use This Problem)
-                  </Button>
-                  <Button 
-                    as="a" 
-                    href={activeProblem.githubUrl} 
-                    target="_blank" 
-                    variant="ghost" 
-                    className="w-full"
-                  >
-                    Starter Kit'i GitHub'da Gör
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </Modal>
-
-      {/* Jüri ve Diğer Kısımlar (Existing) */}
-      <section className="mb-24">
+      {/* Evaluation Criteria Section */}
+      <section className="mb-32">
         <Container>
           <RevealOnScroll>
-            <SectionTitle eyebrow="Değerlendirme" title="Jüri" gradient="kriterleri." align="left" className="mb-10" />
+            <SectionTitle eyebrow="Değerlendirme" title="Jüri" gradient="Kriterleri" align="left" className="mb-12" />
           </RevealOnScroll>
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div className="space-y-3">
-              <h4 className="font-display text-xl font-bold mb-6 flex items-center gap-3">
-                <span className="w-2 h-8 bg-hf-gradient rounded-full"></span>
-                Ana Kriterler (100 Puan)
-              </h4>
-              {judging.map((j, i) => (
-                <RevealOnScroll key={j.title} delay={i * 0.05}>
-                  <Card className="!p-6">
-                    <div className="grid grid-cols-12 gap-4 items-center">
-                      <div className="col-span-3 sm:col-span-2">
-                        <div className="font-display text-3xl font-bold hf-text-gradient">%{j.weight}</div>
+          
+          <div className="grid gap-6">
+            {judgingCriteria.map((c, i) => (
+              <RevealOnScroll key={c.title} delay={i * 0.05}>
+                <Card className="!p-8 overflow-hidden group">
+                  <div className="grid lg:grid-cols-12 gap-8 items-start relative">
+                    <div className="lg:col-span-2">
+                      <div className="font-display text-5xl font-black hf-text-gradient leading-none">
+                        %{c.weight}
                       </div>
-                      <div className="col-span-9 sm:col-span-10">
-                        <div className="font-display text-lg font-semibold mb-1">{j.title}</div>
-                        <div className="text-ink-dim text-sm">{j.desc}</div>
-                      </div>
+                      <div className="mt-2 text-[10px] uppercase tracking-widest font-bold text-white/30">Etki Ağırlığı</div>
                     </div>
-                  </Card>
-                </RevealOnScroll>
-              ))}
-            </div>
+                    
+                    <div className="lg:col-span-5">
+                      <h4 className="font-display text-2xl font-bold text-white mb-2">{c.title}</h4>
+                      <p className="text-ink-dim text-sm mb-4 italic">{c.desc}</p>
+                      {c.note && (
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold text-primary uppercase tracking-wider">
+                          ⚠️ {c.note}
+                        </div>
+                      )}
+                    </div>
 
-            <div className="space-y-3">
-              <h4 className="font-display text-xl font-bold mb-6 flex items-center gap-3">
-                <span className="w-2 h-8 bg-green-500 rounded-full"></span>
-                Bonus Puanlar
-              </h4>
-              {bonusPoints.map((b, i) => (
-                <RevealOnScroll key={b.title} delay={i * 0.05}>
-                  <Card className="!p-6 border-green-500/10 bg-green-500/5">
-                    <div className="grid grid-cols-12 gap-4 items-center">
-                      <div className="col-span-3 sm:col-span-2">
-                        <div className="font-display text-3xl font-bold text-green-500">{b.points}</div>
-                      </div>
-                      <div className="col-span-9 sm:col-span-10">
-                        <div className="font-display text-lg font-semibold mb-1">{b.title}</div>
-                        <div className="text-ink-dim text-sm">{b.desc}</div>
-                      </div>
+                    <div className="lg:col-span-5 bg-white/[0.02] rounded-2xl p-6 border border-white/5">
+                      <ul className="space-y-3">
+                        {c.subpoints.map((sub, idx) => (
+                          <li key={idx} className="text-sm text-ink-dim flex gap-3">
+                            <span className="w-1.5 h-1.5 rounded-full bg-hf-gradient mt-1.5 shrink-0"></span>
+                            {sub}
+                          </li>
+                        ))}
+                      </ul>
+                      {c.levels && (
+                        <div className="mt-6 pt-6 border-t border-white/5 flex flex-wrap gap-3">
+                          {c.levels.map((lvl, idx) => (
+                            <span key={idx} className="text-[9px] font-bold px-2 py-1 bg-white/5 rounded border border-white/10 text-white/40 uppercase tracking-tighter italic">
+                              {lvl}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  </Card>
-                </RevealOnScroll>
-              ))}
-              
-              <div className="mt-8 p-6 rounded-2xl bg-white/5 border border-white/10">
-                <p className="text-sm text-ink-dim leading-relaxed">
-                  <strong className="text-white">Not:</strong> Bonus puanlar ana puanın üzerine eklenir. Teknik uygulama kalitesi değerlendirilirken sadece "çalışıyor mu" değil, "nasıl çalışıyor" sorusuna yanıt aranacaktır.
-                </p>
-              </div>
-            </div>
+                  </div>
+                </Card>
+              </RevealOnScroll>
+            ))}
           </div>
         </Container>
       </section>
 
-      {/* Kurallar ve Accordion (Existing) */}
-      <section className="mb-24">
+      {/* Pitching Guide Section */}
+      <section className="mb-32">
+        <Container>
+          <RevealOnScroll>
+            <SectionTitle eyebrow="Sunum Rehberi" title="Nasıl" gradient="Pitch Edilir?" align="left" className="mb-12" />
+          </RevealOnScroll>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pitchGuide.map((step, i) => (
+              <RevealOnScroll key={step.title} delay={i * 0.1}>
+                <Card className="h-full flex flex-col !p-0 overflow-hidden border-white/5">
+                  <div className="p-6 bg-white/[0.03] border-b border-white/5 flex justify-between items-center">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">{step.time}</span>
+                    <div className="w-8 h-8 rounded-full bg-[#05071A] border border-white/10 flex items-center justify-center font-display font-bold text-xs">
+                      {i + 1}
+                    </div>
+                  </div>
+                  <div className="p-6 flex-grow">
+                    <h4 className="text-xl font-bold text-white mb-1">{step.title}</h4>
+                    <p className="text-[10px] font-bold text-ink-dim uppercase tracking-widest mb-6">Hedef: {step.goal}</p>
+                    
+                    <ul className="space-y-3 mb-6">
+                      {step.answers.map((ans, idx) => (
+                        <li key={idx} className="text-sm text-ink-dim flex gap-3">
+                          <span className="text-primary font-bold">?</span>
+                          {ans}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {step.focus && (
+                      <div className="p-3 rounded-xl bg-green-500/5 border border-green-500/10">
+                        <p className="text-[11px] font-bold text-green-500">🎯 ODAK: {step.focus}</p>
+                      </div>
+                    )}
+                    {step.avoid && (
+                      <div className="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
+                        <p className="text-[11px] font-bold text-red-400">🚫 KAÇININ: {step.avoid}</p>
+                      </div>
+                    )}
+                    {step.proTip && (
+                      <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
+                        <p className="text-[11px] font-bold text-blue-400">💡 İYİ PRATİK: {step.proTip}</p>
+                      </div>
+                    )}
+                    {step.fallback && (
+                      <div className="p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10">
+                        <p className="text-[11px] font-bold text-yellow-500">⚠️ FALLBACK: {step.fallback}</p>
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              </RevealOnScroll>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Presentation Methods Section */}
+      <section className="mb-32">
+        <Container>
+          <RevealOnScroll>
+            <SectionTitle eyebrow="Format" title="Sunum" gradient="Yöntemleri" align="left" className="mb-12" />
+          </RevealOnScroll>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {presentationMethods.map((method, i) => (
+              <RevealOnScroll key={method.id} delay={i * 0.1}>
+                <Card className="h-full border-white/5 bg-white/[0.02]">
+                  <div className="flex items-start justify-between mb-8">
+                    <div>
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full border mb-4 inline-block"
+                        style={{ color: method.color, borderColor: `${method.color}4D` }}>
+                        {method.status}
+                      </span>
+                      <h4 className="text-2xl font-bold text-white">{method.title}</h4>
+                    </div>
+                    <div className="text-3xl opacity-50">{i === 0 ? '📽️' : '💻'}</div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div>
+                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Gerekli Araçlar</p>
+                      <p className="text-sm text-ink-dim">{method.tools}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Sunum Akışı</p>
+                      <ul className="space-y-2">
+                        {method.flow.map((f, idx) => (
+                          <li key={idx} className="text-sm text-ink-dim flex gap-3">
+                            <span className="text-white/20">•</span>
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
+                      <p className="text-[11px] leading-relaxed">
+                        <span className="text-primary font-bold">✅ AVANTAJ:</span>{' '}
+                        <span className="text-ink-dim">{method.advantage}</span>
+                      </p>
+                      {method.risk && (
+                        <p className="text-[11px] leading-relaxed mt-2">
+                          <span className="text-red-400 font-bold">⚠️ RİSK:</span>{' '}
+                          <span className="text-ink-dim">{method.risk}</span>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </RevealOnScroll>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Rules and FAQ */}
+      <section className="mb-24 scroll-mt-32" id="rules">
         <Container>
           <RevealOnScroll>
             <SectionTitle eyebrow="Kurallar" title="Yarışma" gradient="kuralları." align="left" className="mb-6" />
@@ -332,10 +351,10 @@ export default function HackathonInfoPage() {
           <RevealOnScroll>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
               <p className="text-ink-dim max-w-2xl leading-relaxed">
-                Tüm katılımcıların okuması ve kabul etmesi gereken kurallar. Aşağıdaki kategorilerin her birine tıklayarak detayları görebilir, Yarışma kurallarının tamamı resmi PDF dokümanında yer almaktadır.
+                Tüm katılımcıların okuması ve kabul etmesi gereken kurallar. Aşağıdaki kategorilerin her birine tıklayarak detayları görebilirsiniz.
               </p>
               <Button as="a" href="/hackfest26-kurallar.pdf" download variant="ghost" iconRight={<ArrowRightIcon />}>
-                PDF olarak indir
+                PDF Şartnameyi İndir
               </Button>
             </div>
           </RevealOnScroll>
@@ -353,7 +372,7 @@ export default function HackathonInfoPage() {
                     {cat.items.map((it, i) => (
                       <li key={i} className="flex gap-4">
                         <span className="font-display font-bold text-lg shrink-0" style={{ color: cat.color, minWidth: '1.75rem' }}>{String(i + 1).padStart(2, '0')}</span>
-                        <span className="leading-relaxed">{it}</span>
+                        <span className="leading-relaxed text-ink-dim">{it}</span>
                       </li>
                     ))}
                   </ol>
@@ -363,6 +382,68 @@ export default function HackathonInfoPage() {
           </RevealOnScroll>
         </Container>
       </section>
+
+      {/* Problem Detail Modal (Internal) */}
+      <Modal 
+        open={!!activeProblem} 
+        onClose={() => setActiveProblem(null)}
+        title="Problem Teknik Spesifikasyonu"
+        panelClassName="max-w-4xl"
+      >
+        {activeProblem && (
+          <div className="space-y-8 py-4">
+            <div className="pb-6 border-b border-white/5">
+              <h3 className="font-display text-3xl font-bold hf-text-gradient mb-4">{activeProblem.title}</h3>
+              <p className="text-ink-dim leading-relaxed">{activeProblem.task}</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <div className="text-[10px] uppercase tracking-widest font-bold text-blue-400">Input (Datasets & Sources)</div>
+                  <ul className="space-y-2">
+                    {activeProblem.input.map((item, i) => (
+                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400/50"></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="space-y-3">
+                  <div className="text-[10px] uppercase tracking-widest font-bold text-green-400">Expected Output</div>
+                  <ul className="space-y-2">
+                    {activeProblem.output.map((item, i) => (
+                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-400/50"></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="space-y-6 bg-white/5 p-6 rounded-2xl border border-white/5">
+                <div className="space-y-3">
+                  <div className="text-[10px] uppercase tracking-widest font-bold text-yellow-400">Evaluation Metrics</div>
+                  <ul className="space-y-2">
+                    {activeProblem.evaluation.map((item, i) => (
+                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/50"></span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="pt-6 border-t border-white/5 space-y-4">
+                  <Button className="w-full" onClick={() => { handleSelectProblem(activeProblem); setActiveProblem(null); }}>Bu Problemi Seç</Button>
+                  <Button as="a" href={activeProblem.githubUrl} target="_blank" variant="ghost" className="w-full">GitHub Starter Kit</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }
