@@ -142,8 +142,6 @@ export const presentationMethods = [
   {
     id: 'hybrid',
     title: 'Slayt + Canlı Demo',
-    status: 'Önerilen Model',
-    color: COLORS.blue,
     flow: [
       'Slayt ile problem ve çözüm hikayesi anlatılır.',
       'Demo ile ürünün gerçekliği kanıtlanır.'
@@ -153,8 +151,6 @@ export const presentationMethods = [
   {
     id: 'product-only',
     title: 'Sadece Ürün Üzerinden Sunum',
-    status: 'Hızlı Model',
-    color: COLORS.green,
     flow: [
       'Direkt uygulama üzerinden anlatım yapılır.',
       'UI/UX akışı üzerinden problem-çözüm gösterilir.'

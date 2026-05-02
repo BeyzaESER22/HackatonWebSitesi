@@ -333,14 +333,11 @@ export default function HackathonInfoPage() {
             {presentationMethods.map((method, i) => (
               <RevealOnScroll key={method.id} delay={i * 0.1}>
                 <Card className="h-full border-white/5 bg-white/[0.02]">
-                  <div className="flex items-start justify-between mb-8">
-                    <div>
-                      <span className="text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full border mb-4 inline-block" style={{ color: method.color, borderColor: `${method.color}4D` }}>{method.status}</span>
-                      <h4 className="text-2xl font-bold text-white">{method.title}</h4>
-                    </div>
-                    <div className="text-3xl opacity-50">{i === 0 ? '📽️' : '💻'}</div>
+                  <div className="mb-8">
+                    <h4 className="text-2xl font-bold text-white">{method.title}</h4>
                   </div>
                   <div className="space-y-6">
+
                     <div>
                       <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Sunum Akışı</p>
                       <ul className="space-y-2">
