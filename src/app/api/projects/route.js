@@ -91,9 +91,8 @@ export async function POST(request) {
   const projectSlug = slugify(parsed.data.title) || 'project';
   const id = `proj_${projectSlug}_${Date.now().toString(36)}`;
 
-  // Upload files (Vercel Blob in prod, local fs in dev)
+  // Upload image (Vercel Blob in prod, local fs in dev)
   let imageUrl = null;
-  let packageUrl = null;
 
   try {
     const imgExt = (imageFile.name.split('.').pop() || 'jpg').toLowerCase();
@@ -103,19 +102,9 @@ export async function POST(request) {
       imgPath,
       imageFile.type
     );
-
-    if (packageMeta) {
-      const fExt = (packageMeta.name.split('.').pop() || 'zip').toLowerCase();
-      const fPath = `projects/files/${safeFilename(`${id}.${fExt}`)}`;
-      packageUrl = await uploadFile(
-        Buffer.from(await packageMeta.arrayBuffer()),
-        fPath,
-        packageMeta.type
-      );
-    }
   } catch (err) {
     console.error('Project upload error:', err);
-    return NextResponse.json({ message: 'Dosyalar yüklenemedi.', error: String(err.message || err) }, { status: 500 });
+    return NextResponse.json({ message: 'Görsel yüklenemedi.', error: String(err.message || err) }, { status: 500 });
   }
 
   // Build record
@@ -138,10 +127,9 @@ export async function POST(request) {
     },
     techStack: parsed.data.techStack.split(',').map(s => s.trim()).filter(Boolean),
     contactEmail: parsed.data.contactEmail,
-    githubUrl: parsed.data.githubUrl || null,
+    githubUrl: parsed.data.githubUrl,
     demoUrl:   parsed.data.demoUrl   || null,
     image:     imageUrl,
-    packageUrl,
     submittedAt: new Date().toISOString(),
     status: 'pending',
     isSample: false

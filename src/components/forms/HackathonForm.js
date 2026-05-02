@@ -79,10 +79,11 @@ export function HackathonForm({ onSuccess }) {
     } catch {}
   }, [form]);
 
-  const submit = async (e) => {
-    e.preventDefault();
+  const submit = async (e, retryCount = 0) => {
+    if (e) e.preventDefault();
     setBusy(true);
     setErrors({});
+    
     try {
       const res = await fetch('/api/hackathon', {
         method: 'POST',
@@ -92,16 +93,25 @@ export function HackathonForm({ onSuccess }) {
           clientSubmissionId: submissionId || createSubmissionId()
         })
       });
+      
       const json = await res.json();
+      
       if (!res.ok) {
+        if (res.status === 429) {
+          showToast({ type: 'error', title: 'Biraz bekle', message: json.message });
+          setBusy(false);
+          return;
+        }
         if (json.fieldErrors) setErrors(json.fieldErrors);
         showToast({
           type: 'error',
           title: 'Form gönderilemedi',
           message: json.message || 'Lütfen alanları kontrol edin.'
         });
+        setBusy(false);
         return;
       }
+
       const nextSubmissionId = createSubmissionId();
       try {
         window.localStorage.removeItem(DRAFT_KEY);
@@ -115,18 +125,39 @@ export function HackathonForm({ onSuccess }) {
       });
       onSuccess?.();
     } catch (err) {
-      showToast({
-        type: 'error',
-        title: 'Bir hata oluştu',
-        message: 'Bağlantı sorunu yaşandı.'
-      });
-    } finally {
-      setBusy(false);
+      if (retryCount < 2) {
+        const delay = (retryCount + 1) * 2000;
+        showToast({ 
+          type: 'info', 
+          title: 'Bağlantı sorunu', 
+          message: `Tekrar deneniyor... (${retryCount + 1}/2)` 
+        });
+        setTimeout(() => submit(null, retryCount + 1), delay);
+      } else {
+        showToast({
+          type: 'error',
+          title: 'Gönderim başarısız',
+          message: 'Bağlantı sorunu yaşandı. Lütfen internetini kontrol et.'
+        });
+        setBusy(false);
+      }
     }
   };
 
   return (
-    <form onSubmit={submit} noValidate className="space-y-10">
+    <form onSubmit={(e) => submit(e)} noValidate className="space-y-10">
+      {/* Honeypot field - Visually hidden */}
+      <div style={{ position: 'absolute', left: '-9999px', top: '0', opacity: 0, zIndex: -1 }} aria-hidden="true">
+        <input 
+          type="text" 
+          name="website" 
+          tabIndex="-1" 
+          value={form.website || ''} 
+          onChange={update('website')} 
+          autoComplete="off" 
+        />
+      </div>
+
       <div className="space-y-6">
         <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Kişisel Bilgiler</h4>
         <div className="grid grid-cols-1 gap-6">
