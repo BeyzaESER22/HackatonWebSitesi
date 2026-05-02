@@ -189,6 +189,9 @@ export function HackathonForm({ onSuccess }) {
           <div className="flex justify-center">
             <div className="w-full md:w-1/2">
               <Input type="email" label="E-posta *" name="email" value={form.email} onChange={update('email')} placeholder="eposta@adresiniz.com" error={errors.email} className={fieldClassName} required />
+              <p className="mt-2 text-[10px] text-primary leading-tight italic">
+                <strong>Not:</strong> Google AI Studio kredilerini talep edebilmeniz için <strong>Gmail</strong> hesabı kullanmanız gerekmektedir.
+              </p>
             </div>
           </div>
         </div>
