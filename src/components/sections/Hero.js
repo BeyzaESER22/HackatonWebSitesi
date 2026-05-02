@@ -14,7 +14,7 @@ export function Hero() {
   const { openModal } = useApp();
 
   return (
-    <section id="top" className="relative pt-32 pb-0 overflow-hidden bg-[#05071A]">
+    <section id="top" className="relative pt-32 pb-0">
       {/* Dynamic Background Elements */}
       <GradientGlow />
       <ParticlesBg />
@@ -24,7 +24,7 @@ export function Hero() {
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-emerald-600/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
 
       {/* Modern Wave Container - Maximized to reach next section */}
-      <div className="absolute bottom-0 left-0 w-full h-[800px] pointer-events-none overflow-hidden opacity-50 z-20">
+      <div className="absolute bottom-[-100px] left-0 w-full h-[800px] pointer-events-none overflow-hidden opacity-50 z-20">
         <div className="wave wave1"></div>
         <div className="wave wave2"></div>
         <div className="wave wave3"></div>
