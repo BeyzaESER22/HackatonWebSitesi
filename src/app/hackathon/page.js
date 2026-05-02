@@ -13,7 +13,7 @@ import { COLORS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
 import { ruleCategories } from '@/data/rules';
 import { categories } from '@/data/problems';
-import { judgingCriteria, pitchGuide, presentationMethods } from '@/data/judging';
+import { judgingCriteria, pitchGuide, presentationMethods, bonusPoints } from '@/data/judging';
 
 export default function HackathonInfoPage() {
   const { openModal, activeModal, modalData, closeModal, showToast } = useApp();
@@ -175,51 +175,73 @@ export default function HackathonInfoPage() {
             <SectionTitle eyebrow="Değerlendirme" title="Jüri" gradient="Kriterleri" align="left" className="mb-12" />
           </RevealOnScroll>
           
-          <div className="grid gap-6">
-            {judgingCriteria.map((c, i) => (
-              <RevealOnScroll key={c.title} delay={i * 0.05}>
-                <Card className="!p-8 overflow-hidden group">
-                  <div className="grid lg:grid-cols-12 gap-8 items-start relative">
-                    <div className="lg:col-span-2">
-                      <div className="font-display text-5xl font-black hf-text-gradient leading-none">
-                        %{c.weight}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="space-y-6">
+              <h4 className="font-display text-xl font-bold mb-8 flex items-center gap-3">
+                <span className="w-2 h-8 bg-hf-gradient rounded-full"></span>
+                Ana Kriterler (100 Puan)
+              </h4>
+              <div className="space-y-4">
+                {judgingCriteria.map((c, i) => (
+                  <RevealOnScroll key={c.title} delay={i * 0.05}>
+                    <Card className="!p-6 overflow-hidden group border-white/5 bg-white/[0.02]">
+                      <div className="flex gap-6 items-start">
+                        <div className="font-display text-3xl font-black hf-text-gradient shrink-0 w-16 text-center">
+                          %{c.weight}
+                        </div>
+                        <div className="flex-grow">
+                          <h4 className="font-display text-lg font-bold text-white mb-1">{c.title}</h4>
+                          <p className="text-ink-dim text-xs mb-3 italic">{c.desc}</p>
+                          <ul className="space-y-2 mb-4">
+                            {c.subpoints.map((sub, idx) => (
+                              <li key={idx} className="text-[11px] text-ink-dim flex gap-2">
+                                <span className="w-1 h-1 rounded-full bg-hf-gradient mt-1.5 shrink-0"></span>
+                                {sub}
+                              </li>
+                            ))}
+                          </ul>
+                          {c.note && (
+                            <div className="text-[9px] font-bold text-primary uppercase tracking-wider opacity-60">
+                              ⚠️ {c.note}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <div className="mt-2 text-[10px] uppercase tracking-widest font-bold text-white/30">Etki Ağırlığı</div>
-                    </div>
-                    
-                    <div className="lg:col-span-5">
-                      <h4 className="font-display text-2xl font-bold text-white mb-2">{c.title}</h4>
-                      <p className="text-ink-dim text-sm mb-4 italic">{c.desc}</p>
-                      {c.note && (
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold text-primary uppercase tracking-wider">
-                          ⚠️ {c.note}
-                        </div>
-                      )}
-                    </div>
+                    </Card>
+                  </RevealOnScroll>
+                ))}
+              </div>
+            </div>
 
-                    <div className="lg:col-span-5 bg-white/[0.02] rounded-2xl p-6 border border-white/5">
-                      <ul className="space-y-3">
-                        {c.subpoints.map((sub, idx) => (
-                          <li key={idx} className="text-sm text-ink-dim flex gap-3">
-                            <span className="w-1.5 h-1.5 rounded-full bg-hf-gradient mt-1.5 shrink-0"></span>
-                            {sub}
-                          </li>
-                        ))}
-                      </ul>
-                      {c.levels && (
-                        <div className="mt-6 pt-6 border-t border-white/5 flex flex-wrap gap-3">
-                          {c.levels.map((lvl, idx) => (
-                            <span key={idx} className="text-[9px] font-bold px-2 py-1 bg-white/5 rounded border border-white/10 text-white/40 uppercase tracking-tighter italic">
-                              {lvl}
-                            </span>
-                          ))}
+            <div className="space-y-6">
+              <h4 className="font-display text-xl font-bold mb-8 flex items-center gap-3">
+                <span className="w-2 h-8 bg-green-500 rounded-full"></span>
+                Bonus Puanlar
+              </h4>
+              <div className="space-y-4">
+                {bonusPoints.map((b, i) => (
+                  <RevealOnScroll key={b.title} delay={i * 0.05}>
+                    <Card className="!p-6 border-green-500/10 bg-green-500/5">
+                      <div className="flex gap-6 items-start">
+                        <div className="font-display text-3xl font-bold text-green-500 shrink-0 w-16 text-center">
+                          {b.points}
                         </div>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              </RevealOnScroll>
-            ))}
+                        <div>
+                          <h4 className="font-display text-lg font-bold text-white mb-1">{b.title}</h4>
+                          <p className="text-ink-dim text-xs leading-relaxed">{b.desc}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </RevealOnScroll>
+                ))}
+                
+                <div className="mt-8 p-6 rounded-2xl bg-white/5 border border-white/10">
+                  <p className="text-sm text-ink-dim leading-relaxed">
+                    <strong className="text-white">Not:</strong> Bonus puanlar ana puanın üzerine eklenir. Teknik uygulama kalitesi değerlendirilirken sadece "çalışıyor mu" değil, "nasıl çalışıyor" sorusuna yanıt aranacaktır.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </Container>
       </section>

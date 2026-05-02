@@ -165,3 +165,9 @@ export const presentationMethods = [
     risk: 'Sadece UI gezdirmek teknik derinliği anlatmakta eksik kalabilir.'
   }
 ];
+
+export const bonusPoints = [
+  { points: '+5',  title: 'Kullanıcı Arayüzü (UI)',       desc: 'Web, mobil veya desktop interface. UX akışı mantıklı ve kullanılabilir olmalı.' },
+  { points: '+5',  title: 'Gerçek Veri Üretimi',          desc: 'Scraping + cleaning + labeling VEYA domain-specific veri seti oluşturma.' },
+  { points: '+15', title: 'Advanced AI Usage',           desc: 'RAG pipeline, fine-tuning, multi-agent system veya tool-use mimarisi.' }
+];
