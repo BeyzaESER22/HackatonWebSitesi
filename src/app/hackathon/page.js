@@ -177,11 +177,21 @@ export default function HackathonInfoPage() {
             </RevealOnScroll>
           )}
 
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-12">
-            <div className="flex gap-4">
-              <div className="text-yellow-500 text-xl font-bold shrink-0">!</div>
-              <div className="text-sm leading-relaxed text-ink-dim">
-                <strong className="text-white">KRİTİK NOT:</strong> Takımların listedeki <span className="text-white font-bold underline">kategorilerden en az birini</span> seçmesi zorunludur. Belirlenen spesifik bir problemi seçmek isteğe bağlıdır; ancak profesyonel değerlendirme için listedeki taskları rehber almanız önerilir.
+          <div className="grid lg:grid-cols-2 gap-6 mb-12">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <div className="flex gap-4">
+                <div className="text-yellow-500 text-xl font-bold shrink-0">!</div>
+                <div className="text-sm leading-relaxed text-ink-dim">
+                  <strong className="text-white">Kategori Seçimi:</strong> Takımların listedeki <span className="text-white font-bold underline">kategorilerden en az birini</span> seçmesi zorunludur. Belirlenen spesifik bir problemi seçmek isteğe bağlıdır; ancak profesyonel değerlendirme için listedeki taskları rehber almanız önerilir.
+                </div>
+              </div>
+            </div>
+            <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-6">
+              <div className="flex gap-4">
+                <div className="text-blue-400 text-xl font-bold shrink-0">⚙️</div>
+                <div className="text-sm leading-relaxed text-ink-dim">
+                  <strong className="text-white">Veri & Mühendislik Beklentisi:</strong> Paylaşılan veri setleri standart formatlarda (CSV, Image Folder vb.) ve temizlenmiş yapıdadır. Ancak jüri; verinin doğrudan modele verilmesini değil; <span className="text-white font-bold">normalizasyon, feature engineering, veri çoğaltma (augmentation)</span> ve <span className="text-white font-bold">boyutlandırma</span> gibi mühendislik adımlarının nasıl uygulandığını teknik puanın %40'ı olarak değerlendirecektir.
+                </div>
               </div>
             </div>
           </div>
@@ -400,7 +410,12 @@ export default function HackathonInfoPage() {
                       </li>
                     ))}</ul></div>
               </div>
-              <div className="space-y-6 bg-white/5 p-6 rounded-2xl border border-white/5">
+            <div className="space-y-6 bg-white/5 p-6 rounded-2xl border border-white/5">
+                <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 mb-4">
+                  <p className="text-[11px] leading-relaxed text-blue-300">
+                    <strong className="text-white">Teknik Not:</strong> Veri seti ham/temizlenmiş haldedir. Jürinin beklentisi, bu veriyi modele sokmadan önce yapacağınız <strong>ön işleme (preprocessing)</strong> ve <strong>mühendislik</strong> kararlarıdır.
+                  </p>
+                </div>
                 <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-yellow-400">Evaluation Metrics</div><ul className="space-y-2">{activeProblem.evaluation.map((item, i) => (
                       <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/50"></span>
@@ -409,7 +424,10 @@ export default function HackathonInfoPage() {
                     ))}</ul></div>
                 <div className="pt-6 border-t border-white/5 space-y-4">
                   <Button className="w-full" onClick={() => { handleSelectProblem(activeProblem); setActiveProblem(null); }}>Bu Problemi Seç</Button>
-                  <Button as="a" href={activeProblem.githubUrl} target="_blank" variant="ghost" className="w-full">GitHub Starter Kit</Button>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button as="a" href={activeProblem.githubUrl} target="_blank" variant="ghost" className="w-full text-[10px]">GitHub Starter Kit</Button>
+                    <Button as="a" href={activeProblem.datasetUrl} target="_blank" variant="ghost" className="w-full text-[10px] border-blue-500/30 text-blue-400">Veri Setini İncele</Button>
+                  </div>
                 </div>
               </div>
             </div>
