@@ -15,7 +15,6 @@ export const categories = [
         input: ['Tarihsel enerji tüketim verileri', 'Trafik yoğunluk indeksleri', 'Hava kalitesi sensör verileri'],
         output: ['Tahminleme modeli (Python/Pickle)', 'Anlık emisyon haritası (Dashboard)', 'Politika öneri raporu'],
         evaluation: ['RMSE Skoru < 0.15', 'Görselleştirme kalitesi', 'Kullanıcı dostu dashboard'],
-        githubUrl: 'https://github.com/HackFest26/carbon-prediction-kit',
         datasetUrl: 'https://www.kaggle.com/datasets/unitednations/international-greenhouse-gas-emissions'
       },
       {
@@ -25,7 +24,6 @@ export const categories = [
         input: ['Baca gazı sensör verileri', 'Üretim hacmi logları'],
         output: ['Anomali tespit algoritması', 'Eşik değeri uyarı sistemi'],
         evaluation: ['F1-Score %90+', 'Uyarı gecikme süresi < 5 sn'],
-        githubUrl: 'https://github.com/HackFest26/industry-emission-kit',
         datasetUrl: 'https://www.kaggle.com/datasets/sudalairajkumar/undata-country-data?select=greenhouse_gas_inventory_data_data.csv'
       },
       {
@@ -35,7 +33,6 @@ export const categories = [
         input: ['Harcama kategorileri verisi', 'Ulaşım logları', 'Kullanıcı yaşam tarzı anket verileri'],
         output: ['Kişiselleştirilmiş öneri motoru', 'Mobil uygulama prototipi'],
         evaluation: ['Öneri alaka düzeyi', 'Kullanıcı etkileşim oranı'],
-        githubUrl: 'https://github.com/HackFest26/carbon-asistant-kit',
         datasetUrl: 'https://www.kaggle.com/datasets/waqi786/carbon-footprint-dataset'
       },
       {
@@ -45,7 +42,6 @@ export const categories = [
         input: ['Ürün yaşam döngüsü verileri', 'Lojistik rota verileri', 'Enerji yoğunluğu kütüphanesi'],
         output: ['LCA (Life Cycle Assessment) modeli', 'Karbon ayak izi etiketi üretici'],
         evaluation: ['Tahmin tutarlılığı', 'Veri entegrasyon hızı'],
-        githubUrl: 'https://github.com/HackFest26/supply-chain-carbon',
         datasetUrl: 'https://www.kaggle.com/datasets/thedevastator/life-cycle-assessment-data-of-common-food-items'
       },
       {
@@ -55,7 +51,6 @@ export const categories = [
         input: ['Sensör basınç/sıcaklık verileri', 'Gaz kompozisyon analizleri', 'Enerji tüketim logları'],
         output: ['Verimlilik optimizasyon algoritması', 'Anomali tespit sistemi'],
         evaluation: ['Enerji verimliliği artışı %10+', 'Tahmin hassasiyeti'],
-        githubUrl: 'https://github.com/HackFest26/carbon-capture-optimize',
         datasetUrl: 'https://www.kaggle.com/datasets/reihanenamdari/co2-emissions-by-vehicles'
       }
     ]
@@ -74,7 +69,6 @@ export const categories = [
         input: ['Atık görsel veri seti', 'Etiketlenmiş (YOLO format) koordinatlar'],
         output: ['YOLOv8/v10 Eğitilmiş Model', 'Sınıflandırma raporu'],
         evaluation: ['mAP@.50 > 0.85', 'Inference hızı < 100ms'],
-        githubUrl: 'https://github.com/HackFest26/waste-sort-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/asdasdasasdas/garbage-classification'
       },
       {
@@ -84,7 +78,6 @@ export const categories = [
         input: ['Konteyner doluluk logları', 'Şehir yol ağı verisi', 'Araç kapasite bilgileri'],
         output: ['Rota optimizasyon motoru', 'Sürücü yönlendirme arayüzü'],
         evaluation: ['Kat edilen mesafe azalma oranı > %15', 'Zaman verimliliği'],
-        githubUrl: 'https://github.com/HackFest26/waste-logistics-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/mostafaabla/garbage-classification'
       },
       {
@@ -94,7 +87,6 @@ export const categories = [
         input: ['Bölgesel atık verileri', 'Demografik veriler', 'Sosyo-ekonomik göstergeler'],
         output: ['Tahminleyici analiz paneli', 'Kişiselleştirilmiş teşvik planı'],
         evaluation: ['Tahmin doğruluğu', 'Uygulanabilirlik skoru'],
-        githubUrl: 'https://github.com/HackFest26/waste-incentive-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/techs-robots/waste-classification-data'
       },
       {
@@ -104,7 +96,6 @@ export const categories = [
         input: ['Fabrika atık envanterleri', 'Hammadde ihtiyaç listeleri', 'Sektörel uyumluluk matrisi'],
         output: ['Simbiyoz eşleşme motoru', 'Lojistik maliyet analizi'],
         evaluation: ['Eşleşme doğruluğu', 'Maliyet tasarruf projeksiyonu'],
-        githubUrl: 'https://github.com/HackFest26/industrial-symbiosis',
         datasetUrl: 'https://www.kaggle.com/datasets/fedesoriano/company-bankruptcy-prediction'
       },
       {
@@ -114,7 +105,6 @@ export const categories = [
         input: ['Multispektral uydu görüntüleri', 'Etiketlenmiş plastik yoğunluk haritaları'],
         output: ['Kirlilik tespit modeli', 'Gerçek zamanlı izleme dashboardu'],
         evaluation: ['IOU Skoru > 0.70', 'Tespit hızı'],
-        githubUrl: 'https://github.com/HackFest26/ocean-plastic-detect',
         datasetUrl: 'https://www.kaggle.com/datasets/vencerlanz09/plastic-paper-garbage-bag-synthetic-images'
       }
     ]
@@ -133,7 +123,6 @@ export const categories = [
         input: ['Simülasyon ortamı verileri', 'Araç kuyruk uzunluğu logları'],
         output: ['RL Model (Agent)', 'Bekleme süresi analiz paneli'],
         evaluation: ['Ortalama bekleme süresi iyileşme oranı > %20'],
-        githubUrl: 'https://github.com/HackFest26/traffic-rl-kit',
         datasetUrl: 'https://archive.ics.uci.edu/ml/datasets/Metro+Interstate+Traffic+Volume'
       },
       {
@@ -143,7 +132,6 @@ export const categories = [
         input: ['Trafik akış haritaları', 'Şebeke yük verileri', 'Mevcut istasyon lokasyonları'],
         output: ['Optimal konum haritası', 'Yatırım maliyet analizi'],
         evaluation: ['Kapsama alanı genişliği', 'Şebeke stabilite etkisi'],
-        githubUrl: 'https://github.com/HackFest26/ev-location-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/darpan25bajaj/electric-vehicle-population-data'
       },
       {
@@ -153,7 +141,6 @@ export const categories = [
         input: ['Kullanıcı kiralama geçmişi', 'Hava durumu verileri', 'Etkinlik takvimi'],
         output: ['Talep tahmin modeli', 'Araç yeniden dağıtım rotaları'],
         evaluation: ['MAE (Mean Absolute Error) skoru', 'Araç doluluk oranı'],
-        githubUrl: 'https://github.com/HackFest26/micromobility-forecast',
         datasetUrl: 'https://archive.ics.uci.edu/ml/datasets/bike+sharing+dataset'
       },
       {
@@ -163,7 +150,6 @@ export const categories = [
         input: ['Turnike geçiş verileri', 'Mobil sinyal yoğunluk verisi', 'Hat bazlı sefer takvimi'],
         output: ['Kapasite kullanım tahmin modeli', 'Yolcu yönlendirme API'],
         evaluation: ['Tahmin doğruluğu %85+', 'Anlık veri işleme kapasitesi'],
-        githubUrl: 'https://github.com/HackFest26/transit-occupancy',
         datasetUrl: 'https://www.kaggle.com/datasets/manasgupta/pune-metro-traffic-data'
       },
       {
@@ -173,7 +159,6 @@ export const categories = [
         input: ['Kamera görüntüleri', 'LiDAR nokta bulutu verisi', 'Nesne etiketleri'],
         output: ['Nesne algılama modeli', 'Güvenli sürüş koridoru planlayıcı'],
         evaluation: ['mAP@.50 > 0.90', 'Gecikme süresi < 50ms'],
-        githubUrl: 'https://github.com/HackFest26/autonomous-obstacle-detect',
         datasetUrl: 'https://www.kaggle.com/datasets/sshikamaru/udacity-self-driving-car-dataset'
       }
     ]
@@ -192,7 +177,6 @@ export const categories = [
         input: ['IoT sensör verileri', 'Hava durumu API verileri'],
         output: ['Optimizasyon algoritması', 'Tasarruf paneli'],
         evaluation: ['Enerji tasarruf oranı %10+', 'Konfor endeksi'],
-        githubUrl: 'https://github.com/HackFest26/hvac-optimize-ai',
         datasetUrl: 'https://www.kaggle.com/c/ashrae-energy-prediction'
       },
       {
@@ -202,7 +186,6 @@ export const categories = [
         input: ['Enerji fiyat verileri (EPİAŞ)', 'Üretim iş emri listesi', 'Makine güç tüketim profilleri'],
         output: ['Optimal üretim takvimi', 'Maliyet projeksiyonu'],
         evaluation: ['Maliyet düşüş oranı %15+', 'Üretim aksama riski'],
-        githubUrl: 'https://github.com/HackFest26/industrial-load-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/robikscube/hourly-energy-consumption'
       },
       {
@@ -212,7 +195,6 @@ export const categories = [
         input: ['Agrege enerji tüketim verisi (1Hz+)', 'Cihaz imza kütüphanesi'],
         output: ['Cihaz bazlı tüketim raporu', 'Anomali tespit uyarısı'],
         evaluation: ['Cihaz tanıma doğruluğu (F1)', 'Gerçek zamanlılık'],
-        githubUrl: 'https://github.com/HackFest26/nilm-energy-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/uciml/electric-power-consumption-data-set'
       },
       {
@@ -222,7 +204,6 @@ export const categories = [
         input: ['Bina envanter verisi', 'Yıllık enerji fatura logları', 'Kullanım tipi verileri'],
         output: ['Enerji skoru (Benchmarking)', 'Tasarruf yol haritası'],
         evaluation: ['Analiz kapsamı', 'Öneri alaka düzeyi'],
-        githubUrl: 'https://github.com/HackFest26/building-benchmark',
         datasetUrl: 'https://www.kaggle.com/datasets/VirenD/building-energy-usage-forecasting'
       },
       {
@@ -232,7 +213,6 @@ export const categories = [
         input: ['Termal RGB/IR görüntüler', 'Yalıtım tipi etiketleri', 'Dış ortam sıcaklık verisi'],
         output: ['Isı kaçağı segmentasyon modeli', 'Yalıtım kalite raporu'],
         evaluation: ['Segmentasyon IOU > 0.65', 'Yanlış pozitif oranı'],
-        githubUrl: 'https://github.com/HackFest26/thermal-loss-detect',
         datasetUrl: 'https://github.com/m-t-f-v/Thermal-Images-of-Buildings'
       }
     ]
@@ -251,7 +231,6 @@ export const categories = [
         input: ['PV Panel logları', 'Bulutluluk verileri'],
         output: ['Tahmin modeli', 'Üretim paneli'],
         evaluation: ['MAPE skoru < %12'],
-        githubUrl: 'https://github.com/HackFest26/solar-forecast-kit',
         datasetUrl: 'https://www.kaggle.com/datasets/anikannal/solar-power-generation-data'
       },
       {
@@ -261,7 +240,6 @@ export const categories = [
         input: ['Üretim tahminleri', 'Anlık şebeke talebi', 'Batarya SOC (Şarj) durumları'],
         output: ['VPP yönetim algoritması', 'Dengeleme raporu'],
         evaluation: ['Talebi karşılama oranı', 'Batarya ömür koruma verimi'],
-        githubUrl: 'https://github.com/HackFest26/vpp-control-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/robikscube/hourly-energy-consumption'
       },
       {
@@ -271,7 +249,6 @@ export const categories = [
         input: ['SCADA verileri', 'Arıza geçmişi logları', 'Titreşim spektrumları'],
         output: ['Kestirimci bakım modeli', 'Bakım önceliklendirme arayüzü'],
         evaluation: ['Arıza önceden haber verme süresi', 'False Alarm oranı'],
-        githubUrl: 'https://github.com/HackFest26/wind-turbine-health',
         datasetUrl: 'https://www.kaggle.com/datasets/berkerisen/wind-turbine-scada-dataset'
       },
       {
@@ -281,7 +258,6 @@ export const categories = [
         input: ['Şebeke yük verileri', 'Üretim mix verisi', 'Frekans olay logları'],
         output: ['Kararlılık tahmin modeli', 'Acil yük atma algoritması'],
         evaluation: ['Tahmin isabeti %90+', 'Tepki süresi'],
-        githubUrl: 'https://github.com/HackFest26/grid-stability-ai',
         datasetUrl: 'https://archive.ics.uci.edu/ml/datasets/Electrical+Grid+Stability+Simulated+Data+'
       },
       {
@@ -291,7 +267,6 @@ export const categories = [
         input: ['Meteorolojik veriler', 'Havza akış verileri', 'Tarihsel üretim logları'],
         output: ['Su debisi tahmin modeli', 'Optimal üretim planı'],
         evaluation: ['R2 Skoru > 0.80', 'Mevsimsel uyum'],
-        githubUrl: 'https://github.com/HackFest26/hydro-flow-predict',
         datasetUrl: 'https://www.kaggle.com/datasets/szatkowski/era5-land-point-data'
       }
     ]
@@ -310,7 +285,6 @@ export const categories = [
         input: ['Toprak nem sensör verileri', 'Hava durumu tahminleri', 'Bitki su ihtiyacı veri tabanı'],
         output: ['Haftalık sulama takvimi', 'Su tasarruf analizörü'],
         evaluation: ['Su tasarruf oranı %25+', 'Bitki stres endeksi'],
-        githubUrl: 'https://github.com/HackFest26/smart-irrigation-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset'
       },
       {
@@ -320,7 +294,6 @@ export const categories = [
         input: ['Bitki hastalıkları görsel seti', 'Sağlıklı/Hasta etiketleri'],
         output: ['Mobil teşhis modeli', 'İlaçlama bölge haritası'],
         evaluation: ['Classification Accuracy', 'Tespit hızı'],
-        githubUrl: 'https://github.com/HackFest26/crop-disease-detector',
         datasetUrl: 'https://www.kaggle.com/datasets/emmareid/plantvillage-dataset'
       },
       {
@@ -330,7 +303,6 @@ export const categories = [
         input: ['NDVI indeks verileri', 'Sıcaklık birikim verileri (GDD)'],
         output: ['Hasat projeksiyon paneli', 'Ürün kalite tahmini'],
         evaluation: ['Tahmin sapma günü < 3 gün', 'Lojistik uyum verimi'],
-        githubUrl: 'https://github.com/HackFest26/harvest-prediction-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/fedesoriano/agriculture-dataset'
       },
       {
@@ -340,7 +312,6 @@ export const categories = [
         input: ['Toprak kimyasal analiz verileri', 'Bitki gelişim logları', 'Gübre içerik kütüphanesi'],
         output: ['Optimal gübreleme algoritması', 'Ürün tavsiye motoru'],
         evaluation: ['Verim artış projeksiyonu', 'Maliyet minimizasyonu'],
-        githubUrl: 'https://github.com/HackFest26/soil-fertility-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset'
       },
       {
@@ -350,7 +321,6 @@ export const categories = [
         input: ['İvmeölçer ve GPS verileri', 'Sıcaklık logları', 'Klinik vaka geçmişi'],
         output: ['Erken uyarı sağlık paneli', 'Davranış analiz modeli'],
         evaluation: ['Anomali tespit doğruluğu', 'Uyarı hızı'],
-        githubUrl: 'https://github.com/HackFest26/livestock-health',
         datasetUrl: 'https://www.kaggle.com/datasets/fedesoriano/cattle-behavior-classification-dataset'
       }
     ]
@@ -369,7 +339,6 @@ export const categories = [
         input: ['Ses kayıt veri seti (.wav)', 'Tür spektrogram etiketleri'],
         output: ['Audio Classifier', 'Tür yoğunluk haritası'],
         evaluation: ['Top-3 Accuracy > %80', 'Gürültü toleransı'],
-        githubUrl: 'https://github.com/HackFest26/eco-sound-ai',
         datasetUrl: 'https://www.kaggle.com/c/birdclef-2023'
       },
       {
@@ -379,7 +348,6 @@ export const categories = [
         input: ['Çok zamanlı uydu görüntüleri', 'Arazi kullanım verileri'],
         output: ['Değişim tespit algoritması', 'Riskli bölge uyarı sistemi'],
         evaluation: ['Tespit doğruluğu (IOU)', 'Erken uyarı hızı'],
-        githubUrl: 'https://github.com/HackFest26/forest-watch-ai',
         datasetUrl: 'https://archive.ics.uci.edu/ml/datasets/Covertype'
       },
       {
@@ -389,7 +357,6 @@ export const categories = [
         input: ['İklim verileri', 'Tür gözlem kayıtları', 'Bitki örtüsü haritaları'],
         output: ['Yayılım simülasyonu', 'Koruma öncelik haritası'],
         evaluation: ['Tahmin tutarlılığı (R2)', 'Simülasyon hızı'],
-        githubUrl: 'https://github.com/HackFest26/invasive-species-model',
         datasetUrl: 'https://www.kaggle.com/datasets/vencerlanz09/wildlife-detection-images-dataset'
       },
       {
@@ -399,7 +366,6 @@ export const categories = [
         input: ['Sualtı kamera görüntüleri', 'Su sıcaklığı logları', 'Biyoçeşitlilik indeksleri'],
         output: ['Coral bleaching tespit modeli', 'Deniz ekosistemi sağlık indeksi'],
         evaluation: ['Sınıflandırma doğruluğu %85+', 'Anomali yakalama hızı'],
-        githubUrl: 'https://github.com/HackFest26/coral-reef-health',
         datasetUrl: 'https://www.kaggle.com/datasets/vencerlanz09/coral-reef-image-classification'
       },
       {
@@ -409,7 +375,6 @@ export const categories = [
         input: ['Hayvan takip (telemetri) verileri', 'Arazi topografyası', 'Yol ağları haritası'],
         output: ['Optimal koridor haritası', 'Eko-geçit yer öneri sistemi'],
         evaluation: ['Kapsama oranı', 'Çevresel etki puanı'],
-        githubUrl: 'https://github.com/HackFest26/wildlife-corridor',
         datasetUrl: 'https://www.kaggle.com/datasets/vencerlanz09/wildlife-detection-images-dataset'
       }
     ]
@@ -428,7 +393,6 @@ export const categories = [
         input: ['Afet sonrası hava görüntüleri', 'Bina envanter verisi'],
         output: ['Hasar haritalama modeli', 'Acil müdahale öncelik listesi'],
         evaluation: ['Sınıflandırma F1-Skoru', 'Harita oluşturma süresi'],
-        githubUrl: 'https://github.com/HackFest26/disaster-damage-ai',
         datasetUrl: 'https://www.xview2.org/dataset'
       },
       {
@@ -438,7 +402,6 @@ export const categories = [
         input: ['Kullanıcı ihtiyaç bildirimleri', 'Canlı trafik/yol durumu verisi'],
         output: ['Dinamik rota planlayıcı', 'Kaynak dağıtım dashboardu'],
         evaluation: ['Teslimat süresi minimizasyonu', 'Kaynak kullanım oranı'],
-        githubUrl: 'https://github.com/HackFest26/emergency-logistics',
         datasetUrl: 'https://www.kaggle.com/datasets/fedesoriano/flood-prediction-dataset'
       },
       {
@@ -448,7 +411,6 @@ export const categories = [
         input: ['Real-time sosyal medya akışı', 'Doğrulanmış resmi kaynaklar'],
         output: ['NLP özetleme ve doğrulama motoru', 'Kriz ısı haritası'],
         evaluation: ['Bilgi doğruluk oranı', 'Özetleme kalitesi'],
-        githubUrl: 'https://github.com/HackFest26/crisis-info-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/vstepanivskyi/disaster-tweets'
       },
       {
@@ -458,7 +420,6 @@ export const categories = [
         input: ['Topografik veriler (DEM)', 'Tarihsel yağış ve debi verileri', 'Arazi kullanım haritaları'],
         output: ['Dinamik sel risk haritası', 'Tahliye öncelik algoritması'],
         evaluation: ['Tahmin doğruluğu %80+', 'Erken uyarı süresi'],
-        githubUrl: 'https://github.com/HackFest26/flood-risk-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/fedesoriano/flood-prediction-dataset'
       },
       {
@@ -468,7 +429,6 @@ export const categories = [
         input: ['Hava durumu (rüzgar, nem) verileri', 'Bitki örtüsü yanıcılık indeksi', 'Uydu bazlı sıcak nokta verisi'],
         output: ['Yangın yayılım simülatörü', 'Müdahale strateji planı'],
         evaluation: ['Yayılım tahmin isabeti', 'Karar destek hızı'],
-        githubUrl: 'https://github.com/HackFest26/wildfire-spread-sim',
         datasetUrl: 'https://www.kaggle.com/datasets/rtatman/wildfire-data'
       }
     ]
@@ -487,7 +447,6 @@ export const categories = [
         input: ['Sınav/Ödev performans verileri', 'Konu haritası (Ontoloji)', 'Öğrenme materyalleri veri tabanı'],
         output: ['Adaptif öğrenme algoritması', 'İlerleme takip paneli'],
         evaluation: ['Başarı artış oranı', 'Öğrenci motivasyon endeksi'],
-        githubUrl: 'https://github.com/HackFest26/adaptive-learning-ai',
         datasetUrl: 'https://archive.ics.uci.edu/ml/datasets/Student+Performance'
       },
       {
@@ -497,7 +456,6 @@ export const categories = [
         input: ['Video/Audio ders içerikleri', 'Türk İşaret Dili veri seti'],
         output: ['Anlık çeviri motoru', 'Erişilebilir video player'],
         evaluation: ['Çeviri doğruluk oranı (WER)', 'Gecikme süresi (Latency)'],
-        githubUrl: 'https://github.com/HackFest26/accessible-edu-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/riiid/ednet'
       },
       {
@@ -507,7 +465,6 @@ export const categories = [
         input: ['LinkedIn/Kariyer ilan verileri', 'Mezun başarı hikayeleri', 'Global teknoloji trendleri'],
         output: ['Kariyer rehberlik motoru', 'Yetkinlik açığı analiz raporu'],
         evaluation: ['Trend yakalama isabeti', 'Rehberlik doğruluk oranı'],
-        githubUrl: 'https://github.com/HackFest26/career-skill-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/shivamb/netflix-shows'
       },
       {
@@ -517,7 +474,6 @@ export const categories = [
         input: ['Öğrenci yanıt metinleri', 'Notlandırma anahtarı (Rubric)', 'Örnek puanlanmış ödevler'],
         output: ['Puanlama motoru', 'Geri bildirim üretici (Feedback Generator)'],
         evaluation: ['İnsan notu ile korelasyon', 'Geri bildirim kalitesi'],
-        githubUrl: 'https://github.com/HackFest26/auto-grading-ai',
         datasetUrl: 'https://www.kaggle.com/c/asap-aes'
       },
       {
@@ -527,7 +483,6 @@ export const categories = [
         input: ['Sisteme giriş logları', 'İçerik tüketim süreleri', 'Demografik veriler'],
         output: ['Risk analiz dashboardu', 'Önleyici müdahale önerileri'],
         evaluation: ['Recall skoru %85+', 'Yanlış pozitif oranı'],
-        githubUrl: 'https://github.com/HackFest26/dropout-prediction',
         datasetUrl: 'https://archive.ics.uci.edu/ml/datasets/Student+Performance'
       }
     ]
@@ -546,7 +501,6 @@ export const categories = [
         input: ['Duygu durumu etiketli metin seti', 'Psikolojik destek protokolleri'],
         output: ['NLP duygu analizörü', 'E-terapi asistanı'],
         evaluation: ['Empati skoru', 'Duygu tanıma isabeti'],
-        githubUrl: 'https://github.com/HackFest26/mental-health-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/praveengovi/emotions-dataset-for-nlp'
       },
       {
@@ -556,7 +510,6 @@ export const categories = [
         input: ['Medikal görüntü veri seti', 'Uzman tanısı etiketleri'],
         output: ['Görüntü tabanlı teşhis modeli', 'Doktor sevk algoritması'],
         evaluation: ['Precision/Recall oranları', 'Görüntü kalitesi toleransı'],
-        githubUrl: 'https://github.com/HackFest26/mobile-diagnosis-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia'
       },
       {
@@ -566,7 +519,6 @@ export const categories = [
         input: ['Zaman serisi sensör verileri', 'Klinik parametreler'],
         output: ['Kriz tahmin modeli', 'Acil durum uyarı sistemi'],
         evaluation: ['Tahmin penceresi doğruluğu', 'Yanlış alarm minimizasyonu'],
-        githubUrl: 'https://github.com/HackFest26/chronic-health-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database'
       },
       {
@@ -576,7 +528,6 @@ export const categories = [
         input: ['İlaç prospektüs metinleri', 'Hasta semptom raporları', 'İlaç kimyasal kütüphanesi'],
         output: ['Risk analiz motoru', 'Etkileşim uyarı sistemi'],
         evaluation: ['Tespit doğruluğu', 'Klinik veri uyumu'],
-        githubUrl: 'https://github.com/HackFest26/drug-interaction-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/shivanandmn/drug-side-effects-and-medical-condition-dataset'
       },
       {
@@ -586,7 +537,6 @@ export const categories = [
         input: ['İvmeölçer ve jiroskop verileri', 'Normal yaşam aktivite logları', 'Düşme vakası kayıtları'],
         output: ['Düşme tespit algoritması', 'Acil çağrı tetikleyici'],
         evaluation: ['Hassasiyet (Sensitivity) %95+', 'Gecikme < 1 sn'],
-        githubUrl: 'https://github.com/HackFest26/fall-detection-ai',
         datasetUrl: 'https://www.kaggle.com/datasets/paultimothymooney/fall-detection-data-from-china'
       }
     ]

@@ -424,10 +424,7 @@ export default function HackathonInfoPage() {
                     ))}</ul></div>
                 <div className="pt-6 border-t border-white/5 space-y-4">
                   <Button className="w-full" onClick={() => { handleSelectProblem(activeProblem); setActiveProblem(null); }}>Bu Problemi Seç</Button>
-                  <div className="grid grid-cols-2 gap-3">
-                    <Button as="a" href={activeProblem.githubUrl} target="_blank" variant="ghost" className="w-full text-[10px]">GitHub Starter Kit</Button>
-                    <Button as="a" href={activeProblem.datasetUrl} target="_blank" variant="ghost" className="w-full text-[10px] border-blue-500/30 text-blue-400">Veri Setini İncele</Button>
-                  </div>
+                  <Button as="a" href={activeProblem.datasetUrl} target="_blank" variant="ghost" className="w-full text-xs border-blue-500/30 text-blue-400">Veri Setini İncele</Button>
                 </div>
               </div>
             </div>
