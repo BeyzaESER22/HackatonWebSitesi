@@ -19,7 +19,10 @@ export const sponsors = [
   { id: 'monster-energy', name: 'Monster Energy',            size: 'support', logoUrl: '/uploads/sponsors/monster-energy.png', url: '#' },
   { id: 'indomie',        name: 'Indomie',                   size: 'support', logoUrl: '/uploads/sponsors/indomie.jpg',        url: '#' },
   { id: 'british-time',   name: 'British Time Dil Okulları', size: 'support', logoUrl: '/uploads/sponsors/british-time.png',   url: '#' },
-  { id: 'spb',            name: 'SPB - So Pro Bro',          size: 'support', logoUrl: '/uploads/sponsors/spb.jpg',            url: '#' }
+  { id: 'spb',            name: 'SPB - So Pro Bro',          size: 'support', logoUrl: '/uploads/sponsors/spb.jpg',            url: '#' },
+  { id: 'anxcure',       name: 'AnxCure',                   size: 'support', logoUrl: '/uploads/sponsors/anxcure.png',        url: '#' },
+  { id: 'ajans-kurdu',   name: 'Ajans Kurdu',               size: 'support', logoUrl: '/uploads/sponsors/ajans-kurdu.png',    url: '#' },
+  { id: 'tamek',         name: 'Tamek',                     size: 'support', logoUrl: '/uploads/sponsors/tamek.png',          url: '#' }
 ];
 
 export function groupSponsors() {

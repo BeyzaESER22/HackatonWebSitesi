@@ -72,12 +72,14 @@ function SponsorCell({ sponsor, size }) {
     <Wrapper
       {...wrapperProps}
       className={`
-        group relative rounded-2xl border border-white/[0.08]
-        bg-gradient-to-br from-white/[0.05] to-white/[0.02]
+        group relative rounded-2xl border
+        ${sponsor.lightBg
+          ? 'border-white/[0.15] bg-white'
+          : 'border-white/[0.08] bg-gradient-to-br from-white/[0.05] to-white/[0.02]'}
         backdrop-blur-sm ${s.cell} flex items-center justify-center p-8
         transition-all duration-300 ease-out overflow-hidden
-        hover:border-white/[0.15] hover:from-white/[0.08] hover:to-white/[0.04]
         hover:scale-[1.02] hover:shadow-[0_8px_40px_rgba(0,0,0,0.35)]
+        ${sponsor.lightBg ? 'hover:shadow-[0_8px_40px_rgba(255,255,255,0.15)]' : 'hover:border-white/[0.15] hover:from-white/[0.08] hover:to-white/[0.04]'}
       `}
     >
       {/* Subtle gradient overlay on hover */}
