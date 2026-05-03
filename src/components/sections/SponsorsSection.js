@@ -5,7 +5,7 @@ import { groupSponsors } from '@/data/sponsors';
 
 const sizeStyles = {
   main:    { grid: 'grid-cols-1',                                     cell: 'min-h-[200px] md:min-h-[240px]', imgMax: 'max-h-[120px] md:max-h-[160px] max-w-[80%]',  text: 'text-2xl' },
-  support: { grid: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3',       cell: 'min-h-[140px] md:min-h-[170px]', imgMax: 'max-h-[80px] md:max-h-[100px] max-w-[75%]',   text: 'text-base' },
+  support: { grid: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3',       cell: 'min-h-[140px] md:min-h-[170px]', imgMax: 'max-h-[90px] md:max-h-[110px] w-full px-4',   text: 'text-base' },
   small:   { grid: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',       cell: 'min-h-[100px] md:min-h-[120px]', imgMax: 'max-h-[50px] md:max-h-[70px] max-w-[70%]',    text: 'text-sm' }
 };
 
@@ -90,7 +90,7 @@ function SponsorCell({ sponsor, size }) {
         <img
           src={sponsor.logoUrl}
           alt={sponsor.name}
-          className={`${s.imgMax} w-auto object-contain relative z-10 rounded-lg transition-all duration-300 group-hover:scale-105`}
+          className={`${s.imgMax} object-contain relative z-10 rounded-lg transition-all duration-300 group-hover:scale-105`}
         />
       ) : (
         <div className={`font-display font-bold text-white/30 ${s.text} relative z-10`}>
