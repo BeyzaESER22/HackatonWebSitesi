@@ -23,7 +23,7 @@ export const sponsors = [
   { id: 'anxcure',       name: 'AnxCure',                   size: 'support', logoUrl: '/uploads/sponsors/anxcure.png',        url: '#' },
   { id: 'ajans-kurdu',   name: 'Ajans Kurdu',               size: 'support', logoUrl: '/uploads/sponsors/ajans-kurdu.png',    url: '#' },
   { id: 'tamek',         name: 'Tamek',                     size: 'support', logoUrl: '/uploads/sponsors/tamek.png',          url: '#' },
-  { id: 'porty',         name: 'Porty',                     size: 'support', logoUrl: '/uploads/sponsors/porty.png',          url: '#', lightBg: true }
+  { id: 'porty',         name: 'Porty',                     size: 'support', logoUrl: '/uploads/sponsors/porty.png',          url: '#' }
 ];
 
 export function groupSponsors() {
