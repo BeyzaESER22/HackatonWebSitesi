@@ -160,9 +160,9 @@ export default function HackathonInfoPage() {
             <RevealOnScroll>
               <div className="mb-12 p-6 rounded-2xl bg-green-500/10 border border-green-500/20 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                  <div className="text-2xl">🔥</div>
+                  <div className="w-1 h-8 rounded-full shrink-0 bg-green-500" />
                   <div>
-                    <p className="text-xs uppercase tracking-widest font-bold text-green-500 mb-1">Seçili Projen</p>
+                    <p className="text-xs uppercase tracking-widest font-bold text-green-500 mb-1">Seçili Problem</p>
                     <h4 className="text-lg font-bold text-white">{userSelectedProblem.title}</h4>
                   </div>
                 </div>
@@ -177,34 +177,15 @@ export default function HackathonInfoPage() {
             </RevealOnScroll>
           )}
 
-          <div className="grid lg:grid-cols-2 gap-6 mb-12">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-              <div className="flex gap-4">
-                <div className="text-yellow-500 text-xl font-bold shrink-0">!</div>
-                <div className="text-sm leading-relaxed text-ink-dim">
-                  <strong className="text-white">Kategori Seçimi:</strong> Takımların listedeki <span className="text-white font-bold underline">kategorilerden en az birini</span> seçmesi zorunludur. Belirlenen spesifik bir problemi seçmek isteğe bağlıdır; ancak profesyonel değerlendirme için listedeki taskları rehber almanız önerilir.
-                </div>
-              </div>
-            </div>
-            <div className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-6">
-              <div className="flex gap-4">
-                <div className="text-blue-400 text-xl font-bold shrink-0">⚙️</div>
-                <div className="text-sm leading-relaxed text-ink-dim">
-                  <strong className="text-white">Veri & Mühendislik Beklentisi:</strong> Paylaşılan veri setleri standart formatlarda (CSV, Image Folder vb.) ve temizlenmiş yapıdadır. Ancak jüri; verinin doğrudan modele verilmesini değil; <span className="text-white font-bold">normalizasyon, feature engineering, veri çoğaltma (augmentation)</span> ve <span className="text-white font-bold">boyutlandırma</span> gibi mühendislik adımlarının nasıl uygulandığını teknik puanın %40'ı olarak değerlendirecektir.
-                </div>
-              </div>
-            </div>
-          </div>
-
           {!selectedCategory ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {categories.map((cat, idx) => (
                 <RevealOnScroll key={cat.id} delay={idx * 0.05}>
                   <Card hover onClick={() => setSelectedCategory(cat)} className="cursor-pointer group h-full flex flex-col">
-                    <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mb-6" style={{ background: `${cat.color}26`, border: `1px solid ${cat.color}4D` }}>{cat.icon}</div>
-                    <h3 className="font-display text-xl font-bold mb-3" style={{ color: cat.color }}>{cat.title}</h3>
+                    <div className="w-5 h-0.5 rounded-full mb-5" style={{ background: cat.color }} />
+                    <h3 className="font-display text-xl font-bold mb-2" style={{ color: cat.color }}>{cat.title}</h3>
                     <p className="text-ink-dim text-sm mb-6 flex-grow">{cat.description}</p>
-                    <div className="text-xs font-bold uppercase tracking-widest text-ink-dim group-hover:text-white transition-colors">{cat.problems.length} Problem Mevcut →</div>
+                    <div className="text-xs font-bold uppercase tracking-widest text-ink-dim group-hover:text-white transition-colors">{cat.problems.length} Problem →</div>
                   </Card>
                 </RevealOnScroll>
               ))}
@@ -212,11 +193,11 @@ export default function HackathonInfoPage() {
           ) : (
             <div className="space-y-8">
               <button onClick={() => setSelectedCategory(null)} className="text-sm font-bold text-ink-dim hover:text-white transition-colors mb-4 inline-flex items-center gap-2">← Kategorilere Geri Dön</button>
-              <div className="flex items-center gap-6 mb-12">
-                <div className="w-16 h-16 rounded-3xl flex items-center justify-center text-4xl shrink-0" style={{ background: `${selectedCategory.color}26`, border: `2px solid ${selectedCategory.color}4D` }}>{selectedCategory.icon}</div>
+              <div className="flex items-center gap-4 mb-10">
+                <div className="w-1 h-10 rounded-full shrink-0" style={{ background: selectedCategory.color }} />
                 <div>
-                  <h2 className="font-display text-4xl font-bold" style={{ color: selectedCategory.color }}>{selectedCategory.title}</h2>
-                  <p className="text-ink-dim mt-2">{selectedCategory.description}</p>
+                  <h2 className="font-display text-3xl font-bold" style={{ color: selectedCategory.color }}>{selectedCategory.title}</h2>
+                  <p className="text-ink-dim text-sm mt-1">{selectedCategory.description}</p>
                 </div>
               </div>
               <div className="grid gap-4">
@@ -263,7 +244,12 @@ export default function HackathonInfoPage() {
                               <li key={idx} className="text-[11px] text-ink-dim flex gap-2"><span className="w-1 h-1 rounded-full bg-hf-gradient mt-1.5 shrink-0"></span>{sub}</li>
                             ))}
                           </ul>
-                          {c.note && <div className="text-[9px] font-bold text-primary uppercase tracking-wider opacity-60">⚠️ {c.note}</div>}
+                          {c.note && (
+                            <div className="flex items-center gap-1 text-[9px] font-bold text-primary uppercase tracking-wider opacity-60">
+                              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                              {c.note}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </Card>
@@ -321,10 +307,38 @@ export default function HackathonInfoPage() {
                         <li key={idx} className="text-sm text-ink-dim flex gap-3"><span className="text-primary font-bold">?</span>{ans}</li>
                       ))}
                     </ul>
-                    {step.focus && <div className="p-3 rounded-xl bg-green-500/5 border border-green-500/10"><p className="text-[11px] font-bold text-green-500">🎯 ODAK: {step.focus}</p></div>}
-                    {step.avoid && <div className="p-3 rounded-xl bg-red-500/5 border border-red-500/10"><p className="text-[11px] font-bold text-red-400">🚫 KAÇININ: {step.avoid}</p></div>}
-                    {step.proTip && <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/10"><p className="text-[11px] font-bold text-blue-400">💡 İYİ PRATİK: {step.proTip}</p></div>}
-                    {step.fallback && <div className="p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10"><p className="text-[11px] font-bold text-yellow-500">⚠️ FALLBACK: {step.fallback}</p></div>}
+                    {step.focus && (
+                      <div className="p-3 rounded-xl bg-green-500/5 border border-green-500/10">
+                        <p className="text-[11px] font-bold text-green-500 flex items-center gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                          ODAK: {step.focus}
+                        </p>
+                      </div>
+                    )}
+                    {step.avoid && (
+                      <div className="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
+                        <p className="text-[11px] font-bold text-red-400 flex items-center gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                          KAÇININ: {step.avoid}
+                        </p>
+                      </div>
+                    )}
+                    {step.proTip && (
+                      <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
+                        <p className="text-[11px] font-bold text-blue-400 flex items-center gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+                          İYİ PRATİK: {step.proTip}
+                        </p>
+                      </div>
+                    )}
+                    {step.fallback && (
+                      <div className="p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10">
+                        <p className="text-[11px] font-bold text-yellow-500 flex items-center gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                          FALLBACK: {step.fallback}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </Card>
               </RevealOnScroll>
@@ -355,9 +369,17 @@ export default function HackathonInfoPage() {
                         ))}
                       </ul>
                     </div>
-                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-                      <p className="text-[11px] leading-relaxed"><span className="text-primary font-bold">✅ AVANTAJ:</span> <span className="text-ink-dim">{method.advantage}</span></p>
-                      {method.risk && <p className="text-[11px] leading-relaxed mt-2"><span className="text-red-400 font-bold">⚠️ RİSK:</span> <span className="text-ink-dim">{method.risk}</span></p>}
+                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
+                      <p className="text-[11px] leading-relaxed flex items-start gap-1.5">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span><span className="text-primary font-bold">Avantaj:</span> <span className="text-ink-dim">{method.advantage}</span></span>
+                      </p>
+                      {method.risk && (
+                        <p className="text-[11px] leading-relaxed flex items-start gap-1.5">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-red-400 mt-0.5 shrink-0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                          <span><span className="text-red-400 font-bold">Risk:</span> <span className="text-ink-dim">{method.risk}</span></span>
+                        </p>
+                      )}
                     </div>
                   </div>
                 </Card>
@@ -382,8 +404,8 @@ export default function HackathonInfoPage() {
           <RevealOnScroll>
             <Accordion
               items={ruleCategories.map((cat) => ({
-                q: (<span className="flex items-center gap-3"><span className="w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0" style={{ background: `${cat.color}26`, border: `1px solid ${cat.color}4D` }}>{cat.icon}</span><span style={{ color: cat.color }}>{cat.title}</span></span>),
-                a: (<ol className="space-y-3">{cat.items.map((it, i) => (<li key={i} className="flex gap-4"><span className="font-display font-bold text-lg shrink-0" style={{ color: cat.color, minWidth: '1.75rem' }}>{String(i + 1).padStart(2, '0')}</span><span className="leading-relaxed text-ink-dim">{it}</span></li>))}</ol>)
+                q: (<span className="flex items-center gap-3"><span className="w-2 h-2 rounded-full shrink-0" style={{ background: cat.color }} /><span style={{ color: cat.color }}>{cat.title}</span></span>),
+                a: (<ol className="space-y-3">{cat.items.map((it, i) => (<li key={i} className="flex gap-4"><span className="font-display font-bold text-sm shrink-0 tabular-nums" style={{ color: cat.color, minWidth: '1.75rem' }}>{String(i + 1).padStart(2, '0')}</span><span className="leading-relaxed text-ink-dim text-sm">{it}</span></li>))}</ol>)
               }))}
             />
           </RevealOnScroll>

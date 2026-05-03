@@ -53,7 +53,7 @@ export const staticProjects = [
 
     image: null,
 
-    awards: ['🏆 Örnek Showcase — Toplum Yararına AI Kategorisi']
+    awards: ['Örnek Showcase — Toplum Yararına AI']
   }
 ];
 

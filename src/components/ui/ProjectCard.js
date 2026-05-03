@@ -13,7 +13,7 @@ export function ProjectCard({ project }) {
   return (
     <Card hover className="!p-0 overflow-hidden h-full flex flex-col">
       {/* Cover */}
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-[16/9] overflow-hidden">
         {cover ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={cover} alt={project.title} className="w-full h-full object-cover" />
