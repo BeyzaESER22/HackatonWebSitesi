@@ -1,7 +1,7 @@
 export const SITE = {
   name: 'HackFest\'26 AI',
   shortName: 'HackFest\'26',
-  tagline: 'Toplum Yararına Yapay Zeka',
+  tagline: 'Build with AI',
   organizer: 'Google Developer Groups On Campus İstinye Üniversitesi',
   description:
     '16-17 Mayıs 2026 — İstinye Üniversitesi Kampüsünde 2 gün sürecek hackathon, ilham veren konuşmalar ve büyük ödüller seni bekliyor.',
