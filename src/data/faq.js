@@ -1,7 +1,7 @@
 export const faq = [
   {
     q: 'Kimler katılabilir?',
-    a: '18 yaş üstü tüm üniversite öğrencileri, yeni mezunlar, yazılım geliştiriciler, tasarımcılar, veri bilimciler ve girişimciler katılabilir. AI alanında tecrübe şart değil — sadece öğrenmeye hevesli olman yeterli.'
+    a: 'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı aktif öğrenciler ile son 12 ay içinde mezun olmuş ve etkinlik tarihinde 18 yaşını tamamlamış kişiler katılabilir.'
   },
 
   {
