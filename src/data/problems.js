@@ -7,6 +7,14 @@ export const categories = [
     icon: '🌱',
     color: COLORS.green,
     description: 'Şehir ve sanayi ölçekli emisyon analizi ve karbon ayak izi optimizasyonu.',
+    tagline: 'Görünmeyen sera gazını ölçülebilir, izlenebilir, indirilebilir veriye çevir.',
+    theme: 'İklim krizinin merkezinde tek bir gerçek var: ölçemediğini yönetemezsin. Şehirler, fabrikalar ve bireyler her gün gigatonlarca CO₂ üretiyor; ama bu emisyonların büyük çoğunluğu hâlâ Excel tablolarında, yıl sonu raporlarında ya da hiç hesaplanmamış olarak duruyor. Bu kategoride; sensör verilerinden uydu görüntülerine, mali harcamalardan tedarik zinciri kayıtlarına kadar uzanan farklı veri kaynaklarını yapay zeka ile birleştirerek emisyonu gerçek zamanlı, kestirebilir ve aksiyona dönüştürülebilir hâle getirmeni bekliyoruz.',
+    whyMatters: [
+      'Türkiye 2053\'te net-sıfır hedefi koydu; bu hedefe ulaşmanın ilk şartı doğru ölçüm.',
+      'AB Karbon Sınır Düzenleme Mekanizması (CBAM) 2026\'da tam yürürlükte; ölçemeyen şirketler ihracat dışı kalıyor.',
+      'McKinsey araştırmasına göre tüketicilerin %73\'ü düşük karbonlu ürünleri tercih ediyor.'
+    ],
+    keyTopics: ['MRV', 'Scope 1-2-3', 'LCA', 'Karbon Muhasebesi', 'ESG'],
     problems: [
       {
         id: 'carbon-01',
@@ -61,6 +69,14 @@ export const categories = [
     icon: '🗑️',
     color: '#06B6D4',
     description: 'Döngüsel ekonomi için yapay zeka destekli atık yönetimi ve lojistik çözümleri.',
+    tagline: 'Atığı çöp olmaktan çıkar; yeni bir hammadde, yeni bir gelir kaynağı yap.',
+    theme: 'Doğrusal ekonomi (al, üret, kullan, at) gezegenin sınırlarını çoktan aştı. Döngüsel ekonomi ise her atığı bir başka sürecin girdisine çevirmeyi hedefliyor. Bu kategori; çöp konteynerlerindeki sınıflandırmadan, fabrika atıklarının başka fabrikalara hammadde olarak satılmasına, okyanustaki plastik kirliliğinin uydudan tespit edilmesine kadar geniş bir yelpazede çözümler arıyor. Görsel işleme, optimizasyon ve graf algoritmaları senin temel araçların olacak.',
+    whyMatters: [
+      'Dünyada üretilen plastiğin sadece %9\'u geri dönüştürülüyor; geri kalanı doğaya karışıyor.',
+      'AB 2030\'a kadar plastik ambalajların %55\'inin geri dönüşüm zorunluluğunu getirdi.',
+      'Endüstriyel simbiyoz pazarının 2030\'a kadar 50 milyar $\'ı aşması bekleniyor.'
+    ],
+    keyTopics: ['Computer Vision', 'YOLO Sınıflandırma', 'Rota Optimizasyonu', 'Endüstriyel Simbiyoz', 'Geri Dönüşüm'],
     problems: [
       {
         id: 'waste-01',
@@ -115,6 +131,14 @@ export const categories = [
     icon: '🚇',
     color: COLORS.blue,
     description: 'Şehir içi trafik tahmini, rota optimizasyonu ve elektrikli araç şarj altyapısı çözümleri.',
+    tagline: 'Şehri tıkayan trafiği, şarj sıralarını ve dağınık veriyi akıllı bir akışa dönüştür.',
+    theme: 'İstanbul gibi mega şehirlerde bir sürücü yılda ortalama 105 saatini trafikte kaybediyor. Aynı zamanda elektrikli araçlar, paylaşımlı mikro mobilite ve toplu taşıma sistemlerinin entegrasyonu gibi karmaşık problemler birikmiş durumda. Bu kategori; trafik sinyallerini pekiştirmeli öğrenme ile dinamik kontrol etmekten otonom sürüş için engel tespitine, EV şarj istasyonu yer tahmininden mikro-mobilite talep modellemeye uzanan problemler içeriyor. Hedef: insanları daha hızlı, daha güvenli ve daha temiz hareket ettirmek.',
+    whyMatters: [
+      'Türkiye\'de elektrikli araç satışları son 2 yılda %170 arttı; şarj altyapısı yetişmiyor.',
+      'Trafik sıkışıklığı GSYİH\'nin %3-5\'ine denk gelen bir maliyet üretiyor.',
+      'Otonom araç pazarı 2030\'a kadar 2 trilyon $\'a ulaşacak.'
+    ],
+    keyTopics: ['Reinforcement Learning', 'Computer Vision', 'Time Series', 'Optimizasyon', 'EV Şarj Altyapısı'],
     problems: [
       {
         id: 'mobility-01',
@@ -169,6 +193,14 @@ export const categories = [
     icon: '⚡',
     color: COLORS.yellow,
     description: 'Binalarda ve tesislerde enerji israfını önleyen kestirimci analizler ve optimizasyon sistemleri.',
+    tagline: 'Tüketmediğin kilowatt-saat, en temiz enerjidir.',
+    theme: 'Türkiye\'nin enerji yoğunluğu (birim GSYİH başına tüketim) AB ortalamasının %50 üstünde; yani aynı çıktıyı almak için 1.5 kat enerji yakıyoruz. Bu kategori; bina HVAC sistemlerinden fabrika üretim çizelgelerine, ev tipi sayaçlardan termal görüntülere kadar geniş bir alanda enerji israfını AI ile bulup kapatma üzerine kurulu. NILM (Non-Intrusive Load Monitoring), kestirimci kontrol ve termal görüntü segmentasyonu en aktif teknik alanlardan.',
+    whyMatters: [
+      'Binalar dünya genelinde enerji tüketiminin %40\'ından sorumlu.',
+      'Türkiye yılda 60+ milyar TL\'lik enerji ithalatı yapıyor; verimlilik = stratejik bağımsızlık.',
+      'EU Energy Efficiency Directive 2025\'te yeni yapı standardı zorunluluğu getirdi.'
+    ],
+    keyTopics: ['HVAC Optimizasyonu', 'NILM', 'Time Series Forecasting', 'Bina Verimliliği', 'Termal Görüntü'],
     problems: [
       {
         id: 'energy-01',
@@ -223,6 +255,14 @@ export const categories = [
     icon: '🔋',
     color: '#8B5CF6',
     description: 'Güneş ve rüzgar enerjisi üretim tahmini, batarya yönetimi ve şebeke dengesi.',
+    tagline: 'Güneş, rüzgar ve su düzensiz; AI bu kaosu kararlı bir şebekeye çevirir.',
+    theme: 'Yenilenebilir kaynakların büyük zaafı kestirilemez olmaları: bulut geçer, rüzgar düşer, talep ile arz uyuşmaz. Şebeke operatörleri ise frekansı 50 Hz\'de tutmak zorunda. Bu kategori; PV verimi tahmininden rüzgar türbini arızasını önceden öngörmeye, batarya yönetiminden VPP (sanal santral) kontrolüne kadar dengeleme problemlerine odaklanır. Burada kazanan; fizik bilen, zaman serisi modelleyen ve sistem düşünebilen takımlar olacak.',
+    whyMatters: [
+      'Türkiye\'nin yenilenebilir kurulu gücü 2024\'te %58\'e ulaştı; entegrasyon zorlaşıyor.',
+      'Bir saatlik PV tahmin hatası şebekeye saatte milyonlarca TL\'ye mal olabiliyor.',
+      'Batarya pazarı 2030\'a kadar yıllık %30 büyüyor; kontrol algoritmaları kritik.'
+    ],
+    keyTopics: ['Time Series', 'SCADA Analitiği', 'Batarya Yönetimi', 'VPP', 'Şebeke Stabilitesi'],
     problems: [
       {
         id: 'renewable-01',
@@ -277,6 +317,14 @@ export const categories = [
     icon: '🌾',
     color: '#10B981',
     description: 'Hassas tarım, akıllı sulama ve kırsal alanlarda kaynak yönetimi teknolojileri.',
+    tagline: 'Daha az suyla, daha az gübre ile, daha çok ürün — hassas tarımın yapay zekası.',
+    theme: 'Dünya tatlı su tüketiminin %70\'i tarıma gidiyor; ama suyun büyük kısmı buharlaşıyor ya da yanlış zamanda akıyor. Türkiye gibi yarı-kurak iklim ülkesi için bu özellikle kritik. Bu kategori; toprak nem sensörlerinden drone görüntülerine, NDVI uydu indekslerinden hayvan giyilebilirlerine kadar çiftlik ölçeğinde veriyi karara dönüştüren AI çözümlerini hedefler. Ürün veriminden hayvan refahına, gübre optimizasyonundan hasat zamanlamasına geniş bir spektrum var.',
+    whyMatters: [
+      'İklim değişikliği nedeniyle Türkiye\'de su stresi 2030\'a kadar %30 artacak.',
+      'Hassas tarım uygulayan çiftlikler ortalama %20-30 verim artışı raporluyor.',
+      'Tarımsal İHA (drone) pazarı 2030\'a kadar 18 milyar $\'a ulaşacak.'
+    ],
+    keyTopics: ['Hassas Tarım', 'NDVI/Multispektral', 'Görüntü İşleme', 'IoT Sensör', 'Hayvan Refahı'],
     problems: [
       {
         id: 'agri-01',
@@ -331,6 +379,14 @@ export const categories = [
     icon: '🌿',
     color: '#22C55E',
     description: 'Doğal habitat takibi, nesli tükenmekte olan türlerin korunması ve ekolojik veri analizi.',
+    tagline: 'Yok olmadan görmek; AI ile doğanın ilk savunma hattı ol.',
+    theme: 'Son 50 yılda yaban hayatı popülasyonları %69 azaldı. Korumak için önce görmek, saymak ve takip etmek gerek; ama habitatlar geniş, gözcüler az, bütçeler kısıtlı. Bu kategori; ses kayıtlarından kuş türü tanımayı, uydu görüntülerinden orman kaybı izlemeyi, sualtı kameralarından mercan sağlığı analizini ve hayvan göç koridorları modellemeyi kapsar. Bilgisayarlı görü ve akustik makine öğrenmesi, yaban hayatı koruması için en güçlü araçlar haline geldi.',
+    whyMatters: [
+      'WWF: 1970\'ten bu yana memeli, kuş ve balık popülasyonları ortalama %69 düştü.',
+      'Doğal ekosistemler her yıl 125 trilyon $\'lık ekonomik değer sağlıyor (BM IPBES).',
+      'AB Doğa Restorasyonu Yasası 2024\'te yürürlüğe girdi; izleme zorunlu hâle geldi.'
+    ],
+    keyTopics: ['Bioacoustics', 'Uydu Görüntü Analizi', 'Underwater Vision', 'Tür Tanıma', 'Habitat Modelleme'],
     problems: [
       {
         id: 'eco-01',
@@ -385,6 +441,14 @@ export const categories = [
     icon: '🚨',
     color: COLORS.red,
     description: 'Afet öncesi erken uyarı, afet anı koordinasyon ve sonrası hasar tespit sistemleri.',
+    tagline: 'Sarsıntı bittiğinde altın saat başlar — saniyeler hayat kurtarır.',
+    theme: 'Türkiye, fay hatlarının üzerinde ve iklim değişikliği ile yangın-sel-kuraklık döngüsü içinde. 6 Şubat 2023 depremi; lojistik koordinasyon ve hasar tespitinin hızının kritik olduğunu acı şekilde gösterdi. Bu kategori; afet öncesi erken uyarı, afet anında kaynak yönlendirme ve sonrası hızlı hasar tespitini AI ile çözen ekipleri arıyor. Bilgisayarlı görü (drone/uydu), NLP (sosyal medya doğrulama) ve optimizasyon (lojistik) bu kategoride birbirine kesişiyor.',
+    whyMatters: [
+      'Bir afetten sonra ilk 72 saat kurtarma için kritik; veri gecikmesi = kayıp can.',
+      'Türkiye 1939-2023 arası 76 büyük deprem yaşadı; ortalama 5 yılda bir Mw 6+.',
+      '2023 orman yangınları sezonu rekor kırdı; AI tabanlı erken tespit fark yaratıyor.'
+    ],
+    keyTopics: ['Damage Assessment', 'NLP/Doğrulama', 'Drone & Uydu CV', 'Lojistik Optimizasyonu', 'Erken Uyarı'],
     problems: [
       {
         id: 'disaster-01',
@@ -439,6 +503,14 @@ export const categories = [
     icon: '🎓',
     color: '#F59E0B',
     description: 'Kişiselleştirilmiş öğrenme yolları, erişilebilir eğitim araçları ve yetkinlik analizi.',
+    tagline: 'Tek bir müfredat herkese yetmiyor; AI öğrenciye göre büyüsün.',
+    theme: 'PISA sıralamasında Türkiye OECD ortalamasının altında; aynı sınıfta 30 öğrenci, 30 farklı öğrenme hızı var ama tek bir öğretmen. Bu kategori; öğrencinin nereyi anlamadığını verisinden çıkarıp kişiselleştirilmiş yol çizen, açık uçlu yanıtları otomatik puanlayan, işaret diline anlık çeviri yapan ve dropout (okul terki) riski olan öğrencileri saptayan AI sistemleri istiyor. NLP ve adaptif öğrenme algoritmaları bu kategorinin en aktif alanları.',
+    whyMatters: [
+      'PISA 2022: Türk öğrencilerin %39\'u temel matematik yetkinliğinin altında.',
+      'EdTech pazarı 2030\'a kadar 600 milyar $\'a ulaşacak.',
+      'Türkiye\'deki yaklaşık 2.5 milyon işitme engelli vatandaş için erişilebilir eğitim hâlâ sınırlı.'
+    ],
+    keyTopics: ['Adaptif Öğrenme', 'NLP', 'Speech-to-Text', 'Erişilebilirlik', 'Predictive Analytics'],
     problems: [
       {
         id: 'edu-01',
@@ -493,6 +565,14 @@ export const categories = [
     icon: '🧠',
     color: '#EC4899',
     description: 'Mental sağlık takibi, erken tanı araçları ve koruyucu sağlık hizmetleri zekası.',
+    tagline: 'Doktor sıraya girmeden önce; AI cebindeki ilk uzman görüşü olsun.',
+    theme: 'Türkiye\'de uzman doktora ulaşma süresi ortalama 3-6 hafta; kırsal alanlarda ise temel sağlık hizmeti bile sınırlı. Yapay zeka, doktorun yerini almıyor; onu çoğaltıyor. Bu kategori; cilt fotoğrafından hastalık riskini tahmin etmekten giyilebilir cihazlarla kronik hasta takibine, NLP tabanlı mental sağlık asistanlarından yaşlılarda düşme tespitine kadar erişilebilir, önleyici ve kişiselleştirilmiş sağlık AI çözümleri hedefler. Etik, mahremiyet ve klinik doğrulama burada özellikle kritik.',
+    whyMatters: [
+      'WHO: Dünya nüfusunun yaklaşık yarısı temel sağlık hizmetlerine erişemiyor.',
+      'Türkiye\'de 65+ yaş nüfusu 2050\'de %22\'ye ulaşacak; kronik hasta takibi kritik hâle geliyor.',
+      'Dünya Sağlık Örgütü\'ne göre depresyon küresel hastalık yükünün ilk üç sırasında.'
+    ],
+    keyTopics: ['Medical Imaging', 'NLP', 'Wearable Analytics', 'Erken Tanı', 'Etik AI'],
     problems: [
       {
         id: 'health-01',

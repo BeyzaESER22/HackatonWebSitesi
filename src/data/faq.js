@@ -11,7 +11,7 @@ export const faq = [
 
   {
     q: 'Projeler nasıl değerlendirilecek?',
-    a: 'Projeler; problem tanımı (25p), teknik uygulama kalitesi (30p), çözüm özgünlüğü (20p), ürünleşme (15p) ve sunum performansı (10p) üzerinden değerlendirilir. Ayrıca UI, veri üretimi ve ileri seviye AI kullanımı için toplam +25 puana kadar bonus kazanılabilir. Değerlendirme kriterleri Hackathon sayfasındaki jüri kriterleri ile birebir aynıdır.'
+    a: 'Projeler 100 puan + 15 bonus puan üzerinden değerlendirilir. Ana kriterler: Problem Tanımı & Toplumsal Etki (15p), Teknik Uygulama Kalitesi / Mühendislik (40p), Çözüm Yeniliği & Yaklaşım (10p), MVP & Tamamlanmışlık (10p), Kullanıcı Deneyimi (UI/UX) (10p), Uygulanabilirlik & Ölçek (10p) ve Pitch & Demo Etkisi (5p). Bonus puanlar: Gerçek Veri Üretimi (+5) ve Advanced AI Architecture (+10). Değerlendirmenin ana odağı mühendislik kalitesidir; AI araçları serbestçe kullanılabilir ancak halüsinasyon, gizlilik, deterministiklik ve performans gibi limitlere bilinçli yaklaşılması beklenir. Detaylı rubrik için Hackathon sayfasındaki Jüri Kriterleri bölümünü ve PDF Şartnameyi inceleyebilirsin.'
   },
   
   {

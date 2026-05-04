@@ -6,10 +6,12 @@ export const ruleCategories = [
     color: COLORS.blue,
     title: 'Katılım & Takım',
     items: [
-      'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı, etkinlik tarihinde aktif öğrenci olan ve 18 yaşını tamamlamış kişiler katılabilir.',
+      'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı aktif öğrenciler ile son 12 ay içinde mezun olmuş ve etkinlik tarihinde 18 yaşını tamamlamış kişiler katılabilir.',
       'Başvurular sadece resmi web sitesi üzerindeki form aracılığıyla alınır; etkinlik başlangıcından bir saat öncesine kadar (16 Mayıs 2026, 07:59) açıktır.',
-      'Takımlar 1 ile 5 kişi arasında olmalıdır; bir katılımcı yalnızca bir takımda yer alabilir.',
-      'Etkinliğin ilk gününün sonuna kadar (16 Mayıs) takım kompozisyonu değiştirilebilir; takımı olmayanlar için ilk saatte "takım buluşturma" oturumu düzenlenir.',
+      'Takımlar 1 ile 5 kişi arasında olmalıdır; bir katılımcı yalnızca bir takımda yer alabilir. Bireysel katılımcılar takım projeleriyle eşit şekilde değerlendirilir.',
+      'Takım kompozisyonu yalnızca açılış oturumunu takip eden ilk eşleştirme saati içinde değiştirilebilir; proje geliştirme aşaması başladıktan sonra takım veya kişi değişikliği yapılamaz.',
+      'İlk gün katılımı zorunludur; etkinliğin ilk gününe katılmayan katılımcılar yarışma sürecine ve takımlara dahil edilemez.',
+      'Her katılımcı kendi laptopunu getirmek zorundadır; etkinlik alanında kablosuz internet, yeterli priz ve dinlenme alanı sağlanır.',
       'Takım dışından üçüncü kişilerin etkinlik süresince proje üzerinde kod yazması, tasarım veya içerik üretmesi yasaktır; tespiti halinde diskalifiye nedeni sayılır.',
       'Etkinlik tarafından atanan mentorlar tüm takımlara açıktır; mentorluk fikir alışverişi ile sınırlıdır, kod yazımına doğrudan müdahale edilmez.'
     ]
@@ -99,9 +101,10 @@ export const ruleCategories = [
     title: 'Jüri & Ödüller',
     items: [
       'Jüri Kararı: Her jüri üyesinin oyu eşittir; jüri ile iş veya akrabalık bağı olan üyeler o takımın puanlamasından çekilir.',
-      'Ana Kriterler: Problem Tanımı & Toplumsal Relevans (25 Puan), Teknik Uygulama Kalitesi (30 Puan), Çözüm Kalitesi & Yenilik (20 Puan), Ürünleşme & Tamamlanmışlık (15 Puan), İletişim & Demo Etkisi (10 Puan).',
-      'Bonus Puanlar: Kullanıcı Arayüzü (+5), Gerçek Veri Üretimi (+5), Advanced AI Usage (+15).',
-      'Beraberlik: Sırasıyla Toplumsal Etki, Teknik ve Yenilikçilik puanlarına bakılır; eşitlik sürerse jüri "tie-breaker" oylaması yapar.',
+      'Ana Kriterler (Toplam 100 Puan): Problem Tanımı & Toplumsal Etki (15p), Teknik Uygulama Kalitesi / Mühendislik (40p), Çözüm Yeniliği & Yaklaşım (10p), MVP & Tamamlanmışlık (10p), Kullanıcı Deneyimi - UI/UX (10p), Uygulanabilirlik & Ölçek (10p), Pitch & Demo Etkisi (5p).',
+      'Bonus Puanlar (Toplam +15): Gerçek Veri Üretimi (+5), Advanced AI Architecture - RAG, fine-tuning, multi-agent veya tool-use mimarisi (+10).',
+      'Mühendislik Önceliği: HackFest\'26\'nın ana odağı mühendislik kalitesidir. AI araçları (Gemini, OpenAI, Cursor vb.) serbestçe kullanılabilir; ancak halüsinasyon, gizlilik, deterministiklik ve performans limitlerine bilinçli yaklaşıldığı, kod kalitesi ve sistem mimarisinin sürdürülebilir olduğu jüri tarafından aranır.',
+      'Beraberlik: Sırasıyla Teknik Uygulama Kalitesi, Toplumsal Etki, Kullanıcı Deneyimi ve MVP Tamamlanmışlık puanlarına bakılır; eşitlik sürerse jüri "tie-breaker" oylaması yapar.',
       'Ödül Dağıtımı: Donanım ve ayni ödüller etkinlik gününde teslim edilir; uzaktan katılanlara ödül teslimi yapılmaz.'
     ]
   },

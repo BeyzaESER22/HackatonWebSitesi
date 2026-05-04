@@ -148,11 +148,22 @@ export default function HackathonInfoPage() {
       <section className="mb-32 scroll-mt-32" id="problems">
         <Container>
           <RevealOnScroll>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
               <SectionTitle eyebrow="Browse Problems" title="Problem" gradient="Havuzu" align="left" className="!mb-0" />
               <Button as="a" href="/hackfest26-kurallar.pdf" download variant="ghost" iconRight={<ArrowRightIcon />}>
                 Şartnameyi İndir (PDF)
               </Button>
+            </div>
+          </RevealOnScroll>
+
+          <RevealOnScroll>
+            <div className="max-w-4xl mb-12 space-y-4">
+              <p className="text-ink-dim text-base md:text-lg leading-relaxed">
+                HackFest&apos;26 için <span className="text-white font-semibold">10 farklı tematik kategori</span> belirledik. Her kategori; gerçek dünya verileriyle çalışan örnek problemler, beklenen çıktılar ve değerlendirme metrikleri içeriyor. Önce sana en anlamlı gelen kategoriyi seç, sonra çözmek istediğin problemi keşfet.
+              </p>
+              <p className="text-xs md:text-sm text-primary leading-relaxed">
+                <strong className="text-white">İpucu:</strong> Kategori seçimi zorunlu, ancak listelenen problemler yalnızca esin kaynağıdır. Kendi probleminle de katılabilir, dilersen bir kategoriden başka bir kategoriye köprü kuran melez bir çözüm üretebilirsin.
+              </p>
             </div>
           </RevealOnScroll>
 
@@ -182,10 +193,19 @@ export default function HackathonInfoPage() {
               {categories.map((cat, idx) => (
                 <RevealOnScroll key={cat.id} delay={idx * 0.05}>
                   <Card hover onClick={() => setSelectedCategory(cat)} className="cursor-pointer group h-full flex flex-col">
-                    <div className="w-5 h-0.5 rounded-full mb-5" style={{ background: cat.color }} />
-                    <h3 className="font-display text-xl font-bold mb-2" style={{ color: cat.color }}>{cat.title}</h3>
-                    <p className="text-ink-dim text-sm mb-6 flex-grow">{cat.description}</p>
-                    <div className="text-xs font-bold uppercase tracking-widest text-ink-dim group-hover:text-white transition-colors">{cat.problems.length} Problem →</div>
+                    <div className="flex items-start justify-between mb-5">
+                      <span className="text-3xl leading-none" aria-hidden>{cat.icon}</span>
+                      <div className="w-5 h-0.5 rounded-full mt-3" style={{ background: cat.color }} />
+                    </div>
+                    <h3 className="font-display text-xl font-bold mb-3" style={{ color: cat.color }}>{cat.title}</h3>
+                    {cat.tagline && (
+                      <p className="text-white text-sm font-medium mb-3 leading-snug">{cat.tagline}</p>
+                    )}
+                    <p className="text-ink-dim text-xs mb-6 leading-relaxed flex-grow">{cat.description}</p>
+                    <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-ink-dim group-hover:text-white transition-colors">{cat.problems.length} Örnek Problem</div>
+                      <div className="text-xs font-bold text-ink-dim group-hover:text-white transition-colors">Keşfet →</div>
+                    </div>
                   </Card>
                 </RevealOnScroll>
               ))}
@@ -193,22 +213,93 @@ export default function HackathonInfoPage() {
           ) : (
             <div className="space-y-8">
               <button onClick={() => setSelectedCategory(null)} className="text-sm font-bold text-ink-dim hover:text-white transition-colors mb-4 inline-flex items-center gap-2">← Kategorilere Geri Dön</button>
-              <div className="flex items-center gap-4 mb-10">
-                <div className="w-1 h-10 rounded-full shrink-0" style={{ background: selectedCategory.color }} />
-                <div>
-                  <h2 className="font-display text-3xl font-bold" style={{ color: selectedCategory.color }}>{selectedCategory.title}</h2>
-                  <p className="text-ink-dim text-sm mt-1">{selectedCategory.description}</p>
+
+              {/* Kategori Hero */}
+              <div className="flex items-start gap-5 mb-2">
+                <div className="text-5xl shrink-0 leading-none mt-1" aria-hidden>{selectedCategory.icon}</div>
+                <div className="flex-grow">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-1 h-8 rounded-full shrink-0" style={{ background: selectedCategory.color }} />
+                    <h2 className="font-display text-3xl md:text-4xl font-bold" style={{ color: selectedCategory.color }}>{selectedCategory.title}</h2>
+                  </div>
+                  {selectedCategory.tagline && (
+                    <p className="text-lg md:text-xl text-white font-medium leading-snug max-w-3xl mt-3">{selectedCategory.tagline}</p>
+                  )}
                 </div>
               </div>
+
+              {/* Tema + Neden Önemli kartları */}
+              {(selectedCategory.theme || selectedCategory.whyMatters) && (
+                <div className="grid lg:grid-cols-3 gap-6 mb-10">
+                  {selectedCategory.theme && (
+                    <div className="lg:col-span-2 hf-glass border-white/5 p-8 rounded-2xl">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-4" style={{ color: selectedCategory.color }}>Bu Kategoride Ne Var?</p>
+                      <p className="text-ink-dim leading-relaxed text-base">{selectedCategory.theme}</p>
+                      {selectedCategory.keyTopics && selectedCategory.keyTopics.length > 0 && (
+                        <div className="mt-6 pt-6 border-t border-white/5">
+                          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-3">Odak Konular</p>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedCategory.keyTopics.map((topic) => (
+                              <span
+                                key={topic}
+                                className="text-xs font-medium px-3 py-1.5 rounded-full border"
+                                style={{
+                                  borderColor: `${selectedCategory.color}40`,
+                                  color: selectedCategory.color,
+                                  backgroundColor: `${selectedCategory.color}10`
+                                }}
+                              >
+                                {topic}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {selectedCategory.whyMatters && selectedCategory.whyMatters.length > 0 && (
+                    <div className="hf-glass border-white/5 p-8 rounded-2xl">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-5" style={{ color: selectedCategory.color }}>Neden Önemli?</p>
+                      <ul className="space-y-4">
+                        {selectedCategory.whyMatters.map((point, idx) => (
+                          <li key={idx} className="text-sm text-ink-dim leading-relaxed flex gap-3">
+                            <span className="font-display font-bold tabular-nums shrink-0" style={{ color: selectedCategory.color }}>0{idx + 1}</span>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Örnek Problemler başlığı */}
+              <div className="flex items-center gap-4 pt-4 mb-2">
+                <div className="h-px flex-grow" style={{ background: `linear-gradient(to right, ${selectedCategory.color}55, transparent)` }} />
+                <h3 className="text-[11px] font-black uppercase tracking-[0.25em] shrink-0" style={{ color: selectedCategory.color }}>
+                  Örnek Problemler · {selectedCategory.problems.length} Adet
+                </h3>
+                <div className="h-px flex-grow" style={{ background: `linear-gradient(to left, ${selectedCategory.color}55, transparent)` }} />
+              </div>
+              <p className="text-xs text-ink-dim text-center max-w-2xl mx-auto mb-6">
+                Aşağıdaki problemler ilham vermek için derlenmiştir. Detayları görmek ve takımına problem seçmek için tıkla.
+              </p>
+
               <div className="grid gap-4">
                 {selectedCategory.problems.map((prob, idx) => (
                   <RevealOnScroll key={prob.id} delay={idx * 0.05}>
                     <div onClick={() => setActiveProblem(prob)} className="group hf-glass border-white/5 hover:border-white/20 p-6 rounded-2xl cursor-pointer transition-all flex items-center justify-between gap-6">
-                      <div className="flex items-center gap-6">
-                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center font-mono font-bold text-ink-dim group-hover:text-white transition-colors">{String(idx + 1).padStart(2, '0')}</div>
-                        <h4 className="font-display text-xl font-bold text-white group-hover:hf-text-gradient transition-all">{prob.title}</h4>
+                      <div className="flex items-center gap-6 flex-grow min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center font-mono font-bold text-ink-dim group-hover:text-white transition-colors shrink-0" style={{ borderColor: selectedCategory.color }}>{String(idx + 1).padStart(2, '0')}</div>
+                        <div className="min-w-0">
+                          <h4 className="font-display text-lg md:text-xl font-bold text-white group-hover:hf-text-gradient transition-all truncate">{prob.title}</h4>
+                          {prob.task && (
+                            <p className="text-xs text-ink-dim leading-snug mt-1 line-clamp-2">{prob.task}</p>
+                          )}
+                        </div>
                       </div>
-                      <div className="text-sm font-bold text-ink-dim group-hover:text-white transition-colors">Detayları Gör →</div>
+                      <div className="text-sm font-bold text-ink-dim group-hover:text-white transition-colors shrink-0 hidden sm:block">Detayları Gör →</div>
                     </div>
                   </RevealOnScroll>
                 ))}
@@ -222,34 +313,35 @@ export default function HackathonInfoPage() {
       <section className="mb-32 scroll-mt-32" id="judging">
         <Container>
           <RevealOnScroll>
-            <SectionTitle eyebrow="Değerlendirme" title="Jüri" gradient="Kriterleri" align="left" className="mb-12" />
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6">
+              <SectionTitle eyebrow="Değerlendirme" title="Jüri" gradient="Kriterleri" align="left" className="!mb-0" />
+              <Button as="a" href="/hackfest26-kurallar.pdf" download variant="ghost" iconRight={<ArrowRightIcon />}>
+                Detaylı Şartnameyi İncele (PDF)
+              </Button>
+            </div>
           </RevealOnScroll>
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              <h4 className="font-display text-xl font-bold mb-8 flex items-center gap-3">
+
+          <RevealOnScroll>
+            <p className="text-ink-dim max-w-3xl leading-relaxed mb-12 text-sm md:text-base">
+              Toplam <span className="text-white font-semibold">100 puan + 15 bonus puan</span> üzerinden değerlendirilirsin. Aşağıda kriterlerin başlığı ve ağırlığı yer alır; her kriterin alt rubriği, puanlama bandı ve örnek hesaplamalar için <span className="text-white font-semibold">PDF Şartnameyi</span> incelemelisin.
+            </p>
+          </RevealOnScroll>
+
+          <div className="grid lg:grid-cols-3 gap-6 items-start">
+            <div className="lg:col-span-2 space-y-4">
+              <div className="flex items-center gap-3 mb-2">
                 <span className="w-2 h-8 bg-hf-gradient rounded-full"></span>
-                Ana Kriterler (100 Puan)
-              </h4>
-              <div className="space-y-4">
+                <h4 className="font-display text-xl font-bold">Ana Kriterler · Toplam 100 Puan</h4>
+              </div>
+              <div className="space-y-3">
                 {judgingCriteria.map((c, i) => (
-                  <RevealOnScroll key={c.title} delay={i * 0.05}>
-                    <Card className="!p-6 overflow-hidden group border-white/5 bg-white/[0.02]">
-                      <div className="flex gap-6 items-start">
-                        <div className="font-display text-3xl font-black hf-text-gradient shrink-0 w-16 text-center">%{c.weight}</div>
-                        <div className="flex-grow">
-                          <h4 className="font-display text-lg font-bold text-white mb-1">{c.title}</h4>
-                          <p className="text-ink-dim text-xs mb-3 italic">{c.desc}</p>
-                          <ul className="space-y-2 mb-4">
-                            {c.subpoints.map((sub, idx) => (
-                              <li key={idx} className="text-[11px] text-ink-dim flex gap-2"><span className="w-1 h-1 rounded-full bg-hf-gradient mt-1.5 shrink-0"></span>{sub}</li>
-                            ))}
-                          </ul>
-                          {c.note && (
-                            <div className="flex items-center gap-1 text-[9px] font-bold text-primary uppercase tracking-wider opacity-60">
-                              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                              {c.note}
-                            </div>
-                          )}
+                  <RevealOnScroll key={c.title} delay={i * 0.04}>
+                    <Card className="!p-5 border-white/5 bg-white/[0.02]">
+                      <div className="flex gap-5 items-center">
+                        <div className="font-display text-2xl md:text-3xl font-black hf-text-gradient shrink-0 w-16 text-center">%{c.weight}</div>
+                        <div className="flex-grow min-w-0">
+                          <h5 className="font-display text-base md:text-lg font-bold text-white">{c.title}</h5>
+                          <p className="text-ink-dim text-xs mt-1 leading-snug">{c.desc}</p>
                         </div>
                       </div>
                     </Card>
@@ -257,27 +349,29 @@ export default function HackathonInfoPage() {
                 ))}
               </div>
             </div>
-            <div className="space-y-6">
-              <h4 className="font-display text-xl font-bold mb-8 flex items-center gap-3">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-2">
                 <span className="w-2 h-8 bg-green-500 rounded-full"></span>
-                Bonus Puanlar
-              </h4>
-              <div className="space-y-4">
+                <h4 className="font-display text-xl font-bold">Bonus Puanlar · +15</h4>
+              </div>
+              <div className="space-y-3">
                 {bonusPoints.map((b, i) => (
                   <RevealOnScroll key={b.title} delay={i * 0.05}>
-                    <Card className="!p-6 border-green-500/10 bg-green-500/5">
-                      <div className="flex gap-6 items-start">
-                        <div className="font-display text-3xl font-bold text-green-500 shrink-0 w-16 text-center">{b.points}</div>
-                        <div>
-                          <h4 className="font-display text-lg font-bold text-white mb-1">{b.title}</h4>
+                    <Card className="!p-5 border-green-500/10 bg-green-500/5">
+                      <div className="flex gap-5 items-start">
+                        <div className="font-display text-2xl md:text-3xl font-bold text-green-500 shrink-0 w-16 text-center">{b.points}</div>
+                        <div className="min-w-0">
+                          <h5 className="font-display text-base md:text-lg font-bold text-white mb-1">{b.title}</h5>
                           <p className="text-ink-dim text-xs leading-relaxed">{b.desc}</p>
                         </div>
                       </div>
                     </Card>
                   </RevealOnScroll>
                 ))}
-                <div className="mt-8 p-6 rounded-2xl bg-white/5 border border-white/10">
-                  <p className="text-sm text-ink-dim leading-relaxed"><strong className="text-white">Not:</strong> Bonus puanlar ana puanın üzerine eklenir. Teknik uygulama kalitesi değerlendirilirken sadece "çalışıyor mu" değil, "nasıl çalışıyor" sorusuna yanıt aranacaktır.</p>
+                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10">
+                  <p className="text-xs text-ink-dim leading-relaxed">
+                    <strong className="text-white">Not:</strong> HackFest&apos;26&apos;da odak <span className="text-white font-semibold">mühendislik kalitesidir</span>. AI araçlarının kullanımına izin veriyor; ancak halüsinasyon, gizlilik, deterministiklik ve performans kararlarına bilinçli yaklaştığını jüri arar.
+                  </p>
                 </div>
               </div>
             </div>
@@ -289,56 +383,71 @@ export default function HackathonInfoPage() {
       <section className="mb-32 scroll-mt-32" id="pitching">
         <Container>
           <RevealOnScroll>
-            <SectionTitle eyebrow="Sunum Rehberi" title="Nasıl" gradient="Pitch Edilir?" align="left" className="mb-12" />
+            <SectionTitle eyebrow="Sunum Rehberi" title="Nasıl" gradient="Pitch Edilir?" align="left" className="mb-6" />
+          </RevealOnScroll>
+          <RevealOnScroll>
+            <div className="max-w-4xl mb-12 space-y-3">
+              <p className="text-ink-dim text-base md:text-lg leading-relaxed">
+                <span className="text-white font-semibold">5 dakika sunum + 3 dakika soru-cevap</span>. Aşağıdaki 6 adım, profesyonel hackathonlarda kullanılan klasik pitch akışıdır. Her adım için süre, hedef, ana sorular ve odak/risk uyarıları yer alıyor.
+              </p>
+              <p className="text-xs md:text-sm text-primary leading-relaxed">
+                <strong className="text-white">İpucu:</strong> Süre tablosunu sunum öncesi prova ederken kronometreyle test edin; ortalama bir takım %30 daha uzun sürer.
+              </p>
+            </div>
           </RevealOnScroll>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {pitchGuide.map((step, i) => (
-              <RevealOnScroll key={step.title} delay={i * 0.1}>
+              <RevealOnScroll key={step.title} delay={i * 0.08}>
                 <Card className="h-full flex flex-col !p-0 overflow-hidden border-white/5">
-                  <div className="p-6 bg-white/[0.03] border-b border-white/5 flex justify-between items-center">
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">{step.time}</span>
+                  <div className="p-5 bg-white/[0.03] border-b border-white/5 flex justify-between items-center">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary tabular-nums">{step.time}</span>
                     <div className="w-8 h-8 rounded-full bg-[#05071A] border border-white/10 flex items-center justify-center font-display font-bold text-xs">{i + 1}</div>
                   </div>
-                  <div className="p-6 flex-grow">
-                    <h4 className="text-xl font-bold text-white mb-1">{step.title}</h4>
-                    <p className="text-[10px] font-bold text-ink-dim uppercase tracking-widest mb-6">Hedef: {step.goal}</p>
-                    <ul className="space-y-3 mb-6">
+                  <div className="p-6 flex-grow flex flex-col">
+                    <h4 className="text-xl font-bold text-white mb-1 leading-tight">{step.title}</h4>
+                    <p className="text-[10px] font-bold text-ink-dim uppercase tracking-widest mb-5">Hedef · {step.goal}</p>
+                    <ul className="space-y-2.5 mb-5">
                       {step.answers.map((ans, idx) => (
-                        <li key={idx} className="text-sm text-ink-dim flex gap-3"><span className="text-primary font-bold">?</span>{ans}</li>
+                        <li key={idx} className="text-xs md:text-sm text-ink-dim flex gap-2.5 leading-snug">
+                          <span className="text-primary font-bold shrink-0">?</span>
+                          <span>{ans}</span>
+                        </li>
                       ))}
                     </ul>
-                    {step.focus && (
-                      <div className="p-3 rounded-xl bg-green-500/5 border border-green-500/10">
-                        <p className="text-[11px] font-bold text-green-500 flex items-center gap-1.5">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-                          ODAK: {step.focus}
-                        </p>
-                      </div>
-                    )}
-                    {step.avoid && (
-                      <div className="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
-                        <p className="text-[11px] font-bold text-red-400 flex items-center gap-1.5">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                          KAÇININ: {step.avoid}
-                        </p>
-                      </div>
-                    )}
-                    {step.proTip && (
-                      <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
-                        <p className="text-[11px] font-bold text-blue-400 flex items-center gap-1.5">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
-                          İYİ PRATİK: {step.proTip}
-                        </p>
-                      </div>
-                    )}
-                    {step.fallback && (
-                      <div className="p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10">
-                        <p className="text-[11px] font-bold text-yellow-500 flex items-center gap-1.5">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                          FALLBACK: {step.fallback}
-                        </p>
-                      </div>
-                    )}
+                    <div className="space-y-2 mt-auto">
+                      {step.focus && (
+                        <div className="p-3 rounded-xl bg-green-500/5 border border-green-500/10">
+                          <p className="text-[11px] leading-relaxed flex items-start gap-1.5">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500 mt-0.5 shrink-0"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                            <span><span className="text-green-500 font-bold">ODAK:</span> <span className="text-ink-dim">{step.focus}</span></span>
+                          </p>
+                        </div>
+                      )}
+                      {step.avoid && (
+                        <div className="p-3 rounded-xl bg-red-500/5 border border-red-500/10">
+                          <p className="text-[11px] leading-relaxed flex items-start gap-1.5">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-400 mt-0.5 shrink-0"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                            <span><span className="text-red-400 font-bold">KAÇININ:</span> <span className="text-ink-dim">{step.avoid}</span></span>
+                          </p>
+                        </div>
+                      )}
+                      {step.proTip && (
+                        <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/10">
+                          <p className="text-[11px] leading-relaxed flex items-start gap-1.5">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400 mt-0.5 shrink-0"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+                            <span><span className="text-blue-400 font-bold">PRO İPUCU:</span> <span className="text-ink-dim">{step.proTip}</span></span>
+                          </p>
+                        </div>
+                      )}
+                      {step.fallback && (
+                        <div className="p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/10">
+                          <p className="text-[11px] leading-relaxed flex items-start gap-1.5">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-500 mt-0.5 shrink-0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            <span><span className="text-yellow-500 font-bold">YEDEK PLAN:</span> <span className="text-ink-dim">{step.fallback}</span></span>
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </Card>
               </RevealOnScroll>
@@ -351,25 +460,52 @@ export default function HackathonInfoPage() {
       <section className="mb-32">
         <Container>
           <RevealOnScroll>
-            <SectionTitle eyebrow="Format" title="Sunum" gradient="Yöntemleri" align="left" className="mb-12" />
+            <SectionTitle eyebrow="Format" title="Sunum" gradient="Yöntemleri" align="left" className="mb-6" />
           </RevealOnScroll>
-          <div className="grid md:grid-cols-2 gap-8">
+          <RevealOnScroll>
+            <p className="text-ink-dim max-w-3xl leading-relaxed mb-12 text-sm md:text-base">
+              Pitch için kullanabileceğin <span className="text-white font-semibold">üç tipik format</span>. Hiçbiri diğerinden üstün değildir; takımın gücüne, ürünün olgunluğuna ve hikâyenin doğasına göre seçim yap.
+            </p>
+          </RevealOnScroll>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {presentationMethods.map((method, i) => (
-              <RevealOnScroll key={method.id} delay={i * 0.1}>
-                <Card className="h-full border-white/5 bg-white/[0.02]">
-                  <div className="mb-8">
-                    <h4 className="text-2xl font-bold text-white">{method.title}</h4>
+              <RevealOnScroll key={method.id} delay={i * 0.08}>
+                <Card className="h-full flex flex-col !p-0 border-white/5 bg-white/[0.02] overflow-hidden">
+                  <div className="p-6 border-b border-white/5">
+                    <h4 className="text-xl md:text-2xl font-bold text-white leading-tight mb-2">{method.title}</h4>
+                    {method.tagline && (
+                      <p className="text-sm text-primary font-medium leading-snug">{method.tagline}</p>
+                    )}
                   </div>
-                  <div className="space-y-6">
+                  <div className="p-6 flex-grow flex flex-col gap-5">
+                    {method.description && (
+                      <p className="text-xs md:text-sm text-ink-dim leading-relaxed">{method.description}</p>
+                    )}
+
                     <div>
-                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Sunum Akışı</p>
+                      <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">Sunum Akışı (5 dk)</p>
                       <ul className="space-y-2">
                         {method.flow.map((f, idx) => (
-                          <li key={idx} className="text-sm text-ink-dim flex gap-3"><span className="text-white/20">•</span>{f}</li>
+                          <li key={idx} className="text-xs text-ink-dim flex gap-2.5 leading-snug">
+                            <span className="text-white/30 shrink-0 mt-0.5">▸</span>
+                            <span>{f}</span>
+                          </li>
                         ))}
                       </ul>
                     </div>
-                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
+
+                    {method.bestFor && method.bestFor.length > 0 && (
+                      <div>
+                        <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] mb-3">Hangi Takıma Uygun?</p>
+                        <div className="flex flex-wrap gap-2">
+                          {method.bestFor.map((tag) => (
+                            <span key={tag} className="text-[11px] font-medium px-2.5 py-1 rounded-full border border-white/10 text-ink-dim bg-white/[0.02]">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="mt-auto p-4 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2">
                       <p className="text-[11px] leading-relaxed flex items-start gap-1.5">
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary mt-0.5 shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
                         <span><span className="text-primary font-bold">Avantaj:</span> <span className="text-ink-dim">{method.advantage}</span></span>

@@ -231,6 +231,31 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
             <StatCard label="Bireysel" value={String(stats.individual)} />
           </div>
 
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-[1.5rem] border border-white/8 bg-white/[0.02] px-5 py-4">
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] text-ink-dim">Veri Dışa Aktarımı</div>
+              <p className="mt-1 text-sm text-white/80">
+                Tüm başvuruları tek dosyada CSV olarak indir. Yedeklemek için günlük indirmen önerilir.
+              </p>
+            </div>
+            <Button
+              as="a"
+              href="/api/admin/hackathon/export"
+              download
+              size="sm"
+              disabled={submissions.length === 0}
+              iconRight={(
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              )}
+            >
+              CSV İndir ({submissions.length})
+            </Button>
+          </div>
+
           <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-white/10 text-left text-sm">
