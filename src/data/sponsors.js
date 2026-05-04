@@ -16,7 +16,7 @@ export const sponsors = [
 
   // Destekçi Sponsorlar
   { id: 'huawei',         name: 'Huawei',                    size: 'support', logoUrl: '/uploads/sponsors/huawei.jpg',         url: '#' },
-  { id: 'monster-energy', name: 'Monster Energy',            size: 'support', logoUrl: '/uploads/sponsors/monster-energy.png', url: '#' },
+  { id: 'corba-express',  name: 'ÇORBA express',              size: 'support', logoUrl: '/uploads/sponsors/corba-express.png',  url: '#' },
   { id: 'indomie',        name: 'Indomie',                   size: 'support', logoUrl: '/uploads/sponsors/indomie.jpg',        url: '#' },
   { id: 'british-time',   name: 'British Time Dil Okulları', size: 'support', logoUrl: '/uploads/sponsors/british-time.png',   url: '#' },
   { id: 'spb',            name: 'SPB - So Pro Bro',          size: 'support', logoUrl: '/uploads/sponsors/spb.jpg',            url: '#' },
