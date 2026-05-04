@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.gitignore
+.env
+.env.local
+.env*.local
+data/*.json
+data/_*
+docs
+README.md
+.DS_Store
+*.swp
+.vscode
+.idea
+.vercel
