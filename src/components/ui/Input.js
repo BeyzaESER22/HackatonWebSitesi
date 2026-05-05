@@ -28,7 +28,7 @@ export function Select({ label, name, error, children, className, ...props }) {
   return (
     <div className="mb-4">
       {label && <FieldLabel htmlFor={name} error={error}>{label}</FieldLabel>}
-      <select id={name} name={name} className={cn(fieldBase, 'cursor-pointer', className)} {...props}>
+      <select id={name} name={name} className={cn(fieldBase, 'cursor-pointer [&>option]:bg-navy-900', className)} {...props}>
         {children}
       </select>
     </div>
