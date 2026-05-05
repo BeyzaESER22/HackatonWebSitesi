@@ -12,7 +12,7 @@ import { Modal } from '@/components/ui/Modal';
 import { COLORS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
 import { ruleCategories } from '@/data/rules';
-import { categories } from '@/data/problems';
+import { categories, dataProcessingChecklist } from '@/data/problems';
 import { judgingCriteria, pitchGuide, presentationMethods, bonusPoints } from '@/data/judging';
 
 const journeySteps = [
@@ -315,15 +315,15 @@ export default function HackathonInfoPage() {
           <RevealOnScroll>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6">
               <SectionTitle eyebrow="Değerlendirme" title="Jüri" gradient="Kriterleri" align="left" className="!mb-0" />
-              <Button as="a" href="/hackfest26-kurallar.pdf" download variant="ghost" iconRight={<ArrowRightIcon />}>
-                Detaylı Şartnameyi İncele (PDF)
+              <Button as="a" href="/hackfest26-juri-kriterleri.pdf" download variant="ghost" iconRight={<ArrowRightIcon />}>
+                Detaylı Rubrik PDF&apos;ini İndir
               </Button>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll>
             <p className="text-ink-dim max-w-3xl leading-relaxed mb-12 text-sm md:text-base">
-              Toplam <span className="text-white font-semibold">100 puan + 15 bonus puan</span> üzerinden değerlendirilirsin. Aşağıda kriterlerin başlığı ve ağırlığı yer alır; her kriterin alt rubriği, puanlama bandı ve örnek hesaplamalar için <span className="text-white font-semibold">PDF Şartnameyi</span> incelemelisin.
+              Toplam <span className="text-white font-semibold">100 puan + 15 bonus puan</span> üzerinden değerlendirilirsin. Aşağıda kriterlerin başlığı ve ağırlığı yer alır; her kriterin alt rubriği, puanlama bandı, örnek puanlar ve veri işleme beklentileri için <span className="text-white font-semibold">Jüri Kriterleri PDF</span>&apos;ini incelemelisin.
             </p>
           </RevealOnScroll>
 
@@ -549,43 +549,107 @@ export default function HackathonInfoPage() {
       </section>
 
       {/* Problem Detail Modal (Internal) */}
-      <Modal open={!!activeProblem} onClose={() => setActiveProblem(null)} title="Problem Teknik Spesifikasyonu" panelClassName="max-w-4xl">
+      <Modal open={!!activeProblem} onClose={() => setActiveProblem(null)} title="Problem Teknik Spesifikasyonu" panelClassName="max-w-5xl">
         {activeProblem && (
           <div className="space-y-8 py-4">
-            <div className="pb-6 border-b border-white/5"><h3 className="font-display text-3xl font-bold hf-text-gradient mb-4">{activeProblem.title}</h3><p className="text-ink-dim leading-relaxed">{activeProblem.task}</p></div>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-blue-400">Input (Datasets & Sources)</div><ul className="space-y-2">{activeProblem.input.map((item, i) => (
-                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-400/50"></span>
-                        {item}
-                      </li>
-                    ))}</ul></div>
-                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-green-400">Expected Output</div><ul className="space-y-2">{activeProblem.output.map((item, i) => (
-                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-400/50"></span>
-                        {item}
-                      </li>
-                    ))}</ul></div>
+            {/* Hero */}
+            <div className="pb-6 border-b border-white/5">
+              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-primary mb-3">Örnek Problem · {activeProblem.id?.toUpperCase()}</div>
+              <h3 className="font-display text-2xl md:text-3xl font-bold hf-text-gradient mb-4">{activeProblem.title}</h3>
+              <p className="text-ink-dim leading-relaxed text-sm md:text-base">{activeProblem.task}</p>
+            </div>
+
+            {/* Input / Output / Evaluation — 3 sütun */}
+            <div className="grid md:grid-cols-3 gap-5">
+              <div className="hf-glass border-white/5 p-5 rounded-2xl">
+                <div className="text-[10px] uppercase tracking-widest font-bold text-blue-400 mb-3">Input · Veri Kaynakları</div>
+                <ul className="space-y-2">
+                  {activeProblem.input.map((item, i) => (
+                    <li key={i} className="text-xs md:text-sm text-ink-dim flex gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 shrink-0"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            <div className="space-y-6 bg-white/5 p-6 rounded-2xl border border-white/5">
-                <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 mb-4">
-                  <p className="text-[11px] leading-relaxed text-blue-300">
-                    <strong className="text-white">Teknik Not:</strong> Veri seti ham/temizlenmiş haldedir. Jürinin beklentisi, bu veriyi modele sokmadan önce yapacağınız <strong>ön işleme (preprocessing)</strong> ve <strong>mühendislik</strong> kararlarıdır.
+
+              <div className="hf-glass border-white/5 p-5 rounded-2xl">
+                <div className="text-[10px] uppercase tracking-widest font-bold text-green-400 mb-3">Output · Beklenen Çıktı</div>
+                <ul className="space-y-2">
+                  {activeProblem.output.map((item, i) => (
+                    <li key={i} className="text-xs md:text-sm text-ink-dim flex gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 shrink-0"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="hf-glass border-white/5 p-5 rounded-2xl">
+                <div className="text-[10px] uppercase tracking-widest font-bold text-yellow-400 mb-3">Değerlendirme Metrikleri</div>
+                <ul className="space-y-2">
+                  {activeProblem.evaluation.map((item, i) => (
+                    <li key={i} className="text-xs md:text-sm text-ink-dim flex gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/60 mt-2 shrink-0"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Veri seti kullanımı bilgilendirme notu */}
+            <div className="p-5 rounded-2xl bg-blue-500/8 border border-blue-500/20">
+              <div className="flex items-start gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-300 mt-0.5 shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <div>
+                  <p className="text-sm text-blue-200 leading-relaxed">
+                    <strong className="text-white">Veri seti kullanımı opsiyoneldir.</strong> Çözüm yöntemine bağlı olarak; tamamen kural tabanlı, simülasyon, prompt engineering veya RAG (kendi belge tabanınız ile) yaklaşımıyla da yarışabilirsiniz.
                   </p>
-                </div>
-                <div className="space-y-3"><div className="text-[10px] uppercase tracking-widest font-bold text-yellow-400">Evaluation Metrics</div><ul className="space-y-2">{activeProblem.evaluation.map((item, i) => (
-                      <li key={i} className="text-sm text-ink-dim flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/50"></span>
-                        {item}
-                      </li>
-                    ))}</ul></div>
-                <div className="pt-6 border-t border-white/5 space-y-4">
-                  <Button className="w-full" onClick={() => { handleSelectProblem(activeProblem); setActiveProblem(null); }}>Bu Problemi Seç</Button>
-                  <Button as="a" href={activeProblem.datasetUrl} target="_blank" variant="ghost" className="w-full text-xs border-blue-500/30 text-blue-400">Veri Setini İncele</Button>
+                  <p className="text-xs text-blue-200/70 leading-relaxed mt-2">
+                    Veri seti kullandığınızda jüri, aşağıdaki <strong className="text-white">7 işleme aşamasını</strong> Teknik Uygulama Kalitesi (%40) altında değerlendirir.
+                  </p>
                 </div>
               </div>
             </div>
+
+            {/* Veri İşleme Beklentileri */}
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="w-2 h-6 bg-hf-gradient rounded-full" />
+                <h4 className="font-display text-lg font-bold text-white">Veri İşleme Beklentileri</h4>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {dataProcessingChecklist.stages.map((stage) => (
+                  <div key={stage.step} className="hf-glass border-white/5 p-4 rounded-xl">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-display font-black text-primary tabular-nums text-sm">{stage.step}</span>
+                      <span className="font-display text-sm font-bold text-white">{stage.title}</span>
+                    </div>
+                    <p className="text-[11px] text-ink-dim leading-relaxed">{stage.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Aksiyonlar */}
+            <div className="grid sm:grid-cols-2 gap-3 pt-4 border-t border-white/5">
+              <Button onClick={() => { handleSelectProblem(activeProblem); setActiveProblem(null); }}>Bu Problemi Seç</Button>
+              <Button
+                as="a"
+                href={activeProblem.datasetUrl}
+                target="_blank"
+                rel="noreferrer"
+                variant="ghost"
+                className="border-blue-500/30 text-blue-400"
+                iconRight={<ArrowRightIcon />}
+              >
+                Önerilen Veri Setine Git
+              </Button>
+            </div>
+            <p className="text-[10px] text-ink-dim text-center -mt-4">
+              Önerilen veri seti yalnızca başlangıç noktasıdır. Kendi veri kaynağını oluşturursan +5 bonus puana hak kazanırsın.
+            </p>
           </div>
         )}
       </Modal>

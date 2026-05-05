@@ -107,12 +107,12 @@ export const categories = [
       },
       {
         id: 'waste-04',
-        title: 'Endüstriyel Simbiyoz Eşleştirici',
-        task: 'Bir fabrikanın atığını diğerinin hammaddesi olarak eşleştiren NLP/Graf tabanlı bir öneri motoru tasarlayın.',
-        input: ['Fabrika atık envanterleri', 'Hammadde ihtiyaç listeleri', 'Sektörel uyumluluk matrisi'],
-        output: ['Simbiyoz eşleşme motoru', 'Lojistik maliyet analizi'],
-        evaluation: ['Eşleşme doğruluğu', 'Maliyet tasarruf projeksiyonu'],
-        datasetUrl: 'https://www.kaggle.com/datasets/fedesoriano/company-bankruptcy-prediction'
+        title: 'Tekstil Atık Sınıflandırma & Yeniden Değerlendirme',
+        task: 'Tekstil atıklarının kumaş türü, lif kompozisyonu ve renk gruplarına göre otomatik sınıflandırılmasını sağlayan; geri dönüştürülebilir/yeniden kullanılabilir/atık olarak kategorize eden bir görüntü işleme sistemi geliştirin.',
+        input: ['Etiketlenmiş tekstil ürünü görselleri', 'Kumaş etiket veri seti', 'Renk paleti referansı'],
+        output: ['CNN tabanlı sınıflandırma modeli', 'Yeniden kullanım öneri motoru'],
+        evaluation: ['Top-1 Accuracy > %85', 'Confusion matrix dengesi'],
+        datasetUrl: 'https://www.kaggle.com/datasets/agrigorev/clothing-dataset-full'
       },
       {
         id: 'waste-05',
@@ -356,11 +356,11 @@ export const categories = [
       {
         id: 'agri-04',
         title: 'Toprak Verimliliği ve Gübre Önerisi',
-        task: 'Toprağın NPK (Azot, Fosfor, Potasyum) değerlerine göre en uygun bitki ve gübre miktarını önerin.',
-        input: ['Toprak kimyasal analiz verileri', 'Bitki gelişim logları', 'Gübre içerik kütüphanesi'],
-        output: ['Optimal gübreleme algoritması', 'Ürün tavsiye motoru'],
-        evaluation: ['Verim artış projeksiyonu', 'Maliyet minimizasyonu'],
-        datasetUrl: 'https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset'
+        task: 'Toprağın NPK (Azot, Fosfor, Potasyum) değerlerine, sıcaklığa ve nem durumuna göre en uygun gübre tipini ve miktarını öneren bir model geliştirin.',
+        input: ['Toprak NPK ve nem verileri', 'Gübre tip etiketli veri seti', 'Bitki türü ve mevsim bilgisi'],
+        output: ['Sınıflandırma + miktar regresyonu modeli', 'Sahada karar destek arayüzü'],
+        evaluation: ['Sınıflandırma accuracy', 'Maliyet/verim trade-off analizi'],
+        datasetUrl: 'https://www.kaggle.com/datasets/gdabhishek/fertilizer-prediction'
       },
       {
         id: 'agri-05',
@@ -408,12 +408,12 @@ export const categories = [
       },
       {
         id: 'eco-03',
-        title: 'İstilacı Tür Yayılım Modelleme',
-        task: 'Ekolojik verileri kullanarak istilacı türlerin gelecek 5 yıldaki yayılım alanlarını modelleyin.',
-        input: ['İklim verileri', 'Tür gözlem kayıtları', 'Bitki örtüsü haritaları'],
-        output: ['Yayılım simülasyonu', 'Koruma öncelik haritası'],
-        evaluation: ['Tahmin tutarlılığı (R2)', 'Simülasyon hızı'],
-        datasetUrl: 'https://www.kaggle.com/datasets/vencerlanz09/wildlife-detection-images-dataset'
+        title: 'İstilacı Tür Görüntü Tespiti',
+        task: 'Drone veya doğa fotoğraflarında istilacı bitki türlerini (örn. Hydrangea, Kudzu) tespit eden bir görüntü işleme modeli geliştirin; konum verisi varsa risk yoğunluk haritası üretin.',
+        input: ['İstilacı tür fotoğraf veri seti', 'GPS koordinat metadatası', 'Habitat referans haritaları'],
+        output: ['Sınıflandırma modeli', 'Riskli bölge yoğunluk haritası'],
+        evaluation: ['ROC-AUC > 0.85', 'False positive minimizasyonu'],
+        datasetUrl: 'https://www.kaggle.com/c/invasive-species-monitoring/data'
       },
       {
         id: 'eco-04',
@@ -426,12 +426,12 @@ export const categories = [
       },
       {
         id: 'eco-05',
-        title: 'Yaban Hayatı Koridor Optimizasyonu',
-        task: 'Hayvan göç rotalarını modelleyerek otoyollarda eko-köprüler için en uygun lokasyonları belirleyin.',
-        input: ['Hayvan takip (telemetri) verileri', 'Arazi topografyası', 'Yol ağları haritası'],
-        output: ['Optimal koridor haritası', 'Eko-geçit yer öneri sistemi'],
-        evaluation: ['Kapsama oranı', 'Çevresel etki puanı'],
-        datasetUrl: 'https://www.kaggle.com/datasets/vencerlanz09/wildlife-detection-images-dataset'
+        title: 'Camera Trap ile Yaban Hayatı Sayımı',
+        task: 'Doğa rezervlerine yerleştirilen kamera tuzaklarından gelen görüntülerdeki hayvan türlerini tanıyıp sayan bir sistem geliştirin. Tür çeşitliliği ve nüfus eğilimi raporu üretin.',
+        input: ['Kamera tuzağı görselleri (gündüz/gece)', 'Etiketli tür veri seti', 'Zaman damgaları'],
+        output: ['Çoklu sınıf detector modeli', 'Tür yoğunluk dashboard\'u'],
+        evaluation: ['mAP@.50 > 0.75', 'Az örneklemli türlerde recall'],
+        datasetUrl: 'https://lila.science/datasets/snapshot-serengeti'
       }
     ]
   },
@@ -461,12 +461,12 @@ export const categories = [
       },
       {
         id: 'disaster-02',
-        title: 'Acil Lojistik Optimizasyonu',
-        task: 'Afet anında talep verilerini ve kapalı yol bilgilerini kullanarak yardım tırları için dinamik rota planlayın.',
-        input: ['Kullanıcı ihtiyaç bildirimleri', 'Canlı trafik/yol durumu verisi'],
-        output: ['Dinamik rota planlayıcı', 'Kaynak dağıtım dashboardu'],
-        evaluation: ['Teslimat süresi minimizasyonu', 'Kaynak kullanım oranı'],
-        datasetUrl: 'https://www.kaggle.com/datasets/fedesoriano/flood-prediction-dataset'
+        title: 'Acil Lojistik Rota Optimizasyonu (VRP)',
+        task: 'Afet anında ihtiyaç noktaları ile depo arasındaki yardım tırları için dinamik rota planlayan bir VRP (Vehicle Routing Problem) çözücü geliştirin. Talep önceliklerine ve kapalı yollara göre yeniden planlama yapabilmeli.',
+        input: ['Düğüm bazlı talep listesi (CVRP formatı)', 'OpenStreetMap yol grafı', 'Araç kapasite ve depo lokasyonları'],
+        output: ['Rota optimizasyon motoru (OR-Tools / metaheuristik)', 'Gerçek zamanlı yeniden planlama API\'si', 'Kaynak dağıtım dashboard\'u'],
+        evaluation: ['Toplam mesafe minimizasyonu (vs. baseline)', 'Yeniden planlama süresi < 5 sn', 'Talep karşılama oranı'],
+        datasetUrl: 'http://vrp.atd-lab.inf.puc-rio.br/index.php/en/'
       },
       {
         id: 'disaster-03',
@@ -532,12 +532,12 @@ export const categories = [
       },
       {
         id: 'edu-03',
-        title: 'Gelecek Yetkinlik Analizörü',
-        task: 'İş ilanları ve mezun verilerini analiz ederek öğrencilere hangi yetkinliklerin gelecekte kritik olacağını raporlayın.',
-        input: ['LinkedIn/Kariyer ilan verileri', 'Mezun başarı hikayeleri', 'Global teknoloji trendleri'],
-        output: ['Kariyer rehberlik motoru', 'Yetkinlik açığı analiz raporu'],
-        evaluation: ['Trend yakalama isabeti', 'Rehberlik doğruluk oranı'],
-        datasetUrl: 'https://www.kaggle.com/datasets/shivamb/netflix-shows'
+        title: 'İş İlanlarından Gelecek Yetkinlik Analizörü',
+        task: 'İş ilanı metinlerinden NLP ile yetkinlik / teknoloji isimlerini çıkartan, sektör ve zaman bazlı trendleri raporlayan bir kariyer rehberlik motoru geliştirin.',
+        input: ['LinkedIn iş ilanı metinleri', 'Teknoloji & yetkinlik ontolojisi (örn. ESCO)', 'Tarih damgaları'],
+        output: ['NER tabanlı yetkinlik çıkarıcı', 'Trend dashboard\'u (sektör × yetkinlik × zaman)', 'Öğrenciye yol haritası önerisi'],
+        evaluation: ['NER F1-Skoru', 'Trend doğrulama (ground truth)', 'Kullanıcı testi alaka düzeyi'],
+        datasetUrl: 'https://www.kaggle.com/datasets/arshkon/linkedin-job-postings'
       },
       {
         id: 'edu-04',
@@ -622,3 +622,52 @@ export const categories = [
     ]
   }
 ];
+
+// =====================================================
+//   VERİ İŞLEME BEKLENTİLERİ
+//   Yarışmacılar veri seti kullandığında jürinin Teknik
+//   Uygulama Kalitesi (%40) altında aradığı işleme
+//   aşamaları. Her proje için zorunlu değildir;
+//   sadece dataset kullanıldığında değerlendirilir.
+// =====================================================
+
+export const dataProcessingChecklist = {
+  intro: 'Her proje veri seti kullanmak zorunda değildir. Çözümün doğasına göre tamamen kural tabanlı, simülasyon, prompt engineering veya RAG ile yarışılabilir. Ancak veri seti kullanıyorsanız, jürinin Teknik Uygulama Kalitesi altında aradığı 7 aşama aşağıdadır.',
+  stages: [
+    {
+      step: '01',
+      title: 'Veri Keşfi (EDA)',
+      desc: 'Sütun tipleri, dağılımlar, eksik değer oranları, aykırı değerler ve sınıf dengesi raporlanmalı. EDA notebook\'u veya kısa rapor ile sunulmalı.'
+    },
+    {
+      step: '02',
+      title: 'Temizlik & Eksik Veri',
+      desc: 'Eksik değer stratejisi (imputation, drop, domain değer) gerekçeli olmalı; aykırı değerlerin yönetimi belgelenmeli.'
+    },
+    {
+      step: '03',
+      title: 'Feature Engineering',
+      desc: 'Yeni özellikler türetildiyse açıklanmalı: lag/window, encoding seçimi, ölçekleme tercihi gerekçesiyle birlikte.'
+    },
+    {
+      step: '04',
+      title: 'Train / Validation / Test Ayrımı',
+      desc: 'Sızıntı (leakage) olmayan, problemi temsil eden bölme. Zaman serisinde geçmiş→gelecek; dengesiz sınıflarda stratified.'
+    },
+    {
+      step: '05',
+      title: 'Veri Sızıntısı Kontrolü',
+      desc: 'Gerçek dünyada elde edilemeyecek sütunlar kullanılmamalı. CV ile test arası anlamlı fark sızıntı sinyalidir.'
+    },
+    {
+      step: '06',
+      title: 'Sınıf Dengesizliği & Önyargı',
+      desc: 'Class weight, oversampling veya focal loss gerekçeli kullanılmalı. Demografik / coğrafi önyargı kontrol edilmeli.'
+    },
+    {
+      step: '07',
+      title: 'Reprodüktibilite',
+      desc: 'Pipeline veya notebook olarak yeniden üretilebilir olmalı: random seed, paket sürümleri ve veri sürümü kayıt altında.'
+    }
+  ]
+};
