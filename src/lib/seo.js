@@ -26,7 +26,7 @@ export function buildMetadata({ title, description, path = '/' } = {}) {
       images: ['/og-image.jpg']
     },
     icons: {
-      icon: '/favicon.ico',
+      icon: '/icon.svg',
       apple: '/apple-touch-icon.png'
     },
     keywords: [
