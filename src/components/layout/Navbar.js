@@ -6,7 +6,7 @@ import { MobileMenu } from './MobileMenu';
 import { HackathonApplicationShell } from './HackathonApplicationShell';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
-import { HackathonForm } from '@/components/forms/HackathonForm';
+import { ApplicationForms } from '@/components/forms/ApplicationForms';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { NAV_LINKS } from '@/lib/constants';
 import { useApp } from '@/context/AppContext';
@@ -82,7 +82,7 @@ export function Navbar() {
         surface="plain"
       >
         <HackathonApplicationShell>
-          <HackathonForm onSuccess={closeModal} />
+          <ApplicationForms onSuccess={closeModal} />
         </HackathonApplicationShell>
       </Modal>
     </>

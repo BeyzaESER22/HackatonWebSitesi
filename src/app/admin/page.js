@@ -20,10 +20,12 @@ export default async function AdminPage() {
 
   let submissions = [];
   let projects = [];
+  let attendees = [];
   if (isAuthenticated) {
-    [submissions, projects] = await Promise.all([
+    [submissions, projects, attendees] = await Promise.all([
       readStore('hackathon-applications.json'),
-      readStore('projects.json')
+      readStore('projects.json'),
+      readStore('attendees.json')
     ]);
 
     submissions = [...submissions].sort(
@@ -32,13 +34,16 @@ export default async function AdminPage() {
     projects = [...projects].sort(
       (a, b) => new Date(b.submittedAt || 0) - new Date(a.submittedAt || 0)
     );
+    attendees = [...attendees].sort(
+      (a, b) => new Date(b.registeredAt || 0) - new Date(a.registeredAt || 0)
+    );
   }
 
   return (
     <section className="pb-24 pt-32 lg:pb-32 lg:pt-36">
       <Container>
         {isAuthenticated ? (
-          <AdminDashboard submissions={submissions} projects={projects} />
+          <AdminDashboard submissions={submissions} projects={projects} attendees={attendees} />
         ) : (
           <AdminLoginCard isConfigured={isAdminAuthConfigured()} />
         )}
