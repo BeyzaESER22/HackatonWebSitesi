@@ -204,7 +204,6 @@ export function HackathonForm({ onSuccess }) {
             <option value="">Seçiniz...</option>
             <option value="has_team">Evet, bir takımım var</option>
             <option value="will_form">Hayır, bir takımım yok (Eşleşmek istiyorum)</option>
-            <option value="individual">Bireysel olarak katılacağım</option>
           </Select>
 
           {form.teamStatus === 'has_team' && (
