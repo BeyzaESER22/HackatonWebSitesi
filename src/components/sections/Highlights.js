@@ -71,7 +71,7 @@ export function Highlights() {
                       Toplum yararına <span className="hf-text-gradient">yapay zeka ile</span> üret.
                     </h3>
                     <p className="text-ink-dim text-base md:text-lg mb-8 leading-relaxed max-w-xl break-words">
-                      Eğitim, sağlık, afet yönetimi, erişilebilirlik ve sürdürülebilirlik gibi alanlarda gerçek dünya problemlerine yapay zeka ile çözüm geliştir. Tek başına ya da takımınla — sınır senin hayal gücün.
+                      Eğitimde Yenilik teması etrafında gerçek dünya problemlerine yapay zeka ile çözüm geliştir. Tek başına ya da takımınla — sınır senin hayal gücün.
                     </p>
                     <ul className="space-y-4 mb-10">
                       {bullets.map((b, i) => (

@@ -83,10 +83,10 @@ export function HackathonApplicationShell({
                 Proje Teması
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
-                <strong className="italic">"Toplum Yararına Yapay Zeka"</strong>
+                <strong className="italic">"Eğitimde Yenilik"</strong>
                 <br />
                 <span className="text-xs mt-1 block leading-normal">
-                  Projeniz; eğitim, sağlık, çevre veya erişilebilirlik gibi bir <strong>alt kategoriye</strong> odaklanmalıdır. Detaylı bilgi için <a href="/hackathon" className="text-primary underline">hackathon sayfasını</a> inceleyiniz.
+                  Projeniz eğitim teknolojileri alanına odaklanmalıdır. Detaylı bilgi için <a href="/hackathon" className="text-primary underline">hackathon sayfasını</a> inceleyiniz.
                 </span>
               </p>
             </div>

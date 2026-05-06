@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
-import { requireAdminOrApiSecret } from '@/lib/admin-auth';
+import { isAdminRequestAuthenticated, unauthorizedJson } from '@/lib/admin-auth';
 import { removeFromStore } from '@/lib/store';
 
 export const runtime = 'nodejs';
 
 export async function DELETE(request) {
-  const auth = requireAdminOrApiSecret(request);
-  if (!auth.ok) return auth.response;
+  if (!isAdminRequestAuthenticated(request)) {
+    return unauthorizedJson();
+  }
 
   let body;
   try {

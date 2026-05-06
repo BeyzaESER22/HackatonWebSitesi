@@ -28,7 +28,7 @@ export function HackathonSection() {
               Toplum yararına <span className="hf-text-gradient">yapay zeka ile</span> üret.
             </h2>
             <p className="text-ink-dim text-lg mb-8 leading-relaxed">
-              Eğitim, sağlık, afet yönetimi, erişilebilirlik ve sürdürülebilirlik gibi alanlarda gerçek dünya problemlerine
+              Eğitimde Yenilik teması etrafında gerçek dünya problemlerine
               yapay zeka ile çözüm geliştir. Tek başına ya da takımınla — sınır senin hayal gücün.
             </p>
 
