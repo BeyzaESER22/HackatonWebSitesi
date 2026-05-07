@@ -6,7 +6,7 @@ export const ruleCategories = [
     color: COLORS.blue,
     title: 'Katılım & Takım',
     items: [
-      'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı aktif öğrenciler ile son 12 ay içinde mezun olmuş ve etkinlik tarihinde 18 yaşını tamamlamış kişiler katılabilir.',
+      'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı aktif öğrenciler ve etkinlik tarihinde 18 yaşını tamamlamış kişiler katılabilir.',
       'Başvurular sadece resmi web sitesi üzerindeki form aracılığıyla alınır; etkinlik başlangıcından bir saat öncesine kadar (16 Mayıs 2026, 07:59) açıktır.',
       'Takımlar 1 ile 5 kişi arasında olmalıdır; bir katılımcı yalnızca bir takımda yer alabilir. Bireysel katılımcılar takım projeleriyle eşit şekilde değerlendirilir.',
       'Takım kompozisyonu yalnızca açılış oturumunu takip eden ilk eşleştirme saati içinde değiştirilebilir; proje geliştirme aşaması başladıktan sonra takım veya kişi değişikliği yapılamaz.',

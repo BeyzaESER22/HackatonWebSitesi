@@ -1,7 +1,7 @@
 export const faq = [
   {
     q: 'Kimler katılabilir?',
-    a: 'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı aktif öğrenciler ile son 12 ay içinde mezun olmuş ve etkinlik tarihinde 18 yaşını tamamlamış kişiler katılabilir.'
+    a: 'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı aktif öğrenciler ve etkinlik tarihinde 18 yaşını tamamlamış kişiler katılabilir.'
   },
 
   {
