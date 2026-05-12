@@ -7,7 +7,7 @@ import { useApp } from '@/context/AppContext';
 import { PROJECT_CATEGORIES, UPLOAD_LIMITS } from '@/lib/constants';
 
 const initial = {
-  title: '', category: '', shortDescription: '', longDescription: '',
+  title: '', category: 'edu', shortDescription: '', longDescription: '',
   teamName: '', teamMembers: '', techStack: '',
   contactEmail: '', githubUrl: '', demoUrl: ''
 };
@@ -140,10 +140,12 @@ export function ProjectSubmitForm({ onSuccess }) {
         <div className="space-y-4">
           <Input label="Proje Adı *" name="title" value={form.title} onChange={update('title')} placeholder="Örn: MedAI" error={errors.title} required />
 
+          {/* Kategori alanı geçici olarak gizlendi
           <Select label="Kategori *" name="category" value={form.category} onChange={update('category')} error={errors.category} required>
             <option value="">Seçiniz...</option>
             {PROJECT_CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
           </Select>
+          */}
 
           <Input label="Kısa Açıklama (200 karakter) *" name="shortDescription" value={form.shortDescription} onChange={update('shortDescription')} placeholder="Projeni tek cümleyle özetle" error={errors.shortDescription} maxLength={200} required />
 

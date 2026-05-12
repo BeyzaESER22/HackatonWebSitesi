@@ -26,6 +26,7 @@ const journeySteps = [
   },
   { 
     id: 2, 
+    hidden: true, // Kategori kısmı geçici olarak gizlendi
     title: 'Kategori Seçimi', 
     desc: 'Sana rehberlik etmesi için kategorileri ve örnek problemleri (dataset dahil) listeledik.', 
     link: '#problems', 
@@ -114,10 +115,10 @@ export default function HackathonInfoPage() {
             <div className="hidden lg:block absolute top-12 left-0 w-full h-0.5 bg-white/5 z-0"></div>
             
             <div className="flex overflow-x-auto lg:overflow-x-visible pb-8 lg:pb-0 gap-8 lg:justify-between no-scrollbar">
-              {journeySteps.map((step) => (
+              {journeySteps.filter(s => !s.hidden).map((step, index) => (
                 <div key={step.id} className="flex-shrink-0 w-72 lg:w-48 relative z-10 group">
                   <div className="w-12 h-12 rounded-full bg-[#05071A] border-2 border-white/10 flex items-center justify-center font-display font-bold text-lg mb-6 group-hover:border-primary group-hover:text-primary transition-all duration-300 shadow-xl shadow-black">
-                    {step.id}
+                    {index + 1}
                   </div>
                   
                   <div className="space-y-3">
@@ -144,7 +145,8 @@ export default function HackathonInfoPage() {
         </Container>
       </section>
 
-      {/* Problem Havuzu Engine */}
+      {/* Problem Havuzu Engine (Geçici olarak gizlendi) */}
+      {false && (
       <section className="mb-32 scroll-mt-32" id="problems">
         <Container>
           <RevealOnScroll>
@@ -308,6 +310,7 @@ export default function HackathonInfoPage() {
           )}
         </Container>
       </section>
+      )}
 
       {/* Evaluation Criteria Section */}
       <section className="mb-32 scroll-mt-32" id="judging">
