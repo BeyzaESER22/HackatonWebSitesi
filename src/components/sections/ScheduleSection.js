@@ -27,6 +27,9 @@ export function ScheduleSection() {
 }
 
 export function ScheduleDay({ day, isLast }) {
+  const sections = day.sections || [{ id: 'program', title: day.title, items: day.items || [] }];
+  const hasItems = sections.some(section => section.items.length > 0);
+
   return (
     <div className={isLast ? '' : 'mb-20'}>
       <RevealOnScroll>
@@ -41,7 +44,7 @@ export function ScheduleDay({ day, isLast }) {
         </div>
       </RevealOnScroll>
 
-      {day.items.length === 0 ? (
+      {!hasItems ? (
         <RevealOnScroll>
           <Card className="text-center py-12 max-w-3xl mx-auto">
             <div className="font-display text-xl font-semibold text-ink-dim mb-2">Yakında açıklanacak</div>
@@ -49,37 +52,38 @@ export function ScheduleDay({ day, isLast }) {
           </Card>
         </RevealOnScroll>
       ) : (
-        <div className="relative max-w-5xl mx-auto">
-          <div className="hf-timeline-line hidden md:block" />
-          {day.items.map((item, i) => (
-            <RevealOnScroll key={i} delay={i * 0.05}>
-              <div className={`relative md:grid md:grid-cols-2 md:gap-12 ${i === day.items.length - 1 ? '' : 'mb-10'}`}>
-                {i % 2 === 0 ? (
-                  <>
-                    <div className="md:text-right md:pr-12">
-                      <div className="font-mono text-xs text-ink-dim mb-1">{item.time}</div>
-                      <div className="font-display text-xl font-semibold mb-1">{item.title}</div>
-                      <div className="text-ink-dim text-sm">{item.desc}</div>
-                    </div>
-                    <div className="hidden md:flex absolute left-1/2 top-2 -translate-x-1/2 hf-timeline-dot" style={{ color: item.accent, background: item.accent }} />
-                    <div />
-                  </>
-                ) : (
-                  <>
-                    <div />
-                    <div className="hidden md:flex absolute left-1/2 top-2 -translate-x-1/2 hf-timeline-dot" style={{ color: item.accent, background: item.accent }} />
-                    <div className="md:pl-12">
-                      <div className="font-mono text-xs text-ink-dim mb-1">{item.time}</div>
-                      <div className="font-display text-xl font-semibold mb-1">{item.title}</div>
-                      <div className="text-ink-dim text-sm">{item.desc}</div>
-                    </div>
-                  </>
-                )}
-              </div>
+        <div className="grid lg:grid-cols-2 gap-6">
+          {sections.map((section, sectionIdx) => (
+            <RevealOnScroll key={section.id} delay={sectionIdx * 0.08}>
+              <ScheduleGroup section={section} />
             </RevealOnScroll>
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function ScheduleGroup({ section }) {
+  return (
+    <div className="h-full rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6">
+      <div className="text-xs uppercase tracking-[0.22em] text-ink-dim mb-5">{section.title}</div>
+      <div className="space-y-5">
+        {section.items.map((item, i) => (
+          <div key={i} className="relative pl-6">
+            <div
+              className="absolute left-0 top-1.5 h-2.5 w-2.5 rounded-full"
+              style={{ background: item.accent }}
+            />
+            {i !== section.items.length - 1 && (
+              <div className="absolute left-[4px] top-5 bottom-[-1.25rem] w-px bg-white/10" />
+            )}
+            <div className="font-mono text-xs text-ink-dim mb-1">{item.time}</div>
+            <div className="font-display text-lg md:text-xl font-semibold mb-1">{item.title}</div>
+            <div className="text-ink-dim text-sm">{item.desc}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
