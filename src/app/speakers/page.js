@@ -1,9 +1,8 @@
-import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Card } from '@/components/ui/Card';
 import { SpeakerCard } from '@/components/sections/SpeakersSection';
-import { speakers } from '@/data/speakers';
+import { speakers, speakerSessions } from '@/data/speakers';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata = buildMetadata({
@@ -13,9 +12,6 @@ export const metadata = buildMetadata({
 });
 
 export default function SpeakersPage() {
-  const real = speakers.filter(s => !s.isSample);
-  const sample = speakers.find(s => s.isSample);
-
   return (
     <section className="pt-36 pb-24 lg:pt-44 lg:pb-32">
       <Container>
@@ -27,34 +23,35 @@ export default function SpeakersPage() {
           className="mb-6"
         />
         <p className="text-ink-dim text-lg max-w-2xl mb-12">
-          Konuşmacılar yakında açıklanacaktır. Aşağıdaki tutucu profillerin yerini gerçek konuşmacılar alacaktır.
-          Her bir karta tıklayarak konuşmacı detay sayfasının nasıl görüneceğini inceleyebilirsiniz.
+          HackFest'26 AI kapsamında workshop ve veri bilimi panelinde katılımcılarla buluşacak konuşmacılar.
+          Kartlara tıklayarak konuşmacıların yer aldığı oturum bilgilerini inceleyebilirsiniz.
         </p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mb-12">
-          {real.map(s => <SpeakerCard key={s.id} speaker={s} />)}
+          {speakers.map(s => <SpeakerCard key={s.id} speaker={s} />)}
         </div>
 
-        {sample && (
-          <Card className="!p-8 lg:!p-10">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 justify-between">
-              <div>
-                <div className="text-xs uppercase tracking-[0.22em] text-ink-dim mb-2">★ Örnek Profil</div>
-                <div className="font-display text-2xl font-bold mb-1">Konuşmacı detay sayfası nasıl görünecek?</div>
-                <p className="text-sm text-ink-dim max-w-xl">
-                  Gerçek konuşmacıların oturum saatleri, salon bilgisi, hedef kitle ve detaylı açıklamalarıyla
-                  aşağıdaki örnek profili inceleyebilirsiniz.
-                </p>
-              </div>
-              <Link
-                href={`/speakers/${sample.id}`}
-                className="hf-glass hf-glass-hover px-5 py-3 rounded-full text-sm font-medium whitespace-nowrap"
-              >
-                Örnek profili gör →
-              </Link>
-            </div>
-          </Card>
-        )}
+        <div>
+          <div className="text-xs uppercase tracking-[0.22em] text-ink-dim mb-3">Oturumlar</div>
+          <h2 className="font-display text-2xl md:text-3xl font-bold mb-6">Programdaki konuşmacı oturumları</h2>
+          <div className="grid lg:grid-cols-2 gap-5">
+            {speakerSessions.map(session => (
+              <Card key={session.id} className="!p-6">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="text-xs uppercase tracking-[0.2em] text-ink-dim">{session.type}</span>
+                  <span className="text-ink-dim">·</span>
+                  <span className="font-mono text-sm text-white">{session.day} · {session.time}</span>
+                </div>
+                <div className="font-display text-xl font-semibold mb-2">{session.title}</div>
+                <p className="text-sm text-ink-dim mb-4">{session.description}</p>
+                <div className="space-y-2 text-sm text-white/80">
+                  <div>Konum: {session.room}</div>
+                  <div>Konuşmacılar: {session.speakers.join(', ')}</div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
       </Container>
     </section>
   );

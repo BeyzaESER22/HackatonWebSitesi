@@ -47,6 +47,10 @@ data/_structured_backups/
 
 # User uploads (local development) — production uses S3/CDN
 public/uploads/speakers/*
+!public/uploads/speakers/mehmet-niyazi-atlioglu.jpeg
+!public/uploads/speakers/kerimcan-arslan.jpeg
+!public/uploads/speakers/emre-dogan.jpeg
+!public/uploads/speakers/emin-dogan.jpeg
 public/uploads/projects/images/*
 public/uploads/projects/files/*
 !public/uploads/**/.gitkeep

@@ -6,9 +6,7 @@ import { RevealOnScroll } from '@/components/effects/RevealOnScroll';
 import { speakers } from '@/data/speakers';
 
 export function SpeakersSection({ limit = 7 }) {
-  // sample konuşmacıyı listeden çıkar (ana liste sadece gerçek/tutucu)
-  const filtered = speakers.filter(s => !s.isSample);
-  const list = filtered.slice(0, limit);
+  const list = speakers.slice(0, limit);
 
   return (
     <section id="speakers" className="relative z-10 py-24 lg:py-32 border-t border-white/5">
@@ -22,7 +20,7 @@ export function SpeakersSection({ limit = 7 }) {
               </h2>
             </div>
             <p className="text-ink-dim max-w-md">
-              Konuşmacılar yakında açıklanacak. Aşağıdaki tutucu profiller sayfanın nasıl görüneceğini göstermek içindir.
+              Workshop ve panel oturumlarında HackFest'26 AI katılımcılarıyla buluşacak isimler.
             </p>
           </div>
         </RevealOnScroll>
@@ -33,18 +31,13 @@ export function SpeakersSection({ limit = 7 }) {
               <SpeakerCard speaker={s} />
             </RevealOnScroll>
           ))}
-
-          <RevealOnScroll delay={0.32}>
-            <Card className="overflow-hidden flex items-center justify-center text-center min-h-[280px] h-full"
-              style={{ background: 'linear-gradient(135deg, rgba(66,133,244,.08), rgba(234,67,53,.08))' }}>
-              <div>
-                <div className="font-display text-3xl font-bold hf-text-gradient mb-2">Yakında</div>
-                <div className="text-sm text-ink-dim mb-4">tüm konuşmacılar açıklanacak</div>
-                <Button as={Link} href="/speakers" variant="ghost" size="sm">Konuşmacılar Sayfası</Button>
-              </div>
-            </Card>
-          </RevealOnScroll>
         </div>
+
+        <RevealOnScroll delay={0.32}>
+          <div className="mt-10 flex justify-center">
+            <Button as={Link} href="/speakers" variant="ghost" size="sm">Tüm Konuşmacılar ve Oturumlar</Button>
+          </div>
+        </RevealOnScroll>
       </Container>
     </section>
   );
@@ -61,7 +54,7 @@ export function SpeakerCard({ speaker }) {
           <div className="text-sm text-ink-dim mb-3">
             {speaker.title}{speaker.company ? ` · ${speaker.company}` : ''}
           </div>
-          <div className="text-xs text-white/70 line-clamp-2">"{speaker.talk}"</div>
+          <div className="text-xs text-white/70 line-clamp-2">{speaker.talk}</div>
         </div>
       </Card>
     </Link>

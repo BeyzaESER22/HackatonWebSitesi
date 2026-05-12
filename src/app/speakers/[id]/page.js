@@ -5,7 +5,6 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { SpeakerAvatar } from '@/components/sections/SpeakersSection';
 import * as speakersModule from '@/data/speakers';
-import { COLORS } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 
 const speakers = speakersModule.speakers || [];
@@ -53,7 +52,6 @@ export default function SpeakerDetailPage({ params }) {
           {/* Header info */}
           <div className="lg:col-span-8">
             <div className="flex flex-wrap gap-2 mb-4">
-              {speaker.isSample && <Badge dotColor={COLORS.yellow}>★ Örnek Profil</Badge>}
               <Badge>{speaker.type} · {speaker.day}</Badge>
             </div>
 
@@ -107,10 +105,10 @@ export default function SpeakerDetailPage({ params }) {
                       <p className="text-sm text-ink-dim mb-4">{s.description}</p>
                       <div className="flex flex-wrap gap-2 text-xs">
                         <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5">
-                          📍 {s.room}
+                          Konum: {s.room}
                         </span>
                         <span className="px-3 py-1 rounded-full border border-white/10 bg-white/5">
-                          👥 {s.audience}
+                          Kitle: {s.audience}
                         </span>
                       </div>
                     </div>
