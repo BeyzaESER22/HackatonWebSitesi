@@ -145,6 +145,41 @@ export default function HackathonInfoPage() {
         </Container>
       </section>
 
+      {/* Theme Announcement */}
+      <section className="mb-32 scroll-mt-32" id="themes">
+        <Container>
+          <RevealOnScroll>
+            <div className="grid lg:grid-cols-12 gap-6 items-stretch">
+              <Card className="lg:col-span-7 !p-8 md:!p-10 border-white/5 bg-white/[0.03]">
+                <div className="text-xs uppercase tracking-[0.22em] text-ink-dim mb-4">Etkinlik Teması</div>
+                <h2 className="font-display text-3xl md:text-5xl font-bold leading-[1.08] mb-5">
+                  Tema <span className="hf-text-gradient">etkinlik günü</span> açıklanacak.
+                </h2>
+                <p className="text-ink-dim leading-relaxed text-base md:text-lg">
+                  HackFest&apos;26 AI&apos;da yarışma teması, tüm ekiplerin aynı anda başlaması ve önden kodlama avantajı oluşmaması için etkinlik günü paylaşılacak. Başvuru aşamasında proje fikri belirtmek opsiyoneldir; ekiplerden bu süreçte hazır bir ürün değil, merak, araştırma disiplini ve güçlü bir problem çözme yaklaşımı beklenir.
+                </p>
+              </Card>
+
+              <Card className="lg:col-span-5 !p-8 md:!p-10 border-primary/10 bg-primary/5">
+                <div className="text-xs uppercase tracking-[0.22em] text-primary mb-4">Şimdiden Ne Yapılabilir?</div>
+                <ul className="space-y-4">
+                  {[
+                    'Takım rollerini ve çalışma düzenini netleştirin.',
+                    'Google AI araçlarını, prototipleme akışlarını ve demo hazırlığını deneyin.',
+                    'Gerçek kullanıcı problemi nasıl tanımlanır, veri nasıl doğrulanır ve çözüm nasıl ölçülür üzerine hazırlanın.'
+                  ].map((item, i) => (
+                    <li key={item} className="flex gap-3 text-sm text-ink-dim leading-relaxed">
+                      <span className="font-display font-bold text-primary tabular-nums shrink-0">{String(i + 1).padStart(2, '0')}</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            </div>
+          </RevealOnScroll>
+        </Container>
+      </section>
+
       {/* Problem Havuzu Engine (Geçici olarak gizlendi) */}
       {false && (
       <section className="mb-32 scroll-mt-32" id="problems">

@@ -28,8 +28,8 @@ export function HackathonSection() {
               Toplum yararına <span className="hf-text-gradient">yapay zeka ile</span> üret.
             </h2>
             <p className="text-ink-dim text-lg mb-8 leading-relaxed">
-              Eğitimde Yenilik teması etrafında gerçek dünya problemlerine
-              yapay zeka ile çözüm geliştir. Tek başına ya da takımınla — sınır senin hayal gücün.
+              Yarışma teması etkinlik günü açıklanacak. Takımını kur, araçlarını hazırla ve gerçek dünya problemlerine
+              yapay zeka ile çözüm geliştirmeye hazırlan.
             </p>
 
             <ul className="space-y-3 mb-9">
@@ -80,7 +80,7 @@ function TerminalCard() {
         <div><span style={{ color: COLORS.green }}>✓</span> impact_score: <span style={{ color: COLORS.blue }}>9.2/10</span></div>
         <div className="mt-4 p-3 rounded-lg" style={{ background: 'linear-gradient(120deg, rgba(66,133,244,.12), rgba(234,67,53,.12))' }}>
           <div className="text-white font-bold">🎯 Mission deployed.</div>
-          <div className="text-ink-dim text-xs mt-1">Education accessibility +37% improved.</div>
+          <div className="text-ink-dim text-xs mt-1">Social impact +37% improved.</div>
         </div>
         <div className="mt-3 flex items-center gap-2">
           <span style={{ color: COLORS.green }}>$</span>

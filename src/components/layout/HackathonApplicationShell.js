@@ -83,10 +83,9 @@ export function HackathonApplicationShell({
                 Proje Teması
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
-                <strong className="italic">"Eğitimde Yenilik"</strong>
-                <br />
+                <strong className="italic">Etkinlik günü açıklanacak.</strong>
                 <span className="text-xs mt-1 block leading-normal">
-                  Projeniz eğitim teknolojileri alanına odaklanmalıdır. Detaylı bilgi için <a href="/hackathon" className="text-primary underline">hackathon sayfasını</a> inceleyiniz.
+                  Önden kodlama avantajı oluşmaması için tema etkinlik başlangıcında paylaşılacaktır. Detaylı bilgi için <a href="/hackathon#themes" className="text-primary underline">hackathon sayfasını</a> inceleyiniz.
                 </span>
               </p>
             </div>
