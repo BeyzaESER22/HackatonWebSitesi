@@ -5,12 +5,14 @@ import { groupSponsors } from '@/data/sponsors';
 
 const sizeStyles = {
   main:    { grid: 'grid-cols-1',                                     cell: 'min-h-[200px] md:min-h-[240px]', imgMax: 'max-h-[120px] md:max-h-[160px] max-w-[80%]',  text: 'text-2xl' },
+  zumrut:  { grid: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-2',       cell: 'min-h-[160px] md:min-h-[200px]', imgMax: 'max-h-[100px] md:max-h-[140px] max-w-[80%]',  text: 'text-xl' },
   support: { grid: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3',       cell: 'min-h-[140px] md:min-h-[170px]', imgMax: 'max-h-[90px] md:max-h-[110px] w-full px-4',   text: 'text-base' },
   small:   { grid: 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4',       cell: 'min-h-[100px] md:min-h-[120px]', imgMax: 'max-h-[50px] md:max-h-[70px] max-w-[70%]',    text: 'text-sm' }
 };
 
 const tierLabels = {
   main:    'Ana Sponsor',
+  zumrut:  'Zümrüt Sponsor',
   support: 'Destekçi Sponsorlar',
   small:   'Partnerler'
 };
@@ -29,6 +31,18 @@ export function SponsorsSection() {
             </div>
             <div className={`grid ${sizeStyles.main.grid} gap-5 mb-12`}>
               {groups.main.map(s => <SponsorCell key={s.id} sponsor={s} size="main" />)}
+            </div>
+          </RevealOnScroll>
+        )}
+
+        {/* Zumrut sponsors */}
+        {groups.zumrut.length > 0 && (
+          <RevealOnScroll>
+            <div className="text-center mb-4">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-ink-dim font-medium">{tierLabels.zumrut}</span>
+            </div>
+            <div className={`grid ${sizeStyles.zumrut.grid} gap-5 mb-12`}>
+              {groups.zumrut.map(s => <SponsorCell key={s.id} sponsor={s} size="zumrut" />)}
             </div>
           </RevealOnScroll>
         )}

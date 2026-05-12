@@ -12,7 +12,10 @@
 
 export const sponsors = [
   // Ana Sponsor
-  { id: 'claws', name: 'CLAWS Next Generation Technology', size: 'main', logoUrl: '/uploads/sponsors/claws.jpg', url: '#' },
+  { id: 'isler', name: 'İşler Teknoloji', size: 'main', logoUrl: '/uploads/sponsors/isler-teknoloji.jpg', url: '#', lightBg: true },
+
+  // Zümrüt Sponsor
+  { id: 'claws', name: 'CLAWS Next Generation Technology', size: 'zumrut', logoUrl: '/uploads/sponsors/claws.jpg', url: '#' },
 
   // Destekçi Sponsorlar
   { id: 'huawei',         name: 'Huawei',                    size: 'support', logoUrl: '/uploads/sponsors/huawei.jpg',         url: '#' },
@@ -29,6 +32,7 @@ export const sponsors = [
 export function groupSponsors() {
   return {
     main:    sponsors.filter(s => s.size === 'main'),
+    zumrut:  sponsors.filter(s => s.size === 'zumrut'),
     support: sponsors.filter(s => s.size === 'support'),
     small:   sponsors.filter(s => s.size === 'small')
   };
