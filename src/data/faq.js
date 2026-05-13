@@ -61,7 +61,7 @@ export const faq = [
 
   {
     q: 'Etkinliğe geç kalırsam ne olur?',
-    a: 'Etkinlik başlangıç saatinden sonra gelen katılımcılar organizasyon görevlilerine bildirerek sürece dahil olabilirler. Ancak açılış oturumunu ve en önemlisi takım eşleştirme saatini kaçıran katılımcıların sürece sonradan dahil olması durumunda bilgilendirme eksikliği yaşayabileceklerini hatırlatmak isteriz. Halihazırda bir takımınız varsa eşleştirme saati sizin için kritik olmayabilir, ancak açılış oturumu tüm kuralların açıklandığı yerdir.'
+    a: 'Etkinlik başlangıç saatinden sonra gelen katılımcılar organizasyon görevlilerine bildirerek sürece dahil olabilirler. Ancak açılış oturumunu kaçıran katılımcıların, yarışma kuralları ve teknik detaylar hakkındaki bilgilendirmelerden mahrum kalabileceğini hatırlatmak isteriz. Açılış oturumu tüm kuralların açıklandığı ve yarışma sürecinin resmen başladığı yerdir.'
   },
   {
     q: 'Hackathona ilk gün katılmazsam ne olur?',
