@@ -1,7 +1,7 @@
 export const faq = [
   {
     q: 'Kimler katılabilir?',
-    a: 'Türkiye\'deki herhangi bir üniversitede ön lisans, lisans veya lisansüstü programa kayıtlı aktif öğrenciler ve etkinlik tarihinde 18 yaşını tamamlamış kişiler katılabilir.'
+    a: 'Türkiye\'deki herhangi bir üniversitede ön lisans veya lisans programına kayıtlı ve etkinlik tarihinde aktif öğrenciler ile son 12 ay içinde mezun olmuş, 18 yaşını tamamlamış kişiler katılabilir.'
   },
 
   {
@@ -16,12 +16,12 @@ export const faq = [
   
   {
     q: 'Takım seçeneğim nasıl işliyor?',
-    a: '3 seçeneğin var:\n\n- Takımım var: Mevcut ekibinle başvurabilirsin.\n- Bireysel: Tek başına katılabilirsin.\n- Takımım yok ama takım kurmak istiyorum: Etkinlik başında eşleştirme ile takımlara dahil olursun.'
+    a: 'HackFest\'26 AI yalnızca 3 ile 5 kişilik takımlarla katılıma açıktır; bireysel katılım kabul edilmez. 2 seçeneğin var:\n\n- Takımım var: Mevcut ekibinle başvurabilirsin.\n- Takımım yok ama takım kurmak istiyorum: Başvuru formunda "eşleştirilecek" seçeneğini seçersen düzenleyici tarafından sana bir takım oluşturulur.'
   },
   
   {
     q: 'Başvuru formunda “takımım yok ama takım ile yarışmak istiyorum” seçeneğini seçtiysem ne olur?',
-    a: 'Etkinlik başlamadan önce katılımcılar kendi aralarında takım kurabilir veya organizasyon ekibi tarafından eşleştirme sürecine dahil edilir. Etkinliğin ilk saatinde takım yapısı netleştirilir. Proje geliştirme süreci başladıktan sonra takım oluşturma veya değişiklik yapılamaz.'
+    a: 'Bu seçeneği işaretlersen düzenleyici tarafından sana bir takım oluşturulur (takım formasyonu). Eşleştirme süreci etkinliğin ilk saatinde netleştirilir; proje geliştirme süreci başladıktan sonra takım değişikliği yapılamaz.'
   },
 
   {
@@ -55,18 +55,13 @@ export const faq = [
   },
 
   {
-    q: 'Bireysel katılım dezavantaj mı?',
-    a: 'Hayır. Bireysel katılımcılar da takım projeleriyle eşit şekilde değerlendirilir.'
-  },
-
-  {
     q: 'Başvuru formunda seçtiğim takım seçeneğini sonradan değiştirebilir miyim?',
-    a: 'Evet. Başvuruda seçtiğin (takımla katılacağım, bireysel katılacağım veya takım kurmak istiyorum) seçeneğini etkinliğin ilk saatinde organizasyon ekibine bildirerek değiştirebilirsin. Ancak takım eşleştirme süreci bittikten ve hemen ardından proje geliştirme aşamasına geçildikten sonra değişiklik yapılamaz.'
+    a: 'Evet. Başvuruda seçtiğin seçeneği (takımla katılacağım veya eşleştirilmek istiyorum) etkinliğin ilk saatinde organizasyon ekibine bildirerek değiştirebilirsin. Ancak takım eşleştirme süreci bittikten ve hemen ardından proje geliştirme aşamasına geçildikten sonra değişiklik yapılamaz.'
   },
 
   {
     q: 'Etkinliğe geç kalırsam ne olur?',
-    a: 'Etkinlik başlangıç saatinden sonra gelen katılımcılar organizasyon görevlilerine bildirerek sürece dahil olabilirler. Ancak açılış oturumunu ve en önemlisi takım eşleştirme saatini kaçıran katılımcilerin sürece sonradan dahil olması durumunda bilgilendirme eksikliği yaşayabileceklerini hatırlatmak isteriz. Halihazırda bir takımınız varsa veya bireysel yarışacaksanız eşleştirme saati sizin için kritik olmayabilir ancak açılış oturumu tüm kuralların açıklandığı yerdir.'
+    a: 'Etkinlik başlangıç saatinden sonra gelen katılımcılar organizasyon görevlilerine bildirerek sürece dahil olabilirler. Ancak açılış oturumunu ve en önemlisi takım eşleştirme saatini kaçıran katılımcıların sürece sonradan dahil olması durumunda bilgilendirme eksikliği yaşayabileceklerini hatırlatmak isteriz. Halihazırda bir takımınız varsa eşleştirme saati sizin için kritik olmayabilir, ancak açılış oturumu tüm kuralların açıklandığı yerdir.'
   },
   {
     q: 'Hackathona ilk gün katılmazsam ne olur?',

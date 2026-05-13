@@ -27,7 +27,7 @@ export const whyJoin = [
   { 
     num: '01', 
     title: 'Portföyüne Proje Ekle', 
-    desc: '2 gün içinde takımınla veya bireysel olarak çalışan bir AI projesi geliştir ve GitHub portföyüne ekle.', 
+    desc: '2 gün içinde takımınla çalışan bir AI projesi geliştir ve GitHub portföyüne ekle.',
     accent: '#4285F4' 
   },
   
@@ -39,9 +39,9 @@ export const whyJoin = [
   },
   
   { 
-    num: '03', 
-    title: 'Ekibini Kur veya Bireysel Katıl', 
-    desc: 'Toplum yararına yapay zeka odaklı bir problem seç, Google AI araçlarıyla geliştir ve çalışan bir çözüm sun.', 
+    num: '03',
+    title: 'Ekibini Kur',
+    desc: 'Toplum yararına yapay zeka odaklı bir problem seç, 3-5 kişilik takımınla Google AI araçlarıyla geliştir ve çalışan bir çözüm sun.',
     accent: '#34A853' 
   },
   

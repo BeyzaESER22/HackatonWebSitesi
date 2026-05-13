@@ -95,7 +95,7 @@ export default function HackathonInfoPage() {
           </h1>
           <div className="space-y-6 max-w-4xl">
             <p className="text-ink-dim text-xl leading-relaxed">
-              HackFest'26 AI Hackathon’una hoş geldin! Bu maratonda temel amacımız; yapay zekayı toplum yararına kullanarak gerçek dünya problemlerine yenilikçi çözümler üretmek. İster bireysel, ister takımınla katıl; 2 gün boyunca sınırları zorlayacağın bir yarışma seni bekliyor.
+              HackFest'26 AI Hackathon’una hoş geldin! Bu maratonda temel amacımız; yapay zekayı toplum yararına kullanarak gerçek dünya problemlerine yenilikçi çözümler üretmek. 3-5 kişilik takımınla 2 gün boyunca sınırları zorlayacağın bir yarışma seni bekliyor.
             </p>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-ink-dim text-xl">
