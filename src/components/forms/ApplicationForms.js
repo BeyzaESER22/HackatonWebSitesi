@@ -33,7 +33,7 @@ export function ApplicationForms({ onSuccess }) {
               : "text-ink-dim hover:text-white hover:bg-white/[0.02]"
           )}
         >
-          Ziyaretçi Kaydı
+          Etkinlik Ziyaretçi Kaydı
         </button>
       </div>
 

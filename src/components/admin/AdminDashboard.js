@@ -37,8 +37,54 @@ const gradeLabels = {
   '4': '4. Sınıf',
   '5': '5. Sınıf',
   '6': '6. Sınıf',
-  grad: 'Yüksek Lisans / Mezun'
+  grad: 'Yüksek Lisans / Mezun',
+  grad_recent: 'Mezun - Son 12 Ay İçinde',
+  postgraduate: 'Yüksek Lisans / Doktora'
 };
+
+const parkingLabels = {
+  yes: 'Şahsi araç',
+  no: 'Araç yok'
+};
+
+const attendeeProfileLabels = {
+  student: 'Öğrenci',
+  academic: 'Akademisyen / Eğitmen',
+  professional: 'Profesyonel',
+  entrepreneur: 'Girişimci',
+  sponsor: 'Sponsor / Partner',
+  other: 'Diğer'
+};
+
+const attendeeDayLabels = {
+  day_1: 'Sadece 1. Gün',
+  day_2: 'Sadece 2. Gün',
+  both: 'İki Gün de'
+};
+
+const attendeeInterestLabels = {
+  workshops: 'Workshoplar',
+  panels: 'Paneller',
+  stands: 'Standlar',
+  talks: 'Konuşmalar',
+  demo_day: 'Demo Day',
+  networking: 'Networking',
+  all: 'Tümü'
+};
+
+const aiExperienceLabels = {
+  beginner: 'Başlangıç',
+  intermediate: 'Orta seviye',
+  advanced: 'İleri seviye',
+  not_sure: 'Emin değil'
+};
+
+function getAttendeeInterests(attendee) {
+  if (Array.isArray(attendee.interests) && attendee.interests.length > 0) {
+    return attendee.interests;
+  }
+  return attendee.participationType ? [attendee.participationType] : [];
+}
 
 function formatDate(value) {
   if (!value) return '-';
@@ -63,12 +109,16 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
     const withTeams = submissions.filter((item) => item.teamStatus === 'has_team').length;
     const teamless = submissions.filter((item) => item.teamStatus === 'will_form').length;
     const individual = submissions.filter((item) => item.teamStatus === 'individual').length;
+    const withParking = submissions.filter((item) => item.parkingNeeded === 'yes').length;
 
     const approvedProjects = projects.filter(p => p.status === 'approved').length;
     const pendingProjects = projects.filter(p => p.status === 'pending').length;
+    const workshopVisitors = attendees.filter((item) => getAttendeeInterests(item).includes('workshops')).length;
+    const panelVisitors = attendees.filter((item) => getAttendeeInterests(item).includes('panels')).length;
+    const standVisitors = attendees.filter((item) => getAttendeeInterests(item).includes('stands')).length;
 
-    return { withTeams, teamless, individual, approvedProjects, pendingProjects };
-  }, [submissions, projects]);
+    return { withTeams, teamless, individual, withParking, approvedProjects, pendingProjects, workshopVisitors, panelVisitors, standVisitors };
+  }, [submissions, projects, attendees]);
 
   const handleLogout = async () => {
     setBusy(true);
@@ -238,7 +288,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
             <StatCard label="Toplam Başvuru" value={String(submissions.length)} />
             <StatCard label="Takımı Olan" value={String(stats.withTeams)} />
             <StatCard label="Takımı Olmayan" value={String(stats.teamless)} />
-            <StatCard label="Bireysel" value={String(stats.individual)} />
+            <StatCard label="Şahsi Araç" value={String(stats.withParking)} />
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-[1.5rem] border border-white/8 bg-white/[0.02] px-5 py-4">
@@ -274,7 +324,8 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                     <th className="px-4 py-3 font-medium">Başvuru</th>
                     <th className="px-4 py-3 font-medium">İletişim</th>
                     <th className="px-4 py-3 font-medium">Takım</th>
-                    <th className="px-4 py-3 font-medium">Detaylar</th>
+                    <th className="px-4 py-3 font-medium">Lojistik / Belge</th>
+                    <th className="px-4 py-3 font-medium">Proje</th>
                     <th className="px-4 py-3 font-medium">Tarih</th>
                     <th className="px-4 py-3 font-medium">İşlem</th>
                   </tr>
@@ -282,7 +333,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                 <tbody className="divide-y divide-white/8">
                   {submissions.length === 0 && (
                     <tr>
-                      <td colSpan="6" className="px-4 py-8 text-center text-ink-dim">
+                      <td colSpan="7" className="px-4 py-8 text-center text-ink-dim">
                         Henüz kayıt bulunmuyor.
                       </td>
                     </tr>
@@ -318,6 +369,26 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                           <div className="mt-1 text-[10px] text-primary">
                             {teammatesAppliedLabels[submission.teammatesApplied]}
                           </div>
+                        )}
+                      </td>
+                      <td className="px-4 py-4 text-xs leading-relaxed">
+                        <div className="text-white">
+                          {parkingLabels[submission.parkingNeeded] || submission.parkingNeeded || '-'}
+                        </div>
+                        {submission.licensePlate && (
+                          <div className="mt-1 text-ink-dim">Plaka: {submission.licensePlate}</div>
+                        )}
+                        {submission.document?.url ? (
+                          <a
+                            href={submission.document.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mt-2 inline-block text-primary underline underline-offset-2 hover:text-white"
+                          >
+                            Belgeyi aç
+                          </a>
+                        ) : (
+                          <div className="mt-2 text-ink-mute">Belge yok</div>
                         )}
                       </td>
                       <td className="max-w-xs px-4 py-4 text-ink-dim text-xs leading-relaxed">
@@ -470,10 +541,37 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
 
       {activeTab === 'attendees' && (
         <>
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-5">
             <StatCard label="Toplam Ziyaretçi" value={String(attendees.length)} />
             <StatCard label="1. Gün" value={String(attendees.filter(a => a.daysAttending === 'day_1' || a.daysAttending === 'both').length)} />
             <StatCard label="2. Gün" value={String(attendees.filter(a => a.daysAttending === 'day_2' || a.daysAttending === 'both').length)} />
+            <StatCard label="Workshop" value={String(stats.workshopVisitors)} />
+            <StatCard label="Stand" value={String(stats.standVisitors)} />
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-[1.5rem] border border-white/8 bg-white/[0.02] px-5 py-4">
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] text-ink-dim">Ziyaretçi Verisi</div>
+              <p className="mt-1 text-sm text-white/80">
+                Workshop, panel ve stand ilgilerini CSV olarak indirip salon/stand kapasite planlamasında kullanabilirsin.
+              </p>
+            </div>
+            <Button
+              as="a"
+              href="/api/admin/attendees/export"
+              download
+              size="sm"
+              disabled={attendees.length === 0}
+              iconRight={(
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              )}
+            >
+              CSV İndir ({attendees.length})
+            </Button>
           </div>
 
           <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]">
@@ -483,8 +581,9 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                   <tr>
                     <th className="px-4 py-3 font-medium">Ziyaretçi</th>
                     <th className="px-4 py-3 font-medium">İletişim</th>
+                    <th className="px-4 py-3 font-medium">Profil</th>
                     <th className="px-4 py-3 font-medium">Katılım Günleri</th>
-                    <th className="px-4 py-3 font-medium">İlgi Alanı</th>
+                    <th className="px-4 py-3 font-medium">İlgi / Lojistik</th>
                     <th className="px-4 py-3 font-medium">Tarih</th>
                     <th className="px-4 py-3 font-medium">İşlem</th>
                   </tr>
@@ -492,7 +591,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                 <tbody className="divide-y divide-white/8">
                   {attendees.length === 0 && (
                     <tr>
-                      <td colSpan="6" className="px-4 py-8 text-center text-ink-dim">
+                      <td colSpan="7" className="px-4 py-8 text-center text-ink-dim">
                         Henüz ziyaretçi kaydı bulunmuyor.
                       </td>
                     </tr>
@@ -509,17 +608,35 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                         <div className="mt-1 text-ink-dim">{attendee.phone}</div>
                       </td>
                       <td className="px-4 py-4">
-                        <div className="text-white font-medium">
-                          {attendee.daysAttending === 'both' ? 'İki Gün de' : attendee.daysAttending === 'day_1' ? 'Sadece 1. Gün' : 'Sadece 2. Gün'}
+                        <div className="text-white text-xs">
+                          {attendeeProfileLabels[attendee.visitorProfile] || attendee.visitorProfile || '-'}
+                        </div>
+                        <div className="mt-1 text-ink-dim text-xs">
+                          AI: {aiExperienceLabels[attendee.aiExperience] || attendee.aiExperience || '-'}
                         </div>
                       </td>
                       <td className="px-4 py-4">
-                        <div className="text-ink-dim text-xs">
-                          {attendee.participationType === 'talks' ? 'Seminerler' : 
-                           attendee.participationType === 'workshops' ? 'Atölyeler' : 
-                           attendee.participationType === 'stands' ? 'Stantlar' : 
-                           attendee.participationType === 'demo_day' ? 'Demo Day' : 'Tümü'}
+                        <div className="text-white font-medium">
+                          {attendeeDayLabels[attendee.daysAttending] || attendee.daysAttending || '-'}
                         </div>
+                      </td>
+                      <td className="px-4 py-4 max-w-xs">
+                        <div className="flex flex-wrap gap-1.5">
+                          {getAttendeeInterests(attendee).map((interest) => (
+                            <span key={interest} className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-1 text-[10px] text-ink-dim">
+                              {attendeeInterestLabels[interest] || interest}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="mt-2 text-ink-dim text-xs">
+                          {parkingLabels[attendee.parkingNeeded] || attendee.parkingNeeded || '-'}
+                          {attendee.licensePlate ? ` · ${attendee.licensePlate}` : ''}
+                        </div>
+                        {attendee.accessibilityNeeds && (
+                          <div className="mt-1 text-[10px] text-primary leading-relaxed">
+                            Not: {attendee.accessibilityNeeds}
+                          </div>
+                        )}
                       </td>
                       <td className="px-4 py-4 text-ink-dim text-xs whitespace-nowrap">
                         <div>{formatDate(attendee.registeredAt)}</div>

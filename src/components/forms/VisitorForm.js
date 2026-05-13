@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Input, Select } from '@/components/ui/Input';
+import { Input, Select, Textarea } from '@/components/ui/Input';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { useApp } from '@/context/AppContext';
 import { LoaderInline } from '@/components/ui/Loader';
@@ -11,9 +11,51 @@ const initial = {
   email: '',
   phone: '',
   university: '',
+  visitorProfile: '',
   daysAttending: '',
-  participationType: ''
+  interests: [],
+  aiExperience: '',
+  parkingNeeded: '',
+  licensePlate: '',
+  accessibilityNeeds: '',
+  kvkkNoticeAccepted: false,
+  eventContactAccepted: false,
+  rulesAccepted: false,
+  website: ''
 };
+
+const interestOptions = [
+  {
+    value: 'workshops',
+    title: 'Workshoplar',
+    description: 'Uygulamalı oturumlar, AI araçları ve teknik mini eğitimler.'
+  },
+  {
+    value: 'panels',
+    title: 'Paneller',
+    description: 'Sektör, girişimcilik, kariyer ve toplumsal etki oturumları.'
+  },
+  {
+    value: 'stands',
+    title: 'Standlar',
+    description: 'Sponsor, topluluk ve partner alanlarıyla tanışma.'
+  },
+  {
+    value: 'talks',
+    title: 'Konuşmalar',
+    description: 'Ana sahne konuşmaları ve ilham oturumları.'
+  },
+  {
+    value: 'demo_day',
+    title: 'Demo Day',
+    description: 'Hackathon final sunumları ve proje demoları.'
+  },
+  {
+    value: 'networking',
+    title: 'Networking',
+    description: 'Katılımcılar, mentorlar ve topluluklarla bağlantı kurma.'
+  }
+];
 
 export function VisitorForm({ onSuccess }) {
   const [form, setForm] = useState(initial);
@@ -28,6 +70,39 @@ export function VisitorForm({ onSuccess }) {
     const value = e.target.value;
     setForm((prev) => ({ ...prev, [k]: value }));
     setErrors((prev) => (prev[k] ? { ...prev, [k]: undefined } : prev));
+  };
+
+  const updateCheckbox = (k) => (e) => {
+    const checked = e.target.checked;
+    setForm((prev) => ({ ...prev, [k]: checked }));
+    setErrors((prev) => (prev[k] ? { ...prev, [k]: undefined } : prev));
+  };
+
+  const updateParking = (e) => {
+    const value = e.target.value;
+    setForm((prev) => ({
+      ...prev,
+      parkingNeeded: value,
+      licensePlate: value === 'yes' ? prev.licensePlate : ''
+    }));
+    setErrors((prev) => ({
+      ...prev,
+      parkingNeeded: undefined,
+      licensePlate: undefined
+    }));
+  };
+
+  const toggleInterest = (value) => {
+    setForm((prev) => {
+      const exists = prev.interests.includes(value);
+      return {
+        ...prev,
+        interests: exists
+          ? prev.interests.filter((item) => item !== value)
+          : [...prev.interests, value]
+      };
+    });
+    setErrors((prev) => (prev.interests ? { ...prev, interests: undefined } : prev));
   };
 
   const submit = async (e) => {
@@ -76,6 +151,17 @@ export function VisitorForm({ onSuccess }) {
       <div className="space-y-6">
         <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Kişisel Bilgiler</h4>
         <div className="grid grid-cols-1 gap-6">
+          <div style={{ position: 'absolute', left: '-9999px', top: '0', opacity: 0, zIndex: -1 }} aria-hidden="true">
+            <input
+              type="text"
+              name="website"
+              tabIndex="-1"
+              value={form.website || ''}
+              onChange={update('website')}
+              autoComplete="off"
+            />
+          </div>
+
           <Input label="Ad Soyad *" name="fullName" value={form.fullName} onChange={update('fullName')} placeholder="Adınız ve Soyadınız" error={errors.fullName} className={fieldClassName} required />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -83,7 +169,18 @@ export function VisitorForm({ onSuccess }) {
             <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
           </div>
 
-          <Input label="Üniversite / Kurum (Opsiyonel)" name="university" value={form.university} onChange={update('university')} placeholder="Okulunuz veya Kurumunuz" error={errors.university} className={fieldClassName} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Input label="Üniversite / Kurum (Opsiyonel)" name="university" value={form.university} onChange={update('university')} placeholder="Okulunuz veya kurumunuz" error={errors.university} className={fieldClassName} />
+            <Select label="Ziyaretçi profiliniz *" name="visitorProfile" value={form.visitorProfile} onChange={update('visitorProfile')} error={errors.visitorProfile} className={cn(fieldClassName, 'pr-12')} required>
+              <option value="">Seçiniz...</option>
+              <option value="student">Öğrenci</option>
+              <option value="academic">Akademisyen / Eğitmen</option>
+              <option value="professional">Profesyonel / Sektör Temsilcisi</option>
+              <option value="entrepreneur">Girişimci</option>
+              <option value="sponsor">Sponsor / Partner Temsilcisi</option>
+              <option value="other">Diğer</option>
+            </Select>
+          </div>
         </div>
       </div>
 
@@ -97,25 +194,147 @@ export function VisitorForm({ onSuccess }) {
             <option value="both">İki Gün de Katılacağım</option>
           </Select>
 
-          <Select label="En çok hangi etkinliklerle ilgileniyorsunuz? *" name="participationType" value={form.participationType} onChange={update('participationType')} error={errors.participationType} className={cn(fieldClassName, 'pr-12')} required>
+          <Select label="AI / teknoloji deneyim seviyeniz *" name="aiExperience" value={form.aiExperience} onChange={update('aiExperience')} error={errors.aiExperience} className={cn(fieldClassName, 'pr-12')} required>
             <option value="">Seçiniz...</option>
-            <option value="talks">Seminerler / Konuşmalar</option>
-            <option value="workshops">Atölyeler (Workshops)</option>
-            <option value="stands">Sponsor Stantları / Fuaye</option>
-            <option value="demo_day">Hackathon Demo Day (2. Gün)</option>
-            <option value="all">Tümü (Genel Katılım)</option>
+            <option value="beginner">Başlangıç</option>
+            <option value="intermediate">Orta seviye</option>
+            <option value="advanced">İleri seviye</option>
+            <option value="not_sure">Emin değilim</option>
           </Select>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <div>
+          <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">İlgi Alanları</h4>
+          <p className="mt-3 text-xs text-ink-dim leading-relaxed">
+            Katılmak istediğiniz alanları seçin. Workshop kapasitesi, panel salon planlaması ve stand alanı akışı bu bilgilerle düzenlenecektir.
+          </p>
+          {errors.interests && <p className="mt-2 text-xs text-google-red">{errors.interests}</p>}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {interestOptions.map((option) => (
+            <InterestCheckbox
+              key={option.value}
+              option={option}
+              checked={form.interests.includes(option.value)}
+              onChange={() => toggleInterest(option.value)}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Lojistik</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Select label="Etkinlik alanına şahsi aracınızla mı geleceksiniz? *" name="parkingNeeded" value={form.parkingNeeded} onChange={updateParking} error={errors.parkingNeeded} className={cn(fieldClassName, 'pr-12')} required>
+            <option value="">Seçiniz...</option>
+            <option value="yes">Evet</option>
+            <option value="no">Hayır</option>
+          </Select>
+
+          {form.parkingNeeded === 'yes' && (
+            <Input label="Araç Plakası *" name="licensePlate" value={form.licensePlate} onChange={update('licensePlate')} placeholder="34 ABC 123" error={errors.licensePlate} className={fieldClassName} required />
+          )}
+        </div>
+
+        <Textarea
+          label="Erişilebilirlik / özel ihtiyaç notu (Opsiyonel)"
+          name="accessibilityNeeds"
+          rows={3}
+          value={form.accessibilityNeeds}
+          onChange={update('accessibilityNeeds')}
+          placeholder="Etkinlik alanında dikkate almamızı istediğiniz erişilebilirlik, yönlendirme veya benzeri bir ihtiyaç varsa yazabilirsiniz."
+          error={errors.accessibilityNeeds}
+          className={cn(fieldClassName, 'min-h-[100px] resize-none')}
+        />
+      </div>
+
+      <div className="space-y-6">
+        <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">KVKK ve Katılım Onayları</h4>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6 space-y-5">
+          <div className="space-y-4 text-xs md:text-sm text-ink-dim leading-relaxed">
+            <p>
+              Ziyaretçi kaydı kapsamında paylaştığınız kişisel veriler; Build with AI Hackathon workshop, panel, konuşma, stand ve genel ziyaretçi akışının planlanması, etkinlik kapasite yönetimi, güvenlik/kampüs giriş süreçleri ve etkinlik iletişiminin yürütülmesi amacıyla 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında işlenecektir.
+            </p>
+            <p>
+              Bu form aracılığıyla ad-soyad, e-posta, telefon, üniversite/kurum, ziyaretçi profili, katılım günü, ilgi alanları, AI/teknoloji deneyim seviyesi, ulaşım bilgileri ve varsa erişilebilirlik notunuz toplanabilir. Verileriniz yalnızca etkinlik organizasyonu için gerekli süre boyunca saklanır.
+            </p>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <ConsentCheckbox name="kvkkNoticeAccepted" checked={form.kvkkNoticeAccepted} onChange={updateCheckbox('kvkkNoticeAccepted')} error={errors.kvkkNoticeAccepted}>
+              Kişisel verilerimin ziyaretçi kayıt süreci, etkinlik planlaması, güvenlik/kampüs giriş işlemleri ve gerekli iletişim süreçleri için işleneceği konusunda bilgilendirildim.
+            </ConsentCheckbox>
+            <ConsentCheckbox name="eventContactAccepted" checked={form.eventContactAccepted} onChange={updateCheckbox('eventContactAccepted')} error={errors.eventContactAccepted}>
+              Etkinlik öncesi ve etkinlik süresince workshop, panel, stand, program değişikliği ve operasyonel bilgilendirmelerin tarafıma iletilebileceğini kabul ediyorum.
+            </ConsentCheckbox>
+            <ConsentCheckbox name="rulesAccepted" checked={form.rulesAccepted} onChange={updateCheckbox('rulesAccepted')} error={errors.rulesAccepted}>
+              Etkinlik alanında bulunduğum süre boyunca <a href="/hackfest26-kurallar.pdf" target="_blank" className="text-white underline underline-offset-2 hover:text-primary transition-colors">davranış kurallarına</a> ve organizasyon yönlendirmelerine uymayı kabul ediyorum.
+            </ConsentCheckbox>
+          </div>
         </div>
       </div>
 
       <div className="pt-6 space-y-6">
         <p className="text-[10px] text-ink-dim leading-relaxed text-center px-4">
-          Kayıt olarak etkinlik alanında bulunacağınız sürece <a href="/hackfest26-kurallar.pdf" target="_blank" className="text-white underline underline-offset-2 hover:text-primary transition-colors">davranış kurallarına</a> uymayı kabul etmiş sayılırsınız.
+          Kayıt formu workshop, panel ve stand alanlarında kapasite planlaması için kullanılacaktır; bazı oturumlarda kontenjan sınırlaması uygulanabilir.
         </p>
         <Button type="submit" className="w-full py-5 text-xl font-black shadow-xl shadow-primary/20 rounded-2xl transition-transform hover:scale-[1.01]" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
           {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'ZİYARETÇİ KAYDINI TAMAMLA'}
         </Button>
       </div>
     </form>
+  );
+}
+
+function InterestCheckbox({ option, checked, onChange }) {
+  return (
+    <label
+      className={cn(
+        'flex gap-3 rounded-2xl border p-4 cursor-pointer transition-all duration-200',
+        checked
+          ? 'border-primary/60 bg-primary/10 text-white'
+          : 'border-white/10 bg-white/[0.03] text-ink-dim hover:border-white/20 hover:bg-white/[0.05]'
+      )}
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-white/10 accent-primary"
+      />
+      <span>
+        <span className="block text-sm font-bold text-white">{option.title}</span>
+        <span className="mt-1 block text-xs leading-relaxed">{option.description}</span>
+      </span>
+    </label>
+  );
+}
+
+function ConsentCheckbox({ name, checked, onChange, error, children }) {
+  return (
+    <label
+      htmlFor={name}
+      className={cn(
+        'flex gap-3 rounded-xl border bg-white/[0.025] p-4 text-xs leading-relaxed text-ink-dim transition-colors',
+        error ? 'border-google-red/60' : 'border-white/10 hover:border-white/20'
+      )}
+    >
+      <input
+        id={name}
+        name={name}
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/10 accent-primary"
+        required
+      />
+      <span>
+        {children}
+        {error && <span className="mt-2 block text-google-red">{error}</span>}
+      </span>
+    </label>
   );
 }

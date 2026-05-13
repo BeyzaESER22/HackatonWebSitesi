@@ -51,5 +51,6 @@ export const PROJECT_CATEGORIES = [
 export const UPLOAD_LIMITS = {
   speakerImage:  { maxBytes: 2  * 1024 * 1024, types: ['image/jpeg','image/png','image/webp'] },
   projectImage:  { maxBytes: 5  * 1024 * 1024, types: ['image/jpeg','image/png','image/webp'] },
-  projectFile:   { maxBytes: 50 * 1024 * 1024, types: ['application/zip','application/x-zip-compressed','application/x-tar','application/gzip'] }
+  projectFile:   { maxBytes: 50 * 1024 * 1024, types: ['application/zip','application/x-zip-compressed','application/x-tar','application/gzip'] },
+  hackathonDocument: { maxBytes: 10 * 1024 * 1024, types: ['application/pdf'] }
 };

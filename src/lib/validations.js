@@ -4,7 +4,7 @@ export const HackathonApplicationSchema = z.object({
   fullName:   z.string().min(2, 'Ad soyad en az 2 karakter olmalı.').max(80),
   university: z.string().min(2, 'Üniversite bilgisi gerekli.').max(120),
   department: z.string().min(2, 'Bölüm bilgisi gerekli.').max(120),
-  grade:      z.enum(['prep', '1', '2', '3', '4', '5', '6'], {
+  grade:      z.enum(['prep', '1', '2', '3', '4', 'grad_recent', 'postgraduate'], {
     errorMap: () => ({ message: 'Sınıf bilgisini seçiniz.' })
   }),
   email:      z.string().email('Geçerli bir e-posta giriniz.'),
@@ -18,7 +18,20 @@ export const HackathonApplicationSchema = z.object({
   source: z.enum(['instagram', 'linkedin', 'club', 'whatsapp', 'friend', 'other'], {
     errorMap: () => ({ message: 'Lütfen bizi nereden duyduğunuzu seçin.' })
   }),
-  projectIdea: z.string().max(800).optional().or(z.literal(''))
+  projectIdea: z.string().max(800).optional().or(z.literal('')),
+  parkingNeeded: z.enum(['yes', 'no'], {
+    errorMap: () => ({ message: 'Otopark/araç bilgisini seçiniz.' })
+  }),
+  licensePlate: z.string().max(20).optional().or(z.literal('')),
+  kvkkNoticeAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'KVKK bilgilendirmesini onaylamanız gerekir.' })
+  }),
+  explicitConsentAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'Açık rıza beyanını onaylamanız gerekir.' })
+  }),
+  dataRetentionAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'Veri saklama bilgilendirmesini onaylamanız gerekir.' })
+  })
 }).superRefine((data, ctx) => {
   if (data.teamStatus === 'has_team' && !data.teamSize) {
     ctx.addIssue({
@@ -34,6 +47,13 @@ export const HackathonApplicationSchema = z.object({
       message: 'Takım arkadaşlarınızın başvuru durumunu seçiniz.'
     });
   }
+  if (data.parkingNeeded === 'yes' && !data.licensePlate?.trim()) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['licensePlate'],
+      message: 'Şahsi araçla gelecek katılımcılar için plaka bilgisi gereklidir.'
+    });
+  }
 });
 
 export const AttendeeRegistrationSchema = z.object({
@@ -41,12 +61,40 @@ export const AttendeeRegistrationSchema = z.object({
   email:             z.string().email('Geçerli bir e-posta giriniz.'),
   phone:             z.string().min(10, 'Geçerli bir telefon numarası giriniz.').max(20),
   university:        z.string().max(120).optional().or(z.literal('')),
+  visitorProfile:    z.enum(['student', 'academic', 'professional', 'entrepreneur', 'sponsor', 'other'], {
+    errorMap: () => ({ message: 'Ziyaretçi profilinizi seçiniz.' })
+  }),
   daysAttending:     z.enum(['day_1','day_2','both'], {
     errorMap: () => ({ message: 'Katılım gününü seçiniz.' })
   }),
-  participationType: z.enum(['talks','workshops','stands','demo_day','all'], {
-    errorMap: () => ({ message: 'İlgilendiğin etkinliği seçiniz.' })
-  })
+  interests: z.array(z.enum(['workshops', 'panels', 'stands', 'talks', 'demo_day', 'networking']))
+    .min(1, 'En az bir ilgi alanı seçiniz.'),
+  aiExperience: z.enum(['beginner', 'intermediate', 'advanced', 'not_sure'], {
+    errorMap: () => ({ message: 'AI/teknoloji deneyim seviyenizi seçiniz.' })
+  }),
+  parkingNeeded: z.enum(['yes', 'no'], {
+    errorMap: () => ({ message: 'Otopark/araç bilgisini seçiniz.' })
+  }),
+  licensePlate: z.string().max(20).optional().or(z.literal('')),
+  accessibilityNeeds: z.string().max(400).optional().or(z.literal('')),
+  kvkkNoticeAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'KVKK bilgilendirmesini onaylamanız gerekir.' })
+  }),
+  eventContactAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'Etkinlik iletişimi bilgilendirmesini onaylamanız gerekir.' })
+  }),
+  rulesAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'Davranış kurallarını onaylamanız gerekir.' })
+  }),
+  participationType: z.enum(['talks','workshops','stands','demo_day','all']).optional()
+}).superRefine((data, ctx) => {
+  if (data.parkingNeeded === 'yes' && !data.licensePlate?.trim()) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['licensePlate'],
+      message: 'Şahsi araçla gelecek ziyaretçiler için plaka bilgisi gereklidir.'
+    });
+  }
 });
 
 // Keep this tuple in sync with PROJECT_CATEGORIES in constants.js.

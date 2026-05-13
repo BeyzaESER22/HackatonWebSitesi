@@ -33,7 +33,14 @@ const gradeLabels = {
   '4': '4. Sınıf',
   '5': '5. Sınıf',
   '6': '6. Sınıf',
-  grad: 'Yüksek Lisans / Mezun'
+  grad: 'Yüksek Lisans / Mezun',
+  grad_recent: 'Mezun - Son 12 Ay İçinde',
+  postgraduate: 'Yüksek Lisans / Doktora'
+};
+
+const parkingLabels = {
+  yes: 'Evet',
+  no: 'Hayır'
 };
 
 export async function GET(request) {
@@ -54,8 +61,15 @@ export async function GET(request) {
       'Takim Durumu',
       'Takim Boyutu',
       'Arkadaslar Basvurdu mu?',
+      'Sahsi Arac',
+      'Arac Plakasi',
+      'Belge URL',
+      'Belge Adi',
       'Bizi Nereden Duydu?',
       'Proje Fikri',
+      'KVKK Bilgilendirme Onayi',
+      'Acik Riza Beyani',
+      'Veri Saklama Onayi',
       'Durum',
       'Basvuru Tarihi'
     ]
@@ -73,8 +87,15 @@ export async function GET(request) {
       teamStatusLabels[item.teamStatus] || item.teamStatus || '',
       item.teamSize || '',
       item.teammatesApplied ? (teammatesAppliedLabels[item.teammatesApplied] || item.teammatesApplied) : '',
+      parkingLabels[item.parkingNeeded] || item.parkingNeeded || '',
+      item.licensePlate || '',
+      item.document?.url || '',
+      item.document?.fileName || '',
       item.source ? (sourceLabels[item.source] || item.source) : '',
       item.projectIdea || '',
+      item.kvkkNoticeAccepted ? 'Evet' : 'Hayır',
+      item.explicitConsentAccepted ? 'Evet' : 'Hayır',
+      item.dataRetentionAccepted ? 'Evet' : 'Hayır',
       item.status || 'pending',
       item.submittedAt || ''
     ]);

@@ -51,7 +51,7 @@ export function VisitorApplicationShell({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.95),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(22,27,70,0.06),transparent_46%)]" />
         <div className="relative">
           <div className="mb-10 font-mono text-[11px] uppercase tracking-[0.28em] text-[#7A7365]">
-            /ZİYARETÇİ KAYDI
+            /WORKSHOP · PANEL · STAND KAYDI
           </div>
 
           <h2 className="font-display text-[2.7rem] font-black leading-[0.95] tracking-[-0.03em] text-[#141B4C] sm:text-6xl">
@@ -74,16 +74,16 @@ export function VisitorApplicationShell({
                 Neler Var?
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
-                Yapay zeka odaklı ilham verici konuşmalar, sektörden uzmanlarla networking fırsatları, sponsor stantları ve heyecan verici Demo Day sunumları.
+                Yapay zeka odaklı workshoplar, paneller, sektörden uzmanlarla networking fırsatları, sponsor stantları ve Demo Day sunumları.
               </p>
             </div>
 
             <div className="space-y-2">
               <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
-                Ücretsiz Katılım
+                Kapasite Planlaması
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
-                HackFest'26'yı ziyaretçi olarak deneyimlemek ve etkinliklere katılmak <strong className="text-green-600">tamamen ücretsizdir</strong>. Sadece yandaki formu doldurman yeterli!
+                Workshop ve panel kontenjanları sınırlı olabilir. İlgi alanlarını doğru seçmen salon, stand ve oturum planlamasını kolaylaştırır.
               </p>
             </div>
 
@@ -128,10 +128,10 @@ export function VisitorApplicationShell({
             BAŞVURU FORMU
           </div>
           <h3 className="font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
-            Seni de bekliyoruz.
+            Etkinliği birlikte deneyimleyelim.
           </h3>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-dim sm:text-base">
-            Etkinliği yerinde deneyimlemek için hemen kayıt ol.
+            Workshop, panel, stand ve Demo Day akışına katılmak için ziyaretçi kaydını tamamla.
           </p>
 
           <div className="mt-12">{children}</div>

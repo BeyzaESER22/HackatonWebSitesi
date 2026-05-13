@@ -51,7 +51,7 @@ export function HackathonApplicationShell({
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.95),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(22,27,70,0.06),transparent_46%)]" />
         <div className="relative">
           <div className="mb-10 font-mono text-[11px] uppercase tracking-[0.28em] text-[#7A7365]">
-            /HACKATHON BAŞVURUSU
+            /ETKİNLİK KAYDI
           </div>
 
           <h2 className="font-display text-[2.7rem] font-black leading-[0.95] tracking-[-0.03em] text-[#141B4C] sm:text-6xl">
@@ -65,37 +65,34 @@ export function HackathonApplicationShell({
                 Fiziksel Katılım
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
-                Bu etkinlik online DEĞİLDİR. Katılım <strong>İstinye Üniversitesi Vadi (Sarıyer)</strong> kampüsünde fiziksel olarak sağlanacaktır.
+                Bu etkinlik online değildir. Hackathon, workshop, panel ve stand alanlarına katılım <strong>İstinye Üniversitesi Vadi (Sarıyer)</strong> kampüsünde fiziksel olarak sağlanacaktır.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
+                Katılım Seçenekleri
+              </div>
+              <p className="text-[#5C594E] leading-relaxed text-sm">
+                Yarışmacı olarak hackathon başvurusu yapabilir veya ziyaretçi kaydıyla workshop, panel, sponsor stantları ve Demo Day akışına katılabilirsin.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
+                Ziyaretçi Akışı
+              </div>
+              <p className="text-[#5C594E] leading-relaxed text-sm">
+                Workshop kontenjanları, panel salon planı ve stand yoğunluğu ziyaretçi kayıtlarındaki ilgi alanlarına göre düzenlenecektir.
               </p>
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-red-600 font-bold text-sm uppercase tracking-wider">
-                ⚠️ Ekipman Notu
+                ⚠️ Hackathon Notu
               </div>
               <p className="text-[#5C594E] font-bold text-sm leading-relaxed">
-                Katılımcıların kendi bilgisayarlarını getirmesi zorunludur.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
-                Proje Teması
-              </div>
-              <p className="text-[#5C594E] leading-relaxed text-sm">
-                <strong className="italic">Etkinlik günü açıklanacak.</strong>
-                <span className="text-xs mt-1 block leading-normal">
-                  Önden kodlama avantajı oluşmaması için tema etkinlik başlangıcında paylaşılacaktır. Detaylı bilgi için <a href="/hackathon#themes" className="text-primary underline">hackathon sayfasını</a> inceleyiniz.
-                </span>
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
-                Ödüller
-              </div>
-              <p className="text-primary font-bold animate-pulse">
-                Yakında açıklanacak 🎁
+                Hackathon yarışmacılarının kendi bilgisayarlarını getirmesi zorunludur.
               </p>
             </div>
 
@@ -143,7 +140,7 @@ export function HackathonApplicationShell({
             Seni de bekliyoruz.
           </h3>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-dim sm:text-base">
-            Geleceği birlikte kodlamak için formu eksiksiz doldur.
+            Hackathon başvurusu veya ziyaretçi kaydı için ilgili sekmeyi seçip formu eksiksiz doldur.
           </p>
 
           <div className="mt-12">{children}</div>
