@@ -217,8 +217,9 @@ export function HackathonForm({ onSuccess }) {
               <option value="2">2. Sınıf</option>
               <option value="3">3. Sınıf</option>
               <option value="4">4. Sınıf</option>
+              <option value="5">5. Sınıf</option>
+              <option value="6">6. Sınıf</option>
               <option value="grad_recent">Mezun (Son 12 Ay İçinde)</option>
-              <option value="postgraduate">Yüksek Lisans / Doktora</option>
             </Select>
             <Input type="tel" label="Telefon *" name="phone" value={form.phone} onChange={update('phone')} placeholder="05XX XXX XX XX" error={errors.phone} className={fieldClassName} required />
           </div>

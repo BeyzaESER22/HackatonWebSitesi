@@ -33,9 +33,7 @@ const gradeLabels = {
   '4': '4. Sınıf',
   '5': '5. Sınıf',
   '6': '6. Sınıf',
-  grad: 'Yüksek Lisans / Mezun',
-  grad_recent: 'Mezun - Son 12 Ay İçinde',
-  postgraduate: 'Yüksek Lisans / Doktora'
+  grad_recent: 'Mezun - Son 12 Ay İçinde'
 };
 
 const parkingLabels = {
