@@ -13,7 +13,7 @@ const SUBMISSION_KEY_STORAGE = 'hf26_hackathon_submission_key';
 const initial = {
   fullName: '', university: '', department: '', grade: '', email: '',
   phone: '', teamStatus: '', teamSize: '', teammatesApplied: '', 
-  source: '', projectIdea: '', parkingNeeded: '', licensePlate: '',
+  source: '', parkingNeeded: '', licensePlate: '',
   kvkkNoticeAccepted: false, explicitConsentAccepted: false, dataRetentionAccepted: false,
   website: ''
 };
@@ -333,25 +333,6 @@ export function HackathonForm({ onSuccess }) {
               Veri minimizasyonu kapsamında T.C. Kimlik Numaranızı, doğrulama için gerekli barkod, ad-soyad, üniversite, bölüm ve eğitim durumu alanları okunur kalacak şekilde maskeleyebilirsiniz.
             </p>
           </div>
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Proje</h4>
-        <div className="space-y-4">
-          <Textarea
-            label="Proje Fikri (Opsiyonel)"
-            name="projectIdea"
-            rows={4}
-            value={form.projectIdea}
-            onChange={update('projectIdea')}
-            placeholder="Aklındaki proje fikrini kısaca anlatabilirsin."
-            error={errors.projectIdea}
-            className={cn(fieldClassName, 'min-h-[120px] resize-none')}
-          />
-          <p className="text-xs text-white/50 leading-relaxed italic">
-            Bu aşamada fikir belirtmek <strong className="text-white/80">opsiyoneldir</strong>. Yarışma teması, önden kodlama avantajı oluşmaması için etkinlik günü açıklanacaktır. Detaylı bilgi için <a href="/hackathon#themes" className="text-primary underline">bu kısmı</a> inceleyebilirsiniz.
-          </p>
         </div>
       </div>
 

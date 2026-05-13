@@ -156,7 +156,7 @@ export default function HackathonInfoPage() {
                   Tema <span className="hf-text-gradient">etkinlik günü</span> açıklanacak.
                 </h2>
                 <p className="text-ink-dim leading-relaxed text-base md:text-lg">
-                  HackFest&apos;26 AI&apos;da yarışma teması, tüm ekiplerin aynı anda başlaması ve önden kodlama avantajı oluşmaması için etkinlik günü paylaşılacak. Başvuru aşamasında proje fikri belirtmek opsiyoneldir; ekiplerden bu süreçte hazır bir ürün değil, merak, araştırma disiplini ve güçlü bir problem çözme yaklaşımı beklenir.
+                  HackFest&apos;26 AI&apos;da yarışma teması, tüm ekiplerin aynı anda başlaması ve önden kodlama avantajı oluşmaması için etkinlik günü paylaşılacak. Ekiplerden bu süreçte hazır bir ürün değil, merak, araştırma disiplini ve güçlü bir problem çözme yaklaşımı beklenir.
                 </p>
               </Card>
 

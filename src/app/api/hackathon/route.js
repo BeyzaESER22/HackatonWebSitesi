@@ -33,7 +33,6 @@ export async function POST(request) {
         teamSize: text('teamSize'),
         teammatesApplied: text('teammatesApplied'),
         source: text('source'),
-        projectIdea: text('projectIdea'),
         parkingNeeded: text('parkingNeeded'),
         licensePlate: text('licensePlate').toUpperCase(),
         kvkkNoticeAccepted: text('kvkkNoticeAccepted') === 'true',

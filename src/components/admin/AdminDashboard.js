@@ -325,7 +325,6 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                     <th className="px-4 py-3 font-medium">İletişim</th>
                     <th className="px-4 py-3 font-medium">Takım</th>
                     <th className="px-4 py-3 font-medium">Lojistik / Belge</th>
-                    <th className="px-4 py-3 font-medium">Proje</th>
                     <th className="px-4 py-3 font-medium">Tarih</th>
                     <th className="px-4 py-3 font-medium">İşlem</th>
                   </tr>
@@ -391,11 +390,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                           <div className="mt-2 text-ink-mute">Belge yok</div>
                         )}
                       </td>
-                      <td className="max-w-xs px-4 py-4 text-ink-dim text-xs leading-relaxed">
-                        {submission.projectIdea?.trim() || '-'}
-                      </td>
-                      <td className="px-4 py-4 text-ink-dim text-xs whitespace-nowrap">
-                        <div>{formatDate(submission.submittedAt)}</div>
+                      <td className="px-4 py-4 text-ink-dim text-xs whitespace-nowrap">                        <div>{formatDate(submission.submittedAt)}</div>
                         <div className="mt-1 uppercase tracking-[0.16em] text-ink-mute">
                           {submission.status || 'pending'}
                         </div>

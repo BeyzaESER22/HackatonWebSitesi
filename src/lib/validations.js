@@ -18,7 +18,6 @@ export const HackathonApplicationSchema = z.object({
   source: z.enum(['instagram', 'linkedin', 'club', 'whatsapp', 'friend', 'other'], {
     errorMap: () => ({ message: 'Lütfen bizi nereden duyduğunuzu seçin.' })
   }),
-  projectIdea: z.string().max(800).optional().or(z.literal('')),
   parkingNeeded: z.enum(['yes', 'no'], {
     errorMap: () => ({ message: 'Otopark/araç bilgisini seçiniz.' })
   }),
