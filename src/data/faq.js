@@ -56,7 +56,7 @@ export const faq = [
 
   {
     q: 'Başvuru formunda seçtiğim takım seçeneğini sonradan değiştirebilir miyim?',
-    a: 'Evet. Başvuruda seçtiğin seçeneği (takımla katılacağım veya eşleştirilmek istiyorum) etkinliğin ilk saatinde organizasyon ekibine bildirerek değiştirebilirsin. Ancak takım eşleştirme süreci bittikten ve hemen ardından proje geliştirme aşamasına geçildikten sonra değişiklik yapılamaz.'
+    a: 'Evet. Takım tercihinizi veya takım yapınızı etkinliğin ilk saatinde organizasyon ekibine bildirerek güncelleyebilirsiniz. Ancak takım eşleştirme süreci tamamlanıp proje geliştirme aşamasına geçildikten sonra herhangi bir değişiklik yapılması mümkün değildir.'
   },
 
   {
