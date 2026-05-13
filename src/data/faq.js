@@ -16,12 +16,12 @@ export const faq = [
   
   {
     q: 'Takım seçeneğim nasıl işliyor?',
-    a: 'HackFest\'26 AI yalnızca 3 ile 5 kişilik takımlarla katılıma açıktır; bireysel katılım kabul edilmez. 2 seçeneğin var:\n\n- Takımım var: Mevcut ekibinle başvurabilirsin.\n- Takımım yok ama takım kurmak istiyorum: Başvuru formunda "eşleştirilecek" seçeneğini seçersen düzenleyici tarafından sana bir takım oluşturulur.'
+    a: 'HackFest\'26 AI yalnızca 3 ile 5 kişilik takımlarla katılıma açıktır; bireysel katılım kabul edilmez. 2 seçeneğin var:\n\n- Takımım var: Mevcut ekibinle başvurabilirsin.\n- Takımım yok ama takım kurmak istiyorum: Başvuru formunda "eşleştirilecek" seçeneğini seçersen, organizasyon ekibi koordinasyonunda diğer katılımcılarla bir takım oluşturman sağlanır.'
   },
   
   {
     q: 'Başvuru formunda “takımım yok ama takım ile yarışmak istiyorum” seçeneğini seçtiysem ne olur?',
-    a: 'Bu seçeneği işaretlersen düzenleyici tarafından sana bir takım oluşturulur (takım formasyonu). Eşleştirme süreci etkinliğin ilk saatinde netleştirilir; proje geliştirme süreci başladıktan sonra takım değişikliği yapılamaz.'
+    a: 'Bu seçeneği işaretlersen, organizasyon ekibi tarafından yönetilen WhatsApp duyuru ve koordinasyon grubu üzerinden senin gibi bireysel başvuran diğer katılımcılarla eşleşerek bir takım oluşturman sağlanır. Bu süreç etkinlik gününden önce grupta başlar ve etkinlik sabahı kampüste kesinleşir; proje geliştirme süreci başladıktan sonra takım değişikliği yapılamaz.'
   },
 
   {
