@@ -23,9 +23,6 @@ const interestLabels = {
   workshops: 'Workshoplar',
   panels: 'Paneller',
   stands: 'Standlar',
-  talks: 'Konusmalar',
-  demo_day: 'Demo Day',
-  networking: 'Networking',
   all: 'Tumu'
 };
 
@@ -34,11 +31,6 @@ const aiExperienceLabels = {
   intermediate: 'Orta seviye',
   advanced: 'Ileri seviye',
   not_sure: 'Emin degil'
-};
-
-const parkingLabels = {
-  yes: 'Evet',
-  no: 'Hayir'
 };
 
 function getInterests(item) {
@@ -65,9 +57,6 @@ export async function GET(request) {
       'Katilim Gunleri',
       'Ilgi Alanlari',
       'AI Deneyim Seviyesi',
-      'Sahsi Arac',
-      'Arac Plakasi',
-      'Erisilebilirlik / Ozel Ihtiyac Notu',
       'KVKK Bilgilendirme Onayi',
       'Etkinlik Iletisim Onayi',
       'Davranis Kurallari Onayi',
@@ -90,9 +79,6 @@ export async function GET(request) {
       dayLabels[item.daysAttending] || item.daysAttending || '',
       interests,
       aiExperienceLabels[item.aiExperience] || item.aiExperience || '',
-      parkingLabels[item.parkingNeeded] || item.parkingNeeded || '',
-      item.licensePlate || '',
-      item.accessibilityNeeds || '',
       item.kvkkNoticeAccepted ? 'Evet' : 'Hayir',
       item.eventContactAccepted ? 'Evet' : 'Hayir',
       item.rulesAccepted ? 'Evet' : 'Hayir',

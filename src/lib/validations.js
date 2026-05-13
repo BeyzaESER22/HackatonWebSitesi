@@ -66,16 +66,11 @@ export const AttendeeRegistrationSchema = z.object({
   daysAttending:     z.enum(['day_1','day_2','both'], {
     errorMap: () => ({ message: 'Katılım gününü seçiniz.' })
   }),
-  interests: z.array(z.enum(['workshops', 'panels', 'stands', 'talks', 'demo_day', 'networking']))
+  interests: z.array(z.enum(['workshops', 'panels', 'stands']))
     .min(1, 'En az bir ilgi alanı seçiniz.'),
   aiExperience: z.enum(['beginner', 'intermediate', 'advanced', 'not_sure'], {
     errorMap: () => ({ message: 'AI/teknoloji deneyim seviyenizi seçiniz.' })
   }),
-  parkingNeeded: z.enum(['yes', 'no'], {
-    errorMap: () => ({ message: 'Otopark/araç bilgisini seçiniz.' })
-  }),
-  licensePlate: z.string().max(20).optional().or(z.literal('')),
-  accessibilityNeeds: z.string().max(400).optional().or(z.literal('')),
   kvkkNoticeAccepted: z.literal(true, {
     errorMap: () => ({ message: 'KVKK bilgilendirmesini onaylamanız gerekir.' })
   }),
@@ -84,16 +79,7 @@ export const AttendeeRegistrationSchema = z.object({
   }),
   rulesAccepted: z.literal(true, {
     errorMap: () => ({ message: 'Davranış kurallarını onaylamanız gerekir.' })
-  }),
-  participationType: z.enum(['talks','workshops','stands','demo_day','all']).optional()
-}).superRefine((data, ctx) => {
-  if (data.parkingNeeded === 'yes' && !data.licensePlate?.trim()) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      path: ['licensePlate'],
-      message: 'Şahsi araçla gelecek ziyaretçiler için plaka bilgisi gereklidir.'
-    });
-  }
+  })
 });
 
 // Keep this tuple in sync with PROJECT_CATEGORIES in constants.js.

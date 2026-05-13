@@ -40,14 +40,14 @@ export function Navbar() {
           {/* Right CTAs — only on xl+ */}
           <div className="hidden xl:flex items-center gap-2.5 shrink-0">
             <Button size="sm" onClick={() => openModal('hack')} iconRight={<ArrowRightIcon size={14} />}>
-              Hackathon'a Katıl
+              HackFest Katıl
             </Button>
           </div>
 
           {/* Mid-screen compact CTAs — between md and xl, only the primary button + hamburger */}
           <div className="hidden md:flex xl:hidden items-center gap-2 ml-auto shrink-0">
             <Button size="sm" onClick={() => openModal('hack')} iconRight={<ArrowRightIcon size={14} />}>
-              Hackathon'a Katıl
+              HackFest Katıl
             </Button>
             <button
               className="p-2.5 rounded-lg border border-white/10 hover:bg-white/5 transition"

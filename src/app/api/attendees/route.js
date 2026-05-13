@@ -29,10 +29,6 @@ export async function POST(request) {
     }
   }
 
-  if (typeof sanitizedBody.licensePlate === 'string') {
-    sanitizedBody.licensePlate = sanitizedBody.licensePlate.toUpperCase();
-  }
-
   const parsed = AttendeeRegistrationSchema.safeParse(sanitizedBody);
   if (!parsed.success) {
     const fieldErrors = {};

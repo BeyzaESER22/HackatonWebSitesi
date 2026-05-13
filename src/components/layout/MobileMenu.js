@@ -28,7 +28,7 @@ export function MobileMenu({ open, onClose }) {
             ))}
             <div className="flex flex-col gap-2 pt-3 border-t border-white/5">
               <Button as={Link} href="/register" onClick={onClose} className="justify-center">
-                Hackathon'a Katıl
+                HackFest Katıl
               </Button>
             </div>
           </div>

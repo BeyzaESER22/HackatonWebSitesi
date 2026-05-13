@@ -578,7 +578,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                     <th className="px-4 py-3 font-medium">İletişim</th>
                     <th className="px-4 py-3 font-medium">Profil</th>
                     <th className="px-4 py-3 font-medium">Katılım Günleri</th>
-                    <th className="px-4 py-3 font-medium">İlgi / Lojistik</th>
+                    <th className="px-4 py-3 font-medium">İlgi Alanları</th>
                     <th className="px-4 py-3 font-medium">Tarih</th>
                     <th className="px-4 py-3 font-medium">İşlem</th>
                   </tr>
@@ -623,15 +623,6 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                             </span>
                           ))}
                         </div>
-                        <div className="mt-2 text-ink-dim text-xs">
-                          {parkingLabels[attendee.parkingNeeded] || attendee.parkingNeeded || '-'}
-                          {attendee.licensePlate ? ` · ${attendee.licensePlate}` : ''}
-                        </div>
-                        {attendee.accessibilityNeeds && (
-                          <div className="mt-1 text-[10px] text-primary leading-relaxed">
-                            Not: {attendee.accessibilityNeeds}
-                          </div>
-                        )}
                       </td>
                       <td className="px-4 py-4 text-ink-dim text-xs whitespace-nowrap">
                         <div>{formatDate(attendee.registeredAt)}</div>

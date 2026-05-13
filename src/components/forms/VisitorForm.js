@@ -15,9 +15,6 @@ const initial = {
   daysAttending: '',
   interests: [],
   aiExperience: '',
-  parkingNeeded: '',
-  licensePlate: '',
-  accessibilityNeeds: '',
   kvkkNoticeAccepted: false,
   eventContactAccepted: false,
   rulesAccepted: false,
@@ -39,21 +36,6 @@ const interestOptions = [
     value: 'stands',
     title: 'Standlar',
     description: 'Sponsor, topluluk ve partner alanlarıyla tanışma.'
-  },
-  {
-    value: 'talks',
-    title: 'Konuşmalar',
-    description: 'Ana sahne konuşmaları ve ilham oturumları.'
-  },
-  {
-    value: 'demo_day',
-    title: 'Demo Day',
-    description: 'Hackathon final sunumları ve proje demoları.'
-  },
-  {
-    value: 'networking',
-    title: 'Networking',
-    description: 'Katılımcılar, mentorlar ve topluluklarla bağlantı kurma.'
   }
 ];
 
@@ -226,40 +208,14 @@ export function VisitorForm({ onSuccess }) {
       </div>
 
       <div className="space-y-6">
-        <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">Lojistik</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Select label="Etkinlik alanına şahsi aracınızla mı geleceksiniz? *" name="parkingNeeded" value={form.parkingNeeded} onChange={updateParking} error={errors.parkingNeeded} className={cn(fieldClassName, 'pr-12')} required>
-            <option value="">Seçiniz...</option>
-            <option value="yes">Evet</option>
-            <option value="no">Hayır</option>
-          </Select>
-
-          {form.parkingNeeded === 'yes' && (
-            <Input label="Araç Plakası *" name="licensePlate" value={form.licensePlate} onChange={update('licensePlate')} placeholder="34 ABC 123" error={errors.licensePlate} className={fieldClassName} required />
-          )}
-        </div>
-
-        <Textarea
-          label="Erişilebilirlik / özel ihtiyaç notu (Opsiyonel)"
-          name="accessibilityNeeds"
-          rows={3}
-          value={form.accessibilityNeeds}
-          onChange={update('accessibilityNeeds')}
-          placeholder="Etkinlik alanında dikkate almamızı istediğiniz erişilebilirlik, yönlendirme veya benzeri bir ihtiyaç varsa yazabilirsiniz."
-          error={errors.accessibilityNeeds}
-          className={cn(fieldClassName, 'min-h-[100px] resize-none')}
-        />
-      </div>
-
-      <div className="space-y-6">
         <h4 className="text-sm font-black text-white/40 uppercase tracking-[0.2em] border-l-2 border-primary pl-4">KVKK ve Katılım Onayları</h4>
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 md:p-6 space-y-5">
           <div className="space-y-4 text-xs md:text-sm text-ink-dim leading-relaxed">
             <p>
-              Ziyaretçi kaydı kapsamında paylaştığınız kişisel veriler; Build with AI Hackathon workshop, panel, konuşma, stand ve genel ziyaretçi akışının planlanması, etkinlik kapasite yönetimi, güvenlik/kampüs giriş süreçleri ve etkinlik iletişiminin yürütülmesi amacıyla 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında işlenecektir.
+              Ziyaretçi kaydı kapsamında paylaştığınız kişisel veriler; Build with AI Hackathon workshop, panel, stand ve genel ziyaretçi akışının planlanması, etkinlik kapasite yönetimi, güvenlik/kampüs giriş süreçleri ve etkinlik iletişiminin yürütülmesi amacıyla 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında işlenecektir.
             </p>
             <p>
-              Bu form aracılığıyla ad-soyad, e-posta, telefon, üniversite/kurum, ziyaretçi profili, katılım günü, ilgi alanları, AI/teknoloji deneyim seviyesi, ulaşım bilgileri ve varsa erişilebilirlik notunuz toplanabilir. Verileriniz yalnızca etkinlik organizasyonu için gerekli süre boyunca saklanır.
+              Bu form aracılığıyla ad-soyad, e-posta, telefon, üniversite/kurum, ziyaretçi profili, katılım günü, ilgi alanları ve AI/teknoloji deneyim seviyesi toplanabilir. Verileriniz yalnızca etkinlik organizasyonu için gerekli süre boyunca saklanır.
             </p>
           </div>
 
