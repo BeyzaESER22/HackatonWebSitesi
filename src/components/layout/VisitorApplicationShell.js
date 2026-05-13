@@ -74,16 +74,7 @@ export function VisitorApplicationShell({
                 Neler Var?
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
-                Yapay zeka odaklı workshoplar, paneller, sektörden uzmanlarla networking fırsatları, sponsor stantları ve Demo Day sunumları.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
-                Kapasite Planlaması
-              </div>
-              <p className="text-[#5C594E] leading-relaxed text-sm">
-                Workshop ve panel kontenjanları sınırlı olabilir. İlgi alanlarını doğru seçmen salon, stand ve oturum planlamasını kolaylaştırır.
+                Yapay zeka odaklı workshoplar, paneller ve sponsor stantları.
               </p>
             </div>
 
@@ -131,7 +122,7 @@ export function VisitorApplicationShell({
             Etkinliği birlikte deneyimleyelim.
           </h3>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-dim sm:text-base">
-            Workshop, panel, stand ve Demo Day akışına katılmak için ziyaretçi kaydını tamamla.
+            Workshop, panel ve stand akışına katılmak için ziyaretçi kaydını tamamla.
           </p>
 
           <div className="mt-12">{children}</div>

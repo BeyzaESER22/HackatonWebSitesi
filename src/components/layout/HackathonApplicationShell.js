@@ -74,16 +74,7 @@ export function HackathonApplicationShell({
                 Katılım Seçenekleri
               </div>
               <p className="text-[#5C594E] leading-relaxed text-sm">
-                Yarışmacı olarak hackathon başvurusu yapabilir veya ziyaretçi kaydıyla workshop, panel, sponsor stantları ve Demo Day akışına katılabilirsin.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="text-navy-950 font-bold text-sm uppercase tracking-wider">
-                Ziyaretçi Akışı
-              </div>
-              <p className="text-[#5C594E] leading-relaxed text-sm">
-                Workshop kontenjanları, panel salon planı ve stand yoğunluğu ziyaretçi kayıtlarındaki ilgi alanlarına göre düzenlenecektir.
+                Yarışmacı olarak hackathon başvurusu yapabilir veya ziyaretçi kaydıyla workshop, panel ve sponsor stantları akışına katılabilirsin.
               </p>
             </div>
 
