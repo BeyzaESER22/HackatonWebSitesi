@@ -283,7 +283,6 @@ export function HackathonForm({ onSuccess }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
               <Select label="Takımda kaç kişisiniz? *" name="teamSize" value={form.teamSize} onChange={update('teamSize')} error={errors.teamSize} className={cn(fieldClassName, 'pr-12')} required>
                 <option value="">Seçiniz...</option>
-                <option value="2">2 kişi</option>
                 <option value="3">3 kişi</option>
                 <option value="4">4 kişi</option>
                 <option value="5">5 kişi</option>
