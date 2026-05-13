@@ -26,7 +26,7 @@ export const faq = [
 
   {
     q: 'Önceden proje fikri hazırlamak gerekiyor mu?',
-    a: 'Hayır. Etkinlik sırasında da fikir geliştirebilir ve proje oluşturabilirsin. Önceden fikir getirmek avantaj sağlayabilir ancak zorunlu değildir. Ancak geliştireceğin çözümün hackathon sayfasındaki alt kategorilerden en az 1 tanesiyle uyumlu olması şarttır.'
+    a: 'Hayır. Yarışma teması ve kategorileri, tüm ekiplerin aynı anda başlaması ve önden kodlama avantajı oluşmaması için etkinlik günü açıklanacaktır. Katılımcıların etkinlik öncesinde bir proje fikri getirmesi veya önceden kod yazmış olması yasaktır; tüm üretim süreci etkinlik anında başlamalıdır.'
   },
 
   {
