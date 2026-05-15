@@ -1,3 +1,6 @@
+// Başvuruları kapatmak için false, açmak için true yapın.
+export const REGISTRATIONS_OPEN = false;
+
 export const SITE = {
   name: 'HackFest\'26 AI',
   shortName: 'HackFest\'26',

@@ -5,11 +5,15 @@ import { generateId, safeFilename, sanitize } from '@/lib/helpers';
 import { enforceSubmissionRateLimit } from '@/lib/rate-limit';
 import { isSpamSubmission } from '@/lib/spam';
 import { uploadFile } from '@/lib/storage';
-import { SITE, UPLOAD_LIMITS } from '@/lib/constants';
+import { SITE, UPLOAD_LIMITS, REGISTRATIONS_OPEN } from '@/lib/constants';
 
 export const runtime = 'nodejs';
 
 export async function POST(request) {
+  if (!REGISTRATIONS_OPEN) {
+    return NextResponse.json({ message: 'Başvurular kapatılmıştır.' }, { status: 403 });
+  }
+
   let body;
   let documentFile = null;
   try {

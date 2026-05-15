@@ -4,11 +4,15 @@ import { appendToStore } from '@/lib/store';
 import { generateId, sanitize } from '@/lib/helpers';
 import { enforceSubmissionRateLimit } from '@/lib/rate-limit';
 import { isSpamSubmission } from '@/lib/spam';
-import { SITE } from '@/lib/constants';
+import { SITE, REGISTRATIONS_OPEN } from '@/lib/constants';
 
 export const runtime = 'nodejs';
 
 export async function POST(request) {
+  if (!REGISTRATIONS_OPEN) {
+    return NextResponse.json({ message: 'Kayıtlar kapatılmıştır.' }, { status: 403 });
+  }
+
   let body;
   try { body = await request.json(); }
   catch { return NextResponse.json({ message: 'Geçersiz istek gövdesi.' }, { status: 400 }); }

@@ -5,7 +5,7 @@ import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { useApp } from '@/context/AppContext';
 import { LoaderInline } from '@/components/ui/Loader';
 import { cn } from '@/lib/helpers';
-import { UPLOAD_LIMITS } from '@/lib/constants';
+import { UPLOAD_LIMITS, REGISTRATIONS_OPEN } from '@/lib/constants';
 
 const DRAFT_KEY = 'hf26_hackathon_form_draft';
 const SUBMISSION_KEY_STORAGE = 'hf26_hackathon_submission_key';
@@ -386,12 +386,21 @@ export function HackathonForm({ onSuccess }) {
       </div>
 
       <div className="pt-6 space-y-6">
-        <p className="text-[10px] text-ink-dim leading-relaxed text-center px-4">
-          Başvurunuzu tamamlayarak etkinlik <a href="/hackfest26-kurallar.pdf" target="_blank" className="text-white underline underline-offset-2 hover:text-primary transition-colors">katılım kurallarını</a>, KVKK bilgilendirmesini ve davranış kurallarını onayladığınızı beyan edersiniz.
-        </p>
-        <Button type="submit" className="w-full py-5 text-xl font-black shadow-xl shadow-primary/20 rounded-2xl transition-transform hover:scale-[1.01]" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
-          {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'BAŞVURUYU TAMAMLA'}
-        </Button>
+        {REGISTRATIONS_OPEN ? (
+          <>
+            <p className="text-[10px] text-ink-dim leading-relaxed text-center px-4">
+              Başvurunuzu tamamlayarak etkinlik <a href="/hackfest26-kurallar.pdf" target="_blank" className="text-white underline underline-offset-2 hover:text-primary transition-colors">katılım kurallarını</a>, KVKK bilgilendirmesini ve davranış kurallarını onayladığınızı beyan edersiniz.
+            </p>
+            <Button type="submit" className="w-full py-5 text-xl font-black shadow-xl shadow-primary/20 rounded-2xl transition-transform hover:scale-[1.01]" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
+              {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'BAŞVURUYU TAMAMLA'}
+            </Button>
+          </>
+        ) : (
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center space-y-2">
+            <p className="text-base font-bold text-white">Başvurular kapatıldı</p>
+            <p className="text-sm text-ink-dim">Hackathon başvuruları sona ermiştir. Bizi takip etmeye devam edin!</p>
+          </div>
+        )}
       </div>
     </form>
   );

@@ -5,6 +5,7 @@ import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { useApp } from '@/context/AppContext';
 import { LoaderInline } from '@/components/ui/Loader';
 import { cn } from '@/lib/helpers';
+import { REGISTRATIONS_OPEN } from '@/lib/constants';
 
 const initial = {
   fullName: '',
@@ -234,12 +235,21 @@ export function VisitorForm({ onSuccess }) {
       </div>
 
       <div className="pt-6 space-y-6">
-        <p className="text-[10px] text-ink-dim leading-relaxed text-center px-4">
-          Kayıt formu workshop, panel ve stand alanlarında kapasite planlaması için kullanılacaktır; bazı oturumlarda kontenjan sınırlaması uygulanabilir.
-        </p>
-        <Button type="submit" className="w-full py-5 text-xl font-black shadow-xl shadow-primary/20 rounded-2xl transition-transform hover:scale-[1.01]" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
-          {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'ZİYARETÇİ KAYDINI TAMAMLA'}
-        </Button>
+        {REGISTRATIONS_OPEN ? (
+          <>
+            <p className="text-[10px] text-ink-dim leading-relaxed text-center px-4">
+              Kayıt formu workshop, panel ve stand alanlarında kapasite planlaması için kullanılacaktır; bazı oturumlarda kontenjan sınırlaması uygulanabilir.
+            </p>
+            <Button type="submit" className="w-full py-5 text-xl font-black shadow-xl shadow-primary/20 rounded-2xl transition-transform hover:scale-[1.01]" disabled={busy} iconRight={!busy && <ArrowRightIcon />}>
+              {busy ? <LoaderInline>Gönderiliyor...</LoaderInline> : 'ZİYARETÇİ KAYDINI TAMAMLA'}
+            </Button>
+          </>
+        ) : (
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center space-y-2">
+            <p className="text-base font-bold text-white">Kayıtlar kapatıldı</p>
+            <p className="text-sm text-ink-dim">Ziyaretçi kayıtları sona ermiştir. Bizi takip etmeye devam edin!</p>
+          </div>
+        )}
       </div>
     </form>
   );
