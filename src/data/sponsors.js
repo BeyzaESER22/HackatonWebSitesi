@@ -26,7 +26,9 @@ export const sponsors = [
   { id: 'anxcure',       name: 'AnxCure',                   size: 'support', logoUrl: '/uploads/sponsors/anxcure.png',        url: '#' },
   { id: 'ajans-kurdu',   name: 'Ajans Kurdu',               size: 'support', logoUrl: '/uploads/sponsors/ajans-kurdu.png',    url: '#' },
   { id: 'tamek',         name: 'Tamek',                     size: 'support', logoUrl: '/uploads/sponsors/tamek.png',          url: '#' },
-  { id: 'porty',         name: 'Porty',                     size: 'support', logoUrl: '/uploads/sponsors/porty.png',          url: '#' }
+  { id: 'porty',         name: 'Porty',                     size: 'support', logoUrl: '/uploads/sponsors/porty.png',          url: '#' },
+  { id: 'toganworks',   name: 'ToganWorks',                size: 'support', logoUrl: '/uploads/sponsors/toganworks.png',     url: '#' },
+  { id: 'kismet-market', name: 'Kismet Market',            size: 'support', logoUrl: '/uploads/sponsors/kismet-market.png', url: '#', lightBg: true }
 ];
 
 export function groupSponsors() {
