@@ -48,7 +48,7 @@ export const NAV_LINKS = [
 ];
 
 export const PROJECT_CATEGORIES = [
-  { id: 'edu',           label: 'Eğitimde Yenilik' }
+  { id: 'edu', label: 'Eğitim Teknolojileri' }
 ];
 
 export const UPLOAD_LIMITS = {

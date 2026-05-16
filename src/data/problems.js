@@ -3,12 +3,12 @@ import { COLORS } from '@/lib/constants';
 export const categories = [
   {
     id: 'edu',
-    title: 'Eğitimde Yenilik',
+    title: 'Eğitim Teknolojileri',
     icon: '🎓',
     color: '#F59E0B',
-    description: 'Kişiselleştirilmiş öğrenme yolları, erişilebilir eğitim araçları ve yetkinlik analizi.',
+    description: 'Kişiselleştirilmiş öğrenme yolları, erişilebilir eğitim araçları ve yapay zeka destekli yetkinlik analizi.',
     tagline: 'Tek bir müfredat herkese yetmiyor; AI öğrenciye göre büyüsün.',
-    theme: 'Eğitim alanındaki sorunlar yapay zeka ile çözülmeyi bekliyor. Bu kategori; öğrencinin nereyi anlamadığını verisinden çıkarıp kişiselleştirilmiş yol çizen, açık uçlu yanıtları otomatik puanlayan, işaret diline anlık çeviri yapan ve okulu bırakma riski olan öğrencileri saptayan AI sistemleri istiyor. NLP ve adaptif öğrenme algoritmaları bu temanın merkezinde.',
+    theme: 'Eğitim teknolojileri, yapay zekayla dönüşüm bekleyen en kritik alanlardan biri. Bu kategori; öğrencinin nereyi anlamadığını verisinden çıkarıp kişiselleştirilmiş yol çizen, açık uçlu yanıtları otomatik puanlayan, işaret diline anlık çeviri yapan ve okulu bırakma riski olan öğrencileri saptayan AI sistemleri istiyor. NLP, adaptif öğrenme algoritmaları ve multimodal AI bu temanın merkezinde.',
     whyMatters: [
       'PISA 2022: Öğrencilerin önemli bir bölümü temel yetkinliklerin altında performans gösteriyor.',
       'EdTech (Eğitim Teknolojileri) pazarının 2030\'a kadar hızla büyümesi bekleniyor.',

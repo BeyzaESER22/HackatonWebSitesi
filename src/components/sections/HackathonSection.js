@@ -25,11 +25,10 @@ export function HackathonSection() {
           <RevealOnScroll>
             <div className="text-xs uppercase tracking-[0.22em] text-ink-dim mb-3">Hackathon</div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.05]">
-              Toplum yararına <span className="hf-text-gradient">yapay zeka ile</span> üret.
+              <span className="hf-text-gradient">Eğitim Teknolojileri</span> ile geleceği inşa et.
             </h2>
             <p className="text-ink-dim text-lg mb-8 leading-relaxed">
-              Yarışma teması etkinlik günü açıklanacak. Takımını kur, araçlarını hazırla ve gerçek dünya problemlerine
-              yapay zeka ile çözüm geliştirmeye hazırlan.
+              Bu yılın teması <strong className="text-white">Eğitim Teknolojileri</strong>. Kişiselleştirilmiş öğrenme, erişilebilir eğitim araçları ve AI destekli yetkinlik analizi — gerçek dünya problemlerine yapay zeka ile çözüm geliştir.
             </p>
 
             <ul className="space-y-3 mb-9">
