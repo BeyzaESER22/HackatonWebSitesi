@@ -4,23 +4,14 @@ import { Container } from '@/components/layout/Container';
 import { Card } from '@/components/ui/Card';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { getStaticProjects } from '@/data/projects';
-import { readStore } from '@/lib/store';
+import { findPublicProjectById } from '@/lib/projects';
 import { PROJECT_CATEGORIES, COLORS } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
 async function findProject(id) {
-  const fromStatic = getStaticProjects().find(p => p.id === id);
-  if (fromStatic) return fromStatic;
-
-  try {
-    const all = await readStore('projects.json');
-    return all.find(p => p.id === id && p.status === 'approved') || null;
-  } catch {
-    return null;
-  }
+  return findPublicProjectById(id);
 }
 
 export async function generateMetadata({ params }) {

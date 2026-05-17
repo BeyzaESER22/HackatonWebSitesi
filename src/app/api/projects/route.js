@@ -1,28 +1,17 @@
 import { NextResponse } from 'next/server';
 import { ProjectSubmissionSchema } from '@/lib/validations';
-import { readStore, appendToStore } from '@/lib/store';
+import { appendToStore } from '@/lib/store';
 import { uploadFile } from '@/lib/storage';
-import { generateId, safeFilename, slugify } from '@/lib/helpers';
+import { safeFilename, slugify } from '@/lib/helpers';
 import { UPLOAD_LIMITS, PROJECT_CATEGORIES } from '@/lib/constants';
-import { getStaticProjects } from '@/data/projects';
+import { loadPublicProjects } from '@/lib/projects';
 
 export const runtime = 'nodejs';
 
-/** GET — list approved projects (static showcase + approved submissions). */
+/** GET — list public projects (static showcase + submitted projects unless rejected). */
 export async function GET() {
-  const staticOnes = getStaticProjects();
-  let userOnes = [];
-  try {
-    const all = await readStore('projects.json');
-    userOnes = all.filter(p => p.status === 'approved');
-  } catch (err) {
-    console.error('GET /api/projects readStore error:', err);
-    userOnes = [];
-  }
-  const merged = [...staticOnes, ...userOnes].sort(
-    (a, b) => new Date(b.submittedAt) - new Date(a.submittedAt)
-  );
-  return NextResponse.json({ ok: true, projects: merged });
+  const projects = await loadPublicProjects();
+  return NextResponse.json({ ok: true, projects });
 }
 
 /** POST — accept new project submission with image (required) + zip (optional). */

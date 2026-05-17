@@ -428,6 +428,31 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
             </div>
           </div>
 
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-[1.5rem] border border-white/8 bg-white/[0.02] px-5 py-4">
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] text-ink-dim">Proje Dışa Aktarımı</div>
+              <p className="mt-1 text-sm text-white/80">
+                Veritabanındaki tüm proje kayıtlarını detaylı açıklama dahil CSV olarak indir.
+              </p>
+            </div>
+            <Button
+              as="a"
+              href="/api/admin/projects/export"
+              download
+              size="sm"
+              disabled={projects.length === 0}
+              iconRight={(
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              )}
+            >
+              CSV İndir ({projects.length})
+            </Button>
+          </div>
+
           <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03]">
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-white/10 text-left text-sm">
@@ -441,7 +466,7 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                         onChange={toggleSelectAllProjects}
                       />
                     </th>
-                    <th className="px-4 py-3 font-medium">Proje</th>
+                    <th className="px-4 py-3 font-medium">Proje & Açıklama</th>
                     <th className="px-4 py-3 font-medium">Ekip & İletişim</th>
                     <th className="px-4 py-3 font-medium">Tech & Linkler</th>
                     <th className="px-4 py-3 font-medium">Durum</th>
@@ -476,6 +501,20 @@ export function AdminDashboard({ submissions: initialSubmissions, projects: init
                         <div className="mt-2 text-ink-dim text-xs leading-relaxed max-w-xs">
                           {project.shortDescription}
                         </div>
+                        {project.longDescription ? (
+                          <details className="mt-3 max-w-xl rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2">
+                            <summary className="cursor-pointer text-[10px] font-bold uppercase tracking-[0.18em] text-white/70">
+                              Detaylı açıklama
+                            </summary>
+                            <p className="mt-2 whitespace-pre-line text-xs leading-relaxed text-ink-dim">
+                              {project.longDescription}
+                            </p>
+                          </details>
+                        ) : (
+                          <div className="mt-3 text-[10px] uppercase tracking-[0.16em] text-red-300/70">
+                            Detaylı açıklama yok
+                          </div>
+                        )}
                       </td>
                       <td className="px-4 py-4">
                         <div className="font-medium text-white">{project.team?.name}</div>

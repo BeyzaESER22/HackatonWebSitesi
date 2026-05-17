@@ -54,6 +54,7 @@ export function FileInput({ label, name, error, accept, maxBytes, hint, file, on
       return onFile?.(null);
     }
     onFile?.(f);
+    e.target.value = '';
   };
 
   return (

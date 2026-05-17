@@ -5,8 +5,7 @@ import { Button, ArrowRightIcon } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { ProjectCard } from '@/components/ui/ProjectCard';
 import { Badge } from '@/components/ui/Badge';
-import { getStaticProjects, sampleProjectId } from '@/data/projects';
-import { readStore } from '@/lib/store';
+import { loadPublicProjects } from '@/lib/projects';
 import { COLORS } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 
@@ -19,27 +18,8 @@ export const metadata = buildMetadata({
 // Always render fresh — submissions can come in any time
 export const dynamic = 'force-dynamic';
 
-async function loadAllProjects() {
-  const staticOnes = getStaticProjects();
-
-  let userOnes = [];
-  try {
-    const all = await readStore('projects.json');
-    userOnes = all.filter(p => p.status === 'approved');
-  } catch {
-    userOnes = [];
-  }
-
-  // Showcase first, then newest submissions
-  const sample = staticOnes.find(p => p.id === sampleProjectId);
-  const others = staticOnes.filter(p => p.id !== sampleProjectId);
-  const sortedUser = userOnes.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
-
-  return [sample, ...others, ...sortedUser].filter(Boolean);
-}
-
 export default async function ProjectsPage() {
-  const projects = await loadAllProjects();
+  const projects = await loadPublicProjects();
 
   return (
     <section className="pt-36 pb-24 lg:pt-40 lg:pb-32">

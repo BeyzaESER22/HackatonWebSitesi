@@ -1,10 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { Input, Select, Textarea, FileInput } from '@/components/ui/Input';
+import { Input, Textarea, FileInput } from '@/components/ui/Input';
 import { Button, ArrowRightIcon } from '@/components/ui/Button';
-import { LoaderInline } from '@/components/ui/Loader';
 import { useApp } from '@/context/AppContext';
-import { PROJECT_CATEGORIES, UPLOAD_LIMITS } from '@/lib/constants';
+import { UPLOAD_LIMITS } from '@/lib/constants';
 
 const initial = {
   title: '', category: 'edu', shortDescription: '', longDescription: '',
@@ -67,6 +66,8 @@ export function ProjectSubmitForm({ onSuccess }) {
 
   const submit = async (e, retryCount = 0) => {
     if (e) e.preventDefault();
+    if (busy && retryCount === 0) return;
+
     if (!image) {
       showToast({ type: 'error', title: 'Görsel zorunlu', message: 'Lütfen projenin ekran görüntüsünü ekleyin.' });
       return;
@@ -75,6 +76,8 @@ export function ProjectSubmitForm({ onSuccess }) {
     setBusy(true);
     setErrors({});
     setUploadProgress(10); // Start progress
+
+    let progressInterval = null;
 
     try {
       // Step 1: Compress image
@@ -87,12 +90,12 @@ export function ProjectSubmitForm({ onSuccess }) {
 
       // Simulation of progress since fetch doesn't support upload progress out of box 
       // without XHR, but we can do a tiered progress for UX
-      const progressInterval = setInterval(() => {
+      progressInterval = setInterval(() => {
         setUploadProgress(prev => prev < 90 ? prev + 5 : prev);
       }, 400);
 
       const res = await fetch('/api/projects', { method: 'POST', body: fd });
-      clearInterval(progressInterval);
+      if (progressInterval) clearInterval(progressInterval);
       setUploadProgress(100);
 
       const json = await res.json();
@@ -110,12 +113,15 @@ export function ProjectSubmitForm({ onSuccess }) {
       }
 
       showToast({ title: 'Projen alındı!', message: 'Onay sonrası galeride yer alacak.' });
-      setForm(initial); setImage(null);
+      setForm(initial);
+      setImage(null);
+      setBusy(false);
       setUploadProgress(0);
       onSuccess?.(json.project);
     } catch (err) {
+      if (progressInterval) clearInterval(progressInterval);
       if (retryCount < 2) {
-        setUploadProgress(prev => prev - 10);
+        setUploadProgress(prev => Math.max(0, prev - 10));
         setTimeout(() => submit(null, retryCount + 1), 2000);
       } else {
         showToast({ type: 'error', title: 'Bir hata oluştu', message: 'Bağlantını kontrol et.' });
